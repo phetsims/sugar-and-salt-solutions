@@ -1,47 +1,62 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.water.model;
-//
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Compound;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Constituent;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SphericalParticle;
-//
-//import static edu.colorado.phet.common.phetcommon.math.vector.Vector2D.ZERO;
-//import static edu.colorado.phet.sugarandsaltsolutions.SugarAndSaltSolutionsResources.Strings.CHLORIDE;
-//import static edu.colorado.phet.sugarandsaltsolutions.SugarAndSaltSolutionsResources.Strings.SODIUM;
-//
-///**
-// * In order to treat sucrose and sodium chloride uniformly in the water tab, we use two levels of hierarchy for each:
-// * Crystal contains Compound contains Atom
-// * However, for sodium chloride all compounds just contain the single atom, which is modeled by SaltIon
-// * <p/>
-// * This allows us to efficiently reuse software components in both the model and the view.
-// *
-// * @author Sam Reid
-// */
-//public class SaltIon extends Compound<SphericalParticle> {
-//
-//    private final String name;
-//
-//    public SaltIon( SphericalParticle particle, String name ) {
-//        super( ZERO, 0 );
-//        this.name = name;
-//        addConstituent( new Constituent<SphericalParticle>( particle, ZERO ) );
-//    }
-//
-//    //Return the name of the ion such as "Na+" to be shown on the graphic as a label
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public static class SodiumIon extends SaltIon {
-//        public SodiumIon() {
-//            super( new SphericalParticle.Sodium(), SODIUM );
-//        }
-//    }
-//
-//    public static class ChlorideIon extends SaltIon {
-//        public ChlorideIon() {
-//            super( new SphericalParticle.Chloride(), CHLORIDE );
-//        }
-//    }
-//}
+// Copyright 2002-2012, University of Colorado
+/**
+ * In order to treat sucrose and sodium chloride uniformly in the water tab, we use two levels of hierarchy for each:
+ * Crystal contains Compound contains Atom
+ * However, for sodium chloride all compounds just contain the single atom, which is modeled by SaltIon
+ * <p/>
+ * This allows us to efficiently reuse software components in both the model and the view.
+ *
+ * @author Sam Reid
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Compound = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/Compound' );
+  var Constituent = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/Constituent' );
+  var SphericalParticle = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/SphericalParticle' );
+  var ZERO = require( 'edu.colorado.phet.common.phetcommon.math.vector.Vector2.ZERO' );//static
+  var CHLORIDE = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/SugarAndSaltSolutionsResources/Strings/CHLORIDE' );//static
+  var SODIUM = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/SugarAndSaltSolutionsResources/Strings/SODIUM' );//static
+
+
+  // static class: SodiumIon
+  var SodiumIon =
+    define( function( require ) {
+      function SodiumIon() {
+        SaltIon.call( this, new SphericalParticle.Sodium(), SODIUM );
+      }
+
+      return inherit( SaltIon, SodiumIon, {
+      } );
+    } );
+  ;
+  // static class: ChlorideIon
+  var ChlorideIon =
+    define( function( require ) {
+      function ChlorideIon() {
+        SaltIon.call( this, new SphericalParticle.Chloride(), CHLORIDE );
+      }
+
+      return inherit( SaltIon, ChlorideIon, {
+      } );
+    } );
+  ;
+  function SaltIon( particle, name ) {
+
+    //private
+    this.name;
+    Compound.call( this, ZERO, 0 );
+    this.name = name;
+    addConstituent( new Constituent( particle, ZERO ) );
+  }
+
+  return inherit( Compound, SaltIon, {
+//Return the name of the ion such as "Na+" to be shown on the graphic as a label
+    getName: function() {
+      return name;
+    },
+  } );
+} );
+

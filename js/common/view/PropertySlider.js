@@ -1,30 +1,35 @@
-//// Copyright 2002-2011, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.common.view;
-//
-//import javax.swing.JSlider;
-//import javax.swing.event.ChangeEvent;
-//import javax.swing.event.ChangeListener;
-//
-//import edu.colorado.phet.common.phetcommon.model.property.SettableProperty;
-//import edu.colorado.phet.common.phetcommon.util.function.VoidFunction1;
-//
-///**
-// * Slider class that wires up a slider to a SettableProperty<Integer>
-// *
-// * @author Sam Reid
-// */
-//public class PropertySlider extends JSlider {
-//    public PropertySlider( int min, int max, final SettableProperty<Integer> value ) {
-//        super( min, max, value.get() );
-//        value.addObserver( new VoidFunction1<Integer>() {
-//            public void apply( Integer value ) {
-//                setValue( value );
-//            }
-//        } );
-//        addChangeListener( new ChangeListener() {
-//            public void stateChanged( ChangeEvent e ) {
-//                value.set( getValue() );
-//            }
-//        } );
-//    }
-//}
+// Copyright 2002-2011, University of Colorado
+/**
+ * Slider class that wires up a slider to a SettableProperty<Integer>
+ *
+ * @author Sam Reid
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var JSlider = require( 'javax.swing.JSlider' );
+  var ChangeEvent = require( 'javax.swing.event.ChangeEvent' );
+  var ChangeListener = require( 'javax.swing.event.ChangeListener' );
+  var SettableProperty = require( 'edu.colorado.phet.common.phetcommon.model.property.SettableProperty' );
+  var VoidFunction1 = require( 'edu.colorado.phet.common.phetcommon.util.function.VoidFunction1' );
+
+  function PropertySlider( min, max, value ) {
+    JSlider.call( this, min, max, value.get() );
+    value.addObserver( new VoidFunction1().withAnonymousClassBody( {
+      apply: function( value ) {
+        setValue( value );
+      }
+    } ) );
+    addChangeListener( new ChangeListener().withAnonymousClassBody( {
+      stateChanged: function( e ) {
+        value.set( getValue() );
+      }
+    } ) );
+  }
+
+  return inherit( JSlider, PropertySlider, {
+  } );
+} );
+

@@ -1,35 +1,39 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.micro.model;
-//
-//import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;
-//import edu.colorado.phet.common.phetcommon.model.property.ObservableProperty;
-//import edu.colorado.phet.common.phetcommon.model.property.Property;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Beaker;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.DispenserType;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SaltShaker;
-//
-///**
-// * A shaker for the "micro tab" emits crystals less frequently than in the macro tab.  This class keeps track of when and what to emit.
-// *
-// * @author Sam Reid
-// */
-//public abstract class MicroShaker extends SaltShaker<MicroModel> {
-//    //Keep track of how many times the user has tried to create macro salt, so that we can (less frequently) create corresponding micro crystals
-//    private final Property<Integer> stepsAdding = new Property<Integer>( 0 );
-//
-//    public MicroShaker( double x, double y, Beaker beaker, ObservableProperty<Boolean> moreAllowed, String name, double distanceScale, ObservableProperty<DispenserType> selectedType, DispenserType type, MicroModel model ) {
-//        super( x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model );
-//    }
-//
-//    @Override protected void addSalt( MicroModel model, Vector2D outputPoint, double volumePerSolidMole, Vector2D crystalVelocity ) {
-//
-//        //Only add a crystal every N steps, otherwise there are too many
-//        stepsAdding.set( stepsAdding.get() + 1 );
-//        if ( stepsAdding.get() % 30 == 0 ) {
-//            addCrystal( model, outputPoint );
-//        }
-//    }
-//
-//    //This method actually adds the crystal
-//    protected abstract void addCrystal( MicroModel model, Vector2D outputPoint );
-//}
+// Copyright 2002-2012, University of Colorado
+/**
+ * A shaker for the "micro tab" emits crystals less frequently than in the macro tab.  This class keeps track of when and what to emit.
+ *
+ * @author Sam Reid
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var Property = require( 'AXON/Property' );
+  var Property = require( 'AXON/Property' );
+  var Beaker = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/Beaker' );
+  var DispenserType = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/DispenserType' );
+  var SaltShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/SaltShaker' );
+
+  function MicroShaker( x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model ) {
+    //Keep track of how many times the user has tried to create macro salt, so that we can (less frequently) create corresponding micro crystals
+
+    //private
+    this.stepsAdding = new Property( 0 );
+    SaltShaker.call( this, x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model );
+  }
+
+  return inherit( SaltShaker, MicroShaker, {
+    addSalt: function( model, outputPoint, volumePerSolidMole, crystalVelocity ) {
+      //Only add a crystal every N steps, otherwise there are too many
+      stepsAdding.set( stepsAdding.get() + 1 );
+      if ( stepsAdding.get() % 30 == 0 ) {
+        addCrystal( model, outputPoint );
+      }
+    },
+//This method actually adds the crystal
+    addCrystal: function( model, outputPoint ) {}
+  } );
+} );
+

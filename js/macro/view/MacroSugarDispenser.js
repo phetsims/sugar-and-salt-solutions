@@ -1,26 +1,33 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.macro.view;
-//
-//import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;
-//import edu.colorado.phet.common.phetcommon.model.property.ObservableProperty;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Beaker;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.DispenserType;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarDispenser;
-//import edu.colorado.phet.sugarandsaltsolutions.macro.model.MacroModel;
-//import edu.colorado.phet.sugarandsaltsolutions.macro.model.MacroSugar;
-//
-///**
-// * @author Sam Reid
-// */
-//public class MacroSugarDispenser extends SugarDispenser<MacroModel> {
-//    public MacroSugarDispenser( double x, double y, Beaker beaker, ObservableProperty<Boolean> moreAllowed, final String sugarDispenserName, double distanceScale, ObservableProperty<DispenserType> selectedType, DispenserType type, MacroModel model ) {
-//        super( x, y, beaker, moreAllowed, sugarDispenserName, distanceScale, selectedType, type, model );
-//    }
-//
-//    @Override protected void addSugarToModel( final Vector2D outputPoint ) {
-//        //Add the sugar, with some randomness in the velocity
-//        model.addMacroSugar( new MacroSugar( outputPoint, model.sugar.volumePerSolidMole ) {{
-//            velocity.set( getCrystalVelocity( outputPoint ).plus( ( random.nextDouble() - 0.5 ) * 0.05, ( random.nextDouble() - 0.5 ) * 0.05 ) );
-//        }} );
-//    }
-//}
+// Copyright 2002-2012, University of Colorado
+/**
+ * @author Sam Reid
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var Property = require( 'AXON/Property' );
+  var Beaker = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/Beaker' );
+  var DispenserType = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/DispenserType' );
+  var SugarDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/SugarDispenser' );
+  var MacroModel = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/macro/model/MacroModel' );
+  var MacroSugar = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/macro/model/MacroSugar' );
+
+  function MacroSugarDispenser( x, y, beaker, moreAllowed, sugarDispenserName, distanceScale, selectedType, type, model ) {
+    SugarDispenser.call( this, x, y, beaker, moreAllowed, sugarDispenserName, distanceScale, selectedType, type, model );
+  }
+
+  return inherit( SugarDispenser, MacroSugarDispenser, {
+    addSugarToModel: function( outputPoint ) {
+      //Add the sugar, with some randomness in the velocity
+      model.addMacroSugar( new MacroSugar( outputPoint, model.sugar.volumePerSolidMole ).withAnonymousClassBody( {
+        initializer: function() {
+          velocity.set( getCrystalVelocity( outputPoint ).plus( (random.nextDouble() - 0.5) * 0.05, (random.nextDouble() - 0.5) * 0.05 ) );
+        }
+      } ) );
+    }
+  } );
+} );
+

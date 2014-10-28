@@ -1,27 +1,32 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.common.model.sucrose;
-//
-//import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SucrosePositions;
-//import edu.colorado.phet.sugarandsaltsolutions.micro.model.SugarMolecule;
-//
-//import static edu.colorado.phet.common.phetcommon.math.vector.Vector2D.ZERO;
-//
-///**
-// * A single sucrose molecule, which is used in lattice creation
-// *
-// * @author Sam Reid
-// */
-//public class Sucrose extends SugarMolecule {
-//    public Sucrose() {
-//        this( ZERO, Math.random() * 2 * Math.PI );
-//    }
-//
-//    public Sucrose( Vector2D relativePosition ) {
-//        this( relativePosition, Math.random() * 2 * Math.PI );
-//    }
-//
-//    public Sucrose( Vector2D relativePosition, double angle ) {
-//        super( relativePosition, angle, new SucrosePositions() );
-//    }
-//}
+// Copyright 2002-2012, University of Colorado
+/**
+ * A single sucrose molecule, which is used in lattice creation
+ *
+ * @author Sam Reid
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var SucrosePositions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/SucrosePositions' );
+  var SugarMolecule = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/micro/model/SugarMolecule' );
+  var ZERO = require( 'edu.colorado.phet.common.phetcommon.math.vector.Vector2.ZERO' );//static
+
+  function Sucrose() {
+    this( ZERO, Math.random() * 2 * Math.PI );
+  }
+
+  function Sucrose( relativePosition ) {
+    this( relativePosition, Math.random() * 2 * Math.PI );
+  }
+
+  function Sucrose( relativePosition, angle ) {
+    SugarMolecule.call( this, relativePosition, angle, new SucrosePositions() );
+  }
+
+  return inherit( SugarMolecule, Sucrose, {
+  } );
+} );
+

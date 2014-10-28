@@ -1,15 +1,20 @@
-//// Copyright 2002-2011, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.common.view;
-//
-//import java.awt.Color;
-//
-//import edu.umd.cs.piccolo.PNode;
-//
-///**
-// * @author Sam Reid
-// */
-//public class WhiteControlPanelNode extends edu.colorado.phet.common.piccolophet.nodes.ControlPanelNode {
-//    public WhiteControlPanelNode( final PNode content ) {
-//        super( content, Color.white );
-//    }
-//}
+// Copyright 2002-2011, University of Colorado
+/**
+ * @author Sam Reid
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Color = require( 'SCENERY/util/Color' );
+  var Node = require( 'SCENERY/nodes/Node' );
+
+  function WhiteControlPanelNode( content ) {
+    ControlPanelNode.call( this, content, Color.white );
+  }
+
+  return inherit( ControlPanelNode, WhiteControlPanelNode, {
+  } );
+} );
+

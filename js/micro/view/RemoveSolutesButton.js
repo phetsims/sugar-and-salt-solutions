@@ -1,22 +1,28 @@
-//// Copyright 2002-2011, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.micro.view;
-//
-//import edu.colorado.phet.common.phetcommon.model.property.ObservableProperty;
-//import edu.colorado.phet.common.phetcommon.util.function.VoidFunction0;
-//import edu.colorado.phet.sugarandsaltsolutions.common.view.RemoveSoluteButtonNode;
-//import edu.colorado.phet.sugarandsaltsolutions.micro.model.MicroModel;
-//
-///**
-// * Button that removes all solutes from the beaker.  Reads "remove solute" if one solute type, "remove solutes" if two solute types
-// *
-// * @author Sam Reid
-// */
-//public class RemoveSolutesButton extends RemoveSoluteButtonNode {
-//    public RemoveSolutesButton( String text, ObservableProperty<Boolean> visible, final MicroModel model ) {
-//        super( text, visible, new VoidFunction0() {
-//            public void apply() {
-//                model.clearSolutes();
-//            }
-//        } );
-//    }
-//}
+// Copyright 2002-2011, University of Colorado
+/**
+ * Button that removes all solutes from the beaker.  Reads "remove solute" if one solute type, "remove solutes" if two solute types
+ *
+ * @author Sam Reid
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
+  var VoidFunction0 = require( 'edu.colorado.phet.common.phetcommon.util.function.VoidFunction0' );
+  var RemoveSoluteButtonNode = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/view/RemoveSoluteButtonNode' );
+  var MicroModel = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/micro/model/MicroModel' );
+
+  function RemoveSolutesButton( text, visible, model ) {
+    RemoveSoluteButtonNode.call( this, text, visible, new VoidFunction0().withAnonymousClassBody( {
+      apply: function() {
+        model.clearSolutes();
+      }
+    } ) );
+  }
+
+  return inherit( RemoveSoluteButtonNode, RemoveSolutesButton, {
+  } );
+} );
+

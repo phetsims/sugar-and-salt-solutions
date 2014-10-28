@@ -1,58 +1,60 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.micro.view;
-//
-//import java.awt.geom.Point2D;
-//
-//import javax.swing.SwingUtilities;
-//
-//import edu.colorado.phet.common.phetcommon.model.property.ObservableProperty;
-//import edu.colorado.phet.common.phetcommon.model.property.Property;
-//import edu.colorado.phet.common.phetcommon.view.graphics.transforms.ModelViewTransform;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Compound;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Constituent;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Particle;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SphericalParticle;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.sucrose.Sucrose;
-//import edu.colorado.phet.sugarandsaltsolutions.common.view.SphericalParticleNode;
-//import edu.umd.cs.piccolo.PNode;
-//import edu.umd.cs.piccolox.PFrame;
-//
-//import static edu.colorado.phet.common.phetcommon.math.vector.Vector2D.ZERO;
-//import static edu.colorado.phet.common.phetcommon.view.graphics.transforms.ModelViewTransform.createOffsetScaleMapping;
-//
-///**
-// * Shows all components of a molecule, used in bar chart legends, but not used in the beaker play area--in that case each atom is a top-level node.
-// *
-// * @author Sam Reid
-// */
-//public class CompositeParticleNode<T extends Particle> extends PNode {
-//    public CompositeParticleNode( ModelViewTransform transform, Compound<T> compound, ObservableProperty<Boolean> showChargeColor ) {
-//
-//        for ( int i = 0; i < compound.numberConstituents(); i++ ) {
-//            Constituent<T> constituent = compound.getConstituent( i );
-//
-//            //Put particles at the correct relative locations and add as children, necessary for icons like NO3 in the bar chart
-//            constituent.particle.setPosition( constituent.relativePosition );
-//
-//            addChild( new SphericalParticleNode( transform, (SphericalParticle) constituent.particle, showChargeColor ) );
-//        }
-//    }
-//
-//    //Test main
-//    public static void main( String[] args ) {
-//        SwingUtilities.invokeLater( new Runnable() {
-//            public void run() {
-//                new PFrame() {{
-//
-//                    //Large transform is needed since nodes are rasterized
-//                    getCanvas().getLayer().addChild( new CompositeParticleNode<SphericalParticle>( createOffsetScaleMapping( new Point2D.Double( 0, 0 ), 1E11 ), new Sucrose( ZERO ), new Property<Boolean>( false ) ) {{
-//                        double width = getFullBounds().getWidth();
-//                        System.out.println( "width = " + width );
-//                        translate( 200, 200 );
-//                    }} );
-//                    setDefaultCloseOperation( EXIT_ON_CLOSE );
-//                }}.setVisible( true );
-//            }
-//        } );
-//    }
-//}
+// Copyright 2002-2012, University of Colorado
+/**
+ * Shows all components of a molecule, used in bar chart legends, but not used in the beaker play area--in that case each atom is a top-level node.
+ *
+ * @author Sam Reid
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'java.awt.geom.Vector2' );
+  var SwingUtilities = require( 'javax.swing.SwingUtilities' );
+  var Property = require( 'AXON/Property' );
+  var Property = require( 'AXON/Property' );
+  var ModelViewTransform = require( 'edu.colorado.phet.common.phetcommon.view.graphics.transforms.ModelViewTransform' );
+  var Compound = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/Compound' );
+  var Constituent = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/Constituent' );
+  var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/Particle' );
+  var SphericalParticle = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/SphericalParticle' );
+  var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/model/sucrose/Sucrose' );
+  var SphericalParticleNode = require( 'SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions/common/view/SphericalParticleNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var PFrame = require( 'edu.umd.cs.piccolox.PFrame' );
+  var ZERO = require( 'edu.colorado.phet.common.phetcommon.math.vector.Vector2.ZERO' );//static
+  var createOffsetScaleMapping = require( 'edu.colorado.phet.common.phetcommon.view.graphics.transforms.ModelViewTransform.createOffsetScaleMapping' );//static
+
+  function CompositeParticleNode( transform, compound, showChargeColor ) {
+    for ( var i = 0; i < compound.numberConstituents(); i++ ) {
+      var constituent = compound.getConstituent( i );
+      //Put particles at the correct relative locations and add as children, necessary for icons like NO3 in the bar chart
+      constituent.particle.setPosition( constituent.relativePosition );
+      addChild( new SphericalParticleNode( transform, constituent.particle, showChargeColor ) );
+    }
+  }
+
+  return inherit( Node, CompositeParticleNode, {
+//Test main
+    main: function( args ) {
+      SwingUtilities.invokeLater( new Runnable().withAnonymousClassBody( {
+        run: function() {
+          new PFrame().withAnonymousClassBody( {
+            initializer: function() {
+              //Large transform is needed since nodes are rasterized
+              getCanvas().getLayer().addChild( new CompositeParticleNode( createOffsetScaleMapping( new Vector2( 0, 0 ), 1E11 ), new Sucrose( ZERO ), new Property( false ) ).withAnonymousClassBody( {
+                initializer: function() {
+                  var width = getFullBounds().getWidth();
+                  console.log( "width = " + width );
+                  translate( 200, 200 );
+                }
+              } ) );
+              setDefaultCloseOperation( EXIT_ON_CLOSE );
+            }
+          } ).setVisible( true );
+        }
+      } ) );
+    }
+  } );
+} );
+

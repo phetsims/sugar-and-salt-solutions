@@ -1,16 +1,20 @@
-//// Copyright 2002-2011, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.common.view;
-//
-//import edu.umd.cs.piccolo.PNode;
-//
-///**
-// * Interface that allows adding and removing nodes, used by SphericalParticleNodeFactory for adding sphere graphics
-// *
-// * @author Sam Reid
-// */
-//public interface ICanvas {
-//
-//    void addChild( PNode node );
-//
-//    void removeChild( PNode node );
-//}
+// Copyright 2002-2011, University of Colorado
+/**
+ * Interface that allows adding and removing nodes, used by SphericalParticleNodeFactory for adding sphere graphics
+ *
+ * @author Sam Reid
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+
+
+  return inherit( Object, ICanvas, {
+    addChild: function( node ) {},
+    removeChild: function( node ) {}
+  } );
+} );
+
