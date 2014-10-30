@@ -1,4 +1,10 @@
 sugar-and-salt-solutions
-========================
+===========
 
-What happens when sugar and salt are added to water? Pour in sugar, shake in salt, and evaporate water to see the effects on concentration and conductivity. Zoom in to see how different sugar and salt compounds dissolve. Zoom in again to explore the role of water.
+Sugar And Salt Solutions by Sam Reid (PhET Interactive Simulations), using libraries from PhET Interactive Simulations at the University of Colorado Boulder (please see http://bit.ly/phet-development-overview for more). Readme file automatically created by https://github.com/phetsims/chipper
+
+
+
+
+
+
