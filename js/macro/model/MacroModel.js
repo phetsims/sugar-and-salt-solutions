@@ -1,8 +1,10 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
+ * Introductory (macro) model that keeps track of moles of solute dissolved in the liquid.
  *
  * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
  */
 define( function( require ) {
   'use strict';
@@ -56,11 +58,7 @@ define( function( require ) {
 //import static edu.colorado.phet.sugarandsaltsolutions.common.model.DispenserType.SALT;
 //import static edu.colorado.phet.sugarandsaltsolutions.common.model.DispenserType.SUGAR;
 //
-///**
-// * Introductory (macro) model that keeps track of moles of solute dissolved in the liquid.
-// *
-// * @author Sam Reid
-// */
+
 //public class MacroModel extends SugarAndSaltSolutionModel {
 //
 //    //Model for the conductivity tester which is in the macro tab but not other tabs

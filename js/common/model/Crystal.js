@@ -1,4 +1,28 @@
-//// Copyright 2002-2012, University of Colorado
+// Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * Marker class to signify which compounds are crystals vs noncrystals.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Compound = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Compound' );
+
+  function Crystal(){
+
+  }
+
+
+  return inherit( Compound, Crystal, {
+
+  } );
+
+} );
+
 //package edu.colorado.phet.sugarandsaltsolutions.common.model;
 //
 //import java.awt.geom.Rectangle2D;
@@ -22,7 +46,7 @@
 //import static java.util.Collections.min;
 //
 ///**
-// * Marker class to signify which compounds are crystals vs noncrystals.
+// *
 // *
 // * @author Sam Reid
 // */

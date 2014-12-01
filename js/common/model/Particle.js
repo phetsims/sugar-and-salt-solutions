@@ -1,4 +1,26 @@
-//// Copyright 2002-2012, University of Colorado
+// Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * A particle is an indivisible object with a position such as Na+ or a sugar molecule.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+
+  function Particle() {
+
+  }
+
+
+  return inherit( Object, Particle, {
+
+  } );
+
+} );
 //package edu.colorado.phet.sugarandsaltsolutions.common.model;
 //
 //import java.awt.Shape;
@@ -8,12 +30,7 @@
 //import edu.colorado.phet.common.phetcommon.util.function.VoidFunction1;
 //import edu.colorado.phet.sugarandsaltsolutions.micro.model.dynamics.IUpdateStrategy;
 //import edu.colorado.phet.sugarandsaltsolutions.micro.model.dynamics.Motionless;
-//
-///**
-// * A particle is an indivisible object with a position such as Na+ or a sugar molecule.
-// *
-// * @author Sam Reid
-// */
+
 //public abstract class Particle {
 //
 //    //Interface for setting and observing the position
