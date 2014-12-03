@@ -15,6 +15,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
+  var Shape = require( 'KITE/Shape' );
+  var Rectangle = require( 'DOT/Rectangle' );
+
 
   /**
    *
@@ -29,7 +32,7 @@ define( function( require ) {
     this.angle = angle;
 
     //The time the lattice entered the water, if any
-    this.underwaterTime = 0.0;
+    this.underwaterTime = 0;
 
     //Members in the compound
     this.constituents = new ObservableArray();
@@ -38,6 +41,105 @@ define( function( require ) {
 
   return inherit( Particle, Compound, {
 
+    /**
+     * Set the position of the compound, and update the location of all constituents Vector2D
+     * @Override
+     * @param {Vector2} location
+     */
+    setPosition: function( location ) {
+      Particle.prototype.setPosition.call( this, location );
+      this.updateConstituentLocations();
+    },
+
+    /**
+     * Update all constituents with their correct absolute location based on
+     * the crystal location and their relative location within the crystal
+     */
+    updateConstituentLocations: function() {
+      var thisCompound = this;
+      this.constituents.forEach( function( constituent ) {
+        thisCompound.updateConstituentLocation( constituent );
+      } );
+    },
+
+    /**
+     * Update the constituent with its correct absolute location based on the crystal location and its relative
+     * location within the crystal, and the crystal's angle
+     * @param {Constituent} constituent
+     */
+    updateConstituentLocation: function( constituent ) {
+      constituent.particle.setPosition( this.getPosition().plus( constituent.relativePosition.getRotatedInstance( this.angle ) ) );
+    },
+    getAngle: function() {
+      return this.angle;
+    },
+    /**
+     * @Override
+     * The shape of a lattice is the combined area of its constituents, using bounding rectangles to improve performance
+     * @returns {Shape}
+     */
+    getShape: function() {
+
+      // If reduced to zero constituents, should be removed from the model before this is called otherwise
+      // will cause ArrayIndexOutOfBoundsException
+      var bounds2D = this.constituents.get( 0 ).particle.getShape().bounds;
+      var rect = new Rectangle( bounds2D.getX(), bounds2D.getY(), bounds2D.getWidth(), bounds2D.getHeight() ); // TODO Ashraf, Do we need this extra Rect?
+
+      this.constituents.forEach( function( constituent ) {
+        rect = rect.union( constituent.particle.getShape().bounds );
+      } );
+
+      return Shape.rectangle( rect.x, rect.y, rect.width, rect.height );
+    },
+    /**
+     * Iterate over the particles rather than constituents to make client code read easier, since it is more common to iterate over particles than constituents (which also keep track of relative location)
+     * To iterate over constituents, you can use getConstituent(int)
+     * @returns {Array}
+     */
+    iterator: function() {
+      return _.map( this.constituents.getArray(), function( constituent ) {
+        constituent.particle;
+      } );
+    },
+    isUnderwaterTimeRecorded: function() {
+      return _.isNumber( this.underwaterTime ) && isFinite( this.underwaterTime );
+    },
+    /**
+     * @param {number} time
+     */
+    setUnderwater: function( time ) {
+      this.underwaterTime = time;
+    },
+    getUnderWaterTime: function() {
+      return this.underwaterTime;
+    },
+    /**
+     * Returns the number of constituents in the compound
+     * @return number
+     */
+    numberConstituents: function() {
+      return this.constituents.length;
+    },
+
+    /**
+     * Gets the constituent at the specified index
+     * @param {int} i
+     * @returns {Constituent}
+     */
+    getConstituent: function( i ) {
+      return this.constituents.get( i );
+    },
+    /**
+     * Removes the specified constituent from the compound
+     * @param {Constituent} constituent
+     */
+    removeConstituent: function( constituent ) {
+      this.constituents.remove( constituent );
+    },
+    addConstituent: function( constituent ) {
+      this.constituents.add( constituent );
+      this.updateConstituentLocation( constituent );
+    }
   } );
 
 } );
@@ -65,82 +167,12 @@ define( function( require ) {
 
 //
 
+
 //
-//    public double getAngle() {
-//        return angle;
-//    }
+
 //
-//    //Set the position of the compound, and update the location of all constituents
-//    @Override public void setPosition( Vector2D location ) {
-//        super.setPosition( location );
-//        updateConstituentLocations();
-//    }
-//
-//    //Update all constituents with their correct absolute location based on the crystal location and their relative location within the crystal
-//    public void updateConstituentLocations() {
-//        for ( Constituent constituent : constituents ) {
-//            updateConstituentLocation( constituent );
-//        }
-//    }
-//
-//    //Update the constituent with its correct absolute location based on the crystal location and its relative location within the crystal, and the crystal's angle
-//    private void updateConstituentLocation( Constituent constituent ) {
-//        constituent.particle.setPosition( getPosition().plus( constituent.relativePosition.getRotatedInstance( angle ) ) );
-//    }
-//
-//    //The shape of a lattice is the combined area of its constituents, using bounding rectangles to improve performance
-//    @Override public Shape getShape() {
-//
-//        //If reduced to zero constituents, should be removed from the model before this is called otherwise will cause ArrayIndexOutOfBoundsException
-//        final Rectangle2D bounds2D = constituents.get( 0 ).particle.getShape().getBounds2D();
-//        Rectangle2D rect = new Rectangle2D.Double( bounds2D.getX(), bounds2D.getY(), bounds2D.getWidth(), bounds2D.getHeight() );
-//        for ( Constituent constituent : constituents ) {
-//            rect = rect.createUnion( constituent.particle.getShape().getBounds2D() );
-//        }
-//        return rect;
-//    }
-//
-//    //Iterate over the particles rather than constituents to make client code read easier, since it is more common to iterate over particles than constituents (which also keep track of relative location)
-//    //To iterate over constituents, you can use getConstituent(int)
-//    public Iterator<T> iterator() {
-//        return new ArrayList<T>() {{
-//            for ( Constituent<T> constituent : constituents ) {
-//                add( constituent.particle );
-//            }
-//        }}.iterator();
-//    }
-//
-//    public boolean isUnderwaterTimeRecorded() {
-//        return underwaterTime.isSome();
-//    }
-//
-//    public void setUnderwater( double time ) {
-//        this.underwaterTime = new Some<Double>( time );
-//    }
-//
-//    public double getUnderWaterTime() {
-//        return underwaterTime.get();
-//    }
-//
-//    //Returns the number of constituents in the compound
-//    public int numberConstituents() {
-//        return constituents.size();
-//    }
-//
-//    //Gets the constituent at the specified index
-//    public Constituent<T> getConstituent( int i ) {
-//        return constituents.get( i );
-//    }
-//
-//    //Removes the specified constituent from the compound
-//    public void removeConstituent( Constituent<T> constituent ) {
-//        constituents.remove( constituent );
-//    }
-//
-//    public void addConstituent( Constituent<T> constituent ) {
-//        constituents.add( constituent );
-//        updateConstituentLocation( constituent );
-//    }
+
+
 //
 //    //Get all the spherical particles within this compound and its children recursively, so they can be displayed with PNodes
 //    public Iterable<SphericalParticle> getAllSphericalParticles() {
