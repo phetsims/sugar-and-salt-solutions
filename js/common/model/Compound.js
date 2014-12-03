@@ -13,10 +13,26 @@ define( function( require ) {
   'use strict';
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
 
-  function Compound() {
+  /**
+   *
+   * @param {Vector2D} position
+   * @param {number} angle
+   * @constructor
+   */
+  function Compound( position, angle ) {
+    Particle.call( this, position );
 
+    //Put the vectors at the same random angle so all compounds don't come out at the same angle
+    this.angle = angle;
+
+    //The time the lattice entered the water, if any
+    this.underwaterTime = 0.0;
+
+    //Members in the compound
+    this.constituents = new ObservableArray();
   }
 
 
@@ -42,19 +58,13 @@ define( function( require ) {
 
 //public class Compound<T extends Particle> extends Particle implements Iterable<T> {
 //
-//    //Members in the compound
-//    protected final ItemList<Constituent<T>> constituents = new ItemList<Constituent<T>>();
+
 //
-//    //The time the lattice entered the water, if any
-//    private Option<Double> underwaterTime = new None<Double>();
+
 //
-//    //Put the vectors at the same random angle so all compounds don't come out at the same angle
-//    private double angle;
+
 //
-//    public Compound( Vector2D position, double angle ) {
-//        super( position );
-//        this.angle = angle;
-//    }
+
 //
 //    public double getAngle() {
 //        return angle;
