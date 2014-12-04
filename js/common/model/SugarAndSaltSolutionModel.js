@@ -1,3 +1,83 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Base class model for Sugar and Salt Solutions, which keeps track of the physical model as well
+ * as the MVC model for view components (such as whether certain components are enabled).
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
+  var AbstractSugarAndSaltSolutionsModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AbstractSugarAndSaltSolutionsModel' );
+  var Beaker = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Beaker' );
+
+  /**
+   *
+   * @param {number} framesPerSecond
+   * @param {BeakerDimension} beakerDimension
+   * @param {number} faucetFlowRate
+   * @param {number} drainPipeBottomY
+   * @param {number} drainPipeTopY
+   * @param {number} distanceScale
+   * @constructor
+   */
+  function SugarAndSaltSolutionModel( framesPerSecond, beakerDimension, faucetFlowRate, drainPipeBottomY, drainPipeTopY, distanceScale ) {
+
+    this.beakerDimension = beakerDimension;//Dimensions of the beaker
+    this.faucetFlowRate = faucetFlowRate; //Flow controls vary between 0 and 1, this scales it down to a good model value
+    this.drainPipeBottomY = drainPipeBottomY;
+    this.drainPipeTopY = drainPipeTopY;
+
+    // Scale to help accommodate micro tab, for Macro tab the scale is 1.0
+    // The amount to scale model translations so that micro tab emits solute at the appropriate time.  Without
+    // this factor, the tiny (1E-9 meters) drag motion in the Micro tab wouldn't be enough to emit solute
+    this.distanceScale = distanceScale;
+
+    //Model for input and output flows
+    this.inputFlowRate = new Property( 0.0 );//rate that water flows into the beaker, between 0 and 1
+    this.outputFlowRate = new NumberProperty( 0.0 );//rate that water flows out of the beaker, between 0 and 1
+
+    //Scaled down since the evaporation control rate  is 100 times bigger than flow scales
+    this.evaporationRateScale = faucetFlowRate / 300.0;   //Rate at which liquid evaporates
+
+    //volume in SI (m^3).  Start at 1 L (halfway up the 2L beaker).  Note that 0.001 cubic meters = 1L
+    this.waterVolume = new NumberProperty( beakerDimension.getVolume() / 2 ); //Start the water halfway up the beaker
+
+    //Inset so the beaker doesn't touch the edge of the model bounds
+    this.inset = beakerDimension.width * 0.1;
+    this.modelWidth = beakerDimension.width + this.inset * 2;
+
+    //Beaker model
+    this.beaker = new Beaker( beakerDimension.x, 0, beakerDimension.width, beakerDimension.height, beakerDimension.depth, beakerDimension.wallThickness );
+
+//        //Visible model region: a bit bigger than the beaker, used to set the stage aspect ratio in the canvas
+//        visibleRegion = new ImmutableRectangle2D( -modelWidth / 2, -inset, modelWidth, modelWidth / aspectRatio );
+//
+//        //Create the region within which the user can drag the shakers, must remove some of the visible region--otherwise the shakers can be dragged too far to the left of the beaker
+//        final double insetForDragRegion = visibleRegion.width / 6;
+//        dragRegion = new ImmutableRectangle2D( visibleRegion.x + insetForDragRegion, visibleRegion.y, visibleRegion.width - insetForDragRegion, visibleRegion.height );
+//
+//        //Set a max amount of water that the user can add to the system so they can't overflow it
+//        maxWater = beaker.getMaxFluidVolume();
+//
+//        //User setting: whether the concentration bar chart should be shown
+//        showConcentrationBarChart = new Property<Boolean>( true );
+
+
+  }
+
+
+  return inherit( AbstractSugarAndSaltSolutionsModel, SugarAndSaltSolutionModel, {
+
+  } );
+
+} );
+
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.common.model;
 //

@@ -26,21 +26,9 @@
 //
 //import static edu.colorado.phet.common.phetcommon.model.property.Not.not;
 //
-///**
-// * Canvas for the tabs 1-2 (which both use a beaker and shaker) in the Sugar and Salt Solutions Sim
-// * Some nodes position themselves (where it was possible to factor out the layout code)
-// *
-// * @author Sam Reid
-// */
+
 //public abstract class BeakerAndShakerCanvas extends SugarAndSaltSolutionsCanvas implements ToolboxCanvas, ICanvas {
-//    public static final Color WATER_COLOR = new Color( 179, 239, 243 );
-//
-//    //Insets to be used for padding between edge of canvas and controls, or between controls
-//    public static final int INSET = 5;
-//
-//    //Fonts
-//    public static final Font CONTROL_FONT = new PhetFont( 16, true );
-//    public static final Font TITLE_FONT = new PhetFont( 18, true );
+
 //
 //    protected final PDimension stageSize;
 //    protected final ModelViewTransform transform;

@@ -1,3 +1,57 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Abstract base class in sugar and salt solution models, which provides clock and reset functions.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var ConstantDtClock = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ConstantDtClock' );
+
+  // constants
+
+
+  /**
+   *
+   * @param {number} framesPerSecond
+   * @constructor
+   */
+  function AbstractSugarAndSaltSolutionsModel( framesPerSecond ) {
+
+    //Wire up to the clock so we can update when it ticks
+    var stepEventCallBack = this.updateModel.bind( this );
+    this.clock = new ConstantDtClock( framesPerSecond, stepEventCallBack );
+
+    //Settable property that indicates whether the clock is running or paused.
+    //The clock is never turned off in the first tab, since there are no dynamics and hence no pause button
+    this.clockRunning = new BooleanProperty( true );
+
+  }
+
+  return inherit( Object, AbstractSugarAndSaltSolutionsModel, {
+    step: function( dt ) {
+      // step one frame, assuming 60fps
+      if ( this.clockRunning ) {
+        this.clock.step( 1 / 60 );
+      }
+    },
+    /**
+     * called from Constant Clock's callback
+     * @param {number} dt
+     * @return {number}
+     */
+    updateModel: function( dt ) {
+      throw new Error( 'updateModel should be implemented in descendant classes of AbstractSugarAndSaltSolutionsModel .' );
+    }
+  } );
+
+} );
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.common.model;
 //

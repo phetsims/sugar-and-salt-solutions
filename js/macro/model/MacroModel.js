@@ -11,18 +11,29 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
+  var BeakerDimension = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/BeakerDimension' );
 
   /**
-   * Main constructor for SugarAndSaltSolutionsModel, which contains all of the model logic for the entire sim screen.
    * @constructor
    */
-  function SugarAndSaltSolutionsModel() {
+  function MacroModel() {
 
-    PropertySet.call( this, {} );
+    SugarAndSaltSolutionModel.call( this,
+      //frames per second
+      30,
+      new BeakerDimension( 0.2 ),
+      // faucetFlowRate
+      0.0005,
+      // These values were sampled from the model with debug mode by printing out the model
+      // location of the mouse and moving it to a location that looks good
+      0.011746031746031754,
+      0.026349206349206344,
+      //In macro model scales are already tuned so no additional scaling is needed
+      1 );
   }
 
-  return inherit( PropertySet, SugarAndSaltSolutionsModel, {
+  return inherit( SugarAndSaltSolutionModel, MacroModel, {
 
     // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
     step: function( dt ) {
