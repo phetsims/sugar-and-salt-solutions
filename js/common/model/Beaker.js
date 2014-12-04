@@ -56,19 +56,19 @@ define( function( require ) {
       return this.y;
     },
 
-//    //Determines the model shape of the walls of the beaker that can be used to render it in the view
-//    public Shape getWallShape() {
-//        //Stroke (in model coordinates) that will be used to create the walls
-//        var wallStroke =  wallThickness;
-//
-//        //Create a Shape representing the walls as a U-shape, starting from the top left
-//        Shape wallShape = wallStroke.createStrokedShape( getWallPath( topDelta ).getGeneralPath() );
-//
-//        //Since the stroke goes on both sides of the line, subtract out the main area so that the water won't overlap with the edges
-//        return new Area( wallShape ) {{
-//            subtract( new Area( getWallPath( topDelta * 2 ).getGeneralPath() ) );
-//        }};
-//    },
+    //Determines the model shape of the walls of the beaker that can be used to render it in the view
+    getWallShape: function() {
+      //Stroke (in model coordinates) that will be used to create the walls
+      //    var wallStroke =  this.wallThickness;
+
+      //Create a Shape representing the walls as a U-shape, starting from the top left
+      //    Shape wallShape = wallStroke.createStrokedShape( getWallPath( topDelta ).getGeneralPath() );
+
+      //Since the stroke goes on both sides of the line, subtract out the main area so that the water won't overlap with the edges
+      //    return new Area( wallShape ) {{
+      //       subtract( new Area( getWallPath( topDelta * 2 ).getGeneralPath() ) );
+      //   }};
+    },
 
     /**
      * Gets the path that represents the walls of the beaker, with the delta indicating the x and y dimensions of the
@@ -77,15 +77,31 @@ define( function( require ) {
      * would be twice as thick as the walls of the rectangular part of the beaker
      * @param {number} delta
      * @return {Shape}
+     * //comments needs to be in synch with the implementation TODO
      */
 
     getWallPath: function( delta ) {
-      return new Shape().moveTo( this.x - delta, this.y + this.height + this.topExtension + delta )
+      var wallOffSetThickness = 0.003;
+      var openingOffsetX = wallOffSetThickness * 0.55;
+      var openingOffsetY = wallOffSetThickness * 0.45;
+
+      var wallPath = new Shape().moveTo( this.x - delta, this.y + this.height + this.topExtension + delta )
         .lineTo( this.x, this.y + this.height + this.topExtension )
         .lineTo( this.x, this.y )
         .lineTo( this.x + this.width, this.y )
         .lineTo( this.x + this.width, this.y + this.height + this.topExtension )
-        .lineTo( this.x + this.width + delta, this.y + this.height + this.topExtension + delta );
+        .lineTo( this.x + this.width + delta, this.y + this.height + this.topExtension + delta )
+        //inner path
+        .lineTo( this.x + this.width + delta - openingOffsetX, this.y + this.height + this.topExtension + delta + openingOffsetY )
+        .lineTo( this.x + this.width - wallOffSetThickness, this.y + this.height + this.topExtension )
+        .lineTo( this.x + this.width - wallOffSetThickness, this.y + wallOffSetThickness )
+        .lineTo( this.x + wallOffSetThickness, this.y + wallOffSetThickness )
+        .lineTo( this.x + wallOffSetThickness, this.y + this.height + this.topExtension )
+        .lineTo( this.x - delta + openingOffsetX, this.y + this.height + this.topExtension + delta + openingOffsetY )
+        .lineTo( this.x - delta, this.y + this.height + this.topExtension + delta );
+
+      return wallPath;
+
     },
 
 

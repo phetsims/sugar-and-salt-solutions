@@ -11,7 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Property = require( 'AXON/Property' );
-  var Vector2 = require( 'DOT/Vector2' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var HSlider = require( 'SUN/HSlider' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -28,17 +28,23 @@ define( function( require ) {
   function MacroScreenView( macroModel ) {
 
     var layoutBounds = ScreenView.UPDATED_LAYOUT_BOUNDS.copy();
-    var modelScale = 0.75;
-    var modelRefPoint = new Vector2( -macroModel.modelWidth / 2, -macroModel.inset );
-    var viewPortPosition = new Vector2( layoutBounds.width * 0.40, layoutBounds.height - 255 );
+    var modelScale = 0.70;
+    var aspectRatio = layoutBounds.width / layoutBounds.height;
+    var minModelX = -macroModel.modelWidth / 2;
+    var modelWidth = macroModel.modelWidth;
+    var minModelY = -macroModel.inset;
+    var modelHeight = modelWidth / aspectRatio;
+    var modelBounds = new Bounds2( minModelX, minModelY, minModelX + modelWidth, minModelY + modelHeight );
+    var viewMinX = 15;
+    var viewMinY = 155;
+    var viewPortBounds = new Bounds2( viewMinX, viewMinY, viewMinX + layoutBounds.width * modelScale, viewMinY + (layoutBounds.height * modelScale) );
 
     // Manually tuned so that the model part shows up in the left side of the canvas,
     // leaving enough room for controls, labels, and positioning it so it appears near the bottom
-
-    var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping( modelRefPoint, viewPortPosition, modelScale );
+    var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelBounds, viewPortBounds );
 
     //null to be removed TODO
-    BeakerAndShakerView.call( this, macroModel, ScreenView.UPDATED_LAYOUT_BOUNDS.copy(), null, modelViewTransform );
+    BeakerAndShakerView.call( this, macroModel, layoutBounds, null, modelViewTransform );
 
     //Show the mock-up and a slider to change its transparency
     var mockupOpacityProperty = new Property( 0.2 );
