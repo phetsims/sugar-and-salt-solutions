@@ -29,12 +29,7 @@ define( function( require ) {
 
     var layoutBounds = ScreenView.UPDATED_LAYOUT_BOUNDS.copy();
     var modelScale = 0.70;
-    var aspectRatio = layoutBounds.width / layoutBounds.height;
-    var minModelX = -macroModel.modelWidth / 2;
-    var modelWidth = macroModel.modelWidth;
-    var minModelY = -macroModel.inset;
-    var modelHeight = modelWidth / aspectRatio;
-    var modelBounds = new Bounds2( minModelX, minModelY, minModelX + modelWidth, minModelY + modelHeight );
+    var modelBounds = macroModel.visibleRegion;
     var viewMinX = 15;
     var viewMinY = 155;
     var viewPortBounds = new Bounds2( viewMinX, viewMinY, viewMinX + layoutBounds.width * modelScale, viewMinY + (layoutBounds.height * modelScale) );

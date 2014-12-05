@@ -56,21 +56,9 @@ define( function( require ) {
       return this.y;
     },
 
-    //Determines the model shape of the walls of the beaker that can be used to render it in the view
-    getWallShape: function() {
-      //Stroke (in model coordinates) that will be used to create the walls
-      //    var wallStroke =  this.wallThickness;
-
-      //Create a Shape representing the walls as a U-shape, starting from the top left
-      //    Shape wallShape = wallStroke.createStrokedShape( getWallPath( topDelta ).getGeneralPath() );
-
-      //Since the stroke goes on both sides of the line, subtract out the main area so that the water won't overlap with the edges
-      //    return new Area( wallShape ) {{
-      //       subtract( new Area( getWallPath( topDelta * 2 ).getGeneralPath() ) );
-      //   }};
-    },
-
     /**
+     * Determines the model shape of the walls of the beaker that can be used to render it in the view
+     *
      * Gets the path that represents the walls of the beaker, with the delta indicating the x and y dimensions of the
      * beaker opening at the top.It is a parameter since we need to extend it for subtracting out the middle in getWallShape,
      * so the water doesn't overlap the edges.Without this, the top part of the beaker (its opening)

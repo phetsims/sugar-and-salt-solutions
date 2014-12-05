@@ -12,12 +12,15 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
+  var Shape = require( 'KITE/Shape' );
+  var Vector2 = require( 'DOT/Vector2' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var AbstractSugarAndSaltSolutionsModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AbstractSugarAndSaltSolutionsModel' );
+  var FaucetMetrics = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetMetrics' );
   var Beaker = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Beaker' );
 
   /**
-   *
+   * @param {number} aspectRatio
    * @param {number} framesPerSecond
    * @param {BeakerDimension} beakerDimension
    * @param {number} faucetFlowRate
@@ -26,47 +29,87 @@ define( function( require ) {
    * @param {number} distanceScale
    * @constructor
    */
-  function SugarAndSaltSolutionModel( framesPerSecond, beakerDimension, faucetFlowRate, drainPipeBottomY, drainPipeTopY, distanceScale ) {
+  function SugarAndSaltSolutionModel( aspectRatio, framesPerSecond, beakerDimension, faucetFlowRate, drainPipeBottomY, drainPipeTopY, distanceScale ) {
+    var thisModel = this;
 
-    this.beakerDimension = beakerDimension;//Dimensions of the beaker
-    this.faucetFlowRate = faucetFlowRate; //Flow controls vary between 0 and 1, this scales it down to a good model value
-    this.drainPipeBottomY = drainPipeBottomY;
-    this.drainPipeTopY = drainPipeTopY;
+    //Use the same aspect ratio as the view to minimize insets with blank regions
+    thisModel.aspectRatio = aspectRatio;
+    thisModel.beakerDimension = beakerDimension;//Dimensions of the beaker
+    thisModel.faucetFlowRate = faucetFlowRate; //Flow controls vary between 0 and 1, this scales it down to a good model value
+    thisModel.drainPipeBottomY = drainPipeBottomY;
+    thisModel.drainPipeTopY = drainPipeTopY;
 
-    // Scale to help accommodate micro tab, for Macro tab the scale is 1.0
-    // The amount to scale model translations so that micro tab emits solute at the appropriate time.  Without
-    // this factor, the tiny (1E-9 meters) drag motion in the Micro tab wouldn't be enough to emit solute
-    this.distanceScale = distanceScale;
+    //Scale to help accommodate micro tab, for Macro tab the scale is 1.0
+    //The amount to scale model translations so that micro tab emits solute at the appropriate time.  Without
+    //this factor, the tiny (1E-9 meters) drag motion in the Micro tab wouldn't be enough to emit solute
+    thisModel.distanceScale = distanceScale;
 
     //Model for input and output flows
-    this.inputFlowRate = new Property( 0.0 );//rate that water flows into the beaker, between 0 and 1
-    this.outputFlowRate = new NumberProperty( 0.0 );//rate that water flows out of the beaker, between 0 and 1
+    thisModel.inputFlowRate = new Property( 0.0 );//rate that water flows into the beaker, between 0 and 1
+    thisModel.outputFlowRate = new NumberProperty( 0.0 );//rate that water flows out of the beaker, between 0 and 1
 
+    //Rate at which liquid evaporates
     //Scaled down since the evaporation control rate  is 100 times bigger than flow scales
-    this.evaporationRateScale = faucetFlowRate / 300.0;   //Rate at which liquid evaporates
+    thisModel.evaporationRateScale = faucetFlowRate / 300.0;
+
 
     //volume in SI (m^3).  Start at 1 L (halfway up the 2L beaker).  Note that 0.001 cubic meters = 1L
-    this.waterVolume = new NumberProperty( beakerDimension.getVolume() / 2 ); //Start the water halfway up the beaker
+    thisModel.waterVolume = new NumberProperty( beakerDimension.getVolume() / 2 ); //Start the water halfway up the beaker
 
     //Inset so the beaker doesn't touch the edge of the model bounds
-    this.inset = beakerDimension.width * 0.1;
-    this.modelWidth = beakerDimension.width + this.inset * 2;
+    thisModel.inset = beakerDimension.width * 0.1;
+    thisModel.modelWidth = beakerDimension.width + this.inset * 2;
 
     //Beaker model
-    this.beaker = new Beaker( beakerDimension.x, 0, beakerDimension.width, beakerDimension.height, beakerDimension.depth, beakerDimension.wallThickness );
+    thisModel.beaker = new Beaker( beakerDimension.x, 0, beakerDimension.width, beakerDimension.height,
+      beakerDimension.depth, beakerDimension.wallThickness );
 
-//        //Visible model region: a bit bigger than the beaker, used to set the stage aspect ratio in the canvas
-//        visibleRegion = new ImmutableRectangle2D( -modelWidth / 2, -inset, modelWidth, modelWidth / aspectRatio );
-//
-//        //Create the region within which the user can drag the shakers, must remove some of the visible region--otherwise the shakers can be dragged too far to the left of the beaker
-//        final double insetForDragRegion = visibleRegion.width / 6;
-//        dragRegion = new ImmutableRectangle2D( visibleRegion.x + insetForDragRegion, visibleRegion.y, visibleRegion.width - insetForDragRegion, visibleRegion.height );
-//
-//        //Set a max amount of water that the user can add to the system so they can't overflow it
-//        maxWater = beaker.getMaxFluidVolume();
-//
-//        //User setting: whether the concentration bar chart should be shown
-//        showConcentrationBarChart = new Property<Boolean>( true );
+    //Part of the model that must be visible within the view
+    //Visible model region: a bit bigger than the beaker, used to set the stage aspect ratio in the canvas
+    thisModel.visibleRegion = Shape.rectangle( -thisModel.modelWidth / 2, -thisModel.inset,
+      thisModel.modelWidth, thisModel.modelWidth / thisModel.aspectRatio ).bounds;
+
+    //Create the region within which the user can drag the shakers, must remove some of the visible
+    //region--otherwise the shakers can be dragged too far to the left of the beaker
+    var insetForDragRegion = thisModel.visibleRegion.width / 6;
+
+    //The region within which the user can drag the shakers, smaller than the visible region to make sure
+    //the shakers can't be moved too far past the left edge of the beaker
+    thisModel.dragRegion = Shape.rectangle( thisModel.visibleRegion.x + insetForDragRegion, thisModel.visibleRegion.y,
+        thisModel.visibleRegion.width - insetForDragRegion, thisModel.visibleRegion.height ).bounds;
+
+    //Max amount of water before the beaker overflows
+    thisModel.maxWater = thisModel.beaker.getMaxFluidVolume();//Set a max amount of water that the user can add to the system so they can't overflow it
+
+    //User setting: whether the concentration bar chart should be shown
+    thisModel.showConcentrationBarChart = new Property( true );
+
+    //Models for dispensers that can be used to add solute to the beaker solution
+    thisModel.dispensers = [];//Create the list of dispensers
+
+    //Model location (in meters) of where water will flow out the drain (both toward and away
+    //from drain faucet), set by the view since view locations are chosen first for consistency across tabs
+    thisModel.drainFaucetMetrics = new FaucetMetrics( thisModel, Vector2.ZERO, Vector2.ZERO, 0 );
+    thisModel.inputFaucetMetrics = new FaucetMetrics( thisModel, Vector2.ZERO, Vector2.ZERO, 0 );
+
+    // The shape of the input and output water.  The Shape of the water draining out the output faucet
+    // is also needed for purposes of determining whether there is an electrical connection for the conductivity tester
+    thisModel.inputWater = new Property( new Shape() );
+    thisModel.outputWater = new Property( new Shape() );
+
+    //Sets the shape of the water into the beaker
+    thisModel.inputFlowRate.link( function( rate ) {
+      var width = rate * thisModel.inputFaucetMetrics.faucetWidth;
+      var height = thisModel.inputFaucetMetrics.outputPoint.y;//assumes beaker floor is at y=0
+      thisModel.inputWater.set( Shape.rectangle( thisModel.inputFaucetMetrics.outputPoint.x - width / 2, thisModel.inputFaucetMetrics.outputPoint.y - height, width, height ) );
+    } );
+
+    //Sets the shape of the water flowing out of the beaker, changing the shape updates the brightness of the conductivity tester in the macro tab
+    thisModel.outputFlowRate.link( function( rate ) {
+      var width = rate * thisModel.drainFaucetMetrics.faucetWidth;
+      var height = beakerDimension.height * 2;
+      thisModel.outputWater.set( Shape.rectangle( thisModel.drainFaucetMetrics.outputPoint.x - width / 2, thisModel.drainFaucetMetrics.outputPoint.y - height, width, height ) );
+    } );
 
 
   }

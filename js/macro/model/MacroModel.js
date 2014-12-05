@@ -15,22 +15,22 @@ define( function( require ) {
   var BeakerDimension = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/BeakerDimension' );
 
   /**
+   * @param {number} aspectRatio
    * @constructor
    */
-  function MacroModel() {
+  function MacroModel( aspectRatio ) {
 
     SugarAndSaltSolutionModel.call( this,
-      //frames per second
-      30,
+      aspectRatio, //Use the same aspect ratio as the view to minimize insets with blank regions
+      30, //frames per second
       new BeakerDimension( 0.2 ),
-      // faucetFlowRate
-      0.0005,
+      0.0005, // faucetFlowRate
       // These values were sampled from the model with debug mode by printing out the model
       // location of the mouse and moving it to a location that looks good
       0.011746031746031754,
       0.026349206349206344,
-      //In macro model scales are already tuned so no additional scaling is needed
-      1 );
+      1//In macro model scales are already tuned so no additional scaling is needed
+    );
   }
 
   return inherit( SugarAndSaltSolutionModel, MacroModel, {
