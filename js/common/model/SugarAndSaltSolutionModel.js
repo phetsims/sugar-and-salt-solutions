@@ -18,6 +18,7 @@ define( function( require ) {
   var AbstractSugarAndSaltSolutionsModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AbstractSugarAndSaltSolutionsModel' );
   var FaucetMetrics = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetMetrics' );
   var Beaker = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Beaker' );
+  var Solution = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Solution' );
 
   /**
    * @param {number} aspectRatio
@@ -31,7 +32,7 @@ define( function( require ) {
    */
   function SugarAndSaltSolutionModel( aspectRatio, framesPerSecond, beakerDimension, faucetFlowRate, drainPipeBottomY, drainPipeTopY, distanceScale ) {
     var thisModel = this;
-
+    AbstractSugarAndSaltSolutionsModel.call( thisModel, framesPerSecond );
     //Use the same aspect ratio as the view to minimize insets with blank regions
     thisModel.aspectRatio = aspectRatio;
     thisModel.beakerDimension = beakerDimension;//Dimensions of the beaker
@@ -87,9 +88,11 @@ define( function( require ) {
     //Models for dispensers that can be used to add solute to the beaker solution
     thisModel.dispensers = [];//Create the list of dispensers
 
-    //Model location (in meters) of where water will flow out the drain (both toward and away
+    //@private Model location (in meters) of where water will flow out the drain (both toward and away
     //from drain faucet), set by the view since view locations are chosen first for consistency across tabs
     thisModel.drainFaucetMetrics = new FaucetMetrics( thisModel, Vector2.ZERO, Vector2.ZERO, 0 );
+
+    //@private
     thisModel.inputFaucetMetrics = new FaucetMetrics( thisModel, Vector2.ZERO, Vector2.ZERO, 0 );
 
     // The shape of the input and output water.  The Shape of the water draining out the output faucet
@@ -104,13 +107,23 @@ define( function( require ) {
       thisModel.inputWater.set( Shape.rectangle( thisModel.inputFaucetMetrics.outputPoint.x - width / 2, thisModel.inputFaucetMetrics.outputPoint.y - height, width, height ) );
     } );
 
-    //Sets the shape of the water flowing out of the beaker, changing the shape updates the brightness of the conductivity tester in the macro tab
+    //Sets the shape of the water flowing out of the beaker, changing the shape updates the brightness of
+    // the conductivity tester in the macro tab
     thisModel.outputFlowRate.link( function( rate ) {
       var width = rate * thisModel.drainFaucetMetrics.faucetWidth;
       var height = beakerDimension.height * 2;
       thisModel.outputWater.set( Shape.rectangle( thisModel.drainFaucetMetrics.outputPoint.x - width / 2, thisModel.drainFaucetMetrics.outputPoint.y - height, width, height ) );
     } );
 
+    //Solution model, the fluid + any dissolved solutes. Create the solution, which sits
+    //atop the solid precipitate (if any)
+    thisModel.solution = new Solution( thisModel.waterVolume, thisModel.beaker );
+
+
+    //Observable flag which determines whether the beaker is full of solution, for purposes of preventing overflow
+    //Convenience composite properties for determining whether the beaker
+    //is full or empty so we can shut off the faucets when necessary
+    thisModel.beakerFull = thisModel.solution.volume.greaterThanNumber( thisModel.maxWater );
 
   }
 

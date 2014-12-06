@@ -25,25 +25,26 @@ define( function( require ) {
    */
   function Beaker( x, y, width, height, depth, wallThickness ) {
 
-    //Left side of the inner part of the beaker
+    //@private Left side of the inner part of the beaker
     this.x = x;
 
-    //the y-location of the inner part of the base of the beaker, +y is up in the model (down in the graphics)
+    //@private the y-location of the inner part of the base of the beaker, +y is up in the model (down in the graphics)
     this.y = y;
 
-    //Dimensions of the inner part of the beaker
+    //@private Dimensions of the inner part of the beaker
     this.width = width;
     this.height = height;
 
-    // dimension of the beaker in the z-direction (into the screen), direction irrelevant
+    //@private dimension of the beaker in the z-direction (into the screen), direction irrelevant
     // since it is only used for computing the volume within the beaker
     this.depth = depth;
 
     //Width of the beaker
     this.wallThickness = wallThickness;
+    //@private
     this.topDelta = wallThickness * 1.2;
 
-    // Since we decided not to have solutes take up volume, we have no extension.  If dissolved
+    //@private Since we decided not to have solutes take up volume, we have no extension.  If dissolved
     // solutes take up nonzero volume in the future, this could be increased to something like 0.003
     this.topExtension = 0.0;
 
@@ -65,7 +66,9 @@ define( function( require ) {
      * would be twice as thick as the walls of the rectangular part of the beaker
      * @param {number} delta
      * @return {Shape}
-     * //comments needs to be in synch with the implementation TODO
+     *
+     * // TODO comments needs to be in synch with the JavaScript implementation which
+     * // doesnt use Area operations like Add,Subtract etc (constructive plane geometry)
      */
 
     getWallPath: function( delta ) {

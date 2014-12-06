@@ -46,7 +46,7 @@ define( function( require ) {
     var image = new Image( mockupImage, {pickable: false} );
     mockupOpacityProperty.linkAttribute( image, 'opacity' );
     this.addChild( image );
-    this.addChild( new HSlider( mockupOpacityProperty, {min: 0, max: 1}, {top: 10, left: 10} ) );
+    this.addChild( new HSlider( mockupOpacityProperty, {min: 0, max: 1}, {top: 10, left: 500} ) );
 
     // Create and add the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {

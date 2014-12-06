@@ -18,15 +18,15 @@ define( function( require ) {
   /**
    *
    * @param {ModelViewTransform2} transform
-   * @param {Property<Shape>} waterShape
+   * @param {Property<Shape>} waterShapeProperty
    * @constructor
    */
-  function WaterNode( transform, waterShape ) {
+  function WaterNode( transform, waterShapeProperty ) {
     var thisNode = this;
-    Path.call( thisNode, transform.modelToViewShape( waterShape ), {fill: BeakerAndShakerConstants.WATER_COLOR} );
+    Path.call( thisNode, transform.modelToViewShape( waterShapeProperty.value ), {fill: BeakerAndShakerConstants.WATER_COLOR} );
 
-    waterShape.link( function( newWaterShape ) {
-      thisNode.setShape( transform.modelToViewShape( waterShape ) );
+    waterShapeProperty.link( function( newWaterShape ) {
+      thisNode.setShape( transform.modelToViewShape( newWaterShape ) );
     } );
 
   }
