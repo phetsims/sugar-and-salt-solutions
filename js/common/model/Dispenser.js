@@ -1,4 +1,37 @@
-//// Copyright 2002-2012, University of Colorado
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Base class for sugar and salt dispensers.  To clarify the terminology in the subclasses,
+ * salt is created by "shakers" (a refinement of this dispenser class) and sugar is created by "dispensers"
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
+
+
+  /**
+   * @param {number} aspectRatio
+   * @constructor
+   */
+  function Dispenser( aspectRatio ) {
+
+  }
+
+  return inherit( SugarAndSaltSolutionModel, Dispenser, {
+    //After time has passed, update the model by adding any crystals that should be emitted
+    updateModel: function() {
+
+    }
+
+  } );
+
+} );
+
 //package edu.colorado.phet.sugarandsaltsolutions.common.model;
 //
 //import java.awt.geom.Dimension2D;

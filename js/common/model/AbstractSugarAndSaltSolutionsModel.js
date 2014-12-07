@@ -37,7 +37,7 @@ define( function( require ) {
     step: function( dt ) {
       // step one frame, assuming 60fps
       if ( this.clockRunning ) {
-        this.clock.step( 1 / 60 );
+        this.clock.step( dt );
       }
     },
     /**

@@ -1,5 +1,4 @@
 //  Copyright 2002-2014, University of Colorado Boulder
-
 /**
  * Introductory (macro) model that keeps track of moles of solute dissolved in the liquid.
  *
@@ -35,10 +34,6 @@ define( function( require ) {
 
   return inherit( SugarAndSaltSolutionModel, MacroModel, {
 
-    // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
-    step: function( dt ) {
-      // Handle model animation here.
-    }
   } );
 } );
 

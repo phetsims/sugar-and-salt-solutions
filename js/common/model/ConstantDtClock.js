@@ -1,5 +1,4 @@
 //  Copyright 2002-2014, University of Colorado Boulder
-
 /**
  * The clock for this simulation.
  * The simulation time change (dt) on each clock tick is constant,
@@ -34,8 +33,9 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, ConstantDtClock, {
-
+    step: function( dt ) {
+      // step one frame, assuming 60fps
+      this.eventTimer.step( 1 / 60 );
+    }
   } );
-
-
 } );

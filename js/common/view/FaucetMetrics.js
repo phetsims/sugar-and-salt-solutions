@@ -25,14 +25,13 @@ define( function( require ) {
    */
   function FaucetMetrics( model, inputPoint, outputPoint, faucetWidth ) {
 
-
+    //@private The main model is used to obtain the bounds for the solution
+    this.model = model;
     //@private Location where particles enter the drain faucet
     this.inputPoint = inputPoint;
 
     //Location where particles leave the drain faucet
     this.outputPoint = outputPoint;
-    //@private The main model is used to obtain the bounds for the solution
-    this.model = model;
 
     //The width of the opening of the faucet where the water comes out,
     //used to create water rectangle of the right dimension
@@ -67,6 +66,24 @@ define( function( require ) {
       return new FaucetMetrics( this.model, new Vector2( inputX, this.inputPoint.getY() ), this.outputPoint, this.faucetWidth );
     }
 
+  }, {
+
+    //static functions
+    /**
+     * Factory Method to support constructor overloading
+     * Create a FaucetMetrics given the faucet node and root node
+     * @param {ModelViewTransform2} transform
+     * @param {SugarAndSaltSolutionsModel} model
+     * @param {Node} rootNode
+     * @param {Node} inputFaucetNode
+     * @returns {FaucetMetrics}
+     */
+    createFaucetMetricsByFaucetNode: function( transform, model, rootNode, inputFaucetNode ) {
+      var inputModelPos = transform.viewToModelPosition( rootNode.globalToLocalPoint( inputFaucetNode.getGlobalInputCenter() ) );
+      var outputModelPos = transform.viewToModelPosition( rootNode.globalToLocalPoint( inputFaucetNode.getGlobalOutputCenter() ) );
+      var faucetWidth = transform.viewToModelDeltaX( rootNode.globalToLocalBounds( inputFaucetNode.getGlobalOutputSize() ).getWidth() );
+      return new FaucetMetrics( model, inputModelPos, outputModelPos, faucetWidth );
+    }
   } );
 
 } );

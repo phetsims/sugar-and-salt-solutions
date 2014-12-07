@@ -17,6 +17,7 @@ define( function( require ) {
   var NumberProperty = require( 'AXON/NumberProperty' );
   var AbstractSugarAndSaltSolutionsModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AbstractSugarAndSaltSolutionsModel' );
   var FaucetMetrics = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetMetrics' );
+  var VerticalRangeContains = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/VerticalRangeContains' );
   var Beaker = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Beaker' );
   var Solution = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Solution' );
 
@@ -53,7 +54,6 @@ define( function( require ) {
     //Scaled down since the evaporation control rate  is 100 times bigger than flow scales
     thisModel.evaporationRateScale = faucetFlowRate / 300.0;
 
-
     //volume in SI (m^3).  Start at 1 L (halfway up the 2L beaker).  Note that 0.001 cubic meters = 1L
     thisModel.waterVolume = new NumberProperty( beakerDimension.getVolume() / 2 ); //Start the water halfway up the beaker
 
@@ -88,6 +88,9 @@ define( function( require ) {
     //Models for dispensers that can be used to add solute to the beaker solution
     thisModel.dispensers = [];//Create the list of dispensers
 
+    //Rate at which liquid (but no solutes) leaves the model
+    this.evaporationRate = new Property( 0.0 );//Between 0 and 100
+
     //@private Model location (in meters) of where water will flow out the drain (both toward and away
     //from drain faucet), set by the view since view locations are chosen first for consistency across tabs
     thisModel.drainFaucetMetrics = new FaucetMetrics( thisModel, Vector2.ZERO, Vector2.ZERO, 0 );
@@ -119,17 +122,118 @@ define( function( require ) {
     //atop the solid precipitate (if any)
     thisModel.solution = new Solution( thisModel.waterVolume, thisModel.beaker );
 
-
     //Observable flag which determines whether the beaker is full of solution, for purposes of preventing overflow
     //Convenience composite properties for determining whether the beaker
     //is full or empty so we can shut off the faucets when necessary
     thisModel.beakerFull = thisModel.solution.volume.greaterThanNumber( thisModel.maxWater );
 
+    //Flag to indicate whether there is enough solution to flow through the lower drain.
+    //Determine if the lower faucet is allowed to let fluid flow out.  It can if any part of the fluid overlaps any part of the pipe range.
+    //This logic is used in the model update step to determine if water can flow out, as well as in the user interface to determine if the user can turn on the output faucet
+    thisModel.lowerFaucetCanDrain = new VerticalRangeContains( thisModel.solution.shape, drainPipeBottomY, drainPipeTopY );
+
   }
 
 
   return inherit( AbstractSugarAndSaltSolutionsModel, SugarAndSaltSolutionModel, {
+    /**
+     * Update the model when the clock ticks, and return the amount of drained water (in meters cubed)
+     * so that subclasses like MacroModel can decrease the amount of dissolved solutes
+     * @param {number} dt
+     * @return {number}
+     */
+    updateModel: function( dt ) {
 
+      this.time += dt;
+
+      //Add any new crystals from the salt & sugar dispensers
+      _.each( this.dispensers, function( dispenser ) {
+        dispenser.updateModel();
+      } );
+
+      //Change the water volume based on input and output flow
+      var inputWater = dt * this.inputFlowRate.get() * this.faucetFlowRate;
+      var drainedWater = dt * this.outputFlowRate.get() * this.faucetFlowRate;
+      var evaporatedWater = dt * this.evaporationRate.get() * this.evaporationRateScale;
+
+      //Compute the new water volume, but making sure it doesn't overflow or underflow.
+      //If we rewrite the model to account for solute volume displacement, this computation should account for the solution volume, not the water volume
+      var newVolume = this.waterVolume.get() + inputWater - drainedWater - evaporatedWater;
+      if ( newVolume > this.maxWater ) {
+        inputWater = this.maxWater + drainedWater + evaporatedWater - this.waterVolume.get();
+      }
+
+      //Only allow drain to use up all the water if user is draining the liquid
+      else if ( newVolume < 0 && this.outputFlowRate.get() > 0 ) {
+        drainedWater = inputWater + this.waterVolume.get();
+      }
+      //Conversely, only allow evaporated water to use up all remaining water if the user is evaporating anything
+      else if ( newVolume < 0 && this.evaporationRate.get() > 0 ) {
+        evaporatedWater = inputWater + this.waterVolume.get();
+      }
+      //Note that the user can't be both evaporating and draining fluid at the same time, since the controls
+      //are one-at-a-time controls.This simplifies the logic here.
+      //Set the true value of the new volume based on clamped inputs and outputs
+      newVolume = this.waterVolume.get() + inputWater - drainedWater - evaporatedWater;
+
+      //Turn off the input flow if the beaker would overflow
+      if ( newVolume >= this.maxWater ) {
+        this.inputFlowRate.set( 0.0 );
+      }
+
+      //Turn off the output flow if no water is adjacent to it
+      if ( !this.lowerFaucetCanDrain.get() ) {
+        this.outputFlowRate.set( 0.0 );
+      }
+
+      //Turn off evaporation if beaker is empty of water
+      if ( newVolume <= 0 ) {
+        this.evaporationRate.set( 0.0 );
+      }
+
+      //Update the water volume
+      this.waterVolume.set( newVolume );
+
+      //Notify subclasses that water evaporated in case they need to update anything
+      if ( evaporatedWater > 0 ) {
+        this.waterEvaporated( evaporatedWater );
+      }
+
+      return drainedWater;
+    },
+
+    /**
+     * Callback when water has evaporated from the solution
+     * @param {number} evaporatedWater
+     */
+    waterEvaporated: function( evaporatedWater ) {
+      //Nothing to do in the base class
+    },
+
+    /**
+     * Get the location of the drain where particles will flow
+     * toward and out, in absolute coordinates, in meters
+     * @returns {FaucetMetrics}
+     */
+    getDrainFaucetMetrics: function() {
+      return this.drainFaucetMetrics;
+    },
+    /**
+     * Set the location where particles will flow out the drain, set by the view
+     * since view locations are chosen first for consistency across tabs
+     * @param {FaucetMetrics} faucetMetrics
+     */
+    setDrainFaucetMetrics: function( faucetMetrics ) {
+      this.drainFaucetMetrics = faucetMetrics;
+    },
+    /**
+     * Set the location where particles will flow out the drain, set by
+     * the view since view locations are chosen first for consistency across tabs
+     * @param {FaucetMetrics} faucetMetrics
+     */
+    setInputFaucetMetrics: function( faucetMetrics ) {
+      this.inputFaucetMetrics = faucetMetrics;
+    }
   } );
 
 } );
