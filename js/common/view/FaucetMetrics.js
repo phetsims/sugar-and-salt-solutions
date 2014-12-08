@@ -63,7 +63,7 @@ define( function( require ) {
      * @returns {FaucetMetrics}
      */
     clampInputWithinFluid: function( inputX ) {
-      return new FaucetMetrics( this.model, new Vector2( inputX, this.inputPoint.getY() ), this.outputPoint, this.faucetWidth );
+      return new FaucetMetrics( this.model, new Vector2( inputX, this.inputPoint.y), this.outputPoint, this.faucetWidth );
     }
 
   }, {

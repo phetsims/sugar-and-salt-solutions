@@ -30,7 +30,7 @@ define( function( require ) {
     //Get the shape this water takes in its containing beaker
     this.shape = new DerivedProperty( [this.volume], function( volume ) {
       //Assumes the beaker is rectangular
-      return beaker.getWaterShape( 0, waterVolume.get() );
+      return beaker.getWaterShape( 0, volume );
     } );
 
   }

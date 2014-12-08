@@ -72,7 +72,7 @@ define( function( require ) {
      */
 
     getWallPath: function( delta ) {
-      var wallOffSetThickness = 0.003;
+      var wallOffSetThickness = 0.002;
       var openingOffsetX = wallOffSetThickness * 0.55;
       var openingOffsetY = wallOffSetThickness * 0.45;
 
@@ -82,13 +82,13 @@ define( function( require ) {
         .lineTo( this.x + this.width, this.y )
         .lineTo( this.x + this.width, this.y + this.height + this.topExtension )
         .lineTo( this.x + this.width + delta, this.y + this.height + this.topExtension + delta )
-        //inner path
-        .lineTo( this.x + this.width + delta - openingOffsetX, this.y + this.height + this.topExtension + delta + openingOffsetY )
-        .lineTo( this.x + this.width - wallOffSetThickness, this.y + this.height + this.topExtension )
-        .lineTo( this.x + this.width - wallOffSetThickness, this.y + wallOffSetThickness )
-        .lineTo( this.x + wallOffSetThickness, this.y + wallOffSetThickness )
-        .lineTo( this.x + wallOffSetThickness, this.y + this.height + this.topExtension )
-        .lineTo( this.x - delta + openingOffsetX, this.y + this.height + this.topExtension + delta + openingOffsetY )
+        //outer path
+        .lineTo( this.x + this.width + delta + openingOffsetX, this.y + this.height + this.topExtension + delta - openingOffsetY )
+        .lineTo( this.x + this.width + wallOffSetThickness, this.y + this.height + this.topExtension )
+        .lineTo( this.x + this.width + wallOffSetThickness, this.y - wallOffSetThickness )
+        .lineTo( this.x - wallOffSetThickness, this.y - wallOffSetThickness )
+        .lineTo( this.x - wallOffSetThickness, this.y + this.height + this.topExtension )
+        .lineTo( this.x - delta - openingOffsetX, this.y + this.height + this.topExtension + delta - openingOffsetY )
         .lineTo( this.x - delta, this.y + this.height + this.topExtension + delta );
 
       return wallPath;

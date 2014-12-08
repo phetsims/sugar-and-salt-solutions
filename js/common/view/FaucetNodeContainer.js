@@ -24,8 +24,8 @@ define( function( require ) {
   var INPUT_PIPE_Y2 = 78;
 
   // Locations in the image file where the fluid comes out of the faucet. (Ashraf , this is with reference to the FaucetNode's origin)
-  var OUTPUT_PIPE_X1 = -40;
-  var OUTPUT_PIPE_X2 = 40;
+  var OUTPUT_PIPE_X1 = -38;
+  var OUTPUT_PIPE_X2 = 38;
   var OUTPUT_PIPE_Y = 0;
 
   /**

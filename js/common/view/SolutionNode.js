@@ -1,3 +1,53 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * graphic that shows the solution (water + dissolved solutes) in the beaker.
+ * It may be displaced upward by solid precipitate.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
+
+  /**
+   *
+   * @param {ModelViewTransform2} modelViewTransform
+   * @param {Solution} solution
+   * @param {Color} color
+   * @constructor
+   */
+  function SolutionNode( modelViewTransform, solution, color ) {
+    var thisNode = this;
+    Node.call( thisNode, {
+      //Make it so the mouse events pass through the front water layer so it is
+      //still possible to pick and move the conductivity tester probes
+      pickable: false
+    } );
+
+    //solution.shape is a derived property based on volume of the solution
+    var solutionPath = new Path( modelViewTransform.modelToViewShape( solution.shape.get() ),
+      { fill: color
+      }
+    );
+    thisNode.addChild( solutionPath );
+
+    solution.shape.link( function( shape ) {
+      solutionPath.setShape( modelViewTransform.modelToViewShape( shape ) );
+    } );
+
+  }
+
+  return inherit( Node, SolutionNode, {
+
+  } );
+
+} );
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.common.view;
 //

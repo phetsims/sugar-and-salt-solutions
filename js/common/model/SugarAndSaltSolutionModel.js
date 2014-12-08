@@ -15,6 +15,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var NumberProperty = require( 'AXON/NumberProperty' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var AbstractSugarAndSaltSolutionsModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AbstractSugarAndSaltSolutionsModel' );
   var FaucetMetrics = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetMetrics' );
   var VerticalRangeContains = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/VerticalRangeContains' );
@@ -125,7 +126,9 @@ define( function( require ) {
     //Observable flag which determines whether the beaker is full of solution, for purposes of preventing overflow
     //Convenience composite properties for determining whether the beaker
     //is full or empty so we can shut off the faucets when necessary
-    thisModel.beakerFull = thisModel.solution.volume.greaterThanNumber( thisModel.maxWater );
+    thisModel.beakerFull = new DerivedProperty( [thisModel.solution.volume, new Property( thisModel.maxWater )], function( volume, maxWater ) {
+      return volume >= maxWater;
+    } );
 
     //Flag to indicate whether there is enough solution to flow through the lower drain.
     //Determine if the lower faucet is allowed to let fluid flow out.  It can if any part of the fluid overlaps any part of the pipe range.
@@ -156,8 +159,10 @@ define( function( require ) {
       var drainedWater = dt * this.outputFlowRate.get() * this.faucetFlowRate;
       var evaporatedWater = dt * this.evaporationRate.get() * this.evaporationRateScale;
 
+
       //Compute the new water volume, but making sure it doesn't overflow or underflow.
-      //If we rewrite the model to account for solute volume displacement, this computation should account for the solution volume, not the water volume
+      //If we rewrite the model to account for solute volume displacement, this computation should account for the
+      //solution volume, not the water volume
       var newVolume = this.waterVolume.get() + inputWater - drainedWater - evaporatedWater;
       if ( newVolume > this.maxWater ) {
         inputWater = this.maxWater + drainedWater + evaporatedWater - this.waterVolume.get();
@@ -193,6 +198,7 @@ define( function( require ) {
 
       //Update the water volume
       this.waterVolume.set( newVolume );
+
 
       //Notify subclasses that water evaporated in case they need to update anything
       if ( evaporatedWater > 0 ) {
