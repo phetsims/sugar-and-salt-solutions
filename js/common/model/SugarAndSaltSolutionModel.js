@@ -276,15 +276,7 @@ define( function( require ) {
 // */
 //public abstract class SugarAndSaltSolutionModel extends AbstractSugarAndSaltSolutionsModel {
 //
-//    //Use the same aspect ratio as the view to minimize insets with blank regions
-//    private final double aspectRatio = canvasSize.getWidth() / canvasSize.getHeight();
-//
-//    //Model for input and output flows
-//    public final Property<Double> inputFlowRate = new Property<Double>( 0.0 );//rate that water flows into the beaker, between 0 and 1
-//    public final DoubleProperty outputFlowRate = new DoubleProperty( 0.0 );//rate that water flows out of the beaker, between 0 and 1
-//
-//    //Flow controls vary between 0 and 1, this scales it down to a good model value
-//    public final double faucetFlowRate;
+
 //
 //    public final double drainPipeBottomY;
 //    public final double drainPipeTopY;
@@ -297,18 +289,7 @@ define( function( require ) {
 //
 //    //True if the values should be shown in the user interface
 //    public final Property<Boolean> showConcentrationValues = new Property<Boolean>( false );
-//
-//    //volume in SI (m^3).  Start at 1 L (halfway up the 2L beaker).  Note that 0.001 cubic meters = 1L
-//    public final DoubleProperty waterVolume;
-//
-//    //Beaker model
-//    public final Beaker beaker;
-//
-//    //Max amount of water before the beaker overflows
-//    public final double maxWater;
-//
-//    //Flag to indicate whether there is enough solution to flow through the lower drain.
-//    public final VerticalRangeContains lowerFaucetCanDrain;
+
 //
 //    //User setting: whether the concentration bar chart should be shown
 //    public final Property<Boolean> showConcentrationBarChart;
@@ -318,17 +299,7 @@ define( function( require ) {
 //
 //    //The region within which the user can drag the shakers, smaller than the visible region to make sure the shakers can't be moved too far past the left edge of the beaker
 //    public final ImmutableRectangle2D dragRegion;
-//
-//    //Observable flag which determines whether the beaker is full of solution, for purposes of preventing overflow
-//    public final ObservableProperty<Boolean> beakerFull;
-//
-//    //Model location (in meters) of where water will flow out the drain (both toward and away from drain faucet), set by the view since view locations are chosen first for consistency across tabs
-//    private FaucetMetrics drainFaucetMetrics = new FaucetMetrics( this, ZERO, ZERO, 0 );
-//    private FaucetMetrics inputFaucetMetrics = new FaucetMetrics( this, ZERO, ZERO, 0 );
-//
-//    //The shape of the input and output water.  The Shape of the water draining out the output faucet is also needed for purposes of determining whether there is an electrical connection for the conductivity tester
-//    public final Property<Shape> inputWater = new Property<Shape>( new Area() );
-//    public final Property<Shape> outputWater = new Property<Shape>( new Area() );
+
 //
 //    //The dragging constraint so that the user cannot drag the shakers outside of the visible region
 //    public final Function1<Point2D, Point2D> dragConstraint = new Function1<Point2D, Point2D>() {
@@ -433,10 +404,7 @@ define( function( require ) {
 //        lowerFaucetCanDrain = new VerticalRangeContains( solution.shape, drainPipeBottomY, drainPipeTopY );
 //    }
 //
-//    //Callback when water has evaporated from the solution
-//    protected void waterEvaporated( double evaporatedWater ) {
-//        //Nothing to do in the base class
-//    }
+
 //
 //    //Reset the model state
 //    public void reset() {
@@ -469,78 +437,7 @@ define( function( require ) {
 //        return time;
 //    }
 //
-//    //Get the location of the drain where particles will flow toward and out, in absolute coordinates, in meters
-//    public FaucetMetrics getDrainFaucetMetrics() {
-//        return drainFaucetMetrics;
-//    }
+
 //
-//    //Set the location where particles will flow out the drain, set by the view since view locations are chosen first for consistency across tabs
-//    public void setDrainFaucetMetrics( FaucetMetrics faucetMetrics ) {
-//        this.drainFaucetMetrics = faucetMetrics;
-//    }
-//
-//    //Set the location where particles will flow out the drain, set by the view since view locations are chosen first for consistency across tabs
-//    public void setInputFaucetMetrics( FaucetMetrics faucetMetrics ) {
-//        this.inputFaucetMetrics = faucetMetrics;
-//    }
-//
-//    //Update the model when the clock ticks, and return the amount of drained water (in meters cubed) so that subclasses like MacroModel can decrease the amount of dissolved solutes
-//    protected double updateModel( double dt ) {
-//        time += dt;
-//
-//        //Add any new crystals from the salt & sugar dispensers
-//        for ( Dispenser dispenser : dispensers ) {
-//            dispenser.updateModel();
-//        }
-//
-//        //Change the water volume based on input and output flow
-//        double inputWater = dt * inputFlowRate.get() * faucetFlowRate;
-//        double drainedWater = dt * outputFlowRate.get() * faucetFlowRate;
-//        double evaporatedWater = dt * evaporationRate.get() * evaporationRateScale;
-//
-//        //Compute the new water volume, but making sure it doesn't overflow or underflow.
-//        //If we rewrite the model to account for solute volume displacement, this computation should account for the solution volume, not the water volume
-//        double newVolume = waterVolume.get() + inputWater - drainedWater - evaporatedWater;
-//        if ( newVolume > maxWater ) {
-//            inputWater = maxWater + drainedWater + evaporatedWater - waterVolume.get();
-//        }
-//        //Only allow drain to use up all the water if user is draining the liquid
-//        else if ( newVolume < 0 && outputFlowRate.get() > 0 ) {
-//            drainedWater = inputWater + waterVolume.get();
-//        }
-//        //Conversely, only allow evaporated water to use up all remaining water if the user is evaporating anything
-//        else if ( newVolume < 0 && evaporationRate.get() > 0 ) {
-//            evaporatedWater = inputWater + waterVolume.get();
-//        }
-//        //Note that the user can't be both evaporating and draining fluid at the same time, since the controls are one-at-a-time controls.
-//        //This simplifies the logic here.
-//
-//        //Set the true value of the new volume based on clamped inputs and outputs
-//        newVolume = waterVolume.get() + inputWater - drainedWater - evaporatedWater;
-//
-//        //Turn off the input flow if the beaker would overflow
-//        if ( newVolume >= maxWater ) {
-//            inputFlowRate.set( 0.0 );
-//        }
-//
-//        //Turn off the output flow if no water is adjacent to it
-//        if ( !lowerFaucetCanDrain.get() ) {
-//            outputFlowRate.set( 0.0 );
-//        }
-//
-//        //Turn off evaporation if beaker is empty of water
-//        if ( newVolume <= 0 ) {
-//            evaporationRate.set( 0.0 );
-//        }
-//
-//        //Update the water volume
-//        waterVolume.set( newVolume );
-//
-//        //Notify subclasses that water evaporated in case they need to update anything
-//        if ( evaporatedWater > 0 ) {
-//            waterEvaporated( evaporatedWater );
-//        }
-//
-//        return drainedWater;
-//    }
+
 //}

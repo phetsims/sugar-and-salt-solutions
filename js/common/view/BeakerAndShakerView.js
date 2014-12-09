@@ -99,14 +99,25 @@ define( function( require ) {
         .clampInputWithinFluid( fullShape.bounds.getMaxX() - fullShape.bounds.getWidth() * 0.02 )
     );
 
+
+    //Add a node for children that should be behind the shakers
+    thisView.behindShakerNode = new Node();
+    thisView.addChild( thisView.behindShakerNode );
+
     //For nodes that should look like they go into the water, such as the conductivity tester probes
     var submergedInWaterNode = new Node();
+
+    //add the salt and sugar dispenser nodes, which should always be in front of everything
+    _.each( model.dispensers, function( dispenser ) {
+      submergedInWaterNode.addChild( dispenser.createNode( modelViewTransform, thisView.micro, model.dragConstraint ) );
+    } );
 
     thisView.addChild( new BeakerNode( model.beaker, modelViewTransform ) );
 
     //Show the full water node at the correct color, then overlay a partially transparent one on top, so that
     //some objects (such as the conductivity tester) will look submerged
     thisView.addChild( new SolutionNode( modelViewTransform, model.solution, WATER_COLOR ) );
+
 
     //Node that shows things that get submerged such as the conductivity tester
     thisView.addChild( submergedInWaterNode );

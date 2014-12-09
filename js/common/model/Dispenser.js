@@ -12,25 +12,115 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
+  var Property = require( 'AXON/Property' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var Util = require( 'DOT/Util' );
 
 
   /**
-   * @param {number} aspectRatio
+   * @param {number} x
+   * @param {number} y
+   * @param {number} angle
+   * @param {Beaker} beaker
+   * @param {Property<Boolean>} moreAllowed
+   * @param {string} name
+   * @param {number} distanceScale
+   * @param {Property<DispenserType>} selectedType
+   * @param {DispenserType} type
+   * @param {*} model
    * @constructor
    */
-  function Dispenser( aspectRatio ) {
+  function Dispenser( x, y, angle, beaker, moreAllowed, name, distanceScale, selectedType, type, model ) {
+    var thisDispenser = this;
+
+    //True if the user has selected this dispenser type
+    thisDispenser.enabled = new Property( false );
+
+    //Beaker into which the solute will be dispensed
+    //@protected
+    thisDispenser.beaker = beaker;
+
+    //True if the user is allowed to add more solute, false if the limit has been reached (10 moles per solute).
+    thisDispenser.moreAllowed = moreAllowed;
+
+    //The name of the dispenser contents, to be displayed on the side of the dispenser node
+    thisDispenser.name = name;
+
+    //A reference to the model for adding particles to it
+    thisDispenser.model = model;
+
+    //Model the angle of rotation, 0 degrees is straight up (not tilted)
+    thisDispenser.angle = new Property( angle );
+
+    //Start centered above the fluid
+    thisDispenser.center = new Property( new Vector2( x, y ) );
+
+    //The amount to scale model translations so that micro tab emits solute at the appropriate time.  Without this factor,
+    //the tiny (1E-9 meters) drag motion in the Micro tab wouldn't be enough to emit solute
+    thisDispenser.distanceScale = distanceScale;
+
+    //The height of the dispenser in meters, for purposes of making sure the crystals come out at the right location
+    //relative to the image. This is used since we want to keep the view the same in each module, but to have different
+    //actual model dimensions
+    //@protected
+    thisDispenser.dispenserHeight = 0;
+
+    //Wire up the Dispenser so it is enabled when the model has the right type dispenser selected
+    selectedType.link( function( dispenserType ) {
+      thisDispenser.enabled.set( dispenserType === type );
+    } );
 
   }
 
   return inherit( SugarAndSaltSolutionModel, Dispenser, {
-    //After time has passed, update the model by adding any crystals that should be emitted
+    /**
+     * Translate the dispenser by the specified delta in model coordinates
+     * @param {Dimension2} delta
+     */
+    translate: function( delta ) {
+      //Translate the center, but make sure it doesn't go out of bounds
+      var proposedPoint = this.center.get().plus( delta );
+      var y = Util.clamp( proposedPoint.y, this.beaker.getTopY(), Number.POSITIVE_INFINITY );
+      this.center.set( new Vector2( proposedPoint.x, y ) );
+    },
+    /**
+     * @protected Give the crystal an appropriate velocity when it comes out so it arcs.  This method is used by
+     * subclasses when creating crystals
+     * @param {Vector2} outputPoint
+     * @returns {Vector2}
+     */
+    getCrystalVelocity: function( outputPoint ) {
+      var directionVector = outputPoint.minus( this.center.get() );
+      var anglePastTheHorizontal = this.angle.get() - Math.PI / 2;
+      var magnitudeRatio = (0.2 + 0.3 * Math.sin( anglePastTheHorizontal )) / directionVector.magnitude();
+      return directionVector.times( magnitudeRatio );
+    },
+    /**
+     * After time has passed, update the model by adding any crystals that should be emitted
+     */
     updateModel: function() {
+      throw new Error( 'updateModel should be implemented in descendant classes of Dispenser' );
+    },
+    /**
+     * Method for creating a PNode such as a SugarDispenserNode or SaltShakerNode to display this Dispenser and allow
+     * the user to interact with it
+     * @param {ModelViewTransform2} transform
+     * @param {boolean} micro
+     * @param {function} constraint
+     */
+    createNode: function( transform, micro, constraint ) {
+      throw new Error( 'createNode should be implemented in descendant classes of Dispenser' );
+    },
 
+    //Set the height of the dispenser, used to emit crystals in the right location relative to the image
+    setDispenserHeight: function( dispenserHeight ) {
+      this.dispenserHeight = dispenserHeight;
     }
 
   } );
 
-} );
+} )
+;
 
 //package edu.colorado.phet.sugarandsaltsolutions.common.model;
 //
@@ -54,59 +144,10 @@ define( function( require ) {
 // */
 //public abstract class Dispenser<T extends SugarAndSaltSolutionModel> {
 //
-//    //Start centered above the fluid
-//    public final Property<Vector2D> center;
 //
-//    //Model the angle of rotation, 0 degrees is straight up (not tilted)
-//    public final DoubleProperty angle;
+
 //
-//    //True if the user has selected this dispenser type
-//    public final Property<Boolean> enabled = new Property<Boolean>( false );
-//
-//    //Beaker into which the solute will be dispensed
-//    protected final Beaker beaker;
-//
-//    //True if the user is allowed to add more solute, false if the limit has been reached (10 moles per solute).
-//    public final ObservableProperty<Boolean> moreAllowed;
-//
-//    //The name of the dispenser contents, to be displayed on the side of the dispenser node
-//    public final String name;
-//
-//    //The amount to scale model translations so that micro tab emits solute at the appropriate time.  Without this factor, the tiny (1E-9 meters) drag motion in the Micro tab wouldn't be enough to emit solute
-//    public final double distanceScale;
-//
-//    //The height of the dispenser in meters, for purposes of making sure the crystals come out at the right location relative to the image
-//    //This is used since we want to keep the view the same in each module, but to have different actual model dimensions
-//    protected double dispenserHeight;
-//
-//    //A reference to the model for adding particles to it
-//    public final T model;
-//
-//    public Dispenser( double x, double y, double angle, Beaker beaker, ObservableProperty<Boolean> moreAllowed, String name, double distanceScale, ObservableProperty<DispenserType> selectedType, final DispenserType type, T model ) {
-//        this.beaker = beaker;
-//        this.moreAllowed = moreAllowed;
-//        this.name = name;
-//        this.model = model;
-//        this.angle = new DoubleProperty( angle );
-//        center = new Property<Vector2D>( new Vector2D( x, y ) );
-//        this.distanceScale = distanceScale;
-//
-//        //Wire up the Dispenser so it is enabled when the model has the right type dispenser selected
-//        selectedType.addObserver( new VoidFunction1<DispenserType>() {
-//            public void apply( DispenserType dispenserType ) {
-//                enabled.set( dispenserType == type );
-//            }
-//        } );
-//    }
-//
-//    //Translate the dispenser by the specified delta in model coordinates
-//    public void translate( Dimension2D delta ) {
-//
-//        //Translate the center, but make sure it doesn't go out of bounds
-//        Vector2D proposedPoint = center.get().plus( delta );
-//        double y = MathUtil.clamp( beaker.getTopY(), proposedPoint.getY(), Double.POSITIVE_INFINITY );
-//        center.set( new Vector2D( proposedPoint.getX(), y ) );
-//    }
+
 //
 //    //Reset the dispenser's position and orientation
 //    public void reset() {
@@ -116,21 +157,9 @@ define( function( require ) {
 //        angle.reset();
 //    }
 //
-//    //Give the crystal an appropriate velocity when it comes out so it arcs.  This method is used by subclasses when creating crystals
-//    protected Vector2D getCrystalVelocity( Vector2D outputPoint ) {
-//        Vector2D directionVector = outputPoint.minus( center.get() );
-//        double anglePastTheHorizontal = angle.get() - Math.PI / 2;
-//        return directionVector.getInstanceOfMagnitude( 0.2 + 0.3 * Math.sin( anglePastTheHorizontal ) );
-//    }
+
 //
 //    //After time has passed, update the model by adding any crystals that should be emitted
 //    public abstract void updateModel();
-//
-//    //Method for creating a PNode such as a SugarDispenserNode or SaltShakerNode to display this Dispenser and allow the user to interact with it
-//    public abstract PNode createNode( ModelViewTransform transform, boolean micro, Function1<Point2D, Point2D> constraint );
-//
-//    //Set the height of the dispenser, used to emit crystals in the right location relative to the image
-//    public void setDispenserHeight( double dispenserHeight ) {
-//        this.dispenserHeight = dispenserHeight;
-//    }
+
 //}
