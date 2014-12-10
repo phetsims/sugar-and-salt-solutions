@@ -1,3 +1,53 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * A single solid crystal (sugar or salt) that comes from a shaker and gets dissolved in the water.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
+  var Vector2 = require( 'DOT/Vector2' );
+
+  /**
+   * @param {Vector2} position
+   * @param {number} moles
+   * @param {number} volumePerMole
+   * @constructor
+   */
+  function MacroCrystal( position, moles, volumePerMole ) {
+    var thisCrsytal = this;
+
+    thisCrsytal.mass = 1E-6;//kg
+    thisCrsytal.position = new Property( position );
+    thisCrsytal.velocity = new Property( new Vector2( 0, 0 ) );
+    thisCrsytal.acceleration = new Property( new Vector2( 0, 0 ) );
+
+    //@private The number of moles of the crystal.  We couldn't just count the number of atoms since it would overflow Long
+    thisCrsytal.moles = moles;
+
+    //Compute the length of a side
+    var volume = volumePerMole * moles;
+
+    //Length in m^3 of one side of the crystal, assuming it is perfectly cubic
+    thisCrsytal.length = Math.pow( volume, 1.0 / 3.0 );
+
+    //@private True of the salt has landed on the floor of the beaker.  In this case it won't move anymore and will
+    //dissolve when liquid hits
+    thisCrsytal.landed = false;
+
+  }
+
+  return inherit( Object, MacroCrystal, {
+
+  } );
+
+} );
+
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.macro.model;
 //
@@ -20,13 +70,10 @@
 //    public final Property<Vector2D> acceleration = new Property<Vector2D>( new Vector2D( 0, 0 ) );
 //    private final ArrayList<VoidFunction0> removalListeners = new ArrayList<VoidFunction0>();
 //
-//    private final double moles;//The number of moles of the crystal.  We couldn't just count the number of atoms since it would overflow Long
+
+
 //
-//    //True of the salt has landed on the floor of the beaker.  In this case it won't move anymore and will dissolve when liquid hits
-//    private boolean landed = false;
-//
-//    //Length in m^3 of one side of the crystal, assuming it is perfectly cubic
-//    public final double length;
+
 //
 //    public MacroCrystal( Vector2D position, double moles, double volumePerMole ) {
 //        this.position = new Property<Vector2D>( position );

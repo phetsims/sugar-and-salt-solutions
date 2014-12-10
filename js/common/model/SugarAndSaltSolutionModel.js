@@ -21,6 +21,7 @@ define( function( require ) {
   var VerticalRangeContains = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/VerticalRangeContains' );
   var Beaker = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Beaker' );
   var Solution = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Solution' );
+  var Util = require( 'DOT/Util' );
 
   /**
    * @param {number} aspectRatio
@@ -79,6 +80,18 @@ define( function( require ) {
     //the shakers can't be moved too far past the left edge of the beaker
     thisModel.dragRegion = Shape.rectangle( thisModel.visibleRegion.x + insetForDragRegion, thisModel.visibleRegion.y,
         thisModel.visibleRegion.width - insetForDragRegion, thisModel.visibleRegion.height ).bounds;
+
+
+    //The dragging constraint so that the user cannot drag the shakers outside of the visible region
+    thisModel.dragConstraint = function( point2D ) {
+
+      //Use the visible region for constraining the X-value, and a fraction past the beaker value.
+      //These values were determined experimentally since we are constraining the center of the shaker
+      //(and shakers have different sizes and different angles)
+      return new Vector2( thisModel.dragRegion.bounds.getClosestPoint( point2D ).x,
+        Util.clamp( point2D.y, thisModel.beaker.getTopY() * 1.3, thisModel.beaker.getTopY() * 2 ) );
+    };
+
 
     //Max amount of water before the beaker overflows
     thisModel.maxWater = thisModel.beaker.getMaxFluidVolume();//Set a max amount of water that the user can add to the system so they can't overflow it
@@ -301,16 +314,7 @@ define( function( require ) {
 //    public final ImmutableRectangle2D dragRegion;
 
 //
-//    //The dragging constraint so that the user cannot drag the shakers outside of the visible region
-//    public final Function1<Point2D, Point2D> dragConstraint = new Function1<Point2D, Point2D>() {
-//        public Point2D apply( Point2D point2D ) {
 //
-//            //Use the visible region for constraining the X-value, and a fraction past the beaker value.
-//            //These values were determined experimentally since we are constraining the center of the shaker (and shakers have different sizes and different angles)
-//            return new Point2D.Double( dragRegion.getClosestPoint( point2D ).getX(),
-//                                       clamp( beaker.getTopY() * 1.3, point2D.getY(), beaker.getTopY() * 2 ) );
-//        }
-//    };
 //
 //    //True if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).  This is used to show/hide the "remove solutes" button
 //    public abstract ObservableProperty<Boolean> getAnySolutes();

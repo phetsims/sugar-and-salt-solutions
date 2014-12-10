@@ -12,6 +12,16 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
   var BeakerDimension = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/BeakerDimension' );
+  var SoluteModel = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/SoluteModel' );
+  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var MacroSalt = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSalt' );
+  var MacroSugar = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSugar' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
+
+  //constants
+  //Saturation points for salt and sugar assume 25 degrees C
+  var saltSaturationPoint = 6.14 * 1000;//6.14 moles per liter, converted to SI
+  var sugarSaturationPoint = 5.85 * 1000;//5.85 moles per liter, converted to SI
 
   /**
    * @param {number} aspectRatio
@@ -19,7 +29,8 @@ define( function( require ) {
    */
   function MacroModel( aspectRatio ) {
 
-    SugarAndSaltSolutionModel.call( this,
+    var thisModel = this;
+    SugarAndSaltSolutionModel.call( thisModel,
       aspectRatio, //Use the same aspect ratio as the view to minimize insets with blank regions
       30, //frames per second
       new BeakerDimension( 0.2 ),
@@ -30,9 +41,27 @@ define( function( require ) {
       0.026349206349206344,
       1//In macro model scales are already tuned so no additional scaling is needed
     );
+
+    //Sugar and its listeners
+    this.sugarList = new ObservableArray();//The sugar crystals that haven't been dissolved
+
+    //Salt and its listeners
+    this.saltList = new ObservableArray();//The salt crystals that haven't been dissolved
+
+
+    //Model moles, concentration, amount dissolved, amount precipitated, etc. for salt and sugar
+    //The chemistry team informed me that there is 0.2157/1000 meters cubed per mole of solid sugar
+    thisModel.salt = new SoluteModel( thisModel.waterVolume, saltSaturationPoint, SugarAndSaltConstants.VOLUME_PER_SOLID_MOLE_SALT,
+      MacroSalt.molarMass );
+    thisModel.sugar = new SoluteModel( thisModel.waterVolume, sugarSaturationPoint, 0.2157 / 1000.0, MacroSugar.molarMass );
   }
 
   return inherit( SugarAndSaltSolutionModel, MacroModel, {
+
+    //Adds the specified salt crystal to the model
+    addMacroSalt: function( salt ) {
+      this.saltList.add( salt );
+    }
 
   } );
 } );
@@ -70,17 +99,7 @@ define( function( require ) {
 //    //Model for the conductivity tester which is in the macro tab but not other tabs
 //    public final ConductivityTester conductivityTester;
 //
-//    //Sugar and its listeners
-//    public final ArrayList<MacroSugar> sugarList = new ArrayList<MacroSugar>();//The sugar crystals that haven't been dissolved
-//    public final Notifier<MacroSugar> sugarAdded = new Notifier<MacroSugar>();//Listeners for when sugar crystals are added
-//
-//    //Salt and its listeners
-//    public final ArrayList<MacroSalt> saltList = new ArrayList<MacroSalt>();//The salt crystals that haven't been dissolved
-//    public final Notifier<MacroSalt> saltAdded = new Notifier<MacroSalt>();//Listeners for when salt crystals are added
-//
-//    //Saturation points for salt and sugar assume 25 degrees C
-//    private static final double saltSaturationPoint = 6.14 * 1000;//6.14 moles per liter, converted to SI
-//    private static final double sugarSaturationPoint = 5.85 * 1000;//5.85 moles per liter, converted to SI
+
 //
 //    //Model moles, concentration, amount dissolved, amount precipitated, etc. for salt and sugar
 //    public final SoluteModel salt;
@@ -205,11 +224,7 @@ define( function( require ) {
 //        sugarAdded.updateListeners( sugar );
 //    }
 //
-//    //Adds the specified salt crystal to the model
-//    public void addMacroSalt( MacroSalt salt ) {
-//        this.saltList.add( salt );
-//        saltAdded.updateListeners( salt );
-//    }
+
 //
 //    //Propagate the sugar and salt crystals, and absorb them if they hit the water
 //    private void updateCrystals( double dt, final ArrayList<? extends MacroCrystal> crystalList ) {

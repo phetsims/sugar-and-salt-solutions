@@ -1,3 +1,83 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Model element for the salt shaker, which includes its position and rotation and adds salt to the model when shaken.
+ * Shaking (by acceleration and deceleration) along the axis produce salt.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Dispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Dispenser' );
+  var SaltShakerNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SaltShakerNode' );
+
+
+  /**
+   * @param {number} x
+   * @param {number} y
+   * @param {Beaker} beaker
+   * @param {Property<Boolean>} moreAllowed
+   * @param {string} name
+   * @param {number} distanceScale
+   * @param {Property<DispenserType>} selectedType
+   * @param {DispenserType} type
+   * @param {*} model
+   * @constructor
+   */
+  function SaltShaker( x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model ) {
+    var thisShaker = this;
+    Dispenser.call( thisShaker, x, y, Math.PI * 3 / 4, beaker, moreAllowed, name, distanceScale, selectedType, type, model );
+
+    //@private Keep track of how much the salt shaker was shaken, if so, then generate salt on the next updateModel() step
+    thisShaker.shakeAmount = 0;
+    //@private Keep track of recorded positions when the shaker is translated so we can compute accelerations, which are
+    //responsible for shaking out the salt
+    this.positions = [];
+
+    moreAllowed.link( function( allowed ) {
+        //If the shaker is emptied, prevent spurious grains from coming out the next time it is refilled by setting
+        // the shake amount to 0.0 and clearing the sampled positions
+        if ( !allowed ) {
+          thisShaker.shakeAmount = 0;
+          thisShaker.positions = [];
+        }
+      }
+    );
+
+  }
+
+  return inherit( Dispenser, SaltShaker, {
+
+    /**
+     * @Override
+     * Create a SaltShakerNode for display and interaction with this model element
+     * @param {ModelViewTransform2} transform
+     * @param {boolean} micro
+     * @param {function} constraint
+     * @returns {Node}
+     */
+    createNode: function( transform, micro, constraint ) {
+      return new SaltShakerNode( transform, this, micro, constraint );
+    },
+    /**
+     * @protected
+     * Adds the salt to the model
+     * @param {SugarAndSaltSolutionModel}model
+     * @param {Vector2} outputPoint
+     * @param {number} volumePerSolidMole
+     * @param {Vector2} crystalVelocity
+     */
+    addSalt: function( model, outputPoint, volumePerSolidMole, crystalVelocity ) {
+      throw new Error( 'addSalt should be implemented in descendant classes of SaltShaker .' );
+    }
+  } );
+
+} );
+
+
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.common.model;
 //
@@ -106,13 +186,9 @@
 //        }
 //    }
 //
-//    //Adds the salt to the model
-//    protected abstract void addSalt( T model, final Vector2D outputPoint, double volumePerSolidMole, final Vector2D crystalVelocity );
 //
-//    //Create a SaltShakerNode for display and interaction with this model element
-//    @Override public PNode createNode( ModelViewTransform transform, boolean micro, Function1<Point2D, Point2D> constraint ) {
-//        return new SaltShakerNode<T>( transform, this, micro, constraint );
-//    }
+//
+
 //
 //    @Override public void reset() {
 //        super.reset();

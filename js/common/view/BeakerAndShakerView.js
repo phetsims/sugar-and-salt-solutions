@@ -71,8 +71,9 @@ define( function( require ) {
       thisView.rootNode, inputFaucetNode ) );
 
     //Add a faucet that drains the beaker; there is no input pipe for this since it attaches directly to the beaker
-    //Move it far enough from the beaker that the slider isn't touching it, but not so far that the flowing water would overlap the reset all button
-    //Also, require the clock to be running for the faucets to be enabled so the user can't try to drain water while the sim is paused (2nd tab only)
+    //Move it far enough from the beaker that the slider isn't touching it, but not so far that the flowing water would
+    //overlap the reset all button.Also, require the clock to be running for the faucets to be enabled so the
+    //user can't try to drain water while the sim is paused (2nd tab only)
     var distanceFromBeaker = 110;
     var drainFaucetNode = new FaucetNodeContainer( maxFlowRate, model.outputFlowRate,
       model.clockRunning.and( model.lowerFaucetCanDrain ), {
@@ -84,21 +85,19 @@ define( function( require ) {
     var beakerBottomRight = model.beaker.getOutputFaucetAttachmentPoint();
     var beakerBottomRightView = modelViewTransform.modelToViewPosition( beakerBottomRight );
 
-    //y-value hand tuned so the bottom of the faucet input pipe lines up with the bottom of the water when at the minimum fluid level
+    //y-value hand tuned so the bottom of the faucet input pipe lines up with the bottom of the water when at the minimum
+    //fluid level
     var distanceFromBeakerBottom = 35;
     drainFaucetNode.x = beakerBottomRightView.x + distanceFromBeaker;
     drainFaucetNode.y = thisView.bounds.maxY - beakerBottomRightView.y - distanceFromBeakerBottom;
-    console.log( beakerBottomRightView.y - thisView.bounds.height * 0.2 );
-
     thisView.addChild( drainFaucetNode );
 
     //Use the view coordinates to set the model coordinates for how particle should flow toward and flow out the drain pipe
     //But make sure the output drain input point is within the fluid so particles can reach it
     var fullShape = model.beaker.getWaterShape( 0, model.beaker.getMaxFluidVolume() );
-    model.setDrainFaucetMetrics( FaucetMetrics.createFaucetMetricsByFaucetNode( modelViewTransform, model, thisView.rootNode, drainFaucetNode )
-        .clampInputWithinFluid( fullShape.bounds.getMaxX() - fullShape.bounds.getWidth() * 0.02 )
+    model.setDrainFaucetMetrics( FaucetMetrics.createFaucetMetricsByFaucetNode( modelViewTransform, model,
+        thisView.rootNode, drainFaucetNode ).clampInputWithinFluid( fullShape.bounds.getMaxX() - fullShape.bounds.getWidth() * 0.02 )
     );
-
 
     //Add a node for children that should be behind the shakers
     thisView.behindShakerNode = new Node();
