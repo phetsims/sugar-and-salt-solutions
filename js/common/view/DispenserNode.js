@@ -39,7 +39,7 @@ define( function( require ) {
 
     //Show the image of the shaker, with the text label on the side of the dispenser
     //@protected
-    thisNode.imageNode = new Node();// The actual Image will be set as a child  by the overriding classes of Dispenser Node
+    thisNode.imageNode = new Node();// The actual Image node will be set as a child by the overriding classes of Dispenser Node
     thisNode.addChild( thisNode.imageNode );
 
     //Show a rectangle at the rotation point of the shaker
@@ -57,17 +57,18 @@ define( function( require ) {
 
     //Text label that shows "Sugar" or "Salt" along the axis of the dispenser.  It is a child of the image node so it
     //will move and rotate with the image node.
+    //The Text Label will be added after the actual Image node which are dynamically set based on moreAllowed property
+    // see SugarDispenserNode / SaltShaker Node
     thisNode.textLabel = new Text( model.name, {
       font: new PhetFont( { size: 30} ),
       fill: 'black',
       rotation: Math.PI / 2
     } );
 
-    thisNode.imageNode.addChild( thisNode.textLabel );
 
     //Update the AffineTransform for the image when the model changes
     Property.multilink( [ model.center, model.angle ], function() {
-      //  thisNode.updateTransform();
+      thisNode.updateTransform();
     } );
 
   }
@@ -80,6 +81,10 @@ define( function( require ) {
       //Clear the transform to start over
       this.imageNode.resetTransform();
 
+      //Update the location of the text label to remain centered in the image since the image could have changed size
+      this.textLabel.x = this.imageNode.bounds.getWidth() / 2 - this.textLabel.bounds.getWidth() / 2;
+      this.textLabel.y = this.imageNode.bounds.getHeight() / 2 - this.textLabel.bounds.getWidth() / 2;
+
       //Find the view coordinates of the rotation point of the model (its center)
       var viewPoint = this.modelViewTransform.modelToViewPosition( this.model.center.get() );
 
@@ -89,9 +94,6 @@ define( function( require ) {
       //Center on the view point
       this.imageNode.setCenter( viewPoint );
 
-      //Update the location of the text label to remain centered in the image since the image could have changed size
-      this.textLabel.x = this.imageNode.bounds.getWidth() / 2 - this.textLabel.bounds.getWidth() / 2;
-      this.textLabel.y = this.imageNode.bounds.getHeight() / 2 - this.textLabel.bounds.getWidth() / 2;
     }
 
   } );

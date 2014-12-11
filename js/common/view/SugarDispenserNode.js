@@ -61,6 +61,7 @@ define( function( require ) {
     Property.multilink( [ model.open, model.moreAllowed ], function() {
       var open = model.open.get();
       var allowed = model.moreAllowed.get();
+
       thisNode.imageNode.removeAllChildren();
       thisNode.imageNode.addChild( micro ? ( open ? openMicro : closedMicro )
           : ( open && allowed ? openFull :
@@ -68,6 +69,7 @@ define( function( require ) {
               !open && allowed ? closedFull :
               closedEmpty )
       );
+      thisNode.imageNode.addChild( thisNode.textLabel );
     } );
     //Have to update the transform once after the image size changes (since it goes from null to non-null) in
     // the auto-callback above

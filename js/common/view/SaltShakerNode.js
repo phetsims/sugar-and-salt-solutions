@@ -51,6 +51,7 @@ define( function( require ) {
     model.moreAllowed.link( function( moreAllowed ) {
         thisNode.imageNode.removeAllChildren();
         thisNode.imageNode.addChild( moreAllowed ? fullImage : emptyImage );
+        thisNode.imageNode.addChild( thisNode.textLabel );
       }
     );
 
