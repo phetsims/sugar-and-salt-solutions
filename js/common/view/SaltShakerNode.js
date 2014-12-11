@@ -35,11 +35,11 @@ define( function( require ) {
     //Create images to use in each scenario
     var fullImage = new Image( micro ? SALT_MICRO : SALT_FULL );
     //multiScaleToHeight
-    fullImage.scale( 200 / fullImage.getImageHeight() );
+    fullImage.setScaleMagnitude( 180 / fullImage.getImageHeight() );
 
     var emptyImage = new Image( micro ? SALT_MICRO : SALT_EMPTY );
     //multiScaleToHeight
-    emptyImage.scale( 200 / emptyImage.getImageHeight() );
+    emptyImage.setScaleMagnitude( 180 / emptyImage.getImageHeight() );
 
     //Hide the sugar dispenser if it is not enabled (selected by the user)
     model.enabled.link( function( enabled ) {
@@ -49,7 +49,8 @@ define( function( require ) {
 
     //Switch between the empty and full images based on whether the user is allowed to add more salt
     model.moreAllowed.link( function( moreAllowed ) {
-        thisNode.imageNode.setImage( moreAllowed ? fullImage.getImage() : emptyImage.getImage() );
+        thisNode.imageNode.removeAllChildren();
+        thisNode.imageNode.addChild( moreAllowed ? fullImage : emptyImage );
       }
     );
 

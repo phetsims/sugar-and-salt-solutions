@@ -14,7 +14,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Property = require( 'AXON/Property' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Shape = require( 'KITE/Shape' );
@@ -40,7 +39,7 @@ define( function( require ) {
 
     //Show the image of the shaker, with the text label on the side of the dispenser
     //@protected
-    thisNode.imageNode = new Image();
+    thisNode.imageNode = new Node();// The actual Image will be set as a child  by the overriding classes of Dispenser Node
     thisNode.addChild( thisNode.imageNode );
 
     //Show a rectangle at the rotation point of the shaker
@@ -68,7 +67,7 @@ define( function( require ) {
 
     //Update the AffineTransform for the image when the model changes
     Property.multilink( [ model.center, model.angle ], function() {
-      thisNode.updateTransform();
+      //  thisNode.updateTransform();
     } );
 
   }

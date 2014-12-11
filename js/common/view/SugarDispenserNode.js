@@ -32,12 +32,12 @@ define( function( require ) {
   var closedMicro = new Image( SUGAR_MICRO_CLOSED );
 
   //static initialization
-   openFull.scale( 250 / openFull.getImageHeight() );
-   closedFull.scale( 250 / closedFull.getImageHeight() );
-   openEmpty.scale( 250 / openEmpty.getImageHeight() );
-   closedEmpty.scale( 250 / closedEmpty.getImageHeight() );
-   openMicro.scale( 250 / openMicro.getImageHeight() );
-   closedMicro.scale( 250 / closedMicro.getImageHeight() ); 
+  openFull.scale( 250 / openFull.getImageHeight() );
+  closedFull.scale( 250 / closedFull.getImageHeight() );
+  openEmpty.scale( 250 / openEmpty.getImageHeight() );
+  closedEmpty.scale( 250 / closedEmpty.getImageHeight() );
+  openMicro.scale( 250 / openMicro.getImageHeight() );
+  closedMicro.scale( 250 / closedMicro.getImageHeight() );
 
   /**
    * @param modelViewTransform
@@ -61,11 +61,12 @@ define( function( require ) {
     Property.multilink( [ model.open, model.moreAllowed ], function() {
       var open = model.open.get();
       var allowed = model.moreAllowed.get();
-      thisNode.imageNode.setImage( micro ? ( open ? openMicro.getImage() : closedMicro.getImage() )
-          : ( open && allowed ? openFull.getImage() :
-              open && !allowed ? openEmpty.getImage() :
-              !open && allowed ? closedFull.getImage() :
-              closedEmpty.getImage() )
+      thisNode.imageNode.removeAllChildren();
+      thisNode.imageNode.addChild( micro ? ( open ? openMicro : closedMicro )
+          : ( open && allowed ? openFull :
+              open && !allowed ? openEmpty :
+              !open && allowed ? closedFull :
+              closedEmpty )
       );
     } );
     //Have to update the transform once after the image size changes (since it goes from null to non-null) in
