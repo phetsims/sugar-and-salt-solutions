@@ -11,7 +11,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
 
 
@@ -28,7 +28,7 @@ define( function( require ) {
     thisSoluteModel.gramsPerMole = gramsPerMole;
 
     //Salt moles and concentration
-    thisSoluteModel.moles = new Property( 0.0 ); //The amount of the solute in moles
+    thisSoluteModel.moles = new NumberProperty( 0.0 ); //The amount of the solute in moles
 
     //The amount of moles necessary to fully saturate the solution, past this,
     //the solute will start to precipitate.

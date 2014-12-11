@@ -1,3 +1,68 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Model element for the sugar dispenser, which includes its position and rotation.  Sugar is emitted from the
+ * sugar dispenser only while the user is rotating it, and while it is at a good angle (quadrant III).
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Dispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Dispenser' );
+  var SugarDispenserNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SugarDispenserNode' );
+  var Property = require( 'AXON/Property' );
+
+  /**
+   * @param {number} x
+   * @param {number} y
+   * @param {Beaker} beaker
+   * @param {Property<Boolean>} moreAllowed
+   * @param {string} sugarDispenserName
+   * @param {number} distanceScale
+   * @param {Property<DispenserType>} selectedType
+   * @param {DispenserType} type
+   * @param {*} model
+   * @constructor
+   */
+  function SugarDispenser( x, y, beaker, moreAllowed, sugarDispenserName, distanceScale, selectedType, type, model ) {
+    var thisShaker = this;
+    Dispenser.call( thisShaker, x, y, Math.PI * 3 / 4, beaker, moreAllowed, sugarDispenserName, distanceScale, selectedType, type, model );
+    thisShaker.model = model;
+
+    //True if the flap on the top of the dispenser is open and sugar can flow out
+    thisShaker.open = new Property( false );
+  }
+
+  return inherit( Dispenser, SugarDispenser, {
+
+    /**
+     * @Override
+     * Create the sugar dispenser node which the user can use to add sugar to the model
+     * @param {ModelViewTransform2} transform
+     * @param {boolean} micro
+     * @param {function} constraint
+     * @returns {Node}
+     */
+    createNode: function( transform, micro, constraint ) {
+      return new SugarDispenserNode( transform, this, micro, constraint );
+    },
+
+    /**
+     * @abstract
+     * @override
+     * @param {Vector2} position
+     */
+    addSugarToModel: function( position ) {
+      throw new Error( 'addSugarToModel should be implemented in descendant classes of SugarDispenser .' );
+    }
+  } );
+
+} );
+
+
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.common.model;
 //
@@ -110,12 +175,8 @@
 //        }
 //    }
 //
-//    protected abstract void addSugarToModel( final Vector2D position );
-//
-//    //Create the sugar dispenser node which the user can use to add sugar to the model
-//    @Override public PNode createNode( ModelViewTransform transform, boolean micro, Function1<Point2D, Point2D> constraint ) {
-//        return new SugarDispenserNode<T>( transform, this, micro, constraint );
-//    }
+
+
 //
 //    @Override public void reset() {
 //        super.reset();

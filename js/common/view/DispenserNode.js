@@ -58,13 +58,13 @@ define( function( require ) {
 
     //Text label that shows "Sugar" or "Salt" along the axis of the dispenser.  It is a child of the image node so it
     //will move and rotate with the image node.
-    var textLabel = new Text( model.name, {
+    thisNode.textLabel = new Text( model.name, {
       font: new PhetFont( { size: 30} ),
       fill: 'black',
       rotation: Math.PI / 2
     } );
 
-    thisNode.imageNode.addChild( textLabel );
+    thisNode.imageNode.addChild( thisNode.textLabel );
 
     //Update the AffineTransform for the image when the model changes
     Property.multilink( [ model.center, model.angle ], function() {
@@ -73,7 +73,7 @@ define( function( require ) {
 
   }
 
-  return inherit( DispenserNode, Node, {
+  return inherit( Node, DispenserNode, {
 
     //@protected
     updateTransform: function() {

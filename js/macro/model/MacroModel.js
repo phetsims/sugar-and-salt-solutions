@@ -12,11 +12,20 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
   var BeakerDimension = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/BeakerDimension' );
+  var AirborneCrystalMoles = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AirborneCrystalMoles' );
   var SoluteModel = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/SoluteModel' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var DispenserType = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/DispenserType' );
   var MacroSalt = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSalt' );
   var MacroSugar = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSugar' );
+  var MacroSaltShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSaltShaker' );
+  var MacroSugarDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSugarDispenser' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var ObservableArray = require( 'AXON/ObservableArray' );
+
+  // strings
+  var saltString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/salt' );
+  var sugarString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sugar' );
 
   //constants
   //Saturation points for salt and sugar assume 25 degrees C
@@ -43,10 +52,10 @@ define( function( require ) {
     );
 
     //Sugar and its listeners
-    this.sugarList = new ObservableArray();//The sugar crystals that haven't been dissolved
+    thisModel.sugarList = new ObservableArray();//The sugar crystals that haven't been dissolved
 
     //Salt and its listeners
-    this.saltList = new ObservableArray();//The salt crystals that haven't been dissolved
+    thisModel.saltList = new ObservableArray();//The salt crystals that haven't been dissolved
 
 
     //Model moles, concentration, amount dissolved, amount precipitated, etc. for salt and sugar
@@ -54,6 +63,52 @@ define( function( require ) {
     thisModel.salt = new SoluteModel( thisModel.waterVolume, saltSaturationPoint, SugarAndSaltConstants.VOLUME_PER_SOLID_MOLE_SALT,
       MacroSalt.molarMass );
     thisModel.sugar = new SoluteModel( thisModel.waterVolume, sugarSaturationPoint, 0.2157 / 1000.0, MacroSugar.molarMass );
+
+    //Flag to indicate if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).
+    //This is used to show/hide the "remove solutes" button
+    //Determine if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).
+    thisModel.anySolutes = thisModel.salt.moles.greaterThanNumber( 0 ).or( thisModel.sugar.moles.greaterThanNumber( 0 ) );
+
+    //Total volume of the water plus any solid precipitate submerged under the water (and hence pushing it up)
+    thisModel.solidVolume = new DerivedProperty( [thisModel.salt.solidVolume, thisModel.sugar.solidVolume], function() {
+      return thisModel.salt.solidVolume.get() + thisModel.sugar.solidVolume.get();
+    } );
+
+    //The concentration in the liquid in moles / m^3
+    //Determine the concentration of dissolved solutes
+    //When we were accounting for volume effects of dissolved solutes, the concentrations had to be defined here instead of
+    //in SoluteModel because they depend on the total volume of the solution (which in turn depends on the amount of solute
+    //dissolved in the solvent).
+    thisModel.saltConcentration = new DerivedProperty( [thisModel.salt.molesDissolved, thisModel.solution.volume], function() {
+      return thisModel.salt.molesDissolved.get() / thisModel.solution.volume.get();
+    } );
+    thisModel.sugarConcentration = new DerivedProperty( [thisModel.sugar.molesDissolved, thisModel.solution.volume], function() {
+      return thisModel.sugar.molesDissolved.get() / thisModel.solution.volume.get();
+    } );
+
+    //Amounts of sugar and salt in crystal form falling from the dispenser
+    //Keep track of how many moles of crystal are in the air, since we need to prevent user from adding more than
+    //10 moles to the system
+    //This shuts off salt/sugar when there is salt/sugar in the air that could get added to the solution
+    thisModel.airborneSaltGrams = new AirborneCrystalMoles( thisModel.saltList ).times( thisModel.salt.gramsPerMole );
+    thisModel.airborneSugarGrams = new AirborneCrystalMoles( thisModel.sugarList ).times( thisModel.sugar.gramsPerMole );
+
+    //Properties to indicate if the user is allowed to add more of the solute.  If not allowed the dispenser is shown as empty.
+    thisModel.moreSaltAllowed = new DerivedProperty( [thisModel.salt.grams, thisModel.airborneSaltGrams], function() {
+      return (thisModel.salt.grams.get() + thisModel.airborneSaltGrams.get()) < 100;
+    } );
+
+    thisModel.moreSugarAllowed = new DerivedProperty( [thisModel.sugar.grams, thisModel.airborneSugarGrams], function() {
+      return (thisModel.sugar.grams.get() + thisModel.airborneSugarGrams.get()) < 100;
+    } );
+
+    //Add models for the various dispensers: sugar, salt, etc.
+    thisModel.dispensers.push( new MacroSaltShaker( thisModel.beaker.getCenterX(), thisModel.beaker.getTopY() + thisModel.beaker.getHeight() * 0.5,
+      thisModel.beaker, thisModel.moreSaltAllowed, saltString, thisModel.distanceScale, thisModel.dispenserType, DispenserType.SALT, this ) );
+
+    thisModel.dispensers.push( new MacroSugarDispenser( thisModel.beaker.getCenterX(), thisModel.beaker.getTopY() + thisModel.beaker.getHeight() * 0.5,
+      thisModel.beaker, thisModel.moreSugarAllowed, sugarString, thisModel.distanceScale, thisModel.dispenserType, DispenserType.SUGAR, this ) );
+
   }
 
   return inherit( SugarAndSaltSolutionModel, MacroModel, {

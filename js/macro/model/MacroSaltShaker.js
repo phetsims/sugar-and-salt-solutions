@@ -12,10 +12,21 @@ define( function( require ) {
   var SaltShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SaltShaker' );
   var MacroSalt = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSalt' );
 
-  function MacroSaltShaker() {
-
+  /**
+   * @param {number} x
+   * @param {number} y
+   * @param {Beaker} beaker
+   * @param {Property<Boolean>} moreAllowed
+   * @param {string} name
+   * @param {number} distanceScale
+   * @param {Property<DispenserType>} selectedType
+   * @param {DispenserType} type
+   * @param {*} model
+   * @constructor
+   */
+  function MacroSaltShaker( x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model ) {
+    SaltShaker.call( this, x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model );
   }
-
 
   return inherit( SaltShaker, MacroSaltShaker, {
 
@@ -41,25 +52,4 @@ define( function( require ) {
 
 } );
 
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.macro.model;
-//
-//import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;
-//import edu.colorado.phet.common.phetcommon.model.property.ObservableProperty;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Beaker;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.DispenserType;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SaltShaker;
-//
-///**
-// * @author Sam Reid
-// */
-//public class MacroSaltShaker extends SaltShaker<MacroModel> {
-//    public MacroSaltShaker( double x, double y, Beaker beaker, ObservableProperty<Boolean> moreAllowed, String name, double distanceScale, ObservableProperty<DispenserType> selectedType, DispenserType type, MacroModel model ) {
-//        super( x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model );
-//    }
-//
-//    @Override protected void addSalt( MacroModel model, Vector2D outputPoint, double volumePerSolidMole, final Vector2D crystalVelocity ) {
-//
-//
-//    }
-//}
+

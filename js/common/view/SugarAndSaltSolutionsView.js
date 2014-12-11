@@ -3,7 +3,6 @@
 /**
  * Base canvas class used by all tabs in the sim.
  *
- *
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Sharfudeen Ashraf (For Ghent University)
  */

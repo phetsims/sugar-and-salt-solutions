@@ -1,3 +1,83 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * Sugar dispenser which can be rotated to pour out an endless supply of sugar.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var DispenserNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/DispenserNode' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var Property = require( 'AXON/Property' );
+
+  //images
+  var SUGAR_OPEN = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_open.png' );
+  var SUGAR_CLOSED = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_closed.png' );
+  var SUGAR_EMPTY_OPEN = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_empty_open.png' );
+  var SUGAR_EMPTY_CLOSED = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_empty_closed.png' );
+  var SUGAR_MICRO_OPEN = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_empty_open.png' );
+  var SUGAR_MICRO_CLOSED = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_empty_closed.png' );
+
+  //constants
+  var openFull = new Image( SUGAR_OPEN );
+  var closedFull = new Image( SUGAR_CLOSED );
+  var openEmpty = new Image( SUGAR_EMPTY_OPEN );
+  var closedEmpty = new Image( SUGAR_EMPTY_CLOSED );
+  var openMicro = new Image( SUGAR_MICRO_OPEN );
+  var closedMicro = new Image( SUGAR_MICRO_CLOSED );
+
+  //static initialization
+  openFull.scale( 250 / openFull.getImageHeight() );
+  closedFull.scale( 250 / closedFull.getImageHeight() );
+  openEmpty.scale( 250 / openEmpty.getImageHeight() );
+  closedEmpty.scale( 250 / closedEmpty.getImageHeight() );
+  openMicro.scale( 250 / openMicro.getImageHeight() );
+  closedMicro.scale( 250 / closedMicro.getImageHeight() );
+
+  /**
+   * @param modelViewTransform
+   * @param {SugarDispenser} model
+   * @param {boolean} micro //This flag indicates whether it is the micro or macro tab since different images are used
+   * depending on the tab
+   * @param dragConstraint
+   * @constructor
+   */
+  function SugarDispenserNode( modelViewTransform, model, micro, dragConstraint ) {
+    var thisNode = this;
+    DispenserNode.call( thisNode, modelViewTransform, model, dragConstraint );
+
+    // Hide the sugar dispenser if it is not enabled (selected by the user)
+    model.enabled.link( function( enabled ) {
+      thisNode.visible = enabled;
+    } );
+
+    //Choose the image based on the angle.  If it is tipped sideways the opening should flip open.
+    //Also update the image when the the dispenser opens/closes and empties/fills.
+    Property.multilink( [ model.open, model.moreAllowed ], function() {
+      debugger;
+      var open = model.open.get();
+      var allowed = model.moreAllowed.get();
+      thisNode.imageNode.setImage( micro ? ( open ? openMicro.getImage() : closedMicro.getImage() )
+          : ( open && allowed ? openFull.getImage() :
+              open && !allowed ? openEmpty.getImage() :
+              !open && allowed ? closedFull.getImage() :
+              closedEmpty.getImage() )
+      );
+    } );
+    //Have to update the transform once after the image size changes (since it goes from null to non-null) in
+    // the auto-callback above
+    DispenserNode.prototype.updateTransform.call( this );
+
+  }
+
+  return inherit( DispenserNode, SugarDispenserNode );
+} );
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.common.view;
 //

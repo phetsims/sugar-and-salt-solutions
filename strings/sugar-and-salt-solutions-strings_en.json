@@ -1,3 +1,7 @@
 {
-  "sugar-and-salt-solutions.name": "Sugar And Salt Solutions"
+  "sugar-and-salt-solutions.name": "Sugar And Salt Solutions",
+  "solute": "Solute",
+  "salt": "Salt",
+  "sugar": "Sugar",
+  "concentration": "Concentration"
 }

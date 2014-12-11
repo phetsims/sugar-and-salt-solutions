@@ -12,16 +12,17 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var DispenserNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/DispenserNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var Image = require( 'SCENERY/nodes/Image' );
+
 
   // images
-  var saltMicroImage = require( 'image!SUGAR_AND_SALT_SOLUTIONS/salt_micro.png' );
-  var saltEmptyImage = require( 'image!SUGAR_AND_SALT_SOLUTIONS/salt_empty.png' );
-  var saltFullImage = require( 'image!SUGAR_AND_SALT_SOLUTIONS/salt_full.png' );
+  var SALT_MICRO = require( 'image!SUGAR_AND_SALT_SOLUTIONS/salt_micro.png' );
+  var SALT_EMPTY = require( 'image!SUGAR_AND_SALT_SOLUTIONS/salt_empty.png' );
+  var SALT_FULL = require( 'image!SUGAR_AND_SALT_SOLUTIONS/salt_full.png' );
 
   /**
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {SugarAndSaltSolutionsModel} model
+   * @param {SaltShaker} model
    * @param {boolean} micro //This flag indicates whether it is the micro or macro tab since different images are used
    * depending on the tab
    * @param {function} constraint
@@ -29,17 +30,16 @@ define( function( require ) {
    */
   function SaltShakerNode( modelViewTransform, model, micro, constraint ) {
     var thisNode = this;
-    Node.call( thisNode );
     DispenserNode.call( thisNode, modelViewTransform, model, constraint );
 
     //Create images to use in each scenario
-    var fullImage = micro ? saltMicroImage : saltFullImage;
+    var fullImage = new Image( micro ? SALT_MICRO : SALT_FULL );
     //multiScaleToHeight
-    fullImage = fullImage.scale( 200 / saltMicroImage.getImageHeight() );
+    fullImage.scale( 200 / fullImage.getImageHeight() );
 
-    var emptyImage = micro ? saltMicroImage : saltEmptyImage;
+    var emptyImage = new Image( micro ? SALT_MICRO : SALT_EMPTY );
     //multiScaleToHeight
-    emptyImage = emptyImage.scale( 200 / emptyImage.getImageHeight() );
+    emptyImage.scale( 200 / emptyImage.getImageHeight() );
 
     //Hide the sugar dispenser if it is not enabled (selected by the user)
     model.enabled.link( function( enabled ) {
@@ -49,7 +49,7 @@ define( function( require ) {
 
     //Switch between the empty and full images based on whether the user is allowed to add more salt
     model.moreAllowed.link( function( moreAllowed ) {
-        thisNode.imageNode.setImage( moreAllowed ? fullImage : emptyImage );
+        thisNode.imageNode.setImage( moreAllowed ? fullImage.getImage() : emptyImage.getImage() );
       }
     );
 

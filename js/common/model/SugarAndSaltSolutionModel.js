@@ -20,6 +20,7 @@ define( function( require ) {
   var FaucetMetrics = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetMetrics' );
   var VerticalRangeContains = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/VerticalRangeContains' );
   var Beaker = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Beaker' );
+  var DispenserType = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/DispenserType' );
   var Solution = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Solution' );
   var Util = require( 'DOT/Util' );
 
@@ -47,6 +48,9 @@ define( function( require ) {
     //The amount to scale model translations so that micro tab emits solute at the appropriate time.  Without
     //this factor, the tiny (1E-9 meters) drag motion in the Micro tab wouldn't be enough to emit solute
     thisModel.distanceScale = distanceScale;
+
+    //Which dispenser the user has selected
+    thisModel.dispenserType = new Property( DispenserType.SALT );
 
     //Model for input and output flows
     thisModel.inputFlowRate = new Property( 0.0 );//rate that water flows into the beaker, between 0 and 1
@@ -81,18 +85,6 @@ define( function( require ) {
     thisModel.dragRegion = Shape.rectangle( thisModel.visibleRegion.x + insetForDragRegion, thisModel.visibleRegion.y,
         thisModel.visibleRegion.width - insetForDragRegion, thisModel.visibleRegion.height ).bounds;
 
-
-    //The dragging constraint so that the user cannot drag the shakers outside of the visible region
-    thisModel.dragConstraint = function( point2D ) {
-
-      //Use the visible region for constraining the X-value, and a fraction past the beaker value.
-      //These values were determined experimentally since we are constraining the center of the shaker
-      //(and shakers have different sizes and different angles)
-      return new Vector2( thisModel.dragRegion.bounds.getClosestPoint( point2D ).x,
-        Util.clamp( point2D.y, thisModel.beaker.getTopY() * 1.3, thisModel.beaker.getTopY() * 2 ) );
-    };
-
-
     //Max amount of water before the beaker overflows
     thisModel.maxWater = thisModel.beaker.getMaxFluidVolume();//Set a max amount of water that the user can add to the system so they can't overflow it
 
@@ -125,7 +117,7 @@ define( function( require ) {
     } );
 
     //Sets the shape of the water flowing out of the beaker, changing the shape updates the brightness of
-    // the conductivity tester in the macro tab
+    //the conductivity tester in the macro tab
     thisModel.outputFlowRate.link( function( rate ) {
       var width = rate * thisModel.drainFaucetMetrics.faucetWidth;
       var height = beakerDimension.height * 2;
@@ -222,6 +214,19 @@ define( function( require ) {
     },
 
     /**
+     * The dragging constraint so that the user cannot drag the shakers outside of the visible region
+     * @param {Vector2} point2D
+     * @returns {Vector2}
+     */
+    dragConstraint: function( point2D ) {
+      //Use the visible region for constraining the X-value, and a fraction past the beaker value.
+      //These values were determined experimentally since we are constraining the center of the shaker
+      //(and shakers have different sizes and different angles)
+      return new Vector2( this.dragRegion.bounds.getClosestPoint( point2D ).x,
+        Util.clamp( point2D.y, this.beaker.getTopY() * 1.3, this.beaker.getTopY() * 2 ) );
+    },
+
+    /**
      * Callback when water has evaporated from the solution
      * @param {number} evaporatedWater
      */
@@ -297,8 +302,7 @@ define( function( require ) {
 //    //The amount to scale model translations so that micro tab emits solute at the appropriate time.  Without this factor, the tiny (1E-9 meters) drag motion in the Micro tab wouldn't be enough to emit solute
 //    public final double distanceScale;
 //
-//    //Which dispenser the user has selected
-//    public final Property<DispenserType> dispenserType = new Property<DispenserType>( SALT );
+
 //
 //    //True if the values should be shown in the user interface
 //    public final Property<Boolean> showConcentrationValues = new Property<Boolean>( false );
