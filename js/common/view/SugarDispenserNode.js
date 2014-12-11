@@ -32,12 +32,12 @@ define( function( require ) {
   var closedMicro = new Image( SUGAR_MICRO_CLOSED );
 
   //static initialization
-  openFull.scale( 250 / openFull.getImageHeight() );
-  closedFull.scale( 250 / closedFull.getImageHeight() );
-  openEmpty.scale( 250 / openEmpty.getImageHeight() );
-  closedEmpty.scale( 250 / closedEmpty.getImageHeight() );
-  openMicro.scale( 250 / openMicro.getImageHeight() );
-  closedMicro.scale( 250 / closedMicro.getImageHeight() );
+   openFull.scale( 250 / openFull.getImageHeight() );
+   closedFull.scale( 250 / closedFull.getImageHeight() );
+   openEmpty.scale( 250 / openEmpty.getImageHeight() );
+   closedEmpty.scale( 250 / closedEmpty.getImageHeight() );
+   openMicro.scale( 250 / openMicro.getImageHeight() );
+   closedMicro.scale( 250 / closedMicro.getImageHeight() ); 
 
   /**
    * @param modelViewTransform
@@ -59,7 +59,6 @@ define( function( require ) {
     //Choose the image based on the angle.  If it is tipped sideways the opening should flip open.
     //Also update the image when the the dispenser opens/closes and empties/fills.
     Property.multilink( [ model.open, model.moreAllowed ], function() {
-      debugger;
       var open = model.open.get();
       var allowed = model.moreAllowed.get();
       thisNode.imageNode.setImage( micro ? ( open ? openMicro.getImage() : closedMicro.getImage() )
