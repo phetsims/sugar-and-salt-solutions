@@ -222,7 +222,7 @@ define( function( require ) {
       //Use the visible region for constraining the X-value, and a fraction past the beaker value.
       //These values were determined experimentally since we are constraining the center of the shaker
       //(and shakers have different sizes and different angles)
-      return new Vector2( this.dragRegion.bounds.getClosestPoint( point2D ).x,
+      return new Vector2( this.dragRegion.getClosestPoint( point2D ).x,
         Util.clamp( point2D.y, this.beaker.getTopY() * 1.3, this.beaker.getTopY() * 2 ) );
     },
 

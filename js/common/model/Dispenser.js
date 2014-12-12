@@ -11,11 +11,9 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Util = require( 'DOT/Util' );
-
+  
 
   /**
    * @param {number} x
@@ -27,7 +25,7 @@ define( function( require ) {
    * @param {number} distanceScale
    * @param {Property<DispenserType>} selectedType
    * @param {DispenserType} type
-   * @param {*} model
+   * @param {SugarAndSaltSolutionModel} model
    * @constructor
    */
   function Dispenser( x, y, angle, beaker, moreAllowed, name, distanceScale, selectedType, type, model ) {
@@ -72,17 +70,8 @@ define( function( require ) {
 
   }
 
-  return inherit( SugarAndSaltSolutionModel, Dispenser, {
-    /**
-     * Translate the dispenser by the specified delta in model coordinates
-     * @param {Dimension2} delta
-     */
-    translate: function( delta ) {
-      //Translate the center, but make sure it doesn't go out of bounds
-      var proposedPoint = this.center.get().plus( delta );
-      var y = Util.clamp( proposedPoint.y, this.beaker.getTopY(), Number.POSITIVE_INFINITY );
-      this.center.set( new Vector2( proposedPoint.x, y ) );
-    },
+  return inherit( Object, Dispenser, {
+
     /**
      * @protected Give the crystal an appropriate velocity when it comes out so it arcs.  This method is used by
      * subclasses when creating crystals
@@ -99,7 +88,7 @@ define( function( require ) {
      * After time has passed, update the model by adding any crystals that should be emitted
      */
     updateModel: function() {
- //     throw new Error( 'updateModel should be implemented in descendant classes of Dispenser' );
+      //     throw new Error( 'updateModel should be implemented in descendant classes of Dispenser' );
     },
     /**
      * Method for creating a PNode such as a SugarDispenserNode or SaltShakerNode to display this Dispenser and allow

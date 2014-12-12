@@ -44,7 +44,7 @@ define( function( require ) {
    * @param {SugarDispenser} model
    * @param {boolean} micro //This flag indicates whether it is the micro or macro tab since different images are used
    * depending on the tab
-   * @param dragConstraint
+   * @param {Bounds2} dragConstraint
    * @constructor
    */
   function SugarDispenserNode( modelViewTransform, model, micro, dragConstraint ) {

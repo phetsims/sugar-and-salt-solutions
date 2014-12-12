@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var BeakerNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/BeakerNode' );
   var WaterNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/WaterNode' );
   var SolutionNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SolutionNode' );
@@ -106,9 +107,13 @@ define( function( require ) {
     //For nodes that should look like they go into the water, such as the conductivity tester probes
     var submergedInWaterNode = new Node();
 
+    //make sure the shaker doesn't go out of bounds
+    var shakerConstraintRegion = new Bounds2( model.dragRegion.minX, model.beaker.getTopY() * 1.3,
+      model.dragRegion.maxX, model.beaker.getTopY() * 2 );
+
     //add the salt and sugar dispenser nodes, which should always be in front of everything
     _.each( model.dispensers, function( dispenser ) {
-      submergedInWaterNode.addChild( dispenser.createNode( modelViewTransform, thisView.micro, model.dragConstraint ) );
+      submergedInWaterNode.addChild( dispenser.createNode( modelViewTransform, thisView.micro, shakerConstraintRegion ) );
     } );
 
     thisView.addChild( new BeakerNode( model.beaker, modelViewTransform ) );

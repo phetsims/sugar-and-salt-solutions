@@ -25,7 +25,7 @@ define( function( require ) {
    * @param {SaltShaker} model
    * @param {boolean} micro //This flag indicates whether it is the micro or macro tab since different images are used
    * depending on the tab
-   * @param {function} constraint
+   * @param {Bounds2} constraint
    * @constructor
    */
   function SaltShakerNode( modelViewTransform, model, micro, constraint ) {

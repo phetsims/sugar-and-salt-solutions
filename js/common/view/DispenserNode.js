@@ -16,6 +16,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var Shape = require( 'KITE/Shape' );
   var Color = require( 'SCENERY/util/Color' );
 
@@ -24,8 +25,8 @@ define( function( require ) {
 
   /**
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {SugarAndSaltSolutionsModel} model
-   * @param {function} constraint
+   * @param {Dispenser} model
+   * @param {Bounds2} constraint
    * @constructor
    */
   function DispenserNode( modelViewTransform, model, constraint ) {
@@ -65,11 +66,26 @@ define( function( require ) {
       rotation: Math.PI / 2
     } );
 
-
     //Update the AffineTransform for the image when the model changes
     Property.multilink( [ model.center, model.angle ], function() {
       thisNode.updateTransform();
     } );
+
+    //The MovableDragHandler expects object with 2 properties namely locationProperty and dragBounds
+    var movable = {
+      locationProperty: thisNode.model.center, // The property that gets updated by the MouseDragHandler when User drags the node
+      dragBounds: constraint // The bounds region within which the user is allowed to move the node
+    };
+
+    thisNode.addInputListener( new MovableDragHandler( movable, thisNode.modelViewTransform ) );
+
+    thisNode.model.center.link( function() {
+      //Set the model height of the dispenser so the model will be able to emit
+      //crystals in the right location (at the output part of the image)
+      thisNode.model.setDispenserHeight( thisNode.modelViewTransform.viewToModelDeltaY( thisNode.imageNode.bounds.getHeight() ) );
+
+    } );
+
 
   }
 
