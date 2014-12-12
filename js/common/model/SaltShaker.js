@@ -11,7 +11,9 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
   var Dispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Dispenser' );
+  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var SaltShakerNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SaltShakerNode' );
 
 
@@ -50,7 +52,64 @@ define( function( require ) {
   }
 
   return inherit( Dispenser, SaltShaker, {
+    //Called when the model steps in time, and adds any salt crystals to the sim if the dispenser is pouring
+    updateModel: function() {
+      //Check to see if we should be emitting salt crystals-- if the shaker was shaken enough
+      if ( this.enabled.get() && this.shakeAmount > 0 && this.moreAllowed.get() ) {
+        var numCrystals = ( Math.floor( Math.random() * 2 ) + Math.min( this.shakeAmount * 4000, 4 ) );
+        for ( var i = 0; i < numCrystals; i++ ) {
 
+          //Determine where the salt should come out
+          //Hand tuned to match up with the image, will need to be re-tuned if the image changes
+          var randUniform = ( Math.random() - 0.5 ) * 2;
+          var outputPoint = this.center.get().plus( Vector2.createPolar( this.dispenserHeight / 2 * 0.8, this.angle.get() - Math.PI / 2 + randUniform * Math.PI / 32 * 1.2 ) );
+
+          //Add the salt to the model
+          this.addSalt( this.model, outputPoint, SugarAndSaltConstants.VOLUME_PER_SOLID_MOLE_SALT, this.getCrystalVelocity( outputPoint ) );
+          this.shakeAmount = 0.0;
+          //don't clear the position array here since the user may still be shaking the shaker
+        }
+      }
+    },
+    /**
+     * called when Dispenser is dragged
+     */
+    translate: function() {
+      //Only increment the shake amount if the shaker is non-empty, otherwise when it refills it might
+      //automatically emit salt even though the user isn't controlling it
+      if ( this.moreAllowed.get() ) {
+        //Add the new position to the list, but keep the list short so there is no memory leak
+        this.positions.push( this.center.get() );
+        while ( this.positions.length > 50 ) {
+          this.positions.shift();
+        }
+
+        //Make sure we have enough data, then compute accelerations of the shaker in the direction of its axis
+        //to determine how much to shake out
+        if ( this.positions.length >= 20 ) {
+
+          //Average the second derivatives
+          var sum = new Vector2();
+          var numIterations = 10;
+          for ( var i = 0; i < numIterations; i++ ) {
+            sum = sum.plus( this.getSecondDerivative( i ) );
+          }
+          sum = sum.times( 1.0 / numIterations );
+
+          //But only take the component along the axis
+          //Have to rotate by 90 degrees since for positions 0 degrees is to the right, but for the shaker 0 degrees is up
+          var dist = Math.abs( sum.dot( Vector2.createPolar( 1, this.angle.get() + Math.PI / 2 ) ) );
+
+          //Account for the distance scale so we produce the same amount for micro translations as for macro translations
+          dist = dist * this.distanceScale;
+
+          //only add to the shake amount if it was vigorous enough
+          if ( dist > 1E-4 ) {
+            this.shakeAmount += dist;
+          }
+        }
+      }
+    },
     /**
      * @Override
      * Create a SaltShakerNode for display and interaction with this model element
@@ -72,9 +131,19 @@ define( function( require ) {
      */
     addSalt: function( model, outputPoint, volumePerSolidMole, crystalVelocity ) {
       throw new Error( 'addSalt should be implemented in descendant classes of SaltShaker .' );
+    },
+    /**
+     * Estimate the acceleration at the specified point in the time series using centered difference approximation
+     * @param {number} i
+     * @returns {Vector2}
+     */
+    getSecondDerivative: function( i ) {
+      var x0 = this.positions[this.positions.length - 1 - i ];
+      var x1 = this.positions[this.positions.length - 2 - i ];
+      var x2 = this.positions[this.positions.length - 3 - i ];
+      return x0.minus( x1.times( 2 ) ).plus( x2 );
     }
   } );
-
 } );
 
 
@@ -126,65 +195,9 @@ define( function( require ) {
 //            }
 //        } );
 //    }
+
 //
-//    //Translate the dispenser by the specified delta in model coordinates
-//    public void translate( Dimension2D delta ) {
-//        super.translate( delta );
-//
-//        //Only increment the shake amount if the shaker is non-empty, otherwise when it refills it might automatically emit salt even though the user isn't controlling it
-//        if ( moreAllowed.get() ) {
-//            //Add the new position to the list, but keep the list short so there is no memory leak
-//            positions.add( center.get() );
-//            while ( positions.size() > 50 ) {
-//                positions.remove( 0 );
-//            }
-//
-//            //Make sure we have enough data, then compute accelerations of the shaker in the direction of its axis
-//            //to determine how much to shake out
-//            if ( positions.size() >= 20 ) {
-//
-//                //Average the second derivatives
-//                Vector2D sum = new Vector2D();
-//                int numIterations = 10;
-//                for ( int i = 0; i < numIterations; i++ ) {
-//                    sum = sum.plus( getSecondDerivative( i ) );
-//                }
-//                sum = sum.times( 1.0 / numIterations );
-//
-//                //But only take the component along the axis
-//                //Have to rotate by 90 degrees since for positions 0 degrees is to the right, but for the shaker 0 degrees is up
-//                double dist = Math.abs( sum.dot( createPolar( 1, angle.get() + Math.PI / 2 ) ) );
-//
-//                //Account for the distance scale so we produce the same amount for micro translations as for macro translations
-//                dist = dist * distanceScale;
-//
-//                //only add to the shake amount if it was vigorous enough
-//                if ( dist > 1E-4 ) {
-//                    shakeAmount += dist;
-//                }
-//            }
-//        }
-//    }
-//
-//    //Called when the model steps in time, and adds any salt crystals to the sim if the dispenser is pouring
-//    public void updateModel() {
-//        //Check to see if we should be emitting salt crystals-- if the shaker was shaken enough
-//        if ( enabled.get() && shakeAmount > 0 && moreAllowed.get() ) {
-//            int numCrystals = (int) ( random.nextInt( 2 ) + Math.min( shakeAmount * 4000, 4 ) );
-//            for ( int i = 0; i < numCrystals; i++ ) {
-//
-//                //Determine where the salt should come out
-//                //Hand tuned to match up with the image, will need to be re-tuned if the image changes
-//                double randUniform = ( random.nextDouble() - 0.5 ) * 2;
-//                final Vector2D outputPoint = center.get().plus( createPolar( dispenserHeight / 2 * 0.8, angle.get() - Math.PI / 2 + randUniform * Math.PI / 32 * 1.2 ) );
-//
-//                //Add the salt to the model
-//                addSalt( model, outputPoint, VOLUME_PER_SOLID_MOLE_SALT, getCrystalVelocity( outputPoint ) );
-//                shakeAmount = 0.0;
-//                //don't clear the position array here since the user may still be shaking the shaker
-//            }
-//        }
-//    }
+
 //
 //
 //
@@ -197,12 +210,5 @@ define( function( require ) {
 //        positions.clear();
 //    }
 //
-//    //Estimate the acceleration at the specified point in the time series using centered difference approximation
-//    private Vector2D getSecondDerivative( int i ) {
-//        Vector2D x0 = positions.get( positions.size() - 1 - i );
-//        Vector2D x1 = positions.get( positions.size() - 2 - i );
-//        Vector2D x2 = positions.get( positions.size() - 3 - i );
-//
-//        return x0.minus( x1.times( 2 ) ).plus( x2 );
-//    }
+
 //}

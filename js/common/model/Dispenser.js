@@ -13,7 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
-  
+
 
   /**
    * @param {number} x
@@ -71,7 +71,12 @@ define( function( require ) {
   }
 
   return inherit( Object, Dispenser, {
-
+    /**
+     * @abstract
+     */
+    translate: function() {
+      throw new Error( 'translate should be implemented in descendant classes of Dispenser' );
+    },
     /**
      * @protected Give the crystal an appropriate velocity when it comes out so it arcs.  This method is used by
      * subclasses when creating crystals
@@ -88,7 +93,7 @@ define( function( require ) {
      * After time has passed, update the model by adding any crystals that should be emitted
      */
     updateModel: function() {
-      //     throw new Error( 'updateModel should be implemented in descendant classes of Dispenser' );
+  //    throw new Error( 'updateModel should be implemented in descendant classes of Dispenser' );
     },
     /**
      * Method for creating a PNode such as a SugarDispenserNode or SaltShakerNode to display this Dispenser and allow

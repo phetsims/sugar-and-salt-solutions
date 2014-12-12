@@ -57,6 +57,12 @@ define( function( require ) {
      */
     addSugarToModel: function( position ) {
       throw new Error( 'addSugarToModel should be implemented in descendant classes of SugarDispenser .' );
+    },
+    /**
+     * @override
+     */
+    translate: function() {
+
     }
   } );
 

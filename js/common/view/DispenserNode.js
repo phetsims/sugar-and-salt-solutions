@@ -31,7 +31,7 @@ define( function( require ) {
    */
   function DispenserNode( modelViewTransform, model, constraint ) {
     var thisNode = this;
-    Node.call( thisNode, { cursor: 'hand'} );
+    Node.call( thisNode, { cursor: 'pointer'} );
 
     //@private
     thisNode.modelViewTransform = modelViewTransform;
@@ -83,6 +83,7 @@ define( function( require ) {
       //Set the model height of the dispenser so the model will be able to emit
       //crystals in the right location (at the output part of the image)
       thisNode.model.setDispenserHeight( thisNode.modelViewTransform.viewToModelDeltaY( thisNode.imageNode.bounds.getHeight() ) );
+      thisNode.model.translate();
 
     } );
 
