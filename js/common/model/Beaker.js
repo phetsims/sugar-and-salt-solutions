@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Line = require( 'KITE/segments/Line' );
 
 
   /**
@@ -48,6 +49,12 @@ define( function( require ) {
     // solutes take up nonzero volume in the future, this could be increased to something like 0.003
     this.topExtension = 0.0;
 
+    this.leftWall = new Line( new Vector2( this.x, this.y ), new Vector2( this.x, this.y + this.height ) );
+    this.rightWall = new Line( new Vector2( this.getMaxX() ), this.y, new Vector2( this.getMaxX(), this.y + this.height ) );
+    this.floor = new Line( new Vector2( this.x, this.y ), new Vector2( this.x + this.width, this.y ) );
+    this.topOfSolid = new Line( new Vector2( this.getFloor().start.x, 0 ), new Vector2( this.getFloor().end.x, 0 ) );
+    this.beakerRect = Shape.rectangle( this.x, this.y, this.width, this.height + this.topExtension );
+
   }
 
   return inherit( Object, Beaker, {
@@ -59,7 +66,6 @@ define( function( require ) {
 
     /**
      * Determines the model shape of the walls of the beaker that can be used to render it in the view
-     *
      * Gets the path that represents the walls of the beaker, with the delta indicating the x and y dimensions of the
      * beaker opening at the top.It is a parameter since we need to extend it for subtracting out the middle in getWallShape,
      * so the water doesn't overlap the edges.Without this, the top part of the beaker (its opening)
@@ -101,7 +107,7 @@ define( function( require ) {
      * @return Shape
      */
     toRectangle: function() {
-      return Shape.rectangle( this.x, this.y, this.width, this.height + this.topExtension );
+      return this.beakerRect;
     },
 
     /**
@@ -171,18 +177,19 @@ define( function( require ) {
       return this.x + this.width;
     },
     getLeftWall: function() {
-      return Shape.lineSegment( this.x, this.y, this.x, this.y + this.height );
+      return this.leftWall;
     },
     getRightWall: function() {
-      return Shape.lineSegment( this.getMaxX(), this.y, this.getMaxX(), this.y + this.height );
+      return this.rightWall;
     },
-
+    getTopOfSolid: function() {
+      return this.topOfSolid;
+    },
     getWidth: function() {
       return this.width;
     },
-
     getFloor: function() {
-      return Shape.lineSegment( this.x, this.y, this.x + this.width, this.y );
+      return this.floor;
     },
 
     /**

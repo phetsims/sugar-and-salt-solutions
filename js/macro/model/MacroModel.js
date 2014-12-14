@@ -10,6 +10,8 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var Util = require( 'DOT/Util' );
   var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
   var BeakerDimension = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/BeakerDimension' );
   var AirborneCrystalMoles = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AirborneCrystalMoles' );
@@ -31,6 +33,25 @@ define( function( require ) {
   //Saturation points for salt and sugar assume 25 degrees C
   var saltSaturationPoint = 6.14 * 1000;//6.14 moles per liter, converted to SI
   var sugarSaturationPoint = 5.85 * 1000;//5.85 moles per liter, converted to SI
+  //Force due to gravity near the surface of the earth in m/s^2
+  var gravity = new Vector2( 0, -9.8 );
+
+  /**
+   *
+   * @param {number} x1
+   * @param {number} y1
+   * @param {number} x2
+   * @param {number} y2
+   * @param {bounds2} r
+   * @returns {*}
+   */
+  function lineIntersectsBounds( x1, y1, x2, y2, r ) {
+    return Util.lineSegmentIntersection( x1, y1, x2, y2, r.minX, r.minY, r.maxX, r.minY ) ||
+           Util.lineSegmentIntersection( x1, y1, x2, y2, r.maxX, r.minY, r.maxX, r.maxY ) ||
+           Util.lineSegmentIntersection( x1, y1, x2, y2, r.maxX, r.maxY, r.minX, r.maxY ) ||
+           Util.lineSegmentIntersection( x1, y1, x2, y2, r.minX, r.maxY, r.minX, r.minY ) ||
+           (r.containsCoordinates( x1, y1 ) && r.containsCoordinates( x2, y2 ));
+  }
 
   /**
    * @param {number} aspectRatio
@@ -50,6 +71,7 @@ define( function( require ) {
       0.026349206349206344,
       1//In macro model scales are already tuned so no additional scaling is needed
     );
+
 
     //Sugar and its listeners
     thisModel.sugarList = new ObservableArray();//The sugar crystals that haven't been dissolved
@@ -109,13 +131,178 @@ define( function( require ) {
     thisModel.dispensers.push( new MacroSugarDispenser( thisModel.beaker.getCenterX(), thisModel.beaker.getTopY() + thisModel.beaker.getHeight() * 0.5,
       thisModel.beaker, thisModel.moreSugarAllowed, sugarString, thisModel.distanceScale, thisModel.dispenserType, DispenserType.SUGAR, this ) );
 
+    thisModel.crystalsListChangedCallbacks = []; // function()
   }
 
   return inherit( SugarAndSaltSolutionModel, MacroModel, {
+    /**
+     * @protected
+     * Update the model when the clock ticks
+     * @param {number} dt
+     * @return {number}
+     */
+    updateModel: function( dt ) {
 
-    //Adds the specified salt crystal to the model
+      //Have to record the concentrations before the model updates since the concentrations change if water is added or removed.
+      var initialSaltConcentration = this.saltConcentration.get();
+      var initialSugarConcentration = this.sugarConcentration.get();
+
+      var drainedWater = SugarAndSaltSolutionModel.prototype.updateModel.call( this, dt );
+
+      //Notify listeners that some water (with solutes) exited the system, so they can decrease the amounts
+      //of solute (moles, not molarity) in the system
+      //Only call when draining, would have the wrong behavior for evaporation
+      if ( drainedWater > 0 ) {
+        this.waterDrained( drainedWater, initialSaltConcentration, initialSugarConcentration );
+      }
+
+      //Move about the sugar and salt crystals, and maybe absorb them
+      this.updateCrystals( dt, this.saltList );
+      this.updateCrystals( dt, this.sugarList );
+
+      if ( this.saltList.length > 0 || this.sugarList.length > 0 ) {
+        this.fireCrystalListChanged();
+      }
+
+      return drainedWater;
+    },
+    /**
+     * Registers a callback that will be notified when crystals are added to the model
+     * @param {function} callback
+     */
+    registerListChangedCallback: function( callback ) {
+      this.crystalsListChangedCallbacks.push( callback );
+    },
+    // @private Notify if Crystals Item List got changed
+    fireCrystalListChanged: function() {
+      var changedCallbacks = this.crystalsListChangedCallbacks.slice( 0 );
+      for ( var i = 0; i < changedCallbacks.length; i++ ) {
+        changedCallbacks[i]();
+      }
+    },
+    /**
+     *Propagate the sugar and salt crystals, and absorb them if they hit the water
+     * @param {number} dt
+     * @param {ObservableArray<MacroCrystal>} crystalList
+     */
+    updateCrystals: function( dt, crystalList ) {
+      var thisModel = this;
+      var hitTheWater = []; // Array<MacroCrystal>
+
+      crystalList.forEach( function( crystal ) {
+        //Store the initial location so we can use the (final - start) line to check for collision with water, so it can't
+        // jump over the water rectangle
+        var initialLocation = crystal.position.get();
+
+        //slow the motion down a little bit or it moves too fast since the camera is zoomed in so much
+        crystal.stepInTime( gravity.times( crystal.mass ), dt / 10, thisModel.beaker.getLeftWall(), thisModel.beaker.getRightWall(),
+          thisModel.beaker.getFloor(), thisModel.beaker.getTopOfSolid() );
+
+        //If the salt hits the water during any point of its initial -> final trajectory, absorb it.
+        //This is necessary because if the water layer is too thin, the crystal could have jumped over it completely
+        if ( lineIntersectsBounds( initialLocation.x, initialLocation.y, crystal.position.get().x, crystal.position.get().y,
+          thisModel.solution.shape.get().bounds ) ) {
+          hitTheWater.push( crystal );
+        }
+        //Any crystals that landed on the beaker base or on top of precipitate should immediately precipitate into solid
+        //so that they take up the right volume and are consistent with our other representations
+        else if ( crystal.isLanded() ) {
+          hitTheWater.push( crystal );
+        }
+      } );
+      //Remove the salt crystals that hit the water
+      thisModel.removeCrystals( crystalList, hitTheWater );
+
+      //increase concentration in the water for crystals that hit
+      hitTheWater.forEach( function( crystal ) {
+        thisModel.crystalAbsorbed( crystal );
+      } );
+
+      //Update the properties representing how many crystals are in the air, to make sure we stop pouring out crystals
+      // if we have reached the limit.(even if poured out crystals didn't get dissolved yet)
+      thisModel.airborneSaltGrams.notifyObserversStatic(); // Notify if another the underlying item got changed
+      thisModel.airborneSugarGrams.notifyObserversStatic();
+
+    },
+    /**
+     * When a crystal is absorbed by the water, increase the number of moles in solution
+     * @param {MacroCrystal} crystal
+     */
+    crystalAbsorbed: function( crystal ) {
+      if ( crystal instanceof MacroSalt ) {
+        this.salt.moles.set( this.salt.moles.get() + crystal.moles );
+      }
+      else if ( crystal instanceof MacroSugar ) {
+        this.sugar.moles.set( this.sugar.moles.get() + crystal.moles );
+      }
+    },
+    /**
+     * @protected
+     * Called when water (with dissolved solutes) flows out of the beaker, so that subclasses can update
+     * concentrations if necessary.Have some moles of salt and sugar flow out so that the concentration remains unchanged
+     * @param {number} outVolume
+     * @param {number} initialSaltConcentration
+     * @param {number} initialSugarConcentration
+     */
+    waterDrained: function( outVolume, initialSaltConcentration, initialSugarConcentration ) {
+
+      //Make sure to keep the concentration the same when water flowing out.  Use the values recorded before the model stepped to ensure conservation of solute moles
+      this.updateConcentration( outVolume, initialSaltConcentration, this.salt.moles );
+      this.updateConcentration( outVolume, initialSugarConcentration, this.sugar.moles );
+    },
+    /**
+     * @private
+     * Make sure to keep the concentration the same when water flowing out
+     * @param {number} outVolume
+     * @param {number} concentration
+     * @param {Property<number>} moles
+     */
+    updateConcentration: function( outVolume, concentration, moles ) {
+      var molesOfSoluteLeaving = concentration * outVolume;
+      moles.set( moles.get() - molesOfSoluteLeaving );
+    },
+
+    //Called when the user presses a button to clear the solutes, removes all solutes from the sim
+    removeSaltAndSugar: function() {
+      this.removeSalt();
+      this.removeSugar();
+    },
+
+    //Called when the user presses a button to clear the salt, removes all salt (dissolved and crystals) from the sim
+    removeSalt: function() {
+      this.removeCrystals( this.saltList, this.saltList );
+      this.salt.moles.set( 0.0 );
+    },
+    //Called when the user presses a button to clear the sugar, removes all sugar (dissolved and crystals) from the sim
+    removeSugar: function() {
+      this.removeCrystals( this.sugarList, this.sugarList );
+      this.sugar.moles.set( 0.0 );
+    },
+    /**
+     * Adds the specified Sugar crystal to the model
+     * @param {MacroSugar} sugar
+     */
+    addMacroSugar: function( sugar ) {
+      this.sugarList.add( sugar );
+    },
+    /**
+     * Adds the specified salt crystal to the model
+     * @param {MacroSalt} salt
+     */
     addMacroSalt: function( salt ) {
       this.saltList.add( salt );
+    },
+    /**
+     * Remove the specified crystals.
+     * @private
+     * @param {ObservableArray<MacroCrystal>} crystalList
+     * @param {Array<MacroCrystal>} toRemove
+     */
+    removeCrystals: function( crystalList, toRemove ) {
+      toRemove.forEach( function( crystal ) {
+        crystalList.remove( crystal );
+      } );
+
     }
 
   } );
@@ -245,15 +432,7 @@ define( function( require ) {
 //        }.observe( saltConcentration, solution.shape, outputWater );
 //    }
 //
-//    //When a crystal is absorbed by the water, increase the number of moles in solution
-//    protected void crystalAbsorbed( MacroCrystal crystal ) {
-//        if ( crystal instanceof MacroSalt ) {
-//            salt.moles.set( salt.moles.get() + crystal.getMoles() );
-//        }
-//        else if ( crystal instanceof MacroSugar ) {
-//            sugar.moles.set( sugar.moles.get() + crystal.getMoles() );
-//        }
-//    }
+
 //
 //    //Called when the user presses a button to clear the solutes, removes all solutes from the sim
 //    public void removeSaltAndSugar() {

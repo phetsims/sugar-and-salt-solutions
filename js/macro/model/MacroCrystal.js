@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Util = require( 'DOT/Util' );
 
   /**
    * @param {Vector2} position
@@ -43,6 +44,74 @@ define( function( require ) {
   }
 
   return inherit( Object, MacroCrystal, {
+
+    /**
+     * Determine if the crystal landed on the bottom of the beaker or on any precipitate for
+     * purposes of determining whether it should turn into solid
+     * @returns {boolean|*}
+     */
+    isLanded:function() {
+        return this.landed;
+    },
+    /**
+     * propagate the crystal according to the specified applied forces, using euler integration
+     * @param {Vector2} appliedForce
+     * @param {number} dt
+     * @param {Segment.Line} leftBeakerWall
+     * @param {Segment.Line} rightBeakerWall
+     * @param {Segment.Line} beakerFloor
+     * @param {Segment.Line} topOfSolid
+     */
+    stepInTime: function( appliedForce, dt, leftBeakerWall, rightBeakerWall, beakerFloor, topOfSolid ) {
+      if ( !this.landed ) {
+        var originalPosition = this.position.get();
+
+        this.acceleration.set( appliedForce.times( 1.0 / this.mass ) );
+        this.velocity.set( this.velocity.get().plus( this.acceleration.get().times( dt ) ) );
+        this.position.set( this.position.get().plus( this.velocity.get().times( dt ) ) );
+
+
+        // Intersect leftBeakerWall and RightBeakWall with Path, which is a line with originalPosition as start point and
+        // current position as end Point.
+        // Path that the particle took from previous time to current time, for purpose of collision detection with walls
+        //for performance reasons using Util lineSegment instead of creating new Line Shapes
+
+        var leftWallIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.position.get().x, this.position.get().y,
+          leftBeakerWall.start.x, leftBeakerWall.start.y, leftBeakerWall.end.x, leftBeakerWall.end.y );
+
+        var rightWallIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.position.get().x, this.position.get().y,
+          rightBeakerWall.start.x, rightBeakerWall.start.y, rightBeakerWall.end.x, rightBeakerWall.end.y );
+
+        //if the particle bounced off a wall, then reverse its velocity
+        if ( leftWallIntersection || rightWallIntersection ) {
+          this.velocity.set( new Vector2( Math.abs( this.velocity.get().x ), this.velocity.get().y ) );
+
+          //Rollback the previous update, and go the other way
+          this.position.set( originalPosition );
+          this.position.set( this.position.get().plus( this.velocity.get().times( dt ) ) );
+        }
+
+        //Intersect beakerfloor and TopOFSolid with the new Path after accounting for bouncing off walls
+        var beakerFloorIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.position.get().x, this.position.get().y,
+          beakerFloor.start.x, beakerFloor.start.y, beakerFloor.end.x, beakerFloor.end.y );
+
+        var topOfSolidIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.position.get().x, this.position.get().y,
+          topOfSolid.start.x, topOfSolid.start.y, topOfSolid.end.x, topOfSolid.end.y );
+
+        //See if it should land on the floor of the beaker
+        if ( beakerFloorIntersection ) {
+          this.position.set( new Vector2( this.position.get().x, 0 ) );
+          this.landed = true;
+        }
+        //See if it should land on top of any precipitated solid in the beaker
+        else if ( topOfSolidIntersection ) {
+
+          //Move the crystal down a tiny bit so that it will be intercepted by the water on top of the solid precipitate when water is added
+          this.position.set( new Vector2( this.position.get().x, topOfSolid.getY1() - 1E-6 ) );
+          this.landed = true;
+        }
+      }
+    }
 
   } );
 
@@ -84,51 +153,9 @@ define( function( require ) {
 //        length = Math.pow( volume, 1.0 / 3.0 );
 //    }
 //
-//    //propagate the crystal according to the specified applied forces, using euler integration
-//    public void stepInTime( Vector2D appliedForce, double dt, Line2D.Double leftBeakerWall, Line2D.Double rightBeakerWall, Line2D.Double beakerFloor, Line2D.Double topOfSolid ) {
-//        if ( !landed ) {
-//            Vector2D originalPosition = position.get();
+
 //
-//            acceleration.set( appliedForce.times( 1.0 / mass ) );
-//            velocity.set( velocity.get().plus( acceleration.get().times( dt ) ) );
-//            position.set( position.get().plus( velocity.get().times( dt ) ) );
-//
-//            //Path that the particle took from previous time to current time, for purpose of collision detection with walls
-//            Line2D.Double path = new Line2D.Double( originalPosition.toPoint2D(), position.get().toPoint2D() );
-//
-//            //if the particle bounced off a wall, then reverse its velocity
-//            if ( path.intersectsLine( leftBeakerWall ) ||
-//                 path.intersectsLine( rightBeakerWall ) ) {
-//                velocity.set( new Vector2D( Math.abs( velocity.get().getX() ), velocity.get().getY() ) );
-//
-//                //Rollback the previous update, and go the other way
-//                position.set( originalPosition );
-//                position.set( position.get().plus( velocity.get().times( dt ) ) );
-//            }
-//
-//            //Compute the new path after accounting for bouncing off walls
-//            Line2D.Double newPath = new Line2D.Double( originalPosition.toPoint2D(), position.get().toPoint2D() );
-//
-//            //See if it should land on the floor of the beaker
-//            if ( newPath.intersectsLine( beakerFloor ) ) {
-//                position.set( new Vector2D( position.get().getX(), 0 ) );
-//                landed = true;
-//            }
-//
-//            //See if it should land on top of any precipitated solid in the beaker
-//            else if ( newPath.intersectsLine( topOfSolid ) ) {
-//
-//                //Move the crystal down a tiny bit so that it will be intercepted by the water on top of the solid precipitate when water is added
-//                position.set( new Vector2D( position.get().getX(), topOfSolid.getY1() - 1E-6 ) );
-//                landed = true;
-//            }
-//        }
-//    }
-//
-//    //Determine if the crystal landed on the bottom of the beaker or on any precipitate for purposes of determining whether it should turn into solid
-//    public boolean isLanded() {
-//        return landed;
-//    }
+
 //
 //    //Add a listener which will be notified when this crystal is removed from the model
 //    public void addRemovalListener( VoidFunction0 removalListener ) {

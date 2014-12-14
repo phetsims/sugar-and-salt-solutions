@@ -30,14 +30,13 @@ define( function( require ) {
    *
    * @param {SugarAndSaltSolutionsModel} model
    * @param {Bounds2} layoutBounds
-   * @param {GlobalState} globalState
    * @param {ModelViewTransform2} modelViewTransform
    * @param {boolean} micro
    * @param {boolean} showBeakerTickLabels
 
    * @constructor
    */
-  function BeakerAndShakerView( model, layoutBounds, globalState, modelViewTransform, micro, showBeakerTickLabels ) {
+  function BeakerAndShakerView( model, layoutBounds, modelViewTransform, micro, showBeakerTickLabels ) {
     var thisView = this;
     SugarAndSaltSolutionsView.call( thisView, layoutBounds );
 
@@ -105,7 +104,7 @@ define( function( require ) {
     thisView.addChild( thisView.behindShakerNode );
 
     //For nodes that should look like they go into the water, such as the conductivity tester probes
-    var submergedInWaterNode = new Node();
+    thisView.submergedInWaterNode = new Node();
 
     //make sure the shaker doesn't go out of bounds
     var shakerConstraintRegion = new Bounds2( model.dragRegion.minX, model.beaker.getTopY() * 1.3,
@@ -113,7 +112,7 @@ define( function( require ) {
 
     //add the salt and sugar dispenser nodes, which should always be in front of everything
     _.each( model.dispensers, function( dispenser ) {
-      submergedInWaterNode.addChild( dispenser.createNode( modelViewTransform, thisView.micro, shakerConstraintRegion ) );
+      thisView.submergedInWaterNode.addChild( dispenser.createNode( modelViewTransform, thisView.micro, shakerConstraintRegion ) );
     } );
 
     thisView.addChild( new BeakerNode( model.beaker, modelViewTransform ) );
@@ -124,7 +123,7 @@ define( function( require ) {
 
 
     //Node that shows things that get submerged such as the conductivity tester
-    thisView.addChild( submergedInWaterNode );
+    thisView.addChild( thisView.submergedInWaterNode );
 
     //Overlay node that renders as partially transparent in front of submerged objects, such as the conductivity tester.
     //When changing the transparency here make sure it looks good for precipitate as well as submerged probes
