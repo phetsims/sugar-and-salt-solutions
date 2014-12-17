@@ -1,3 +1,35 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * Base class for controls that allow the user to select from different solutes.
+ * This general part of the code provides layout and a title, and relies on constructor parameter for the tab-specific control
+ *
+ * @author John Blanco
+ * @author Sam Reid
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var VBox = require( 'SUN/VBox' );
+
+
+  /**
+   *
+   * @param {Node} soluteSelector
+   * @constructor
+   */
+  function SoluteControlPanelNode( soluteSelector ) {
+
+  }
+
+  return inherit( VBox, SoluteControlPanelNode );
+
+
+} );
+
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.common.view;
 //
@@ -10,13 +42,7 @@
 //import edu.umd.cs.piccolo.PNode;
 //import edu.umd.cs.piccolo.nodes.PText;
 //
-///**
-// * Base class for controls that allow the user to select from different solutes.
-// * This general part of the code provides layout and a title, and relies on constructor parameter for the tab-specific control
-// *
-// * @author John Blanco
-// * @author Sam Reid
-// */
+
 //public class SoluteControlPanelNode extends WhiteControlPanelNode {
 //    public SoluteControlPanelNode( PNode soluteSelector ) {
 //        super( new VBox(

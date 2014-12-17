@@ -1,3 +1,54 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Conductivity tester that can be dipped in the water to light a light bulb.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
+ // var Dimension2 = require( 'DOT/Dimension2' );
+
+
+  //constants
+  //Size of each probe in meters, corresponds to the side of the red or black object in model
+  //coordinates (meters), might need to be changed if we want to make the conductivity tester probes bigger or smaller
+ //  var PROBE_SIZE = new Dimension2( 0.0125, 0.025 );
+
+  /**
+   *
+   * @param {number} beakerWidth
+   * @param {number} beakerHeight
+   * @constructor
+   */
+  function ConductivityTester( beakerWidth, beakerHeight ) {
+
+    //Locations are in model coordinates (meters).
+    //Note that in the typical usage scenario (dragged out of a toolbox), these values are overriden with
+    //other values in SugarAndSaltSolutionsConductivityTesterNode
+    this.defaultProbeY = beakerHeight;
+    this.negativeProbeX = -beakerWidth / 3;
+    this.positiveProbeX = +beakerWidth / 3;
+
+    //Position of the probes, in model coordinates
+    this.negativeProbeLocation = new Vector2( this.negativeProbeX, this.defaultProbeY );
+    this.positiveProbeLocation = new Vector2( this.positiveProbeX, this.defaultProbeY );
+
+    //Set the initial position
+    this.location = new Vector2( 0, this.defaultProbeY );
+  }
+
+  return inherit( Object, ConductivityTester, {
+
+  } );
+
+} );
+
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.common.model;
 //
@@ -12,7 +63,7 @@
 //import edu.umd.cs.piccolo.util.PDimension;
 //
 ///**
-// * Conductivity tester that can be dipped in the water to light a light bulb.
+// *
 // *
 // * @author Sam Reid
 // */
@@ -25,22 +76,10 @@
 //    private final double positiveProbeX;
 //    final double defaultProbeY;
 //
-//    //Size of each probe in meters, corresponds to the side of the red or black object in model coordinates (meters), might need to be changed if we want to make the conductivity tester probes bigger or smaller
-//    private PDimension PROBE_SIZE = new PDimension( 0.0125, 0.025 );
+
 //
 //    public ConductivityTester( double beakerWidth, double beakerHeight ) {
-//        //Locations are in model coordinates (meters).
-//        //Note that in the typical usage scenario (dragged out of a toolbox), these values are overriden with other values in SugarAndSaltSolutionsConductivityTesterNode
-//        defaultProbeY = beakerHeight;
-//        negativeProbeX = -beakerWidth / 3;
-//        positiveProbeX = +beakerWidth / 3;
-//
-//        //Position of the probes, in model coordinates
-//        negativeProbeLocation = new Point2D.Double( negativeProbeX, defaultProbeY );
-//        positiveProbeLocation = new Point2D.Double( positiveProbeX, defaultProbeY );
-//
-//        //Set the initial position
-//        location = new Point2D.Double( 0, defaultProbeY );
+
 //    }
 //
 //    //Listeners

@@ -18,7 +18,7 @@ define( function( require ) {
    * @constructor
    */
   function DispenserRadioButtonSet() {
-    Panel.call( this, new Text( 'hello!' ), {} )
+    Panel.call( this, new Text( 'hello!' ), {} );
   }
 
   return inherit( Panel, DispenserRadioButtonSet );

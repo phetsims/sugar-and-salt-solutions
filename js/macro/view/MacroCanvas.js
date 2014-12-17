@@ -88,14 +88,14 @@
 //        }};
 //        behindShakerNode.addChild( concentrationBarChart );
 //
-//        //Create the control panel for choosing sugar vs salt, use a radio-button-based selector for solutes.
-//        soluteControlPanelNode = new SoluteControlPanelNode( new DispenserRadioButtonSet( model.dispenserType, new SelectableSoluteItem( Strings.SALT, SALT ), new SelectableSoluteItem( Strings.SUGAR, SUGAR ) ) );
-//        soluteControlPanelNode.setOffset( stageSize.getWidth() - soluteControlPanelNode.getFullBounds().getWidth() - INSET, 150 );
-//
-//        //Show the solute control panel node behind the shaker node so the conductivity tester will also go in front
-//        behindShakerNode.addChild( soluteControlPanelNode );
-//
-//        soluteControlPanelNode.setOffset( concentrationBarChart.getFullBounds().getX() - soluteControlPanelNode.getFullBounds().getWidth() - INSET, concentrationBarChart.getFullBounds().getY() );
+///        //Create the control panel for choosing sugar vs salt, use a radio-button-based selector for solutes.
+///        soluteControlPanelNode = new SoluteControlPanelNode( new DispenserRadioButtonSet( model.dispenserType, new SelectableSoluteItem( Strings.SALT, SALT ), new SelectableSoluteItem( Strings.SUGAR, SUGAR ) ) );
+///       soluteControlPanelNode.setOffset( stageSize.getWidth() - soluteControlPanelNode.getFullBounds().getWidth() - INSET, 150 );
+///
+///        //Show the solute control panel node behind the shaker node so the conductivity tester will also go in front
+///        behindShakerNode.addChild( soluteControlPanelNode );
+///
+///       soluteControlPanelNode.setOffset( concentrationBarChart.getFullBounds().getX() - soluteControlPanelNode.getFullBounds().getWidth() - INSET, concentrationBarChart.getFullBounds().getY() );
 //
 //        //Toolbox from which the conductivity tester can be dragged
 //        conductivityToolboxLayer.addChild( new ConductivityTesterToolboxNode( model, this, globalState.colorScheme.whiteBackground ) {{

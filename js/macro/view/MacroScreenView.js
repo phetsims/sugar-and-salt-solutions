@@ -61,9 +61,9 @@ define( function( require ) {
     // into the water instead of in front of it.
     thisView.submergedInWaterNode.addChild( crystalLayer );
 
-    var crystalBounds = new Bounds2(30,0,800,500);
-    var crystalMakerCanvasNode = new CrystalMakerCanvasNode(macroModel,modelViewTransform,crystalBounds);
-    crystalLayer.addChild(crystalMakerCanvasNode);
+    var crystalBounds = new Bounds2( 30, 0, 800, 500 );
+    var crystalMakerCanvasNode = new CrystalMakerCanvasNode( macroModel, modelViewTransform, crystalBounds );
+    crystalLayer.addChild( crystalMakerCanvasNode );
 
 
     // Create and add the Reset All Button in the bottom right, which resets the model
