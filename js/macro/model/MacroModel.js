@@ -33,6 +33,7 @@ define( function( require ) {
   //Saturation points for salt and sugar assume 25 degrees C
   var saltSaturationPoint = 6.14 * 1000;//6.14 moles per liter, converted to SI
   var sugarSaturationPoint = 5.85 * 1000;//5.85 moles per liter, converted to SI
+
   //Force due to gravity near the surface of the earth in m/s^2
   var gravity = new Vector2( 0, -9.8 );
 
@@ -42,7 +43,7 @@ define( function( require ) {
    * @param {number} y1
    * @param {number} x2
    * @param {number} y2
-   * @param {bounds2} r
+   * @param {Bounds2} r
    * @returns {*}
    */
   function lineIntersectsBounds( x1, y1, x2, y2, r ) {
@@ -139,7 +140,7 @@ define( function( require ) {
      * @protected
      * Update the model when the clock ticks
      * @param {number} dt
-     * @return {number}
+     * @return {number} how much water was drained out
      */
     updateModel: function( dt ) {
 
