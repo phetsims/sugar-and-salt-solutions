@@ -1,3 +1,29 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ *
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Panel = require( 'SUN/Panel' );
+  var Text = require( 'SCENERY/nodes/Text' );
+
+  /**
+   *
+   * @constructor
+   */
+  function DispenserRadioButtonSet() {
+    Panel.call( this, new Text( 'hello!' ), {} )
+  }
+
+  return inherit( Panel, DispenserRadioButtonSet );
+} );
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.common.view;
 //
