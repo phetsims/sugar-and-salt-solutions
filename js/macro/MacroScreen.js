@@ -30,7 +30,7 @@ define( function( require ) {
     // Same color as geometric optics background
     var backgroundColor = new Color( 0, 51, 153 );
     var icon = null;
-    var layoutBounds = ScreenView.UPDATED_LAYOUT_BOUNDS.copy();
+    var layoutBounds = ScreenView.DEFAULT_LAYOUT_BOUNDS.copy();
     var aspectRatio = layoutBounds.width / layoutBounds.height;
     Screen.call( this, sugarAndSaltSolutionsSimString, icon,
       function() { return new MacroModel(aspectRatio); },

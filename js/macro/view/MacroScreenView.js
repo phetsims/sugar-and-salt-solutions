@@ -30,7 +30,7 @@ define( function( require ) {
    */
   function MacroScreenView( macroModel ) {
 
-    var layoutBounds = ScreenView.UPDATED_LAYOUT_BOUNDS.copy();
+    var layoutBounds = ScreenView.DEFAULT_LAYOUT_BOUNDS.copy();
     var modelScale = 0.70;
     var modelBounds = macroModel.visibleRegion;
     var viewMinX = 15;
