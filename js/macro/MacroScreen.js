@@ -23,7 +23,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function SugarAndSaltSolutionsScreen() {
+  function MacroScreen() {
 
     //If this is a single-screen sim, then no icon is necessary.
     //If there are multiple screens, then the icon must be provided here.
@@ -41,5 +41,5 @@ define( function( require ) {
     );
   }
 
-  return inherit( Screen, SugarAndSaltSolutionsScreen );
+  return inherit( Screen, MacroScreen );
 } );
