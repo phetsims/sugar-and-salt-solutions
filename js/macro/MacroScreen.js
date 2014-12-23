@@ -8,8 +8,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var MacroModel = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroModel' );
   var MacroScreenView = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/MacroScreenView' );
+  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
@@ -30,7 +32,7 @@ define( function( require ) {
     // Same color as geometric optics background
     var backgroundColor = new Color( 0, 51, 153 );
     var icon = null;
-    var layoutBounds = ScreenView.DEFAULT_LAYOUT_BOUNDS.copy();
+    var layoutBounds = SugarAndSaltConstants.LAYOUT_BOUNDS;
     var aspectRatio = layoutBounds.width / layoutBounds.height;
     Screen.call( this, sugarAndSaltSolutionsSimString, icon,
       function() { return new MacroModel(aspectRatio); },

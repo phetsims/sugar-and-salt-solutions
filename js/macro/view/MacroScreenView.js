@@ -20,6 +20,7 @@ define( function( require ) {
   var BeakerAndShakerView = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/BeakerAndShakerView' );
   var CrystalMakerCanvasNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/CrystalMakerCanvasNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
 
   // images
   var mockupImage = require( 'image!SUGAR_AND_SALT_SOLUTIONS/mockup-macro.png' );
@@ -30,7 +31,7 @@ define( function( require ) {
    */
   function MacroScreenView( macroModel ) {
 
-    var layoutBounds = ScreenView.DEFAULT_LAYOUT_BOUNDS.copy();
+    var layoutBounds = SugarAndSaltConstants.LAYOUT_BOUNDS;
     var modelScale = 0.70;
     var modelBounds = macroModel.visibleRegion;
     var viewMinX = 15;
