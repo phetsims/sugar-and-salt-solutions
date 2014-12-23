@@ -8,11 +8,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
   var MacroModel = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroModel' );
   var MacroScreenView = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/MacroScreenView' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
-  var ScreenView = require( 'JOIST/ScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
   var Color = require( 'SCENERY/util/Color' );
@@ -35,7 +33,7 @@ define( function( require ) {
     var layoutBounds = SugarAndSaltConstants.LAYOUT_BOUNDS;
     var aspectRatio = layoutBounds.width / layoutBounds.height;
     Screen.call( this, sugarAndSaltSolutionsSimString, icon,
-      function() { return new MacroModel(aspectRatio); },
+      function() { return new MacroModel( aspectRatio ); },
       function( model ) { return new MacroScreenView( model ); },
       { backgroundColor: backgroundColor }
     );
