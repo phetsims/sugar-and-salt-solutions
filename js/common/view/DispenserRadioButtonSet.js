@@ -1,9 +1,9 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
- *
- *
+ * Radio buttons to choose between dispensers and hence solutes
  * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
  */
 define( function( require ) {
   'use strict';
