@@ -12,16 +12,68 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
    *
+   * @param {Property<DispenserType>} dispenserType
+   * @param {Array<SelectableSoluteItem>}items
    * @constructor
    */
-  function DispenserRadioButtonSet() {
-    Panel.call( this, new Text( 'hello!' ), {} );
+  function DispenserRadioButtonSet( dispenserType, items ) {
+
+    //@private
+    this.dispenserType = dispenserType;
+    //@private
+    this.items = items;
+
+    var radioButtonFont = new PhetFont( { size: 12, weight: 'bold' } );
+    var dispensersRadioItems = [];
+    _.each( items, function( item ) {
+      dispensersRadioItems.push( { node: new Text( item.name, {font: radioButtonFont} ),
+        property: dispenserType,
+        value: item.dispenserType } );
+    } );
+
+    Panel.call( this, new VerticalAquaRadioButtonGroup( dispensersRadioItems ),{
+      // panel options
+      fill: 'rgb(238,238,238)',
+      xMargin: 2,
+      yMargin: 2,
+      lineWidth: 0
+    } );
   }
 
-  return inherit( Panel, DispenserRadioButtonSet );
+  return inherit( Panel, DispenserRadioButtonSet, {
+    /**
+     * When switching to a new kit, switch to a dispenser that is in the set if not already selecting it).
+     * If switching from a set that contains NaCl to a new set that also contains NaCl,then keep the selection
+     */
+    setSelected: function() {
+      if ( !this.containsDispenser() ) {
+        this.dispenserType.set( this.items[0].dispenserType );
+      }
+    },
+
+    /**
+     * @private
+     * Determine whether the currently selected dispenser is one of the choices in this kit
+     * @returns {boolean}
+     */
+    containsDispenser: function() {
+      var isDispenserAvailable = false;
+      var thisSet = this;
+      _.each( this.items, function( item ) {
+        if ( item.dispenserType === thisSet.dispenserType.get() ) {
+          isDispenserAvailable = true;
+        }
+      } );
+
+      return isDispenserAvailable;
+    }
+
+  } );
 } );
 
 //// Copyright 2002-2011, University of Colorado
