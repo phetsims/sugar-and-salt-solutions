@@ -1,5 +1,4 @@
 //  Copyright 2002-2014, University of Colorado Boulder
-
 /**
  * Base class for controls that allow the user to select from different solutes.
  * This general part of the code provides layout and a title, and relies on constructor parameter for the tab-specific control
@@ -13,49 +12,36 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var VBox = require( 'SUN/VBox' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Color = require( 'SCENERY/util/Color' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
+  // strings
+  var SOLUTE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/solute' );
 
   /**
-   *
    * @param {Node} soluteSelector
    * @constructor
    */
   function SoluteControlPanelNode( soluteSelector ) {
 
+    var options = {
+      spacing: 5, //Use a smaller spacing so that the content doesn't get too far away from the title in the Micro tab
+      align: 'left'
+    };
+
+    var title = new Text( SOLUTE, { font: new PhetFont( 18 ) } );
+    var spacer = new Path( new Rectangle( 0, 0, 0, 0 ), {
+      fill: new Color( 0, 0, 0, 0 )
+    } );
+
+    options.children = [title, spacer, soluteSelector ];
+    VBox.call( this, options );
   }
 
   return inherit( VBox, SoluteControlPanelNode );
 
-
 } );
 
-
-//// Copyright 2002-2011, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.common.view;
-//
-//import java.awt.Color;
-//import java.awt.Rectangle;
-//
-//import edu.colorado.phet.common.piccolophet.nodes.PhetPPath;
-//import edu.colorado.phet.common.piccolophet.nodes.layout.VBox;
-//import edu.colorado.phet.sugarandsaltsolutions.SugarAndSaltSolutionsResources;
-//import edu.umd.cs.piccolo.PNode;
-//import edu.umd.cs.piccolo.nodes.PText;
-//
-
-//public class SoluteControlPanelNode extends WhiteControlPanelNode {
-//    public SoluteControlPanelNode( PNode soluteSelector ) {
-//        super( new VBox(
-//
-//                //Use a smaller spacing so that the content doesn't get too far away from the title in the Micro tab
-//                5,
-//                createTitle(),
-//                new PhetPPath( new Rectangle( 0, 0, 0, 0 ), new Color( 0, 0, 0, 0 ) ),//spacer
-//                soluteSelector
-//        ) );
-//    }
-//
-//    public static PText createTitle() {
-//        return new PText( SugarAndSaltSolutionsResources.Strings.SOLUTE ) {{setFont( BeakerAndShakerCanvas.TITLE_FONT );}};
-//    }
-//}
