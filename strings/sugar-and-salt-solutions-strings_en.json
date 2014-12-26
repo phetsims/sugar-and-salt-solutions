@@ -3,5 +3,8 @@
   "solute": "Solute",
   "salt": "Salt",
   "sugar": "Sugar",
-  "concentration": "Concentration"
+  "concentration": "Concentration",
+  "evaporation": "Evaporation",
+  "none": "none",
+  "lots": "lots"
 }
