@@ -6,5 +6,9 @@
   "concentration": "Concentration",
   "evaporation": "Evaporation",
   "none": "none",
-  "lots": "lots"
+  "lots": "lots",
+  "pattern.litersWater": "{0}L water",
+  "pattern.litersSolution": "{0}L solution",
+  "pattern.molesPerLiter": "{0} mol/L",
+  "pattern.molesPerLiterMultiline": "{0}<br>mol/L"
 }

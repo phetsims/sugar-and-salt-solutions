@@ -42,6 +42,5 @@ define( function( require ) {
   }
 
   return inherit( VBox, SoluteControlPanelNode );
-
 } );
 

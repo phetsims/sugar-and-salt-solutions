@@ -140,6 +140,9 @@ define( function( require ) {
     //This logic is used in the model update step to determine if water can flow out, as well as in the user interface to determine if the user can turn on the output faucet
     thisModel.lowerFaucetCanDrain = new VerticalRangeContains( thisModel.solution.shape, drainPipeBottomY, drainPipeTopY );
 
+    //True if the values should be shown in the user interface
+    thisModel.showConcentrationValues = new Property( false );
+
   }
 
 
@@ -303,9 +306,6 @@ define( function( require ) {
 //    public final double distanceScale;
 //
 
-//
-//    //True if the values should be shown in the user interface
-//    public final Property<Boolean> showConcentrationValues = new Property<Boolean>( false );
 
 //
 //    //User setting: whether the concentration bar chart should be shown
