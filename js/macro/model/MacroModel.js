@@ -73,13 +73,11 @@ define( function( require ) {
       1//In macro model scales are already tuned so no additional scaling is needed
     );
 
-
     //Sugar and its listeners
     thisModel.sugarList = new ObservableArray();//The sugar crystals that haven't been dissolved
 
     //Salt and its listeners
     thisModel.saltList = new ObservableArray();//The salt crystals that haven't been dissolved
-
 
     //Model moles, concentration, amount dissolved, amount precipitated, etc. for salt and sugar
     //The chemistry team informed me that there is 0.2157/1000 meters cubed per mole of solid sugar
@@ -157,13 +155,14 @@ define( function( require ) {
         this.waterDrained( drainedWater, initialSaltConcentration, initialSugarConcentration );
       }
 
+      if ( this.saltList.length > 0 || this.sugarList.length > 0 ) {
+        this.fireCrystalListChanged();
+      }
+
       //Move about the sugar and salt crystals, and maybe absorb them
       this.updateCrystals( dt, this.saltList );
       this.updateCrystals( dt, this.sugarList );
 
-      if ( this.saltList.length > 0 || this.sugarList.length > 0 ) {
-        this.fireCrystalListChanged();
-      }
 
       return drainedWater;
     },

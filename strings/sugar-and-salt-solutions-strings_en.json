@@ -5,6 +5,7 @@
   "sugar": "Sugar",
   "concentration": "Concentration",
   "evaporation": "Evaporation",
+  "showValues": "Show values",
   "none": "none",
   "lots": "lots",
   "pattern.litersWater": "{0}L water",

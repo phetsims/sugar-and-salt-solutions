@@ -25,6 +25,7 @@ define( function( require ) {
     //we have switched back to using just the water volume for concentration computations
     //To add to the volume based on dissolved solute volume, use something like this line:
     //this.volume = waterVolume.plus( dissolvedSaltVolume, dissolvedSugarVolume );
+
     this.volume = waterVolume; //Volume of the solution (water plus dissolved solutes)
 
     //Get the shape this water takes in its containing beaker

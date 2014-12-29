@@ -204,26 +204,4 @@ define( function( require ) {
 
   } );
 
-} );//// Copyright 2002-2011, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.common.model;
-//
-//import java.awt.BasicStroke;
-//import java.awt.Shape;
-//import java.awt.geom.Area;
-//import java.awt.geom.Line2D;
-//import java.awt.geom.Line2D.Double;
-//import java.awt.geom.Point2D;
-//import java.awt.geom.Rectangle2D;
-//
-//import edu.colorado.phet.common.phetcommon.view.util.DoubleGeneralPath;
-//
-///**
-// * Physical model for the beaker
-// *
-// * @author Sam Reid
-// */
-//public class Beaker {
-//
-
-
-//}
+} );

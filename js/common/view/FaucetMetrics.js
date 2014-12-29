@@ -48,7 +48,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getInputPoint: function() {
-      var solutionShapeBounds = this.model.solution.shape.get().getBounds2D();
+      var solutionShapeBounds = this.model.solution.shape.get().bounds;
       if ( solutionShapeBounds.getMinY() < this.inputPoint.getY() && this.inputPoint.getY() < solutionShapeBounds.getMaxY() ) {
         return this.inputPoint;
       }
@@ -63,7 +63,7 @@ define( function( require ) {
      * @returns {FaucetMetrics}
      */
     clampInputWithinFluid: function( inputX ) {
-      return new FaucetMetrics( this.model, new Vector2( inputX, this.inputPoint.y), this.outputPoint, this.faucetWidth );
+      return new FaucetMetrics( this.model, new Vector2( inputX, this.inputPoint.y ), this.outputPoint, this.faucetWidth );
     }
 
   }, {

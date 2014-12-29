@@ -113,7 +113,8 @@ define( function( require ) {
     thisModel.inputFlowRate.link( function( rate ) {
       var width = rate * thisModel.inputFaucetMetrics.faucetWidth;
       var height = thisModel.inputFaucetMetrics.outputPoint.y;//assumes beaker floor is at y=0
-      thisModel.inputWater.set( Shape.rectangle( thisModel.inputFaucetMetrics.outputPoint.x - width / 2, thisModel.inputFaucetMetrics.outputPoint.y - height, width, height ) );
+      thisModel.inputWater.set( Shape.rectangle( thisModel.inputFaucetMetrics.outputPoint.x - width / 2,
+          thisModel.inputFaucetMetrics.outputPoint.y - height, width, height ) );
     } );
 
     //Sets the shape of the water flowing out of the beaker, changing the shape updates the brightness of
@@ -121,7 +122,8 @@ define( function( require ) {
     thisModel.outputFlowRate.link( function( rate ) {
       var width = rate * thisModel.drainFaucetMetrics.faucetWidth;
       var height = beakerDimension.height * 2;
-      thisModel.outputWater.set( Shape.rectangle( thisModel.drainFaucetMetrics.outputPoint.x - width / 2, thisModel.drainFaucetMetrics.outputPoint.y - height, width, height ) );
+      thisModel.outputWater.set( Shape.rectangle( thisModel.drainFaucetMetrics.outputPoint.x - width / 2,
+          thisModel.drainFaucetMetrics.outputPoint.y - height, width, height ) );
     } );
 
     //Solution model, the fluid + any dissolved solutes. Create the solution, which sits
