@@ -14,86 +14,69 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-  var AccordionBox = require( 'SUN/AccordionBox' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Color = require( 'SCENERY/util/Color' );
   var CheckBox = require( 'SUN/CheckBox' );
-  var BeakerAndShakerConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/BeakerAndShakerConstants' );
+  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var CONCENTRATION = require( 'string!SUGAR_AND_SALT_SOLUTIONS/concentration' );
   var SHOW_VALUES = require( 'string!SUGAR_AND_SALT_SOLUTIONS/showValues' );
 
-  // constants
-  var TITLE_FONT = new PhetFont( 18 );
+  //Insets to be used for padding between edge of canvas and controls, or between controls
+  var INSET = 10;
 
   /**
    *
    * @param {Property<boolean>} showValues
    * @param {Property<boolean>} visible
    * @param {number} verticalSpacingForCaptions
-   * @param {Property<boolean>} showShowValuesCheckbox
+   * @param {boolean} showShowValuesCheckbox
    * @constructor
    */
   function ConcentrationBarChart( showValues, visible, verticalSpacingForCaptions, showShowValuesCheckbox ) {
     var thisChart = this;
+    Node.call( thisChart );
+
+    //@protected Background for the bar chart
+    thisChart.background = new Path( Shape.rectangle( 0, 0, 180, 170 + verticalSpacingForCaptions ), {
+      fill: SugarAndSaltConstants.WATER_COLOR//Background for the bar chart
+    } );
+    thisChart.addChild( thisChart.background );
+
     thisChart.barChartContentNode = new Node();
-
-    //Insets to be used for padding between edge of canvas and controls, or between controls
-    var INSET = 5;
-
-    //Background for the bar chart
-    var background = new Path( Shape.rectangle( 0, 0, 220, 234 + verticalSpacingForCaptions ), {
-      fill: BeakerAndShakerConstants.WATER_COLOR,
-      lineWidth: 1,
-      stroke: Color.black} );
-    thisChart.barChartContentNode.addChild( background );
+    thisChart.addChild( thisChart.barChartContentNode );
 
     //The x-axis, the baseline for the bars
-    var abscissaY = background.bounds.getHeight() - 60 - verticalSpacingForCaptions;
-    thisChart.barChartContentNode.addChild( new Path( Shape.lineSegment( INSET, abscissaY,
-        background.bounds.getWidth() - INSET, abscissaY ), {
-      lineWidth: 2,
-      fill: Color.black
+    //@protected
+    thisChart.abscissaY = thisChart.background.bounds.getHeight() - 60 - verticalSpacingForCaptions;
+    thisChart.barChartContentNode.addChild( new Path( Shape.lineSegment( 0, thisChart.abscissaY,
+      thisChart.background.bounds.getWidth(), thisChart.abscissaY ), {
+      lineWidth: 1,
+      stroke: Color.BLACK
     } ) );
 
     //Add a checkbox that lets the user toggle on and off whether actual values are shown
     //It is only shown in the first tab, since values are suppressed in the Micro tab
-    if ( showShowValuesCheckbox.get() ) {
-
-      var showValuesCheckbox = new CheckBox( new Text( SHOW_VALUES, { font: new PhetFont( 14 )} ),
+    if ( showShowValuesCheckbox ) {
+      var showValuesCheckbox = new CheckBox( new Text( SHOW_VALUES, { font: SugarAndSaltConstants.CONTROL_FONT} ),
         showValues, {
           boxWidth: 20
         } );
-
-      thisChart.accordionBoxNode.addChild( showValuesCheckbox );
-      showValuesCheckbox.x = background.bounds.getWidth() / 2 - showValuesCheckbox.bounds.width / 2;
-      showValuesCheckbox.y = background.getHeight() - showValuesCheckbox.bounds.getHeight() - INSET;
+      thisChart.barChartContentNode.addChild( showValuesCheckbox );
+      showValuesCheckbox.x = thisChart.bounds.getWidth() / 2 - showValuesCheckbox.bounds.width / 2;
+      showValuesCheckbox.y = thisChart.getHeight() - showValuesCheckbox.bounds.getHeight() - INSET;
     }
-
-    thisChart.accordionBoxNode = new AccordionBox( thisChart.barChartContentNode, {
-      titleNode: new Text( CONCENTRATION, { font: TITLE_FONT } ),
-      fill: BeakerAndShakerConstants.WATER_COLOR,   //Background for the bar chart
-      contentAlign: 'left',
-      titleAlign: 'left',
-      buttonAlign: 'right',
-      expandedProperty: visible //Only show this bar chart if the user has opted to do so
-    } );
 
     //Only show this bar chart if the user has opted to do so
     visible.linkAttribute( thisChart, 'visible' );
-
-    thisChart.addChild( thisChart.accordionBoxNode );
   }
 
   return inherit( Node, ConcentrationBarChart, {
+    //@protected
     addBar: function( barNode ) {
       this.barChartContentNode.addChild( barNode );
     }
-
   } );
-
 
 } );
 

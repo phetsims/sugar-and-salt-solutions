@@ -11,10 +11,16 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Color = require( 'SCENERY/util/Color' );
 
   return Object.freeze( {
     LAYOUT_BOUNDS: new Bounds2( 0, 0, 1024, 618 ),
-    VOLUME_PER_SOLID_MOLE_SALT: 0.02699 / 1000.0
+    VOLUME_PER_SOLID_MOLE_SALT: 0.02699 / 1000.0,
+    TITLE_FONT: new PhetFont( {weight: 'bold', size: 18} ),
+    CONTROL_FONT: new PhetFont( {weight: 'bold', size: 16} ),
+    WATER_COLOR: new Color( 179, 239, 243 ),
+    BAR_WIDTH: 40
   } );
 } )
 ;

@@ -20,6 +20,7 @@ define( function( require ) {
   var BeakerAndShakerView = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/BeakerAndShakerView' );
   var CrystalMakerCanvasNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/CrystalMakerCanvasNode' );
   var VolumeIndicatorNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/VolumeIndicatorNode' );
+  var ExpandableConcentrationBarChartNode = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/ExpandableConcentrationBarChartNode' );
   var PrecipitateNode = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/PrecipitateNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
@@ -28,6 +29,10 @@ define( function( require ) {
 
   // images
   var mockupImage = require( 'image!SUGAR_AND_SALT_SOLUTIONS/mockup-macro.png' );
+
+  // constants
+  //Insets to be used for padding between edge of canvas and controls, or between controls
+  var CONCENTRATION_PANEL_INSET = 25;
 
   /**
    * @param {MacroModel} macroModel
@@ -85,6 +90,16 @@ define( function( require ) {
     //Readout the volume of the water in Liters, only visible if the user opted to show values (in the concentration bar chart)
     thisView.addChild( new VolumeIndicatorNode( modelViewTransform, macroModel.solution, macroModel.showConcentrationValues,
       macroModel.anySolutes, beakerVolumeReadoutFormat ) );
+
+    //TODO conductivity Tester Layer
+
+    //Show the concentration bar chart behind the shaker so the user can drag the shaker in front
+    var concentrationBarChart = new ExpandableConcentrationBarChartNode( macroModel.showConcentrationBarChart, macroModel.saltConcentration,
+      macroModel.sugarConcentration, macroModel.showConcentrationValues, 1 );
+    concentrationBarChart.x = this.layoutBounds.maxX - concentrationBarChart.bounds.getWidth() - CONCENTRATION_PANEL_INSET;
+    concentrationBarChart.y = CONCENTRATION_PANEL_INSET;
+
+    thisView.behindShakerNode.addChild( concentrationBarChart );
 
     // Create and add the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {

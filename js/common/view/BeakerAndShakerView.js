@@ -18,12 +18,16 @@ define( function( require ) {
   var WaterNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/WaterNode' );
   var SolutionNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SolutionNode' );
   var SugarAndSaltSolutionsView = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SugarAndSaltSolutionsView' );
+  var EvaporationSlider = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/EvaporationSlider' );
   var FaucetNodeContainer = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetNodeContainer' );
   var FaucetMetrics = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetMetrics' );
   var Color = require( 'SCENERY/util/Color' );
 
   //constants
   var WATER_COLOR = new Color( 179, 239, 243 );
+
+  //Insets to be used for padding between edge of canvas and controls, or between controls
+  var INSET = 5;
 
 
   /**
@@ -45,6 +49,7 @@ define( function( require ) {
 
     //Gets the ModelViewTransform used to go between model coordinates (SI) and stage coordinates (roughly pixels)
     //The member  name transform  overrides the inbuilt //Ashraf
+    //@protected
     thisView.modelViewTransform = modelViewTransform;
 
     //Show the water flowing out of the top and bottom faucets
@@ -100,6 +105,7 @@ define( function( require ) {
     );
 
     //Add a node for children that should be behind the shakers
+    //@protected
     thisView.behindShakerNode = new Node();
     thisView.addChild( thisView.behindShakerNode );
 
@@ -129,6 +135,16 @@ define( function( require ) {
     //When changing the transparency here make sure it looks good for precipitate as well as submerged probes
     thisView.addChild( new SolutionNode( modelViewTransform, model.solution, new Color( WATER_COLOR.getRed(),
       WATER_COLOR.getGreen(), WATER_COLOR.getBlue(), 128 ) ) );
+
+    //Add an evaporation rate slider below the beaker
+    var evaporationSlider = new EvaporationSlider( model.evaporationRate, model.waterVolume, model.clockRunning );
+    var point = modelViewTransform.modelToViewXY( 0, -model.beaker.getWallThickness() / 2 );
+    evaporationSlider.x = point.x - evaporationSlider.bounds.getWidth() / 2;
+    evaporationSlider.y = point.y + INSET;
+
+    //Other content that should go behind the shakers
+    //Add it behind the shaker node so the conductivity tester will also go in front
+    thisView.behindShakerNode.addChild( evaporationSlider );
 
   }
 

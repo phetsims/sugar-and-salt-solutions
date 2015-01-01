@@ -11,9 +11,11 @@ define( function( require ) {
 
   // modules
   var Color = require( 'SCENERY/util/Color' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   return Object.freeze( {
-    WATER_COLOR: new Color( 179, 239, 243 )
+    WATER_COLOR: new Color( 179, 239, 243 ),
+    CONTROL_FONT: new PhetFont( 16 )
   } );
 
 } )
