@@ -85,13 +85,15 @@ define( function( require ) {
       var saltCrystals = this.modelElement.saltList;
 
       if ( sugarCrystals.length > 0 ) {
+        var sugarCrystalModelSize = sugarCrystals.get( 0 ).length;
         drawCrystals( wrapper, this.modelViewTransform, sugarCrystals,
-          this.modelViewTransform.modelToViewDeltaX( sugarCrystals.get( 0 ).length ), SUGAR_COLOR );
+          this.modelViewTransform.modelToViewDeltaX( sugarCrystalModelSize ), SUGAR_COLOR );
       }
 
       if ( saltCrystals.length > 0 ) {
+        var saltCrystalModelSize = saltCrystals.get( 0 ).length;
         drawCrystals( wrapper, this.modelViewTransform, saltCrystals,
-          this.modelViewTransform.modelToViewDeltaX( saltCrystals.get( 0 ).length ), SALT_COLOR );
+          this.modelViewTransform.modelToViewDeltaX( saltCrystalModelSize ), SALT_COLOR );
       }
 
     }

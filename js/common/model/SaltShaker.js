@@ -26,7 +26,7 @@ define( function( require ) {
    * @param {number} distanceScale
    * @param {Property<DispenserType>} selectedType
    * @param {DispenserType} type
-   * @param {*} model
+   * @param {SugarAndSaltSolutionModel} model
    * @constructor
    */
   function SaltShaker( x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model ) {
@@ -35,6 +35,7 @@ define( function( require ) {
 
     //@private Keep track of how much the salt shaker was shaken, if so, then generate salt on the next updateModel() step
     thisShaker.shakeAmount = 0;
+
     //@private Keep track of recorded positions when the shaker is translated so we can compute accelerations, which are
     //responsible for shaking out the salt
     this.positions = [];
@@ -176,33 +177,14 @@ define( function( require ) {
 //
 //    //Some randomness in number of generated crystals when shaken
 //    private final Random random = new Random();
-//
-//    //Keep track of how much the salt shaker was shaken, if so, then generate salt on the next updateModel() step
-//    private double shakeAmount;
-//
-//    //Keep track of recorded positions when the shaker is translated so we can compute accelerations, which are responsible for shaking out the salt
-//    private final ArrayList<Vector2D> positions = new ArrayList<Vector2D>();
+
 //
 //    public SaltShaker( double x, double y, Beaker beaker, ObservableProperty<Boolean> moreAllowed, String name, double distanceScale, ObservableProperty<DispenserType> selectedType, DispenserType type, T model ) {
 //        super( x, y, Math.PI * 3 / 4, beaker, moreAllowed, name, distanceScale, selectedType, type, model );
-//        moreAllowed.addObserver( new VoidFunction1<Boolean>() {
-//            public void apply( Boolean allowed ) {
-//                //If the shaker is emptied, prevent spurious grains from coming out the next time it is refilled by setting the shake amount to 0.0 and clearing the sampled positions
-//                if ( !allowed ) {
-//                    shakeAmount = 0;
-//                    positions.clear();
-//                }
-//            }
-//        } );
+//
 //    }
 
-//
 
-//
-//
-//
-
-//
 //    @Override public void reset() {
 //        super.reset();
 //        //Additionally make it so it won't emit salt right after reset

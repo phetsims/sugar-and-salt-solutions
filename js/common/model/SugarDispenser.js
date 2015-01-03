@@ -14,6 +14,8 @@ define( function( require ) {
   var Dispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Dispenser' );
   var SugarDispenserNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SugarDispenserNode' );
   var Property = require( 'AXON/Property' );
+  var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {number} x
@@ -24,16 +26,21 @@ define( function( require ) {
    * @param {number} distanceScale
    * @param {Property<DispenserType>} selectedType
    * @param {DispenserType} type
-   * @param {*} model
+   * @param {SugarAndSaltSolutionModel} model
    * @constructor
    */
   function SugarDispenser( x, y, beaker, moreAllowed, sugarDispenserName, distanceScale, selectedType, type, model ) {
     var thisShaker = this;
-    Dispenser.call( thisShaker, x, y, Math.PI * 3 / 4, beaker, moreAllowed, sugarDispenserName, distanceScale, selectedType, type, model );
+    Dispenser.call( thisShaker, x, y, Math.PI * 3 / 4, beaker, moreAllowed, sugarDispenserName, distanceScale,
+      selectedType, type, model );
     thisShaker.model = model;
-
     //True if the flap on the top of the dispenser is open and sugar can flow out
     thisShaker.open = new Property( false );
+    //@private
+    thisShaker.translating = false;
+    //@private
+    this.positions = []; // Vec2 instances
+
   }
 
   return inherit( Dispenser, SugarDispenser, {
@@ -62,8 +69,86 @@ define( function( require ) {
      * @override
      */
     translate: function() {
+      this.setTranslating( true );
+    },
 
+    /**
+     * @private
+     * @param {boolean} translating
+     */
+    setTranslating: function( translating ) {
+      this.translating = translating;
+      this.open.set( translating );
+    },
+
+    /**
+     * @override
+     * Called when the model steps in time, and adds any sugar crystals to the sim if the dispenser is pouring
+     */
+    updateModel: function() {
+
+      //Add the new position to the list, but keep the list short so there is no memory leak.  The list size also
+      //determines the lag time for when the shaker rotates down and up
+      this.positions.push( this.center.get() );
+      while ( this.positions.length > 8 ) {
+        this.positions.shift( 0 );
+      }
+
+      //Keep track of speeds, since we use a nonzero speed to rotate the dispenser
+      var speeds = [];
+      for ( var i = 0; i < this.positions.length - 1; i++ ) {
+        var a = this.positions[i];
+        var b = this.positions[i + 1];
+        speeds.push( a.minus( b ).magnitude() );
+      }
+
+      //Compute the average speed over the last positions.size() time steps
+      var sum = 0.0;
+      _.each( speeds, function( speed ) {
+        sum += speed;
+      } );
+
+      var avgSpeed = sum / speeds.length * this.distanceScale;
+
+      //Should be considered to be translating only if it was moving fast enough
+      this.setTranslating( avgSpeed > 1E-5 );
+
+      //animate toward the target angle
+      var tiltedDownAngle = 2.0;
+      var tiltedUpAngle = 1.2;
+      var targetAngle = this.translating ? tiltedDownAngle : tiltedUpAngle;
+      var delta = 0;
+      var deltaMagnitude = 0.25;
+      if ( targetAngle > this.angle.get() ) {
+        delta = deltaMagnitude;
+      }
+      else if ( targetAngle < this.angle.get() ) {
+        delta = -deltaMagnitude;
+      }
+
+      //Make sure it doesn't go past the final angles or it will stutter
+      var proposedAngle = this.angle.get() + delta;
+      if ( proposedAngle > tiltedDownAngle ) { proposedAngle = tiltedDownAngle; }
+      if ( proposedAngle < tiltedUpAngle ) { proposedAngle = tiltedUpAngle; }
+      this.angle.set( proposedAngle );
+
+      //Check to see if we should be emitting sugar crystals-- if the sugar is enabled and its top is open and it is rotating
+      if ( this.enabled.get() && this.translating && this.angle.get() > Math.PI / 2 && this.moreAllowed.get() ) {
+
+        //Then emit a number of crystals proportionate to the amount the dispenser was rotated so that vigorous rotation
+        //emits more, but clamping it so there can't be too many
+        var numCrystals = Util.clamp( avgSpeed * 5, 1, 5 );
+        for ( i = 0; i < numCrystals; i++ ) {
+          //Determine where the sugar should come out
+          var outputPoint = this.center.get().plus( Vector2.createPolar( this.dispenserHeight / 2 * 0.85,
+              this.angle.get() + Math.PI / 2 * 1.23 + Math.PI ) );//Hand tuned to match up with the image, will
+          // need to be re-tuned if the image changes
+
+          this.addSugarToModel( outputPoint );
+        }
+      }
     }
+
   } );
 
 } );
@@ -96,89 +181,12 @@ define( function( require ) {
 // */
 //public abstract class SugarDispenser<T extends SugarAndSaltSolutionModel> extends Dispenser<T> {
 //
-//    //True if the flap on the top of the dispenser is open and sugar can flow out
-//    public final Property<Boolean> open = new Property<Boolean>( false );
-//
-//    //Randomness for the outgoing crystal velocity
-//    public final Random random = new Random();
-//
-//    private boolean translating = false;
-//    private final ArrayList<Vector2D> positions = new ArrayList<Vector2D>();
+
 //    public final T model;
 //
 //    public SugarDispenser( double x, double y, Beaker beaker, ObservableProperty<Boolean> moreAllowed, final String sugarDispenserName, double distanceScale, ObservableProperty<DispenserType> selectedType, DispenserType type, T model ) {
 //        super( x, y, 1.2, beaker, moreAllowed, sugarDispenserName, distanceScale, selectedType, type, model );
 //        this.model = model;
-//    }
-//
-//    @Override public void translate( Dimension2D delta ) {
-//        super.translate( delta );
-//        setTranslating( true );
-//    }
-//
-//    private void setTranslating( boolean translating ) {
-//        this.translating = translating;
-//        open.set( translating );
-//    }
-//
-//    //Called when the model steps in time, and adds any sugar crystals to the sim if the dispenser is pouring
-//    public void updateModel() {
-//
-//        //Add the new position to the list, but keep the list short so there is no memory leak.  The list size also determines the lag time for when the shaker rotates down and up
-//        positions.add( center.get() );
-//        while ( positions.size() > 8 ) {
-//            positions.remove( 0 );
-//        }
-//
-//        //Keep track of speeds, since we use a nonzero speed to rotate the dispenser
-//        ArrayList<Double> speeds = new ArrayList<Double>();
-//        for ( int i = 0; i < positions.size() - 1; i++ ) {
-//            Vector2D a = positions.get( i );
-//            Vector2D b = positions.get( i + 1 );
-//            speeds.add( a.minus( b ).magnitude() );
-//        }
-//
-//        //Compute the average speed over the last positions.size() time steps
-//        double sum = 0.0;
-//        for ( Double speed : speeds ) {
-//            sum += speed;
-//        }
-//        double avgSpeed = sum / speeds.size() * distanceScale;
-//
-//        //Should be considered to be translating only if it was moving fast enough
-//        setTranslating( avgSpeed > 1E-5 );
-//
-//        //animate toward the target angle
-//        double tiltedDownAngle = 2.0;
-//        double tiltedUpAngle = 1.2;
-//        double targetAngle = translating ? tiltedDownAngle : tiltedUpAngle;
-//        double delta = 0;
-//        double deltaMagnitude = 0.25;
-//        if ( targetAngle > angle.get() ) {
-//            delta = deltaMagnitude;
-//        }
-//        else if ( targetAngle < angle.get() ) {
-//            delta = -deltaMagnitude;
-//        }
-//
-//        //Make sure it doesn't go past the final angles or it will stutter
-//        double proposedAngle = angle.get() + delta;
-//        if ( proposedAngle > tiltedDownAngle ) { proposedAngle = tiltedDownAngle; }
-//        if ( proposedAngle < tiltedUpAngle ) { proposedAngle = tiltedUpAngle; }
-//        angle.set( proposedAngle );
-//
-//        //Check to see if we should be emitting sugar crystals-- if the sugar is enabled and its top is open and it is rotating
-//        if ( enabled.get() && translating && angle.get() > Math.PI / 2 && moreAllowed.get() ) {
-//
-//            //Then emit a number of crystals proportionate to the amount the dispenser was rotated so that vigorous rotation emits more, but clamping it so there can't be too many
-//            int numCrystals = MathUtil.clamp( 1, (int) avgSpeed * 5, 5 );
-//            for ( int i = 0; i < numCrystals; i++ ) {
-//                //Determine where the sugar should come out
-//                final Vector2D outputPoint = center.get().plus( createPolar( dispenserHeight / 2 * 0.85, angle.get() + Math.PI / 2 * 1.23 + Math.PI ) );//Hand tuned to match up with the image, will need to be re-tuned if the image changes
-//
-//                addSugarToModel( outputPoint );
-//            }
-//        }
 //    }
 //
 

@@ -14,7 +14,6 @@ define( function( require ) {
   var NumberProperty = require( 'AXON/NumberProperty' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
 
-
   /**
    * @param {Property<number>} waterVolume
    * @param {Property<number>} saturationPoint
@@ -24,7 +23,11 @@ define( function( require ) {
    */
   function SoluteModel( waterVolume, saturationPoint, volumePerSolidMole, gramsPerMole ) {
     var thisSoluteModel = this;
+
+    //Volume in meters cubed per solid mole
     thisSoluteModel.volumePerSolidMole = volumePerSolidMole;
+
+    //The molar mass, the mass (in grams) per mole
     thisSoluteModel.gramsPerMole = gramsPerMole;
 
     //Salt moles and concentration
@@ -54,12 +57,6 @@ define( function( require ) {
 
     //The amount in grams
     thisSoluteModel.grams = thisSoluteModel.moles.times( gramsPerMole );
-
-    //The molar mass, the mass (in grams) per mole
-    thisSoluteModel.gramsPerMole = 0;
-
-    //Volume in meters cubed per solid mole
-    this.volumePerSolidMole = 0;
   }
 
   return inherit( Object, SoluteModel, {

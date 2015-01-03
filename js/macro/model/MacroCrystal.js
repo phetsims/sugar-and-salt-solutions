@@ -50,9 +50,10 @@ define( function( require ) {
      * purposes of determining whether it should turn into solid
      * @returns {boolean|*}
      */
-    isLanded:function() {
-        return this.landed;
+    isLanded: function() {
+      return this.landed;
     },
+
     /**
      * propagate the crystal according to the specified applied forces, using euler integration
      * @param {Vector2} appliedForce
@@ -69,7 +70,6 @@ define( function( require ) {
         this.acceleration.set( appliedForce.times( 1.0 / this.mass ) );
         this.velocity.set( this.velocity.get().plus( this.acceleration.get().times( dt ) ) );
         this.position.set( this.position.get().plus( this.velocity.get().times( dt ) ) );
-
 
         // Intersect leftBeakerWall and RightBeakWall with Path, which is a line with originalPosition as start point and
         // current position as end Point.

@@ -59,7 +59,6 @@ define( function( require ) {
    * @constructor
    */
   function MacroModel( aspectRatio ) {
-
     var thisModel = this;
     SugarAndSaltSolutionModel.call( thisModel,
       aspectRatio, //Use the same aspect ratio as the view to minimize insets with blank regions
@@ -162,10 +161,9 @@ define( function( require ) {
       //Move about the sugar and salt crystals, and maybe absorb them
       this.updateCrystals( dt, this.saltList );
       this.updateCrystals( dt, this.sugarList );
-
-
       return drainedWater;
     },
+
     /**
      * Registers a callback that will be notified when crystals are added to the model
      * @param {function} callback
@@ -173,6 +171,7 @@ define( function( require ) {
     registerListChangedCallback: function( callback ) {
       this.crystalsListChangedCallbacks.push( callback );
     },
+
     // @private Notify if Crystals Item List got changed
     fireCrystalListChanged: function() {
       var changedCallbacks = this.crystalsListChangedCallbacks.slice( 0 );
@@ -180,6 +179,7 @@ define( function( require ) {
         changedCallbacks[i]();
       }
     },
+
     /**
      *Propagate the sugar and salt crystals, and absorb them if they hit the water
      * @param {number} dt
@@ -222,8 +222,8 @@ define( function( require ) {
       // if we have reached the limit.(even if poured out crystals didn't get dissolved yet)
       thisModel.airborneSaltGrams.notifyObserversStatic(); // Notify if another the underlying item got changed
       thisModel.airborneSugarGrams.notifyObserversStatic();
-
     },
+
     /**
      * When a crystal is absorbed by the water, increase the number of moles in solution
      * @param {MacroCrystal} crystal
@@ -236,6 +236,7 @@ define( function( require ) {
         this.sugar.moles.set( this.sugar.moles.get() + crystal.moles );
       }
     },
+
     /**
      * @protected
      * Called when water (with dissolved solutes) flows out of the beaker, so that subclasses can update
@@ -250,6 +251,7 @@ define( function( require ) {
       this.updateConcentration( outVolume, initialSaltConcentration, this.salt.moles );
       this.updateConcentration( outVolume, initialSugarConcentration, this.sugar.moles );
     },
+
     /**
      * @private
      * Make sure to keep the concentration the same when water flowing out
@@ -273,11 +275,13 @@ define( function( require ) {
       this.removeCrystals( this.saltList, this.saltList );
       this.salt.moles.set( 0.0 );
     },
+
     //Called when the user presses a button to clear the sugar, removes all sugar (dissolved and crystals) from the sim
     removeSugar: function() {
       this.removeCrystals( this.sugarList, this.sugarList );
       this.sugar.moles.set( 0.0 );
     },
+
     /**
      * Adds the specified Sugar crystal to the model
      * @param {MacroSugar} sugar
@@ -285,6 +289,7 @@ define( function( require ) {
     addMacroSugar: function( sugar ) {
       this.sugarList.add( sugar );
     },
+
     /**
      * Adds the specified salt crystal to the model
      * @param {MacroSalt} salt
@@ -292,6 +297,7 @@ define( function( require ) {
     addMacroSalt: function( salt ) {
       this.saltList.add( salt );
     },
+
     /**
      * Remove the specified crystals.
      * @private
@@ -302,7 +308,6 @@ define( function( require ) {
       toRemove.forEach( function( crystal ) {
         crystalList.remove( crystal );
       } );
-
     }
 
   } );

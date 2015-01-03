@@ -14,7 +14,6 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
 
-
   /**
    * @param {number} x
    * @param {number} y
@@ -93,7 +92,7 @@ define( function( require ) {
      * After time has passed, update the model by adding any crystals that should be emitted
      */
     updateModel: function() {
-  //    throw new Error( 'updateModel should be implemented in descendant classes of Dispenser' );
+      throw new Error( 'updateModel should be implemented in descendant classes of Dispenser' );
     },
     /**
      * Method for creating a PNode such as a SugarDispenserNode or SaltShakerNode to display this Dispenser and allow
