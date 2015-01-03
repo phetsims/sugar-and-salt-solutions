@@ -11,12 +11,11 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var VBox = require( 'SUN/VBox' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Path = require( 'SCENERY/nodes/Path' );
+  var Panel = require( 'SUN/Panel' );
   var Color = require( 'SCENERY/util/Color' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
 
   // strings
   var SOLUTE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/solute' );
@@ -26,21 +25,26 @@ define( function( require ) {
    * @constructor
    */
   function SoluteControlPanelNode( soluteSelector ) {
+    var thisPanel = this;
+    var title = new Text( SOLUTE, { font: SugarAndSaltConstants.TITLE_FONT} );
 
-    var options = {
-      spacing: 5, //Use a smaller spacing so that the content doesn't get too far away from the title in the Micro tab
-      align: 'left'
-    };
-
-    var title = new Text( SOLUTE, { font: new PhetFont( 18 ) } );
-    var spacer = new Path( new Rectangle( 0, 0, 0, 0 ), {
-      fill: new Color( 0, 0, 0, 0 )
+    var vBoxContent = new VBox( {children: [title, soluteSelector ],
+      spacing: 5, //Use a smaller spacing so that the content doesn't get too far away from the title in the Micro tab;
+      align: 'center',
+      resize: false
     } );
 
-    options.children = [title, spacer, soluteSelector ];
-    VBox.call( this, options );
+    Panel.call( thisPanel, vBoxContent, {
+      xMargin: 4,
+      yMargin: 4,
+      fill: Color.WHITE,
+      stroke: 'gray',
+      lineWidth: 1
+    } );
+
+
   }
 
-  return inherit( VBox, SoluteControlPanelNode );
+  return inherit( Panel, SoluteControlPanelNode );
 } );
 

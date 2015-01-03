@@ -10,10 +10,10 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Panel = require( 'SUN/Panel' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
 
   /**
    *
@@ -22,30 +22,24 @@ define( function( require ) {
    * @constructor
    */
   function DispenserRadioButtonSet( dispenserType, items ) {
-
+    var thisNode = this;
+    Node.call( thisNode );
     //@private
     this.dispenserType = dispenserType;
     //@private
     this.items = items;
 
-    var radioButtonFont = new PhetFont( { size: 12, weight: 'bold' } );
     var dispensersRadioItems = [];
     _.each( items, function( item ) {
-      dispensersRadioItems.push( { node: new Text( item.name, {font: radioButtonFont} ),
+      dispensersRadioItems.push( { node: new Text( item.name, {font: SugarAndSaltConstants.CONTROL_FONT} ),
         property: dispenserType,
         value: item.dispenserType } );
     } );
 
-    Panel.call( this, new VerticalAquaRadioButtonGroup( dispensersRadioItems ), {
-      // panel options
-      fill: 'rgb(238,238,238)',
-      xMargin: 2,
-      yMargin: 2,
-      lineWidth: 0
-    } );
+    thisNode.addChild( new VerticalAquaRadioButtonGroup( dispensersRadioItems ) );
   }
 
-  return inherit( Panel, DispenserRadioButtonSet, {
+  return inherit( Node, DispenserRadioButtonSet, {
     /**
      * When switching to a new kit, switch to a dispenser that is in the set if not already selecting it).
      * If switching from a set that contains NaCl to a new set that also contains NaCl,then keep the selection

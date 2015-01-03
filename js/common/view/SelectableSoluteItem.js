@@ -24,7 +24,6 @@ define( function( require ) {
   }
 
   return inherit( Object, SelectableSoluteItem );
-
 } );
 
 
