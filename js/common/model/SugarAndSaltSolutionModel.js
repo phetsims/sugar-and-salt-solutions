@@ -144,9 +144,7 @@ define( function( require ) {
 
     //True if the values should be shown in the user interface
     thisModel.showConcentrationValues = new Property( false );
-
   }
-
 
   return inherit( AbstractSugarAndSaltSolutionsModel, SugarAndSaltSolutionModel, {
     /**
@@ -156,7 +154,6 @@ define( function( require ) {
      * @return {number}
      */
     updateModel: function( dt ) {
-
       this.time += dt;
 
       //Add any new crystals from the salt & sugar dispensers
@@ -168,7 +165,6 @@ define( function( require ) {
       var inputWater = dt * this.inputFlowRate.get() * this.faucetFlowRate;
       var drainedWater = dt * this.outputFlowRate.get() * this.faucetFlowRate;
       var evaporatedWater = dt * this.evaporationRate.get() * this.evaporationRateScale;
-
 
       //Compute the new water volume, but making sure it doesn't overflow or underflow.
       //If we rewrite the model to account for solute volume displacement, this computation should account for the
@@ -209,7 +205,6 @@ define( function( require ) {
       //Update the water volume
       this.waterVolume.set( newVolume );
 
-
       //Notify subclasses that water evaporated in case they need to update anything
       if ( evaporatedWater > 0 ) {
         this.waterEvaporated( evaporatedWater );
@@ -247,6 +242,7 @@ define( function( require ) {
     getDrainFaucetMetrics: function() {
       return this.drainFaucetMetrics;
     },
+
     /**
      * Set the location where particles will flow out the drain, set by the view
      * since view locations are chosen first for consistency across tabs
@@ -255,6 +251,7 @@ define( function( require ) {
     setDrainFaucetMetrics: function( faucetMetrics ) {
       this.drainFaucetMetrics = faucetMetrics;
     },
+
     /**
      * Set the location where particles will flow out the drain, set by
      * the view since view locations are chosen first for consistency across tabs

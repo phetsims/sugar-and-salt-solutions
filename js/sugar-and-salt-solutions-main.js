@@ -9,7 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var SugarAndSaltSolutionsScreen = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/MacroScreen' );
+  var MacroScreen = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/MacroScreen' );
+  var MicroScreen = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/MicroScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
@@ -36,7 +37,7 @@ define( function( require ) {
   }
 
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, [ new SugarAndSaltSolutionsScreen() ], simOptions );
+    var sim = new Sim( simTitle, [ new MacroScreen(), new MicroScreen() ], simOptions );
     sim.start();
   } );
 } );

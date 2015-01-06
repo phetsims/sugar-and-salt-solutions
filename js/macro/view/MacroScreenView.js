@@ -1,7 +1,7 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
- *
+ * Canvas for the introductory (macro) tab of sugar and salt solutions
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Sharfudeen Ashraf (For Ghent University)
  */
@@ -134,7 +134,6 @@ define( function( require ) {
   }
 
   return inherit( BeakerAndShakerView, MacroScreenView, {
-
     // Called by the animation loop. Optional, so if your view has no animation, you can omit this.
     step: function( dt ) {
       // Handle view animation here.

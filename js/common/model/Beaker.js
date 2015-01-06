@@ -73,12 +73,15 @@ define( function( require ) {
      * @param {number} delta
      * @return {Shape}
      *
-     * // TODO comments needs to be in synch with the JavaScript implementation which
-     * // doesnt use Area operations like Add,Subtract etc (constructive plane geometry)
+     * // TODO comments needs to be in synch with the JavaScript implementation which doesnt use Area operations
+     * // like Add,Subtract etc (constructive plane geometry)
      */
-
     getWallPath: function( delta ) {
-      var wallOffSetThickness = 0.002;
+
+      // This shape drawing is different from its Java implementation.
+      // wallThicknessFactor is derived from delta which indicates  the x and y dimensions of the beaker opening at the top
+      var wallThicknessFactor = 0.3333;
+      var wallOffSetThickness = delta * wallThicknessFactor; //  0.002;
       var openingOffsetX = wallOffSetThickness * 0.55;
       var openingOffsetY = wallOffSetThickness * 0.45;
 
@@ -98,9 +101,7 @@ define( function( require ) {
         .lineTo( this.x - delta, this.y + this.height + this.topExtension + delta );
 
       return wallPath;
-
     },
-
 
     /**
      * Returns a rectangle of the bounds of the beaker
@@ -116,10 +117,10 @@ define( function( require ) {
      * @param {number} volume
      * @return {number}
      */
-
     getHeightForVolume: function( volume ) {
       return volume / this.width / this.depth;
     },
+
     /**
      * Gets the bottom right corner for attaching the output faucet
      * @return {Vector2}
@@ -127,6 +128,7 @@ define( function( require ) {
     getOutputFaucetAttachmentPoint: function() {
       return new Vector2( this.x + this.width, this.y );
     },
+
     /**
      * Determine how much water could this beaker hold in meters cubed
      * @return {number}
@@ -151,6 +153,7 @@ define( function( require ) {
     getTopY: function() {
       return this.y + this.height;
     },
+
     /**
      * Get the height of the empty beaker
      * @return {number}
@@ -158,6 +161,7 @@ define( function( require ) {
     getHeight: function() {
       return this.height;
     },
+
     /**
      * Gets the leftmost x component of the water-containing part of the beaker
      * @return {number}
@@ -173,21 +177,26 @@ define( function( require ) {
     getWallThickness: function() {
       return this.wallThickness;
     },
+
     getMaxX: function() {
       return this.x + this.width;
     },
+
     getLeftWall: function() {
       return this.leftWall;
     },
     getRightWall: function() {
       return this.rightWall;
     },
+
     getTopOfSolid: function() {
       return this.topOfSolid;
     },
+
     getWidth: function() {
       return this.width;
     },
+
     getFloor: function() {
       return this.floor;
     },

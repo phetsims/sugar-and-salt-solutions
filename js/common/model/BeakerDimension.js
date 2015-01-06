@@ -40,16 +40,13 @@ define( function( require ) {
 
     //Width of the wall in meters
     this.wallThickness = width / 40.0;//Thickness of the walls
-
   }
 
   return inherit( Object, BeakerDimension, {
-
     //Get the volume of the beaker, the maximum amount of solution it can hold
     getVolume: function() {
       return this.width * this.height * this.depth;
     }
-
   } );
 } );
 

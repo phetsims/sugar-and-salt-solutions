@@ -1,3 +1,56 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Model for the micro tab, which uses code from soluble salts sim.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
+  var BeakerDimension = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/BeakerDimension' );
+
+  function MicroModel( aspectRatio ) {
+    var thisModel = this;
+
+    SugarAndSaltSolutionModel.call( thisModel,
+      aspectRatio, //Use the same aspect ratio as the view to minimize insets with blank regions
+      30, //frames per second
+      //The volume of the micro beaker should be 2E-23L
+      //In the macro tab, the dimension is BeakerDimension( width = 0.2, height = 0.1, depth = 0.1 ), each unit in meters
+      //So if it is to have the same shape is as the previous tab then we use  width*height*depth = 2E-23
+      // and  width = 2*height = 2*depth
+      // Solving for width, we have:
+      // 2E-23 = width * width/2 * width/2
+      // =>
+      // 8E-23 = width^3.  Therefore
+      // width = cube root(8E-23)
+      new BeakerDimension( Math.pow( 8E-23 * 0.001, 1 / 3.0 ) ),  //convert L to meters cubed
+
+      //Flow rate must be slowed since the beaker is microscopically small, this value determines how fast it will fill up
+      5.0E-27,
+
+      //Values sampled at runtime using a debugger using this line in SugarAndSaltSolutionModel.update:
+      //System.out.println( "solution.shape.get().getBounds2D().getMaxY() = " + solution.shape.get().getBounds2D().getMaxY() );
+      //Should be moved to be high enough to contain the largest molecule (sucrose), so that it may move about freely
+      2.8440282964793075E-10, 5.75234062238494E-10,
+
+      //Ratio of length scales in meters
+      //The amount to scale model translations so that micro tab emits solute at the appropriate time.  Without this factor,
+      //the tiny (1E-9 meters) drag motion in the Micro tab wouldn't be enough to emit solute
+      //This was tuned so that drag motions in each model are commensurate
+      1.1603972084031932E9 );
+
+  }
+
+  return inherit( SugarAndSaltSolutionModel, MicroModel );
+
+} );
+
+
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model;
 //
