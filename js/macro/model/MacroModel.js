@@ -299,6 +299,30 @@ define( function( require ) {
     },
 
     /**
+     * Determine if any salt can be removed for purposes of displaying a "remove salt" button
+     * @returns {Property<Boolean>}
+     */
+    isAnySaltToRemove: function() {
+      return this.salt.moles.greaterThanNumber( 0.0 );
+    },
+
+    /**
+     * Determine if any sugar can be removed for purposes of displaying a "remove sugar" button
+     * @returns {Property<Boolean>}
+     */
+    isAnySugarToRemove: function() {
+      return this.sugar.moles.greaterThanNumber( 0.0 );
+    },
+
+    /**
+     *
+     * @returns {Property<Boolean>}
+     */
+    getAnySolutes: function() {
+      return this.anySolutes;
+    },
+
+    /**
      * Remove the specified crystals.
      * @private
      * @param {ObservableArray<MacroCrystal>} crystalList
@@ -438,25 +462,8 @@ define( function( require ) {
 //    }
 //
 
-//
-//    //Called when the user presses a button to clear the solutes, removes all solutes from the sim
-//    public void removeSaltAndSugar() {
-//        removeSalt();
-//        removeSugar();
-//    }
-//
-//    //Called when the user presses a button to clear the salt, removes all salt (dissolved and crystals) from the sim
-//    public final void removeSalt() {
-//        removeCrystals( saltList, saltList );
-//        salt.moles.set( 0.0 );
-//    }
-//
-//    //Called when the user presses a button to clear the sugar, removes all sugar (dissolved and crystals) from the sim
-//    public final void removeSugar() {
-//        removeCrystals( sugarList, sugarList );
-//        sugar.moles.set( 0.0 );
-//    }
-//
+
+
 //    //Adds the specified Sugar crystal to the model
 //    public void addMacroSugar( final MacroSugar sugar ) {
 //        sugarList.add( sugar );
@@ -531,9 +538,7 @@ define( function( require ) {
 //        conductivityTester.shortCircuited.set( shortCircuited );
 //    }
 //
-//    @Override public ObservableProperty<Boolean> getAnySolutes() {
-//        return anySolutes;
-//    }
+
 //
 //    @Override public void reset() {
 //        super.reset();
@@ -541,15 +546,7 @@ define( function( require ) {
 //        conductivityTester.reset();
 //    }
 //
-//    //Determine if any salt can be removed for purposes of displaying a "remove salt" button
-//    public ObservableProperty<Boolean> isAnySaltToRemove() {
-//        return salt.moles.greaterThan( 0.0 );
-//    }
-//
-//    //Determine if any sugar can be removed for purposes of displaying a "remove sugar" button
-//    public ObservableProperty<Boolean> isAnySugarToRemove() {
-//        return sugar.moles.greaterThan( 0.0 );
-//    }
+
 //
 //    //Called when water (with dissolved solutes) flows out of the beaker, so that subclasses can update concentrations if necessary.
 //    //Have some moles of salt and sugar flow out so that the concentration remains unchanged

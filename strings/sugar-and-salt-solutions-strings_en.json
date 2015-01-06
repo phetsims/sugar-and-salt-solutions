@@ -14,5 +14,9 @@
   "pattern.litersWater": "{0}L water",
   "pattern.litersSolution": "{0}L solution",
   "pattern.molesPerLiter": "{0} mol/L",
-  "pattern.molesPerLiterMultiline": "{0}<br>mol/L"
+  "pattern.molesPerLiterMultiline": "{0}<br>mol/L",
+  "removeSalt": "Remove salt",
+  "removeSugar": "Remove sugar",
+  "removeSolute": "Remove solute",
+  "removeSolutes": "Remove solutes"
 }

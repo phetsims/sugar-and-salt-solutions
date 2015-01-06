@@ -1,3 +1,47 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Button that allows the user to remove a particular type of solute, only shown if the sim contains the solute.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
+  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+
+  /**
+   *
+   * @param {string} text
+   * @param {Property<boolean>} visibleProperty
+   * @param {function} remove
+   * @constructor
+   */
+  function RemoveSoluteButtonNode( text, visibleProperty, remove ) {
+    var thisNode = this;
+    Node.call( thisNode );
+    var removeSoluteButton = new TextPushButton( text, {
+      font: SugarAndSaltConstants.CONTROL_FONT,
+      baseColor: SugarAndSaltConstants.BUTTON_COLOR,
+      //When the user presses the button,clear the solute
+      listener: function() {remove();}
+    } );
+    thisNode.addChild( removeSoluteButton );
+
+    //Only show the button if there is solute to be removed
+    visibleProperty.link( function( visible ) {
+      thisNode.visible = visible;
+    } );
+  }
+
+  return inherit( Node, RemoveSoluteButtonNode );
+} );
+
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.common.view;
 //

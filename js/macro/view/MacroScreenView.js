@@ -25,6 +25,7 @@ define( function( require ) {
   var VolumeIndicatorNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/VolumeIndicatorNode' );
   var ExpandableConcentrationBarChartNode = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/ExpandableConcentrationBarChartNode' );
   var PrecipitateNode = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/PrecipitateNode' );
+  var RemoveSoluteControlNode = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/RemoveSoluteControlNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
@@ -40,6 +41,7 @@ define( function( require ) {
 
   // constants
   //Insets to be used for padding between edge of canvas and controls, or between controls
+  var INSET = 5;
   var CONCENTRATION_PANEL_INSET = 25;
   var DISPENSER_TYPE_PANEL_INSET = 15;
 
@@ -118,9 +120,20 @@ define( function( require ) {
 
     thisView.behindShakerNode.addChild( concentrationBarChart );
 
+    //Position soluteControlPanelNode
     soluteControlPanelNode.x = concentrationBarChart.bounds.getX() -
                                soluteControlPanelNode.bounds.getWidth() - DISPENSER_TYPE_PANEL_INSET;
     soluteControlPanelNode.y = CONCENTRATION_PANEL_INSET;
+
+
+    //Add a control that allows the user to remove solutes
+    //Button should be inside the beaker at the bottom right so it doesn't collide with the leftmost tick marks
+    var removeSoluteControlNode = new RemoveSoluteControlNode( macroModel );
+    thisView.addChild( removeSoluteControlNode );
+    removeSoluteControlNode.x = modelViewTransform.modelToViewX( macroModel.beaker.getMaxX() ) -
+                                removeSoluteControlNode.bounds.getWidth() - INSET;
+    removeSoluteControlNode.y = modelViewTransform.modelToViewY( macroModel.beaker.getY() ) -
+                                removeSoluteControlNode.bounds.getHeight() - INSET;
 
     // Create and add the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {

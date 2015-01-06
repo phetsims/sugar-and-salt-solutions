@@ -20,7 +20,9 @@ define( function( require ) {
     TITLE_FONT: new PhetFont( {weight: 'bold', size: 18} ),
     CONTROL_FONT: new PhetFont( {weight: 'bold', size: 16} ),
     WATER_COLOR: new Color( 179, 239, 243 ),
-    BAR_WIDTH: 40
+    BAR_WIDTH: 40,
+    //Color for reset and remove buttons
+    BUTTON_COLOR: new Color( 255, 153, 0 )
   } );
 } )
 ;
