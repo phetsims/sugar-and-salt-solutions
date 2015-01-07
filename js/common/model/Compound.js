@@ -1,23 +1,24 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * A compound represents 0 or more (usually 1 or more) constituents which can be put into solution.  It may be constructed from a lattice.
- * The type is generic since some compounds such as NaCl are made of SphericalParticles while others such as Sucrose are made from molecules with their own substructure
- * Adding the type parameter at this level makes it so we don't have as many casts when acquiring components during dissolve or iteration processes.
- * When a compound has 0 constituents, it should be removed from the model.
+ * A compound represents 0 or more (usually 1 or more) constituents which can be put into solution.  It may be constructed
+ * from a lattice.The type is generic since some compounds such as NaCl are made of SphericalParticles while others
+ * such as Sucrose are made from molecules with their own substructure
+ * Adding the type parameter at this level makes it so we don't have as many casts when acquiring components during
+ * dissolve or iteration processes.When a compound has 0 constituents, it should be removed from the model.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Sharfudeen Ashraf (For Ghent University)
  */
 define( function( require ) {
   'use strict';
+
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
   var Shape = require( 'KITE/Shape' );
   var Rectangle = require( 'DOT/Rectangle' );
-
 
   /**
    *
@@ -37,7 +38,6 @@ define( function( require ) {
     //Members in the compound
     this.constituents = new ObservableArray();
   }
-
 
   return inherit( Particle, Compound, {
 
@@ -79,7 +79,6 @@ define( function( require ) {
      * @returns {Shape}
      */
     getShape: function() {
-
       // If reduced to zero constituents, should be removed from the model before this is called otherwise
       // will cause ArrayIndexOutOfBoundsException
       var bounds2D = this.constituents.get( 0 ).particle.getShape().bounds;
@@ -101,18 +100,22 @@ define( function( require ) {
         constituent.particle;
       } );
     },
+
     isUnderwaterTimeRecorded: function() {
       return _.isNumber( this.underwaterTime ) && isFinite( this.underwaterTime );
     },
+
     /**
      * @param {number} time
      */
     setUnderwater: function( time ) {
       this.underwaterTime = time;
     },
+
     getUnderWaterTime: function() {
       return this.underwaterTime;
     },
+
     /**
      * Returns the number of constituents in the compound
      * @return number
@@ -123,12 +126,13 @@ define( function( require ) {
 
     /**
      * Gets the constituent at the specified index
-     * @param {int} i
+     * @param {number} i
      * @returns {Constituent}
      */
     getConstituent: function( i ) {
       return this.constituents.get( i );
     },
+
     /**
      * Removes the specified constituent from the compound
      * @param {Constituent} constituent
@@ -136,12 +140,16 @@ define( function( require ) {
     removeConstituent: function( constituent ) {
       this.constituents.remove( constituent );
     },
+
+    /**
+     *
+     * @param {Constituent} constituent
+     */
     addConstituent: function( constituent ) {
       this.constituents.add( constituent );
       this.updateConstituentLocation( constituent );
     }
   } );
-
 } );
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.common.model;

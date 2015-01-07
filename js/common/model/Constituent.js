@@ -8,12 +8,12 @@
  */
 define( function( require ) {
   'use strict';
+
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
 
   /**
-   *
    * @param {Particle} particle
    * @param {Vector2D} relativePosition
    * @constructor
@@ -23,12 +23,8 @@ define( function( require ) {
     this.relativePosition = relativePosition;
     //Particle within the compound
     this.particle = particle;
-
   }
 
-
   return inherit( Particle, Constituent, {
-
   } );
-
 } );

@@ -1,8 +1,39 @@
+// Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * Result of dividing int by int, which has an int quotient and int remainder.
+ * This class was created to help compare crystals to the given formula ratios (such as CaCl2)
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+
+  /**
+   *
+   * @param {number} numerator
+   * @param {number} denominator
+   * @constructor
+   */
+  function DivisionResult( numerator, denominator ) {
+    this.quotient = numerator / denominator;
+    this.remainder = (numerator % denominator) | 0; // convert float to integer using bitwise operator
+  }
+
+  return inherit( Object, DivisionResult );
+
+} );
+
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model;
 //
 ///**
-// * Result of dividing int by int, which has an int quotient and int remainder.  This class was created to help compare crystals to the given formula ratios (such as CaCl2)
+// *
 // *
 // * @author Sam Reid
 // */

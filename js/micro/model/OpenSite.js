@@ -1,47 +1,66 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.micro.model;
-//
-//import java.awt.Shape;
-//
-//import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;
-//import edu.colorado.phet.common.phetcommon.util.function.Function0;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Constituent;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Particle;
-//
-///**
-// * Location in a crystal where a new atom could attach.
-// *
-// * @author Sam Reid
-// */
-//public class OpenSite<T extends Particle> {
-//
-//    //Position relative to the origin of the crystal
-//    public final Vector2D relativePosition;
-//
-//    //Absolute location for checking bounds against water bounds
-//    public final Shape shape;
-//
-//    //Absolute position in the model
-//    public final Vector2D absolutePosition;
-//
-//    private final Function0<T> newInstance;
-//
-//    public OpenSite( Vector2D relativePosition, Shape shape, Function0<T> newInstance, Vector2D absolutePosition ) {
-//        this.relativePosition = relativePosition;
-//        this.shape = shape;
-//        this.newInstance = newInstance;
-//        this.absolutePosition = absolutePosition;
-//    }
-//
-//    public Constituent<T> toConstituent() {
-//        return new Constituent<T>( newInstance.apply(), relativePosition );
-//    }
-//
-//    public boolean matches( Particle other ) {
-//        return newInstance.apply().getClass().equals( other.getClass() );
-//    }
-//
-//    public boolean matches( Class<? extends Particle> type ) {
-//        return newInstance.apply().getClass().equals( type );
-//    }
-//}
+// Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * //TODO this class appears to be misplaced in micro,should be in common/model package as common
+ * // TODO classes make use of this class
+ * Location in a crystal where a new atom could attach.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
+  var Constituent = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Constituent' );
+
+  /**
+   *
+   * @param {Vector2} relativePosition
+   * @param {Shape} shape
+   * @param {function} newInstance
+   * @param {Vector2} absolutePosition
+   * @constructor
+   */
+  function OpenSite( relativePosition, shape, newInstance, absolutePosition ) {
+    Particle.call( this );
+
+    //Position relative to the origin of the crystal
+    this.relativePosition = relativePosition;
+
+    //Absolute location for checking bounds against water bounds
+    this.shape = shape;
+
+    //@private
+    this.newInstance = newInstance;
+
+    //Absolute position in the model
+    this.absolutePosition = absolutePosition;
+  }
+
+  return inherit( Particle, OpenSite, {
+    /**
+     * @returns {Constituent}
+     */
+    toConstituent: function() {
+      return new Constituent( this.newInstance(), this.relativePosition );
+    },
+
+    /**
+     * This method checks against a  particle instance or its constructor function
+     * @param {Particle | type} other
+     * @returns {boolean}
+     */
+    matches: function( other ) {
+      if ( other instanceof Particle ) {
+        return this.newInstance() instanceof other;
+      }
+
+      //the argument is a Constructor function
+      var type = other;
+      return this.newInstance().constructor === type;
+    }
+  } );
+} );
