@@ -133,6 +133,7 @@ define( function( require ) {
           var types = [];
           types.push( Calcium );
           types.push( Chloride );
+          return types;
         };
         return formula;
       },
