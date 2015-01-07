@@ -13,9 +13,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Compound = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Compound' );
   var OpenSite = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/OpenSite' );
+  var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
   var DivisionResult = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/DivisionResult' );
   var Constituent = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Constituent' );
   var Vector2 = require( 'DOT/Vector2' );
+
 
   /**
    * Construct the compound from the specified lattice
@@ -122,11 +124,11 @@ define( function( require ) {
         }
         else {
           //find any particle that has open bonds
-          var openSites = _.filter( self.getOpenSites(), function( site ) {
+          var openSites = self.getOpenSites().filter( function( site ) {
             return site.matches( type );
           } );
 
-          if ( openSites.size() > 0 ) {
+          if ( openSites.length > 0 ) {
             self.addConstituent( openSites.get( _.random( openSites.length ) ).toConstituent() );
           }
           else {
@@ -139,10 +141,10 @@ define( function( require ) {
 
     /**
      * Determine all of the available locations where an existing particle could be added
-     * @returns {Array<OpenSite>}
+     * @returns {ItemList<OpenSite>}
      */
     getOpenSites: function() {
-      var bondingSites = [];
+      var bondingSites = new ItemList();
       var self = this;
       this.constituents.forEach( function( constituent ) {
         _.each( this.getPossibleDirections( constituent ), function( direction ) {
@@ -151,7 +153,7 @@ define( function( require ) {
             var opposite = self.createPartner( constituent.particle );
             var absolutePosition = relativePosition.plus( self.getPosition() );
             opposite.setPosition( absolutePosition );
-            bondingSites.push( new OpenSite( relativePosition, opposite.getShape(), function() {
+            bondingSites.add( new OpenSite( relativePosition, opposite.getShape(), function() {
               self.createPartner( constituent.particle );
             }, absolutePosition ) );
           }
@@ -184,13 +186,13 @@ define( function( require ) {
     },
 
     /**
-     *Find the constituent at the specified location, if any
+     * Find the constituent at the specified location, if any
      * @param {Vector2} location
      * @returns {Constituent | null}
      */
     getConstituentAtLocation: function( location ) {
       var self = this;
-      var atLocation = _.filter( this.constituents.getArray(), function( constituent ) {
+      var atLocation = this.constituents.filter( function( constituent ) {
         return constituent.relativePosition.minus( location ).magnitude() < self.spacing / 100;
       } );
 
@@ -201,7 +203,7 @@ define( function( require ) {
         var err = new Error( "Too many particles at the same location, getting one of them randomly" );
         console.log( err.stack );
         var index = _.random( atLocation.length );
-        return atLocation[index];
+        return atLocation.get( index );
       }
       else if ( atLocation.length === 0 ) {
         return null;
@@ -253,7 +255,7 @@ define( function( require ) {
       var toDissolve = []; //Array<Constituent>
       _.each( this.formula.getFormulaUnit(), function( type ) {
         var constituentToDissolve = self.getConstituentToDissolve( type, waterBounds, toDissolve );
-        if ( !constituentToDissolve  ) {
+        if ( !constituentToDissolve ) {
           //If couldn't dissolve all elements of formula, then don't dissolve any
           return null;
         }
@@ -335,7 +337,7 @@ define( function( require ) {
       //Start with an arbitrary node and try to visit all others
       var toVisit = [];
       var visited = [];
-      toVisit.push( this.constituents[0] );
+      toVisit.push( this.constituents.get( 0 ) );
 
       //Traverse any seen nodes and try to visit the entire graph
       while ( !_.isEmpty( toVisit ) ) {
@@ -393,7 +395,7 @@ define( function( require ) {
       var self = this;
       var result = [];
       _.each( self.formula.getTypes(), function( type ) {
-        var particles = _.map( self.constituents, function( constituent ) {
+        var particles = _.map( self.constituents.getArray(), function( constituent ) {
           return constituent.particle;
         } );
 
