@@ -17,7 +17,7 @@ define( function( require ) {
    *
    * @constructor
    */
-  function FreeOxygen( ) {
+  function FreeOxygen() {
     Oxygen.call( this, {
       chargeColor: Color.BLUE
     } );

@@ -75,7 +75,7 @@ define( function( require ) {
     getDt: function() {
       this.getSimulationTimeChange();
     },
-    getSimulationTimeChange: function(  ) {
+    getSimulationTimeChange: function() {
       return this.simulationTime - this.lastSimulationTime;
     },
 

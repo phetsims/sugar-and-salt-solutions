@@ -11,41 +11,127 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
- // var Dimension2 = require( 'DOT/Dimension2' );
+  var Dimension2 = require( 'DOT/Dimension2' );
+  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
+  var Events = require( 'AXON/Events' );
+  var Range = require( 'DOT/Range' );
 
-
-  //constants
-  //Size of each probe in meters, corresponds to the side of the red or black object in model
-  //coordinates (meters), might need to be changed if we want to make the conductivity tester probes bigger or smaller
- //  var PROBE_SIZE = new Dimension2( 0.0125, 0.025 );
+  //Size of each probe in meters, corresponds to the side of the red or black object in model coordinates (meters),
+  //might need to be changed if we want to make the conductivity tester probes bigger or smaller
+  var PROBE_SIZE = new Dimension2( 0.0125, 0.025 );
 
   /**
    *
-   * @param {number} beakerWidth
+   * @param {Beaker} beaker
    * @param {number} beakerHeight
+   * @param {number} beakerTop
    * @constructor
    */
-  function ConductivityTester( beakerWidth, beakerHeight ) {
+  function ConductivityTester( beaker, modelViewTransform ) {
+    var thisTester = this;
 
-    //Locations are in model coordinates (meters).
+    //ConductivityTesterNode expects theses values in view coordinates
+    var beakerWidth = modelViewTransform.modelToViewDeltaX( beaker.width );
+    var beakerHeight = modelViewTransform.modelToViewDeltaY( beaker.height );
+    var beakerTop = modelViewTransform.modelToViewY( beaker.y );
+
     //Note that in the typical usage scenario (dragged out of a toolbox), these values are overriden with
     //other values in SugarAndSaltSolutionsConductivityTesterNode
-    this.defaultProbeY = beakerHeight;
-    this.negativeProbeX = -beakerWidth / 3;
-    this.positiveProbeX = +beakerWidth / 3;
+    PropertySet.call( thisTester, {
+      negativeProbeX: -beakerWidth / 3,
+      positiveProbeX: +beakerWidth / 3,
+      negativeProbeY: beakerHeight,
+      positiveProbeY: beakerHeight,
+      brightness: 0,//Brightness value (between 0 and 1)
+      visible: false, //True if the user has selected to use the conductivity tester
+      shortCircuited: false
+    } );
+
+    this.probeDragYRange = new Range( beakerTop - 20, beakerTop + 50 );
+
+    //probeSize in view Coordinates
+    this.probeSize = new Dimension2( modelViewTransform.modelToViewDeltaX( PROBE_SIZE.width ),
+      modelViewTransform.modelToViewDeltaY( PROBE_SIZE.height ) );
+
+    this.conductivityChangeEvents = new Events();
+
+    //When brightness changes, forward change events to ConductivityTesterChangeListeners
+    this.brightnesProperty.link( function( brightness ) {
+      thisTester.conductivityChangeEvents.trigger( "brightnessChanged" );
+    } );
 
     //Position of the probes, in model coordinates
-    this.negativeProbeLocation = new Vector2( this.negativeProbeX, this.defaultProbeY );
-    this.positiveProbeLocation = new Vector2( this.positiveProbeX, this.defaultProbeY );
+    this.negativeProbeLocation = new Vector2( this.negativeProbeX, beakerHeight );
+    this.positiveProbeLocation = new Vector2( this.positiveProbeX, beakerHeight );
+
+    //The ConductivityTester UI Nodes expect individual location properties such as positiveProbeX,negativeProbeY
+    //where as the SugarAndSaltSolutionsModel classes expects location as Vector objects
+    //This multilink listener keeps the values in sync and also notifies registered observers
+    Property.multilink( [this.negativeProbeXProperty, this.negativeProbeYProperty],
+      function( negativeProbeX, negativeProbeY ) {
+        thisTester.this.negativeProbeLocation.x = negativeProbeX;
+        thisTester.this.negativeProbeLocation.y = negativeProbeY;
+        thisTester.conductivityChangeEvents.trigger( "negativeProbeLocationChanged" );
+      } );
+
+    Property.multilink( [this.positiveProbeXProperty, this.positiveProbeYProperty],
+      function( positiveProbeX, positiveProbeY ) {
+        thisTester.this.positiveProbeLocation.x = positiveProbeX;
+        thisTester.this.positiveProbeLocation.y = positiveProbeY;
+        thisTester.conductivityChangeEvents.trigger( "positiveProbeLocationChanged" );
+      } );
 
     //Set the initial position
-    this.location = new Vector2( 0, this.defaultProbeY );
+    this.location = new Vector2( 0, beakerHeight );
   }
 
-  return inherit( Object, ConductivityTester, {
+  return inherit( PropertySet, ConductivityTester, {
+    /**
+     * @param {*} conductivityChangeListener
+     * Available keys for use in conductivityChangeListener
+     * brightnessChanged:function,
+     * positiveProbeLocationChanged:function,
+     * negativeProbeLocationChanged:function,
+     * locationChanged:function
+     */
+    addConductivityListener: function( conductivityChangeListener ) {
+      conductivityChangeListener = _.extend( {
+        brightnessChanged: _.noop,
+        positiveProbeLocationChanged: _.noop,
+        negativeProbeLocationChanged: _.noop,
+        locationChanged: _.noop
+      }, conductivityChangeListener );
 
+      this.conductivityChangeEvents.on( "brightnessChanged", conductivityChangeListener.brightnessChanged );
+      this.conductivityChangeEvents.on( "positiveProbeLocationChanged", conductivityChangeListener.positiveProbeLocationChanged );
+      this.conductivityChangeEvents.on( "negativeProbeLocationChanged", conductivityChangeListener.negativeProbeLocationChanged );
+      this.conductivityChangeEvents.on( "locationChanged", conductivityChangeListener.locationChanged );
+    },
+
+    /**
+     * Get the bulb brightness, a function of the conductivity of the liquid.  This method is necessary so that
+     * ConductivityTester can implement the getBrightness method in IConductivityTester
+     * @returns {number}
+     */
+    getBrightness: function() {
+      return this.brightness;
+    },
+
+    reset: function() {
+      PropertySet.prototype.reset.call( this );
+    },
+
+    /**
+     * Sets the location of the unit (battery + bulb) and notifies listeners
+     * @param {number} x
+     * @param {number} y
+     */
+    setLocation: function( x, y ) {
+      this.location.setLocation( x, y );
+      this.conductivityChangeEvents.trigger( "locationChanged" );
+    }
   } );
-
 } );
 
 
@@ -85,23 +171,10 @@ define( function( require ) {
 //    //Listeners
 //    private final ArrayList<ConductivityTesterChangeListener> conductivityTesterListeners = new ArrayList<ConductivityTesterChangeListener>();
 //
-//    //True if the user has selected to use the conductivity tester
-//    public final Property<Boolean> visible = new Property<Boolean>( false );
+
 //
-//    //Brightness value (between 0 and 1)
-//    public final Property<Double> brightness = new Property<Double>( 0.0 ) {{
-//
-//        //When brightness changes, forward change events to ConductivityTesterChangeListeners
-//        addObserver( new SimpleObserver() {
-//            public void update() {
-//                for ( ConductivityTesterChangeListener conductivityTesterListener : conductivityTesterListeners ) {
-//                    conductivityTesterListener.brightnessChanged();
-//                }
-//            }
-//        } );
-//    }};
-//
-//    public final Property<Boolean> shortCircuited = new Property<Boolean>( false );
+
+
 //
 //    //Model shapes corresponding to where the battery and bulb are
 //    private Shape batteryRegion;
@@ -144,48 +217,15 @@ define( function( require ) {
 //        return location;
 //    }
 //
-//    //Set the location of the positive probe and notify observers
-//    public void setPositiveProbeLocation( double x, double y ) {
-//        positiveProbeLocation.setLocation( x, y );
-//        for ( ConductivityTesterChangeListener listener : conductivityTesterListeners ) {
-//            listener.positiveProbeLocationChanged();
-//        }
-//    }
+
 //
 //    //Get the location of the negative probe
 //    public Point2D getNegativeProbeLocationReference() {
 //        return negativeProbeLocation;
 //    }
+
 //
-//    //Set the location of the negative probe and notify observers
-//    public void setNegativeProbeLocation( double x, double y ) {
-//        negativeProbeLocation.setLocation( x, y );
-//        for ( ConductivityTesterChangeListener listener : conductivityTesterListeners ) {
-//            listener.negativeProbeLocationChanged();
-//        }
-//    }
-//
-//    //Get the bulb brightness, a function of the conductivity of the liquid.  This method is necessary so that ConductivityTester can implement the getBrightness method in IConductivityTester
-//    public double getBrightness() {
-//        return brightness.get();
-//    }
-//
-//    public void reset() {
-//        visible.reset();
-//        brightness.reset();
-//
-//        //Reset the location of the probes
-//        setNegativeProbeLocation( negativeProbeX, defaultProbeY );
-//        setPositiveProbeLocation( positiveProbeX, defaultProbeY );
-//    }
-//
-//    //Sets the location of the unit (battery + bulb) and notifies listeners
-//    public void setLocation( double x, double y ) {
-//        location.setLocation( x, y );
-//        for ( ConductivityTesterChangeListener listener : conductivityTesterListeners ) {
-//            listener.locationChanged();
-//        }
-//    }
+
 //
 //    //Setters and getters for the battery region, set by the view since bulb and battery are primarily view components. Used to determine if the circuit should short out.
 //    public void setBatteryRegion( Shape shape ) {

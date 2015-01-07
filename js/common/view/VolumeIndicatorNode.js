@@ -62,6 +62,7 @@ define( function( require ) {
       thisNode.y = waterViewBounds.getY() + INSET;
     } );
   }
+
   return inherit( Node, VolumeIndicatorNode );
 } );
 

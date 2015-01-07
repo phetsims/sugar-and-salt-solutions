@@ -31,4 +31,4 @@ define( function( require ) {
 
   } );
 
-});
+} );

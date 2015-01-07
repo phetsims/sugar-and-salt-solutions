@@ -463,7 +463,6 @@ define( function( require ) {
 //
 
 
-
 //    //Adds the specified Sugar crystal to the model
 //    public void addMacroSugar( final MacroSugar sugar ) {
 //        sugarList.add( sugar );

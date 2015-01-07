@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Compound = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Compound' );
 
-  function Crystal(){
+  function Crystal() {
 
   }
 

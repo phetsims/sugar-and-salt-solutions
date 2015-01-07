@@ -23,7 +23,6 @@
 //
 
 
-
 //
 //    //This constructor matches the table given in the design doc and to-do doc,
 //    public SphericalParticle( double radiusInPM, Color chargeColor, Color atomColor, double charge ) {

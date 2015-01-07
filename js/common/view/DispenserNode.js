@@ -21,7 +21,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
 
   // constants
-  var DEBUG = true;
+  var DEBUG = false;
 
   /**
    * @param {ModelViewTransform2} modelViewTransform

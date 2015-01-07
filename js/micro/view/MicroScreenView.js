@@ -22,8 +22,7 @@ define( function( require ) {
    * @param {MicroModel} microModel
    * @constructor
    */
-  function MicroScreenView(microModel)
-  {
+  function MicroScreenView( microModel ) {
     var layoutBounds = SugarAndSaltConstants.LAYOUT_BOUNDS;
     var modelScale = 0.70;
     var modelBounds = microModel.visibleRegion;
@@ -47,4 +46,4 @@ define( function( require ) {
     }
   } );
 
-});
+} );

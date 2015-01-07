@@ -16,6 +16,6 @@ define( function( require ) {
     //in the Micro tab than in real life.This was designed as a global property since propagating the scale
     //through the object graphs on initialization was much more complex and confusing
     sizeScale: new Property( 1.0 )
-   };
+  };
 
 } );

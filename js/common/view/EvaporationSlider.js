@@ -27,7 +27,6 @@ define( function( require ) {
   var LOTS = require( 'string!SUGAR_AND_SALT_SOLUTIONS/lots' );
 
 
-
   /**
    *
    * @param {Property<number>}evaporationRate
@@ -64,7 +63,7 @@ define( function( require ) {
     content.addChild( slider );
 
     slider.left = label.right + 10;
-    slider.centerY = label.centerY-10;
+    slider.centerY = label.centerY - 10;
 
     Panel.call( thisControl, content,
       { xMargin: 8, yMargin: 4, fill: '#F0F0F0', stroke: 'gray', lineWidth: 1, resize: false } );
