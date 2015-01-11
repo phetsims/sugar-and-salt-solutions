@@ -16,39 +16,11 @@ define( function( require ) {
   var Sodium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Sodium' );
   var Calcium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Calcium' );
   var Chloride = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Chloride' );
+  var Map = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Map' );
 
-  // This "map" utility supports HashMap like  functionality by allowing any object to be used as key.
-  function map() {
-    var keys = [], values = [];
-
-    return {
-      put: function( key, value ) {
-        var index = keys.indexOf( key );
-        if ( index === -1 ) {
-          keys.push( key );
-          values.push( value );
-        }
-        else {
-          values[index] = value;
-        }
-      },
-
-      get: function( key ) {
-        return values[keys.indexOf( key )];
-      },
-
-      contains: function( key ) {
-        return keys.indexOf( key ) !== -1;
-      },
-
-      keySet: function() {
-        return keys;
-      }
-    };
-  }
 
   /**
-   * @param {<function,number>} map
+   * @param {Map} map
    * @constructor
    */
   function Formula( map ) {
@@ -71,8 +43,47 @@ define( function( require ) {
        */
       getTypes: function() {
         return  this.map.keySet();
+      },
+
+      /**
+       * Determine if this formula contains the specified type of particle
+       * @param {function} type
+       * @returns {boolean}
+       */
+      contains: function( type ) {
+        return this.getTypes().contains( type );
+      },
+
+      /**
+       * Duplicates classes according to the formula counts, to facilitate iteration
+       * @returns {Array}
+       */
+      getFormulaUnit: function() {
+        var list = [];
+        _.each( this.getTypes, function( type ) {
+          list.push( this.getFactor( type ) );
+        } );
+        return list;
+      },
+
+      /**
+       *
+       * @returns {string}
+       */
+      getClass: function() {
+        return Object.prototype.toString.call( this );
+      },
+
+      equals: function( o ) {
+        if ( this === o ) { return true; }
+        if ( o === null || this.getClass() !== o.getClass() ) { return false; }
+
+        var formula = o;
+        if ( !this.map.equals( formula.map ) ) { return false; }
+        return true;
       }
     },
+
     //static
     {
       /**
@@ -93,7 +104,7 @@ define( function( require ) {
        * @return {Formula}
        */
       formula_1ByN: function( a, b, bCount ) {
-        var particleMap = map();
+        var particleMap = new Map();
         particleMap.put( a, 1 );
         particleMap.put( b, bCount );
         return this.formula_ByMap( particleMap );
@@ -105,7 +116,7 @@ define( function( require ) {
        * @return {Formula}
        */
       formula_By1: function( type ) {
-        var particleMap = map();
+        var particleMap = new Map();
         particleMap.put( type, 1 );
         return this.formula_ByMap( particleMap );
       },
@@ -141,10 +152,7 @@ define( function( require ) {
       //Formulae used in Sugar and Salt Solutions
       SODIUM_CHLORIDE: this.formula_1By1( Sodium, Chloride ),
       CALCIUM_CHLORIDE: this.createCalciumChloride()
-
-
     } );
-
 } );
 
 //// Copyright 2002-2011, University of Colorado
@@ -200,37 +208,13 @@ define( function( require ) {
 //
 
 //
-//    //Determine if this formula contains the specified type of particle
-//    public boolean contains( Class<? extends Particle> type ) {
-//        return getTypes().contains( type );
-//    }
-//
-//    //Duplicates classes according to the formula counts, to facilitate iteration
-//    public ArrayList<Class<? extends Particle>> getFormulaUnit() {
-//        ArrayList<Class<? extends Particle>> list = new ArrayList<Class<? extends Particle>>();
-//        for ( Class<? extends Particle> type : getTypes() ) {
-//            for ( int i = 0; i < getFactor( type ); i++ ) {
-//                list.add( type );
-//            }
-//        }
-//        return list;
-//    }
+
 //
 //    @Override public String toString() {
 //        return map.toString();
 //    }
 //
-//    //Auto-generated equality test
-//    @Override public boolean equals( Object o ) {
-//        if ( this == o ) { return true; }
-//        if ( o == null || getClass() != o.getClass() ) { return false; }
-//
-//        Formula formula = (Formula) o;
-//
-//        if ( !map.equals( formula.map ) ) { return false; }
-//
-//        return true;
-//    }
+
 //
 //    //Auto-generated hashCode
 //    @Override public int hashCode() {

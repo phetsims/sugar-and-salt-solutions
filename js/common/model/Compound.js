@@ -17,6 +17,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
+  var SphericalParticle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SphericalParticle' );
+
   var Shape = require( 'KITE/Shape' );
   var Rectangle = require( 'DOT/Rectangle' );
 
@@ -70,9 +72,11 @@ define( function( require ) {
     updateConstituentLocation: function( constituent ) {
       constituent.particle.setPosition( this.getPosition().plus( constituent.relativePosition.getRotatedInstance( this.angle ) ) );
     },
+
     getAngle: function() {
       return this.angle;
     },
+
     /**
      * @Override
      * The shape of a lattice is the combined area of its constituents, using bounding rectangles to improve performance
@@ -134,6 +138,14 @@ define( function( require ) {
     },
 
     /**
+     * Get all constituents in the compound, defensive copy
+     * @returns {ItemList}
+     */
+    getConstituents: function() {
+      return new ItemList( this.constituents.getArray() );
+    },
+
+    /**
      * Removes the specified constituent from the compound
      * @param {Constituent} constituent
      */
@@ -142,12 +154,63 @@ define( function( require ) {
     },
 
     /**
-     *
+     * Count the number of constituents matching the specified type
+     * @param {function} type
+     * @returns {number}
+     */
+    count: function( type ) {
+      return this.constituents.countByClass( type );
+    },
+
+    /**
      * @param {Constituent} constituent
      */
     addConstituent: function( constituent ) {
       this.constituents.add( constituent );
       this.updateConstituentLocation( constituent );
+    },
+
+    /**
+     * Determine whether the compound contains the specified particle, to ignore intra-molecular forces in WaterModel
+     * @param {Particle} particle
+     * @returns {boolean}
+     */
+    containsParticle: function( particle ) {
+      return this.constituents.contains( function( constituent ) {
+        return constituent.particle === particle;
+      } );
+    },
+
+    /**
+     *Sets the position and angle of the compound, and updates the location of all constituents
+     * @param {Vector2} modelPosition
+     * @param {number} angle
+     */
+    setPositionAndAngle: function( modelPosition, angle ) {
+      Particle.prototype.setPosition.call( this, modelPosition );
+      this.angle = angle;
+      this.updateConstituentLocations();
+    },
+
+    /**
+     * Get all the spherical particles within this compound and its children recursively, so they can be displayed with Nodes
+     * @returns {Array<SphericalParticle>}
+     */
+    getAllSphericalParticles: function() {
+      var sphericalParticles = [];
+      _.each( this.constituents, function( constituent ) {
+        if ( constituent.particle instanceof SphericalParticle ) {
+          sphericalParticles.push( constituent.particle );
+        }
+        else if ( constituent.particle instanceof Compound ) {
+          var compound = constituent.particle;
+          var subParticles = compound.getAllSphericalParticles();
+          _.each( subParticles, function( subParticle ) {
+            sphericalParticles.push( subParticle );
+          } );
+        }
+      } );
+      return sphericalParticles;
     }
   } );
 } );
@@ -182,45 +245,8 @@ define( function( require ) {
 
 
 //
-//    //Get all the spherical particles within this compound and its children recursively, so they can be displayed with PNodes
-//    public Iterable<SphericalParticle> getAllSphericalParticles() {
-//        ArrayList<SphericalParticle> sphericalParticles = new ArrayList<SphericalParticle>();
-//        for ( Constituent<T> constituent : constituents ) {
-//            if ( constituent.particle instanceof SphericalParticle ) {
-//                sphericalParticles.add( (SphericalParticle) constituent.particle );
-//            }
-//            else if ( constituent.particle instanceof Compound<?> ) {
-//                Compound<?> compound = (Compound<?>) constituent.particle;
-//                Iterable<SphericalParticle> subParticles = compound.getAllSphericalParticles();
-//                for ( SphericalParticle subParticle : subParticles ) {
-//                    sphericalParticles.add( subParticle );
-//                }
-//            }
-//        }
-//        return sphericalParticles;
-//    }
-//
-//    //Count the number of constituents matching the specified type
-//    public int count( Class type ) {
-//        return constituents.count( type );
-//    }
-//
-//    //Determine whether the compound contains the specified particle, to ignore intra-molecular forces in WaterModel
-//    public boolean containsParticle( final T particle ) {
-//        return constituents.contains( new Function1<Constituent<T>, Boolean>() {
-//            public Boolean apply( Constituent<T> constituent ) {
-//                return constituent.particle == particle;
-//            }
-//        } );
-//    }
-//
-//    //Sets the position and angle of the compound, and updates the location of all constituents
-//    public void setPositionAndAngle( Vector2D modelPosition, float angle ) {
-//        super.setPosition( modelPosition );
-//        this.angle = angle;
-//        updateConstituentLocations();
-//    }
-//
+
+
 //    //Returns an array list of the constituent particle instances, for use with varargs calls in WaterCanvas
 //    public ArrayList<T> getConstituentParticleList() {
 //        return new ArrayList<T>() {{
@@ -230,8 +256,5 @@ define( function( require ) {
 //        }};
 //    }
 //
-//    //Get all constituents in the compound, defensive copy
-//    public ItemList<Constituent<T>> getConstituents() {
-//        return new ItemList<Constituent<T>>( constituents );
-//    }
+
 //}
