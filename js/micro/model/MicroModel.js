@@ -12,6 +12,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
   var BeakerDimension = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/BeakerDimension' );
+  var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
 
   function MicroModel( aspectRatio ) {
     var thisModel = this;
@@ -43,6 +45,19 @@ define( function( require ) {
       //the tiny (1E-9 meters) drag motion in the Micro tab wouldn't be enough to emit solute
       //This was tuned so that drag motions in each model are commensurate
       1.1603972084031932E9 );
+
+    //List of all spherical particles, the constituents in larger molecules or crystals, used for rendering on the screen
+    this.sphericalParticles = new ItemList();
+
+    //List of all free particles, used to keep track of which particles (includes molecules) to move about randomly
+    this.freeParticles = new ItemList();
+
+    //List of all drained particles, used to keep track of which particles (includes molecules) should flow out of the
+    //output drain
+    this.drainedParticles = new ItemList();
+
+    //User setting for whether color should be based on charge or identity
+    this.showChargeColor = new BooleanProperty( false );
 
   }
 

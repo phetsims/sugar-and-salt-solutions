@@ -1,5 +1,4 @@
 // Copyright 2002-2014, University of Colorado Boulder
-
 /**
  * Observable list class that can be observed for items added or removed.
  *
@@ -14,7 +13,6 @@ define( function( require ) {
   var ObservableArray = require( 'AXON/ObservableArray' );
 
   /**
-   *
    * @param {Array} elements
    * @constructor
    */
@@ -56,7 +54,7 @@ define( function( require ) {
 
     /**
      * Count the items in the list that are an instance of the specified class
-     * @param clazz
+     * @param {function.prototype.constructor} clazz
      * @returns {Number}
      */
     countByClass: function( clazz ) {
@@ -88,6 +86,11 @@ define( function( require ) {
       } );
     },
 
+    /**
+     *
+     * @param {function.prototype.constructor} clazz
+     * @returns {*}
+     */
     filterByClass: function( clazz ) {
       return this.filter( function( item ) {
         return item instanceof clazz;

@@ -22,7 +22,8 @@ define( function( require ) {
     WATER_COLOR: new Color( 179, 239, 243 ),
     BAR_WIDTH: 40,
     //Color for reset and remove buttons
-    BUTTON_COLOR: new Color( 255, 153, 0 )
+    BUTTON_COLOR: new Color( 255, 153, 0 ),
+    DEBUG: true // use  true to  enable  model classes to print statements to console
   } );
 } )
 ;
