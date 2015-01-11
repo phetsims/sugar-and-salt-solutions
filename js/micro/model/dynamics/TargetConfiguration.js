@@ -1,34 +1,40 @@
-//// Copyright 2002-2011, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.micro.model.dynamics;
-//
-//import edu.colorado.phet.common.phetcommon.util.function.Function2;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.ItemList;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Particle;
-//
-///**
-// * A TargetConfiguration indicates target positions and matching crystal lattice sites for each member of a formula unit
-// * so that a crystal can be grown by one formula unit at a time so that it will never become unbalanced
-// *
-// * @author Sam Reid
-// */
-//public class TargetConfiguration<T extends Particle> {
-//    private final ItemList<CrystallizationMatch<T>> list;
-//    public final double distance;
-//
-//    public TargetConfiguration( ItemList<CrystallizationMatch<T>> list ) {
-//        this.list = list;
-//        this.distance = list.foldLeft( 0.0, new Function2<CrystallizationMatch<T>, Double, Double>() {
-//            public Double apply( CrystallizationMatch<T> match, Double runningTotal ) {
-//                return match.distance + runningTotal;
-//            }
-//        } );
-//    }
-//
-//    public ItemList<CrystallizationMatch<T>> getMatches() {
-//        return list;
-//    }
-//
-//    @Override public String toString() {
-//        return list.toString();
-//    }
-//}
+// Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * A TargetConfiguration indicates target positions and matching crystal lattice sites for each member of a formula unit
+ * so that a crystal can be grown by one formula unit at a time so that it will never become unbalanced
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
+
+  /**
+   * @param {ItemList<CrystallizationMatch>} list
+   * @constructor
+   */
+  function TargetConfiguration( list ) {
+    this.list = list;
+
+    var listItems = list.getArray();
+    //Combine the specified initial value with all elements from the list using the specified combination function
+    this.distance = _.reduce( listItems, function( runningTotal, match ) {
+      return match.distance + runningTotal;
+    }, 0.0 ); // 0.0 initialValue
+  }
+
+  return inherit( Particle, TargetConfiguration, {
+    /**
+     * @returns {ItemList.<CrystallizationMatch>}
+     */
+    getMatches: function() {
+      return this.list;
+    }
+  } );
+
+} );
+

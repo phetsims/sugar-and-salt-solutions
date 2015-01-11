@@ -1,3 +1,28 @@
+// Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * Update the crystals by moving them about and possibly dissolving them
+ * Dissolve the crystals if they are below the saturation points
+ * In CaCl2, the factor of 2 accounts for the fact that CaCl2 needs 2 Cl- for every 1 Ca2+
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var UpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/UpdateStrategy' );
+
+  function CrystalStrategy(){
+
+  }
+
+  return inherit(UpdateStrategy,CrystalStrategy);
+
+});
+
+
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model.dynamics;
 //

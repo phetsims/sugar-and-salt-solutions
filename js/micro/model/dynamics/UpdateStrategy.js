@@ -1,3 +1,35 @@
+// Copyright 2002-2014, University of Colorado Boulder
+
+/**
+ * Strategy pattern for updating particles in their different states, such as "flowing toward drain", "random walk",
+ * "flowing out of drain", "dropping from the crystal shaker"
+ * Using the strategy pattern here provides the following benefits:
+ * 1. Modularize the code for updating particles, split into smaller files
+ * 2. No particle can belong to two strategies
+ * 3. A good place to store state for each particle (such as speed of flow to drain, etc)
+ * <p/>
+ * There are, however, the following disadvantages:
+ * 1. More difficult to mix and match several facets of different behavior
+ *
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+
+  function UpdateStrategy(){
+
+  }
+
+  return inherit(Object,UpdateStrategy);
+
+});
+
+
+
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model.dynamics;
 //
