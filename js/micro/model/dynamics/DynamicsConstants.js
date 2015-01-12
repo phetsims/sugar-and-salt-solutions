@@ -11,6 +11,7 @@ define( function( require ) {
 
   var DynamicsConstants = {
     FREE_PARTICLE_SPEED: 6E-10,//Speed at which freely moving particles should random walk
+
     //Particle mass, used in stepping forward in time according to newton's 2nd law.
     //This number was obtained by guessing and checking to find a value that looked good for accelerating the
     // particles out of the shaker

@@ -13,11 +13,7 @@ define( function( require ) {
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var ConstantDtClock = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ConstantDtClock' );
 
-  // constants
-
-
   /**
-   *
    * @param {number} framesPerSecond
    * @constructor
    */
@@ -30,7 +26,6 @@ define( function( require ) {
     //Settable property that indicates whether the clock is running or paused.
     //The clock is never turned off in the first tab, since there are no dynamics and hence no pause button
     this.clockRunning = new BooleanProperty( true );
-
   }
 
   return inherit( Object, AbstractSugarAndSaltSolutionsModel, {
@@ -40,6 +35,7 @@ define( function( require ) {
         this.clock.step( dt );
       }
     },
+
     /**
      * called from Constant Clock's callback
      * @param {number} dt

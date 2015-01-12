@@ -1,3 +1,53 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * This shaker adds calcium chloride to the model when shaken
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var MicroShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/MicroShaker' );
+  var CalciumChlorideCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/calciumchloride/CalciumChlorideCrystal' );
+  var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
+
+  /**
+   *
+   * @param {number} x
+   * @param {number} y
+   * @param {Beaker} beaker
+   * @param {Property<boolean>} moreAllowed
+   * @param {string} name
+   * @param {number} distanceScale
+   * @param {<Property<DispenserType<string>>} selectedType
+   * @param {DispenserType<string>} type
+   * @param {MicroModel}model
+   * @constructor
+   */
+  function CalciumChlorideShaker( x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model ) {
+    MicroShaker.call( this, x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model );
+
+  }
+
+  return inherit( MicroShaker, CalciumChlorideShaker, {
+    /**
+     *
+     * @param {MicroModel} model
+     * @param {Vector2} outputPoint
+     */
+    addCrystal: function( model, outputPoint ) {
+      var calciumChlorideCrystal = new CalciumChlorideCrystal( outputPoint, RandomUtil.randomAngle() );
+      calciumChlorideCrystal.grow( 6 );
+      model.addCalciumChlorideCrystal( calciumChlorideCrystal );
+    }
+  } );
+
+} );
+
+
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model.calciumchloride;
 //

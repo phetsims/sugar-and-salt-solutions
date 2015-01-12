@@ -40,7 +40,6 @@ define( function( require ) {
      * @param {Vector2} crystalVelocity
      */
     addSalt: function( model, outputPoint, volumePerSolidMole, crystalVelocity ) {
-
       // Add the salt
       var macroSalt = new MacroSalt( outputPoint, volumePerSolidMole );
       model.addMacroSalt( macroSalt );

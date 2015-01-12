@@ -16,7 +16,7 @@ define( function( require ) {
   var DynamicsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DynamicsConstants' );
   var CrystallizationMatch = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystallizationMatch' );
   var TargetConfiguration = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/TargetConfiguration' );
-  var SugarAndSalSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/SugarAndSalSolutionsConstants' );
+  var SugarAndSalSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
   var Vector2 = require( 'DOT/Vector2' );
 

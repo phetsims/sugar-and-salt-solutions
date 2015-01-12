@@ -12,9 +12,9 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Compound = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Compound' );
-  var OpenSite = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/OpenSite' );
+  var OpenSite = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/OpenSite' );
   var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
-  var DivisionResult = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/DivisionResult' );
+  var DivisionResult = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/DivisionResult' );
   var Constituent = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Constituent' );
   var Vector2 = require( 'DOT/Vector2' );
 

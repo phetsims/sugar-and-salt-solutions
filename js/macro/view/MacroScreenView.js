@@ -74,7 +74,6 @@ define( function( require ) {
     this.addChild( image );
     this.addChild( new HSlider( mockupOpacityProperty, {min: 0, max: 1}, {top: 10, left: 500} ) );
 
-
     //Layer that holds the sugar and salt crystals
     var crystalLayer = new Node();
 
