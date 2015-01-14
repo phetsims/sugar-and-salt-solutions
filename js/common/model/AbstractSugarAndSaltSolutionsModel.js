@@ -39,7 +39,7 @@ define( function( require ) {
     /**
      * called from Constant Clock's callback
      * @param {number} dt
-     * @return {number}
+     * @returns {number}
      */
     updateModel: function( dt ) {
       throw new Error( 'updateModel should be implemented in descendant classes of AbstractSugarAndSaltSolutionsModel .' );

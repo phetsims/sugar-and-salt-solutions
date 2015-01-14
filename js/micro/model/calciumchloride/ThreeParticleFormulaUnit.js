@@ -75,9 +75,7 @@ define( function( require ) {
     getParticles: function() {
       return [this.a, this.b, this.c];
     }
-
   } );
-
 } );
 
 

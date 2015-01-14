@@ -1,123 +1,141 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.common.model;
-//
-//import java.util.ArrayList;
-//import java.util.StringTokenizer;
-//
-//import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SphericalParticle.Carbon;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SphericalParticle.Hydrogen;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SphericalParticle.NeutralOxygen;
-//
-///**
-// * Provides physical locations (positions) of the atoms within a molecule.
-// * Positions sampled from a 2d rasterized view from JMol with ProjectorUtil
-// * <p/>
-// *
-// * @author Sam Reid
-// */
-//public class ProjectedPositions {
-//
-//    //Raw text to be parsed
-//    private final String text;
-//
-//    //Conversion factor from pixels to model units (meters)
-//    private final double scale;
-//
-//    public ProjectedPositions( String text, double scale ) {
-//        this.text = text;
-//        this.scale = scale;
-//    }
-//
-//    //Data structure that has the type of the atom, its element identifier and the position in model space
-//    public static abstract class AtomPosition {
-//        public final String type;
-//        public final Vector2D position;
-//
-//        AtomPosition( String type, Vector2D position ) {
-//            this.type = type;
-//            this.position = position;
-//        }
-//
-//        //Create the SphericalParticle corresponding to this atom type that can be used in the model
-//        public abstract SphericalParticle createConstituent();
-//    }
-//
-//    //Get the positions for a specific list of atom types.
-//    public ArrayList<AtomPosition> getAtoms() {
-//        ArrayList<AtomPosition> list = new ArrayList<AtomPosition>();
-//        StringTokenizer stringTokenizer = new StringTokenizer( text, "\n" );
-//
-//        //Iterate over the list and convert each line to an atom instance
-//        while ( stringTokenizer.hasMoreTokens() ) {
-//            list.add( parseAtom( stringTokenizer.nextToken() ) );
-//        }
-//        return list;
-//    }
-//
-//    //Reads a line from the string and converts to an Atom instance at the right model location
-//    private AtomPosition parseAtom( String line ) {
-//        StringTokenizer st = new StringTokenizer( line, ", " );
-//
-//        //Read the type and location
-//        String type = st.nextToken();
-//        double x = Double.parseDouble( st.nextToken() );
-//        double y = Double.parseDouble( st.nextToken() );
-//
-//        //For showing partial charges on sucrose, read from the file from certain atoms that have a charge
-//        //http://www.chemistryland.com/CHM130W/LabHelp/Experiment10/Exp10.html
-//        String charge = "";
-//        if ( st.hasMoreTokens() ) {
-//            charge = st.nextToken();
-//        }
-//
-//        //Add an atom instance based on the type, location and partial charge (if any)
-//        final String finalCharge = charge;
-//        return new AtomPosition( type, toModel( new Vector2D( x, y ) ) ) {
-//            @Override public SphericalParticle createConstituent() {
-//                if ( type.equals( "H" ) ) {
-//                    return new Hydrogen() {
-//                        @Override public double getPartialChargeDisplayValue() {
-//                            if ( finalCharge.equals( "charge" ) ) { return super.getPartialChargeDisplayValue(); }
-//                            else { return 0.0; }
-//                        }
-//                    };
-//                }
-//                if ( type.equals( "C" ) ) {
-//                    return new Carbon() {
-//                        @Override public double getPartialChargeDisplayValue() {
-//
-//                            //All the charged carbons have a partial positive charge, see http://www.chemistryland.com/CHM130W/LabHelp/Experiment10/Exp10.html
-//                            if ( finalCharge.equals( "charge" ) ) { return 1.0; }
-//                            else { return 0.0; }
-//                        }
-//                    };
-//                }
-//                if ( type.equals( "O" ) ) {
-//                    return new NeutralOxygen() {
-//                        @Override public double getPartialChargeDisplayValue() {
-//                            if ( finalCharge.equals( "charge" ) ) { return super.getPartialChargeDisplayValue(); }
-//                            else { return 0.0; }
-//                        }
-//                    };
-//                }
-//                throw new RuntimeException();
-//            }
-//        };
-//    }
-//
-//    //Use the position of the first atom as the origin, which other positions will be based on.  Origin is in pixel coordinates and converted to model coordinates in toModel
-//    public Vector2D getOrigin() {
-//        StringTokenizer st = new StringTokenizer( text.substring( 0, text.indexOf( '\n' ) ), ", " );
-//
-//        //Throw away the type
-//        st.nextToken();
-//
-//        //Read the position
-//        return new Vector2D( Double.parseDouble( st.nextToken() ), Double.parseDouble( st.nextToken() ) );
-//    }
-//
-//    private Vector2D toModel( Vector2D position ) {
-//        return position.minus( getOrigin() ).times( scale );
-//    }
-//}
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Provides physical locations (positions) of the atoms within a molecule.
+ * Positions sampled from a 2d rasterized view from JMol with ProjectorUtil
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var AtomPosition = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AtomPosition' );
+  var SphericalParticle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/SphericalParticle' );
+  var Hydrogen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Hydrogen' );
+  var NeutralOxygen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/NeutralOxygen' );
+  var Carbon = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Carbon' );
+
+
+  /**
+   *
+   * @param {string} text
+   * @param {number} scale
+   * @constructor
+   */
+  function ProjectedPositions( text, scale ) {
+    //@private Raw text to be parsed
+    this.text = text;
+
+    //@private conversion factor from pixels to model units (meters)
+    this.scale = scale;
+  }
+
+  return inherit( Object, ProjectedPositions, {
+
+    /**
+     * Get the positions for a specific list of atom types.
+     * @return {Array<AtomPosition>}
+     */
+    getAtoms: function() {
+      var list = [];
+      var self = this;
+      _.each( this.text.split( "\n" ), function( row ) {
+        //Iterate over the list and convert each line to an atom instance
+        list.push( self.parseAtom( row ) );
+      } );
+      return list;
+    },
+
+    /**
+     * @private
+     * @param position
+     * @returns {Vector2}
+     */
+    toModel: function( position ) {
+      return position.minus( this.getOrigin() ).times( this.scale );
+    },
+
+    /**
+     * Use the position of the first atom as the origin, which other positions will be based on.
+     * Origin is in pixel coordinates and converted to model coordinates in toModel
+     * @returns {Vector2}
+     */
+    getOrigin: function() {
+      var items = (this.text.substring( 0, this.text.indexOf( '\n' ) )).split( "," );
+
+      //ignore  the type items[0]
+      //Read the position
+      return new Vector2( items[ 1 ], items[ 2 ] );
+    },
+
+    //Reads a line from the string and converts to an Atom instance at the right model location
+    /**
+     *
+     * @param {string} line
+     * @returns {AtomPosition}
+     */
+    parseAtom: function( line ) {
+
+      var items = line.split( " " );
+
+      //Read the type and location
+      var type = items[ 0 ];
+      var x = items[ 1 ];
+      var y = items[ 2 ];
+
+      //For showing partial charges on sucrose, read from the file from certain atoms that have a charge
+      //http://www.chemistryland.com/CHM130W/LabHelp/Experiment10/Exp10.html
+      var charge = "";
+      if ( items[ 3 ] ) {
+        charge = items[ 3 ];
+      }
+
+      //Add an atom instance based on the type, location and partial charge (if any)
+      var finalCharge = charge;
+      var atomPosition = new AtomPosition( type, this.toModel( new Vector2( x, y ) ) );
+
+      //override
+      atomPosition.createConstituent = function() {
+        if ( type === "H" ) {
+          var hydrogen = new Hydrogen();
+
+          //override
+          hydrogen.getPartialChargeDisplayValue = function() {
+            if ( finalCharge.equals( "charge" ) ) {
+              return SphericalParticle.prototype.getPartialChargeDisplayValue.call( this );
+            }
+            else { return 0.0; }
+          };
+          return hydrogen;
+        }
+        if ( type === "C" ) {
+          var carbon = new Carbon();
+          //override
+          carbon.getPartialChargeDisplayValue = function() {
+            //All the charged carbons have a partial positive charge,
+            //see http://www.chemistryland.com/CHM130W/LabHelp/Experiment10/Exp10.html
+            if ( finalCharge.equals( "charge" ) ) { return 1.0; }
+            else { return 0.0; }
+          };
+          return carbon;
+        }
+        if ( type.equals( "O" ) ) {
+          var neutralOxygen = new NeutralOxygen();
+          neutralOxygen.getPartialChargeDisplayValue = function() {
+            if ( finalCharge.equals( "charge" ) ) {
+              return SphericalParticle.prototype.getPartialChargeDisplayValue.call( this );
+            }
+            else { return 0.0; }
+          };
+          return neutralOxygen;
+        }
+      };
+      return atomPosition;
+    }
+
+  } );
+
+} );

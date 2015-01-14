@@ -18,7 +18,6 @@ define( function( require ) {
    */
   function ItemList( elements ) {
     ObservableArray.call( this, elements || [] );
-
   }
 
   return inherit( ObservableArray, ItemList, {
@@ -34,7 +33,6 @@ define( function( require ) {
           countValue++;
         }
       } );
-
       return countValue;
     },
 
@@ -63,10 +61,10 @@ define( function( require ) {
 
     /**
      * Remove all instances that match the specified classes
-     * @param clazz
+     * @param {function.prototype.constructor} clazz
      */
     clear: function( clazz ) {
-      var filteredItems = this.filter( clazz );
+      var filteredItems = this.filterByClass( clazz );
       filteredItems.forEach( function( item ) {
         this.remove( item );
       } );

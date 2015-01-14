@@ -23,7 +23,9 @@ define( function( require ) {
     BAR_WIDTH: 40,
     //Color for reset and remove buttons
     BUTTON_COLOR: new Color( 255, 153, 0 ),
-    DEBUG: true // use  true to  enable  model classes to print statements to console
+    DEBUG: true, // use  true to  enable  model classes to print statements to console
+    OXYGEN_RADIUS:1E-10,
+    SUCROSE_SCALE:1E-10 * 10 / 800 * 0.7 // 1E-10 refers to OXYGEN_RADIUS
   } );
 } )
 ;
