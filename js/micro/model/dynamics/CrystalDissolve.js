@@ -1,3 +1,112 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * This strategy dissolves crystals incrementally so that the concentration will be below or near the saturation point.
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var FreeParticleStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/dynamics/FreeParticleStrategy' );
+
+  /**
+   *
+   * @param {MicroModel} model
+   * @constructor
+   */
+  function CrystalDissolve( model ) {
+    //@private Debugging tool to visualize the dissolving process
+    this.lastDissolve = new Date().getTime();
+  }
+
+  return inherit( Object, CrystalDissolve, {
+
+    // Dissolve the lattice incrementally so that we get as close as possible to the saturation point
+    /**
+     *
+     * @param {ItemList} crystals
+     * @param {Crystal} crystal
+     * @param {Property<boolean>} saturated
+     */
+    dissolve: function( crystals, crystal, saturated ) {
+      if ( !saturated ) {
+        return this.incrementalDissolve( crystal, crystal );
+      }
+
+      //For some unknown reason, limiting this to one dissolve element per step fixes bugs in dissolving the lattices
+      //Without this limit, crystals do not dissolve when they should
+      while ( !saturated.get() && crystal.numberConstituents() > 0 && new Date().getTime() -
+                                                                      this.lastDissolve > 2 && !this.model.isWaterBelowCrystalThreshold() ) {
+        this.lastDissolve = new Date().getTime();
+        var toDissolve = crystal.getConstituentsToDissolve( this.model.solution.shape.get().bounds );
+        if ( toDissolve ) {
+          this.incrementalDissolve( crystal, toDissolve.get() );
+        }
+      }
+
+      //If the crystal has only one constituent, then dissolve it and remove the crystal.
+      //Note that this is the only place in the code where crystals are reduced, so as long as crystals are always created with 2
+      //or more constituents,
+      //this will guarantee that there are never any 1-particle crystals.
+      //1-particle crystals should be avoided because it is unrealistic for an ion to hang out by itself in solid form;
+      // you need both an Na and a Cl to make a salt grain
+      if ( crystal.numberConstituents() === 1 ) {
+        this.removeConstituent( crystal, crystal.getConstituent( 0 ) );
+      }
+
+      //Remove the crystal from the list so it will no longer keep its constituents together
+      if ( crystal.numberConstituents() === 0 ) {
+        crystals.remove( crystal );
+      }
+    },
+
+    /**
+     * Dissolve all specified elements from the crystal, used in incremental dissolving and the complete workaround
+     * dissolving by DissolveDisconnectedCrystals
+     * @param {Crystal} crystal
+     * @param {Array<Constituent>} elementsToDissolve
+     */
+    incrementalDissolve: function( crystal, elementsToDissolve ) {
+      var self = this;
+      _.each( elementsToDissolve, function( constituent ) {
+        self.removeConstituent( crystal, constituent );
+      } );
+    },
+
+    /**
+     * @private
+     * Remove the specified constituent from the containing crystal, by dissolving it off
+     * @param {Crystal} crystal
+     * @param {Constituent} constituent
+     */
+    removeConstituent: function( crystal, constituent ) {
+
+      //If the particle is above the water when dissolved off the crystal, then make sure it starts moving downward,
+      //otherwise it will "jump" into the air above the beaker
+      var particleAboveWater = constituent.particle.getShape().bounds.getMaxY() >
+                               this.model.solution.shape.get().bounds.getMaxY();
+      var velocityAngle = particleAboveWater ? 0 : Math.random() * Math.PI * 2;
+      var velocity = new Vector2( 0, -1 ).times( SugarAndSaltConstants.FREE_PARTICLE_SPEED ).rotated( velocityAngle );
+      constituent.particle.velocity.set( velocity );
+
+      //Remove the constituent from the crystal and instead make it move under a random walk
+      crystal.removeConstituent( constituent );
+      this.model.freeParticles.add( constituent.particle );
+      constituent.particle.setUpdateStrategy( new FreeParticleStrategy( this.model ) );
+    }
+
+
+  } );
+
+
+} );
+
+
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model.dynamics;
 //

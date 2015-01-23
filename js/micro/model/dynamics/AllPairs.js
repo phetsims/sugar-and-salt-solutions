@@ -1,28 +1,38 @@
-//// Copyright 2002-2011, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.micro.model.dynamics;
-//
-//import java.util.ArrayList;
-//
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.ItemList;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Particle;
-//
-///**
-// * List containing all pairs of particles that could be used to seed a crystal
-// *
-// * @author Sam Reid
-// */
-//public class AllPairs extends ArrayList<IFormulaUnit> {
-//    public AllPairs( ItemList<Particle> freeParticles, Class<? extends Particle> typeA, Class<? extends Particle> typeB ) {
-//        ItemList<Particle> aList = freeParticles.filter( typeA );
-//        ItemList<Particle> bList = freeParticles.filter( typeB );
-//        for ( Particle a : bList ) {
-//            for ( Particle b : aList ) {
-//
-//                //Check for equality in case typeA==typeB, as in the case of Sucrose
-//                if ( a != b ) {
-//                    add( new FormulaUnit( a, b ) );
-//                }
-//            }
-//        }
-//    }
-//}
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * List containing all pairs of particles that could be used to seed a crystal
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
+  var FormulaUnit = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/dynamics/FormulaUnit' );
+
+  /**
+   *
+   * @param {ItemList} freeParticles
+   * @param {prototype.constructor} typeA
+   * @param {prototype.constructor} typeB
+   * @constructor
+   */
+  function AllPairs( freeParticles, typeA, typeB ) {
+    var aList = freeParticles.filter( typeA ).getArray();
+    var bList = freeParticles.filter( typeB ).getArray();
+    var self = this;
+    _.each( bList, function( a ) {
+      _.each( aList, function( b ) {
+        //Check for equality in case typeA==typeB, as in the case of Sucrose
+        if ( a !== b ) {
+          self.add( new FormulaUnit( a, b ) );
+        }
+      } );
+    } );
+
+  }
+  return inherit( ObservableArray, AllPairs );
+} );

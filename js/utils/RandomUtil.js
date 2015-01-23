@@ -18,6 +18,13 @@ define( function( require ) {
     {
       randomAngle: function() {
         return Math.random() * 2 * Math.PI;
+      },
+
+      nextRandomSign: function() {
+        var randomNumber = Math.random() >= 0.5;
+        return randomNumber ? 1 : -1;
       }
+
+
     } );
 } );
