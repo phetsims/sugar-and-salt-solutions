@@ -1,3 +1,62 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Move all particles toward the drain with a random walk, with nearer particles moving
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var FlowToDrainStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/dynamics/FlowToDrainStrategy' );
+
+  /**
+   *
+   * @param {MicroModel} model
+   * @constructor
+   */
+  function RandomMotionWhileDraining( model ) {
+    this.model = model;
+  }
+
+  return inherit( Object, RandomMotionWhileDraining, {
+
+    apply: function() {
+      var self = this;
+      var drain = this.model.getDrainFaucetMetrics().getInputPoint();
+      _.each( this.model.freeParticles, function( particle ) {
+        //Get the velocity for the particle
+        var velocity = new Vector2( particle.getPosition(), drain ).
+          withMagnitude( SugarAndSaltConstants.FREE_PARTICLE_SPEED ).times( self.getRelativeSpeed( drain, particle ) );
+        particle.setUpdateStrategy( new FlowToDrainStrategy( self.model, velocity, true ) );
+      } );
+    },
+
+    /**
+     * Gets the relative speed at which a particle should move toward the drain.  This is a function
+     * that moves nearby particles closer to the drain faster
+     *
+     * @param {Vector2} drain
+     * @param {Particle} particle
+     * @returns {number}
+     */
+    getRelativeSpeed: function( drain, particle ) {
+
+      //Only use this heuristic when further than 25% of beaker width away from the drain, otherwise particles close to
+      //the drain move too fast and end up waiting at the drain
+      var numberBeakerWidthsToDrain = Math.max( 0.25,
+        particle.getPosition().distance( drain ) / this.model.beaker.getWidth() );
+      return 1 / numberBeakerWidthsToDrain / numberBeakerWidthsToDrain * this.model.outputFlowRate.get() / 2;
+    }
+
+
+  } );
+} );
+
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model.dynamics;
 //

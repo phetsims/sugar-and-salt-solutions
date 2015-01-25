@@ -13,14 +13,99 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var UpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/UpdateStrategy' );
+  var CrystalDissolve = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalDissolve' );
+  var Vector2 = require( 'DOT/Vector2' );
 
-  function CrystalStrategy(){
 
+  /**
+   *
+   * @param {MicroModel} model
+   * @param {ItemList} crystals
+   * @param {Property<boolean>} saturated
+   * @constructor
+   */
+  function CrystalStrategy( model, crystals, saturated) {
+    UpdateStrategy.call( this, model );
+    this.crystals = crystals;
+    this.saturated = saturated;
+    this.crystalDissolve = new CrystalDissolve( model );
   }
 
-  return inherit(UpdateStrategy,CrystalStrategy);
+  return inherit( UpdateStrategy, CrystalStrategy, {
 
-});
+    /**
+     *
+     * @param {Particle} particle
+     * @param {number} dt
+     */
+    stepInTime: function( particle, dt ) {
+      var crystal = particle;
+
+      //If the crystal has ever gone underwater, set a flag so that it can be kept from leaving the top of the water
+      if ( this.solution.shape.get().bounds.containsBounds( crystal.getShape().bounds ) ) {
+        crystal.setSubmerged();
+      }
+
+      //Cache the value to improve performance by 30% when number of particles is large
+      var anyPartUnderwater = this.model.isAnyPartUnderwater( crystal );
+
+      //If any part touched the water, the lattice should slow down and move at a constant speed
+      if ( anyPartUnderwater ) {
+        crystal.velocity.set( new Vector2( 0, -1 ).times( 0.25E-9 ) );
+      }
+
+      //Collide with the bottom of the beaker before doing underwater check so that crystals will dissolve
+      this.model.boundToBeakerBottom( crystal );
+
+      //If completely underwater, lattice should prepare to dissolve
+      if ( !crystal.isUnderwaterTimeRecorded() && !this.model.isCrystalTotallyAboveTheWater( crystal ) ) {
+        crystal.setUnderwater( this.model.getTime() );
+      }
+
+      //Accelerate the particle due to gravity and perform an euler integration step
+      //This number was obtained by guessing and checking to find a value that looked good for accelerating the particles out of the shaker
+      var mass = 1E10;
+
+      crystal.stepInTime( this.model.getExternalForce( anyPartUnderwater ).times( 1.0 / mass ), dt );
+
+      //Collide with the bottom of the beaker
+      this.model.boundToBeakerBottom( crystal );
+
+      var dissolve = false;
+      //Determine whether it is time for the lattice to dissolve
+      if ( crystal.isUnderwaterTimeRecorded() ) {
+        var timeUnderwater = this.model.getTime() - crystal.getUnderWaterTime();
+
+        //Make sure it has been underwater for a certain period of time (in seconds)
+        if ( timeUnderwater > 0.5 ) {
+          dissolve = true;
+        }
+      }
+
+      //Keep the particle within the beaker solution bounds
+      this.model.preventFromLeavingBeaker( crystal );
+
+      //Dissolve the crystal if it has spent enough time underwater, and if the user is not evaporating the solution
+      //The reason not to allow dissolving if the user is evaporating solution is so that the crystal growing process is more clear.
+      //JC said: Crystals grow while the solution is being evaporated, however even while the solution level is dropping,
+      // some of the ions in the forming crystals dissolve back into solution.
+      // This causes the crystals to break up, and seems unrealistic.  As the solution saturation increases, crystals should not dissolve.
+      // Is there a way you could prevent release of ions from crystals while the "dissolve" slider is being activated?
+      // Once the dissolve slider is released, the equilibrium of some ions adding and subtracting from different places on one or more crystals would be fine,
+      // but letting this happen as saturation is increasing seems problematic.
+      //JC said: I think the change to prevent ion release when the user is dragging the evaporation slider would help the user
+      // grow larger (prettier) crystals, which is fun.
+
+      //for "no dissolving while evaporating" workaround, only apply the workaround if concentration is above the saturation point.
+      // This will allow newly dropped crystals to dissolve instead of staying crystallized.
+      var evaporationAndConcentrationAllowsDissolve = this.model.evaporationRate.get() > 0 && this.saturated.get();
+      if ( dissolve || evaporationAndConcentrationAllowsDissolve ) {
+        this.crystalDissolve.dissolve( this.crystals, crystal, this.saturated );
+      }
+    }
+  } );
+
+} );
 
 
 //// Copyright 2002-2012, University of Colorado
