@@ -1,39 +1,59 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.micro.model.glucose;
-//
-//import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;
-//import edu.colorado.phet.sugarandsaltsolutions.SugarAndSaltSolutionsApplication;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Crystal;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Formula;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Particle;
-//
-//import static edu.colorado.phet.sugarandsaltsolutions.common.model.Units.nanometersToMeters;
-//
-///**
-// * This crystal for sugar updates the positions of the molecules to ensure they move together
-// *
-// * @author Sam Reid
-// */
-//public class GlucoseCrystal extends Crystal<Glucose> {
-//
-//    public GlucoseCrystal( Vector2D position, double angle ) {
-//
-//        //Glucose is about half as big as sucrose and hence should be half as far away on the lattice
-//        super( Formula.GLUCOSE, position,
-//
-//               //Spacing between adjacent sucrose molecules, in meters
-//               nanometersToMeters( 0.5 ) * SugarAndSaltSolutionsApplication.sizeScale.get() / 2,
-//
-//               angle );
-//    }
-//
-//    //Create a new Glucose to be added to the crystal
-//    @Override public Glucose createPartner( Glucose original ) {
-//        return new Glucose();
-//    }
-//
-//    //Create a single Glucose molecule to begin the crystal
-//    @Override protected Glucose createConstituentParticle( Class<? extends Particle> type ) {
-//        return new Glucose();
-//    }
-//}
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * This crystal for sugar updates the positions of the molecules to ensure they move together
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Crystal = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Crystal' );
+  var Formula = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Formula' );
+  var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
+  var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
+  var Glucose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/Glucose' );
+
+  /**
+   *
+   * @param {Vector2} position
+   * @param {number} angle
+   * @constructor
+   */
+  function GlucoseCrystal( position, angle ) {
+    //Glucose is about half as big as sucrose and hence should be half as far away on the lattice
+    Crystal.call( this, Formula.GLUCOSE, position,
+
+      //Spacing between adjacent sucrose molecules, in meters
+      Units.nanometersToMeters( 0.5 ) * SugarAndSaltSharedProperties.sizeScale.get() / 2,
+
+      angle );
+  }
+
+  return inherit( Crystal, GlucoseCrystal, {
+
+    /**
+     * @override
+     * Create a new Glucose to be added to the crystal
+     * @param {Glucose} original
+     * @returns {Glucose}
+     */
+    createPartner: function( original ) {
+      return new Glucose();
+    },
+
+    /**
+     * Create a single Glucose molecule to begin the crystal
+     * @protected
+     * @override
+     * @param type
+     * @returns {Glucose}
+     */
+    createConstituentParticle: function( type ) {
+      return new Glucose();
+    }
+  } );
+} );
+

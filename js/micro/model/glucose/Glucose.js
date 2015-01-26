@@ -1,23 +1,30 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.micro.model.glucose;
-//
-//import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.GlucosePositions;
-//import edu.colorado.phet.sugarandsaltsolutions.micro.model.SugarMolecule;
-//
-//import static edu.colorado.phet.common.phetcommon.math.vector.Vector2D.ZERO;
-//
-///**
-// * A single glucose molecule, which is used in lattice creation
-// *
-// * @author Sam Reid
-// */
-//public class Glucose extends SugarMolecule {
-//    public Glucose() {
-//        this( ZERO, Math.random() * 2 * Math.PI );
-//    }
-//
-//    public Glucose( Vector2D relativePosition, double angle ) {
-//        super( relativePosition, angle, new GlucosePositions() );
-//    }
-//}
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * A single glucose molecule, which is used in lattice creation
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var SugarMolecule = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/SugarMolecule' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var GlucosePositions = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/GlucosePositions' );
+
+  /**
+   *
+   * @param {Vector2} relativePosition
+   * @param {number} angle
+   * @constructor
+   */
+  function Glucose( relativePosition, angle ) {
+    SugarMolecule.call( this, relativePosition || Vector2.ZERO, angle || Math.random() * 2 * Math.PI,
+      new GlucosePositions() );
+  }
+
+  return inherit( SugarMolecule, Glucose );
+} );
+

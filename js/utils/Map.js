@@ -30,12 +30,12 @@ define( function( require ) {
         this.values.push( value );
       }
       else {
-        this.values[index] = value;
+        this.values[ index ] = value;
       }
     },
 
     get: function( key ) {
-      return this.values[this.keys.indexOf( key )];
+      return this.values[ this.keys.indexOf( key ) ];
     },
 
     contains: function( key ) {
@@ -47,6 +47,10 @@ define( function( require ) {
     },
     equals: function( obj ) {
       return _.isEqual( this, obj );
+    },
+    clear: function() {
+      this.keys = [];
+      this.values = [];
     }
   } );
 
