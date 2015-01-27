@@ -1,3 +1,56 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Provides growth for sodium nitrate crystals.  Works with IncrementalGrowth by giving it specific
+ * information about seeding and creating sodium nitrate crystals
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var CrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalGrowth' );
+  var Sodium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Sodium' );
+  var Nitrate = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/Nitrate' );
+  var CrystalStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalStrategy' );
+  var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
+  var AllPairs = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/AllPairs' );
+  var SodiumNitrateCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/SodiumNitrateCrystal' );
+
+
+  /**
+   *
+   * @param {MicroModel} model
+   * @param {ItemList} crystals
+   * @constructor
+   */
+  function SodiumNitrateCrystalGrowth( model, crystals ) {
+    CrystalGrowth.call( this, model, crystals );
+  }
+
+  return inherit( CrystalGrowth, SodiumNitrateCrystalGrowth,{
+    /**
+     * @returns {AllPairs}
+     */
+    getAllSeeds: function() {
+      return new AllPairs( this.model.freeParticles, Sodium.class, Nitrate.class );
+    },
+
+    /**
+     * @protected
+     * @override
+     * @param {Vector2} position
+     * @returns {SodiumNitrateCrystal}
+     */
+    newCrystal: function( position ) {
+      var sodiumNitrateCrystal = new SodiumNitrateCrystal( position, RandomUtil.randomAngle() );
+      sodiumNitrateCrystal.setUpdateStrategy( new CrystalStrategy( this.model,
+        this.model.sodiumNitrateCrystals, this.model.sodiumNitrateSaturated ) );
+      return sodiumNitrateCrystal;
+    }
+  } );
+} );
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model.sodiumnitrate;
 //

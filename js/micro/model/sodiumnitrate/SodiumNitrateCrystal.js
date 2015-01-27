@@ -1,3 +1,56 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * This crystal for Sodium Chloride salt updates the positions of the molecules to ensure they move as a crystal
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Crystal = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Crystal' );
+  var Formula = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Formula' );
+  var Sodium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Sodium' );
+  var Nitrate = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/Nitrate' );
+  var SodiumNitrateConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/SodiumNitrateConstants' );
+
+
+  /**
+   * @param {Vector2} position
+   * @param {number} angle
+   *
+   * @constructor
+   */
+  function SodiumNitrateCrystal( position, angle ) {
+    Crystal.call( this, Formula.SODIUM_NITRATE, position, new Sodium().radius * 2 + SodiumNitrateConstants.NITROGEN_OXYGEN_SPACING, angle );
+  }
+
+  return inherit( Crystal, SodiumNitrateCrystal, {
+      /**
+       * Create the bonding partner for growing the crystal
+       * @override
+       * @param {Particle} original
+       * @returns {Nitrate}
+       */
+      createPartner: function( original ) {
+        return original instanceof Sodium ? new Nitrate() : new Sodium();
+      },
+
+      /**
+       * Randomly choose an initial particle for the crystal lattice
+       * @override
+       * @protected
+       * @param type
+       * @returns {Sodium}
+       */
+      createConstituentParticle: function( type ) {
+        return type === Sodium ? new Sodium() : new Nitrate();
+      }
+    }
+  );
+} );
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model.sodiumnitrate;
 //

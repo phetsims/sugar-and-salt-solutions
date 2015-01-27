@@ -1,3 +1,43 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Data structure for a nitrate (NO3) including references to the particles and
+ * the locations relative to the central nitrogen.
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Compound = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Compound' );
+  var Constituent = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Constituent' );
+  var FreeOxygen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/FreeOxygen' );
+  var Nitrogen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Nitrogen' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var SodiumNitrateConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/SodiumNitrateConstants' );
+
+  /**
+   *
+   * @param {number} angle
+   * @param {Vector2} relativePosition
+   * @constructor
+   */
+  function Nitrate( angle, relativePosition ) {
+    angle = angle || 0;
+    relativePosition = relativePosition || Vector2.ZERO;
+
+    Compound.call( this, relativePosition, angle );
+    this.constituents.add( new Constituent( new FreeOxygen(), Vector2.createPolar( SodiumNitrateConstants.NITROGEN_OXYGEN_SPACING, Math.PI * 2 * 0 / 3.0 + angle ) ) );
+    this.constituents.add( new Constituent( new FreeOxygen(), Vector2.createPolar( SodiumNitrateConstants.NITROGEN_OXYGEN_SPACING, Math.PI * 2 * 1 / 3.0 + angle ) ) );
+    this.constituents.add( new Constituent( new FreeOxygen(), Vector2.createPolar( SodiumNitrateConstants.NITROGEN_OXYGEN_SPACING, Math.PI * 2 * 2 / 3.0 + angle ) ) );
+    this.constituents.add( new Constituent( new Nitrogen(), Vector2.ZERO ) );
+
+  }
+
+  return inherit( Compound, Nitrate );
+} );
 //// Copyright 2002-2012, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model.sodiumnitrate;
 //
