@@ -1,34 +1,53 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.common.model.sucrose;
-//
-//import java.util.ArrayList;
-//
-//import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.ItemList;
-//import edu.colorado.phet.sugarandsaltsolutions.micro.model.MicroModel;
-//import edu.colorado.phet.sugarandsaltsolutions.micro.model.dynamics.AllPairs;
-//import edu.colorado.phet.sugarandsaltsolutions.micro.model.dynamics.CrystalGrowth;
-//import edu.colorado.phet.sugarandsaltsolutions.micro.model.dynamics.CrystalStrategy;
-//import edu.colorado.phet.sugarandsaltsolutions.micro.model.dynamics.IFormulaUnit;
-//
-//import static edu.colorado.phet.sugarandsaltsolutions.micro.model.RandomUtil.randomAngle;
-//
-///**
-// * Provides growth for sucrose crystals.  Works with IncrementalGrowth by giving it specific information about seeding and creating sucrose crystals
-// *
-// * @author Sam Reid
-// */
-//public class SucroseCrystalGrowth extends CrystalGrowth<Sucrose, SucroseCrystal> {
-//    public SucroseCrystalGrowth( MicroModel model, ItemList<SucroseCrystal> crystals ) {
-//        super( model, crystals );
-//    }
-//
-//    @Override protected ArrayList<IFormulaUnit> getAllSeeds() {
-//        return new AllPairs( model.freeParticles, Sucrose.class, Sucrose.class );
-//    }
-//
-//    @Override protected SucroseCrystal newCrystal( Vector2D position ) {
-//        return new SucroseCrystal( position, randomAngle() ) {{setUpdateStrategy( new CrystalStrategy( model, model.sucroseCrystals, model.sucroseSaturated ) );}};
-//    }
-//
-//}
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Provides growth for sucrose crystals.  Works with IncrementalGrowth by giving it
+ * specific information about seeding and creating sucrose crystals
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var CrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalGrowth' );
+  var CrystalStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalStrategy' );
+  var AllPairs = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/AllPairs' );
+  var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/Sucrose' );
+  var SucroseCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/SucroseCrystal' );
+  var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
+
+  /**
+   *
+   * @param {MicroModel} model
+   * @param {ItemList} crystals
+   * @constructor
+   */
+  function SucroseCrystalGrowth( model, crystals ) {
+    CrystalGrowth.call( this, model, crystals );
+  }
+
+  return inherit( CrystalGrowth, SucroseCrystalGrowth, {
+    /**
+     * @override
+     * @returns {AllPairs}
+     */
+    getAllSeeds: function() {
+      return new AllPairs( this.model.freeParticles, Sucrose, Sucrose );
+    },
+
+    /**
+     * @override
+     * @protected
+     * @param {Vector2} position
+     * @returns {SucroseCrystal}
+     */
+    newCrystal: function( position ) {
+      var sucroseCrystal = new SucroseCrystal( position, RandomUtil.randomAngle() );
+      sucroseCrystal.setUpdateStrategy( new CrystalStrategy( this.model, this.model.sucroseCrystals, this.model.sucroseSaturated ) );
+      return sucroseCrystal;
+    }
+
+  } );
+} );

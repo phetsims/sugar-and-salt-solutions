@@ -1,27 +1,32 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.common.model.sucrose;
-//
-//import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SucrosePositions;
-//import edu.colorado.phet.sugarandsaltsolutions.micro.model.SugarMolecule;
-//
-//import static edu.colorado.phet.common.phetcommon.math.vector.Vector2D.ZERO;
-//
-///**
-// * A single sucrose molecule, which is used in lattice creation
-// *
-// * @author Sam Reid
-// */
-//public class Sucrose extends SugarMolecule {
-//    public Sucrose() {
-//        this( ZERO, Math.random() * 2 * Math.PI );
-//    }
-//
-//    public Sucrose( Vector2D relativePosition ) {
-//        this( relativePosition, Math.random() * 2 * Math.PI );
-//    }
-//
-//    public Sucrose( Vector2D relativePosition, double angle ) {
-//        super( relativePosition, angle, new SucrosePositions() );
-//    }
-//}
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * A single sucrose molecule, which is used in lattice creation
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var SugarMolecule = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/SugarMolecule' );
+  var SucrosePositions = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SucrosePositions' );
+  var Vector2 = require( 'DOT/Vector2' );
+
+  /**
+   *
+   * @param {Vector2} relativePosition
+   * @param {number} angle
+   * @constructor
+   */
+  function Sucrose( relativePosition, angle ) {
+
+    relativePosition = relativePosition || Vector2.ZERO;
+    angle = angle || Math.random() * 2 * Math.PI;
+    SugarMolecule.call( this, relativePosition, angle, new SucrosePositions() );
+  }
+
+  return inherit( SugarMolecule, Sucrose );
+} );
+
