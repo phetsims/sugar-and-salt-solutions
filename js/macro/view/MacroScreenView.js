@@ -12,7 +12,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Property = require( 'AXON/Property' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var HSlider = require( 'SUN/HSlider' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -87,7 +86,7 @@ define( function( require ) {
 
     //Show the precipitate as the sum of salt and sugar
     thisView.submergedInWaterNode.addChild( new PrecipitateNode( modelViewTransform,
-      DerivedProperty.multilink( [macroModel.salt.solidVolume, macroModel.sugar.solidVolume], function( saltVolume, sugarVolume ) {
+      Property.multilink( [ macroModel.salt.solidVolume, macroModel.sugar.solidVolume ], function( saltVolume, sugarVolume ) {
         return saltVolume + sugarVolume;
       } ), macroModel.beaker ) );
 
