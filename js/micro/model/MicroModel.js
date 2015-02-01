@@ -14,6 +14,14 @@ define( function( require ) {
   var BeakerDimension = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/BeakerDimension' );
   var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Property = require( 'AXON/Property' );
+  var ParticleColorConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/ParticleColorConstants' );
+  var Color = require( 'SCENERY/util/Color' );
+
+  // constants
+  //Debugging flag for draining particles through the faucet
+  // TODO var DEBUG_DRAINING = false;
 
   function MicroModel( aspectRatio ) {
     var thisModel = this;
@@ -58,6 +66,34 @@ define( function( require ) {
 
     //User setting for whether color should be based on charge or identity
     this.showChargeColor = new BooleanProperty( false );
+
+    //Determine if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).
+    //This is used to show/hide the "remove solutes" button
+    //@private
+    this.anySolutes = new DerivedProperty( [ this.freeParticles.lengthProperty ], function( length ) {
+      return thisModel.freeParticles.length > 0;
+    } );
+
+    //The number of different types of solute in solution, to determine whether to show singular or plural text for the "remove solute(s)" button
+    //Note: this value should not be set externally, it should only be set by this model.  The reason that we used DoubleProperty which has a public setter
+    //is because it also has methods such as greaterThan and valueEquals
+    this.numberSoluteTypes = new Property( 0.0 );
+
+    // Colors for all the dissolved solutes
+    //Choose nitrate to be blue because the Nitrogen atom is blue, even though it is negative and therefore also blue under "show charge color" condition
+    //@private
+    this.sucroseColor = new DerivedProperty( [thisModel.showChargeColor],function(){
+         return thisModel.showChargeColor.get() ? ParticleColorConstants.NEUTRAL_COLOR : ParticleColorConstants.RED_COLORBLIND;
+      });
+
+    this.glucoseColor = new DerivedProperty([thisModel.showChargeColor],function() {
+        return thisModel.showChargeColor.get() ? ParticleColorConstants.NEUTRAL_COLOR : ParticleColorConstants.RED_COLORBLIND;
+    });
+
+    this.nitrateColor = new DerivedProperty([thisModel.showChargeColor],function() {
+      return thisModel.showChargeColor.get() ? Color.BLUE : Color.BLUE; // why blue for both conditions..check ..? TODO
+    });
+
 
   }
 

@@ -1,18 +1,27 @@
-//// Copyright 2002-2011, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.micro.model;
-//
-//import java.awt.Color;
-//
-//import edu.colorado.phet.common.phetcommon.model.property.IfElse;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SphericalParticle;
-//
-///**
-// * Color to show for the specified particle
-// *
-// * @author Sam Reid
-// */
-//public class IonColor extends IfElse<Color> {
-//    public IonColor( MicroModel microModel, SphericalParticle particle ) {
-//        super( microModel.showChargeColor, particle.chargeColor, particle.color );
-//    }
-//}
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Color to show for the specified particle
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var ToggleProperty = require( 'AXON/ToggleProperty' );
+
+  /**
+   *
+   * @param {MicroModel} microModel
+   * @param {SphericalParticle} particle
+   * @constructor
+   */
+  function IonColor( microModel, particle ) {
+    ToggleProperty.call( this, particle.color, particle.chargeColor, microModel.showChargeColor );
+  }
+
+  return inherit( ToggleProperty, IonColor );
+} );
+
