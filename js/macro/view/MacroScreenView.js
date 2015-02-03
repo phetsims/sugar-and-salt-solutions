@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Property = require( 'AXON/Property' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var HSlider = require( 'SUN/HSlider' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -56,7 +57,7 @@ define( function( require ) {
     var viewMinX = 15;
     var viewMinY = 155;
     var viewPortBounds = new Bounds2( viewMinX, viewMinY, viewMinX + layoutBounds.width * modelScale,
-        viewMinY + (layoutBounds.height * modelScale) );
+      viewMinY + (layoutBounds.height * modelScale) );
 
     var thisView = this;
     thisView.model = macroModel;
@@ -68,10 +69,10 @@ define( function( require ) {
 
     //Show the mock-up and a slider to change its transparency
     var mockupOpacityProperty = new Property( 0.2 );
-    var image = new Image( mockupImage, {pickable: false} );
+    var image = new Image( mockupImage, { pickable: false } );
     mockupOpacityProperty.linkAttribute( image, 'opacity' );
     this.addChild( image );
-    this.addChild( new HSlider( mockupOpacityProperty, {min: 0, max: 1}, {top: 10, left: 500} ) );
+    this.addChild( new HSlider( mockupOpacityProperty, { min: 0, max: 1 }, { top: 10, left: 500 } ) );
 
     //Layer that holds the sugar and salt crystals
     var crystalLayer = new Node();
@@ -86,7 +87,7 @@ define( function( require ) {
 
     //Show the precipitate as the sum of salt and sugar
     thisView.submergedInWaterNode.addChild( new PrecipitateNode( modelViewTransform,
-      Property.multilink( [ macroModel.salt.solidVolume, macroModel.sugar.solidVolume ], function( saltVolume, sugarVolume ) {
+      new DerivedProperty( [ macroModel.salt.solidVolume, macroModel.sugar.solidVolume ], function( saltVolume, sugarVolume ) {
         return saltVolume + sugarVolume;
       } ), macroModel.beaker ) );
 
@@ -102,7 +103,7 @@ define( function( require ) {
 
     //Create the control panel for choosing sugar vs salt, use a radio-button-based selector for solutes.
     var soluteControlPanelNode = new SoluteControlPanelNode(
-      new DispenserRadioButtonSet( macroModel.dispenserType, [new SelectableSoluteItem( SALT, DispenserType.SALT ),
+      new DispenserRadioButtonSet( macroModel.dispenserType, [ new SelectableSoluteItem( SALT, DispenserType.SALT ),
         new SelectableSoluteItem( SUGAR, DispenserType.SUGAR ) ] ) );
 
     //Show the solute control panel node behind the shaker node so the conductivity tester will also go in front
@@ -138,7 +139,7 @@ define( function( require ) {
       listener: function() {
         macroModel.reset();
       },
-      right: this.layoutBounds.maxX - 10,
+      right:  this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
     } );
     this.addChild( resetAllButton );
