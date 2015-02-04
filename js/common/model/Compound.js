@@ -96,7 +96,8 @@ define( function( require ) {
       return Shape.rectangle( rect.x, rect.y, rect.width, rect.height );
     },
     /**
-     * Iterate over the particles rather than constituents to make client code read easier, since it is more common to iterate over particles than constituents (which also keep track of relative location)
+     * Iterate over the particles rather than constituents to make client code read easier, since it is more common
+     * to iterate over particles than constituents (which also keep track of relative location)
      * To iterate over constituents, you can use getConstituent(int)
      * @returns {Array}
      */
