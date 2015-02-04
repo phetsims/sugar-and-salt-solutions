@@ -34,6 +34,17 @@ define( function( require ) {
     this.charge = options.charge; //The charge of the atom
     this.chargeColor = options.chargeColor;  //Color for the charge of the atom, red = positive, yellow = neutral, blue = negative
 
+
+    //On Every getShape and getShapeBounds call, spherical Particle creates a new Shape Instance.
+    //The prev Values for x,y and radius help us to see if new instance needs to be created or to return a old cached instance
+    //introduced for improving performance
+    this.shape = Shape.circle( this.getPosition().x, this.getPosition().y, this.radius );
+    this.prevPositionX = this.getPosition().x;
+    this.prevPositionY = this.getPosition().y;
+    this.prevRadius = this.radius;
+
+    this.shapeBounds = this.shape.bounds;
+
   }
 
   return inherit( Particle, SphericalParticle, {
@@ -42,8 +53,53 @@ define( function( require ) {
      * @return {Shape}
      */
     getShape: function() {
-      return  new Shape().ellipse( this.getPosition().getX(), this.getPosition().getY(), this.radius, this.radius );
+      if ( this.isDirty() ) {
+        this.reCreateShape();
+      }
+      return this.shape;
     },
+
+    getShapeBounds: function() {
+      if ( this.isDirty() ) {
+        this.reCreateShape();
+      }
+      return this.shapeBounds;
+    },
+
+    /**
+     * @private
+     * Helper method to create a new ShapeInstance and its bound when they become dirty
+     */
+    reCreateShape: function() {
+      this.shape = Shape.circle( this.getPosition().x, this.getPosition().y, this.radius );
+      this.shapeBounds = this.shape.bounds;
+      this.updatePrevValues();
+    },
+
+
+    /**
+     * @private
+     * On Every getShape and getShapeBounds call, spherical Particle creates a new Shape Instance.
+     * This method is introduced to check if a new Shape or bounds needs to be created or to return a cached instance
+     * @returns {boolean}
+     */
+    isDirty: function() {
+      if ( this.prevPositionX === this.getPosition().x && this.prevPositionY === this.getPosition().y && this.prevRadius === this.radius ) {
+        return false;
+      }
+      return true;
+    },
+
+    /**
+     * @private
+     * helper method to synchronize old values for dirty checking
+     */
+    updatePrevValues: function() {
+      this.prevPositionX = this.getPosition().x;
+      this.prevPositionY = this.getPosition().y;
+      this.prevRadius = this.radius;
+    },
+
     getCharge: function() {
       return this.charge;
     },
