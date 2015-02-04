@@ -22,7 +22,7 @@ define( function( require ) {
    */
   function Sucrose( relativePosition, angle ) {
 
-    relativePosition = relativePosition || Vector2.ZERO;
+    relativePosition = relativePosition || new Vector2();
     angle = angle || Math.random() * 2 * Math.PI;
     SugarMolecule.call( this, relativePosition, angle, new SucrosePositions() );
   }

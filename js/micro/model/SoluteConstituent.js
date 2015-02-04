@@ -17,7 +17,7 @@ define( function( require ) {
    *
    * @param {MicroModel} model
    * @param {Property.<Color>} color
-   * @param {Prototype.constructor} type
+   * @param {prototype.constructor} type
    * @param {Property<boolean>} hold //Flag indicating whether the value should be held constant, in this case if the user is draining fluid out the drain
    * @constructor
    */

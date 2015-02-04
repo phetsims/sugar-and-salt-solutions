@@ -1,3 +1,41 @@
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Property that identifies the number of molecules in crystal form, for making sure the user doesn't exceed the allowed maximum
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
+
+
+  /**
+   *
+   * @param {ItemList} crystals
+   * @constructor
+   */
+  function CrystalMoleculeCount( crystals ) {
+    DerivedProperty.call( this, [ crystals.lengthProperty ], function() {
+      // When the number of crystals changes, update the number of constituents in the crystals
+      // This watches the number of crystals but not the number of constituents in each crystal, but this hasn't
+      // caused any known problems so far
+      var count = 0;
+      crystals.forEach( function( crystal ) {
+        count = count + crystal.numberConstituents();
+      } );
+
+      return count | 0; // int
+
+    } );
+
+  }
+
+  return inherit( DerivedProperty, CrystalMoleculeCount );
+} );
 //// Copyright 2002-2011, University of Colorado
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model;
 //

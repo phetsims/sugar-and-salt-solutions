@@ -21,7 +21,7 @@ define( function( require ) {
    * @constructor
    */
   function Glucose( relativePosition, angle ) {
-    SugarMolecule.call( this, relativePosition || Vector2.ZERO, angle || Math.random() * 2 * Math.PI,
+    SugarMolecule.call( this, relativePosition || new Vector2(), angle || Math.random() * 2 * Math.PI,
       new GlucosePositions() );
   }
 

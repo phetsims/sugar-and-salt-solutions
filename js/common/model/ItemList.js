@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var ObservableArray = require( 'AXON/ObservableArray' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
 
   /**
    * @param {Array} elements
@@ -28,7 +29,7 @@ define( function( require ) {
      */
     count: function( predicate ) {
       var countValue = 0;
-      this.forEach( this, function( item ) {
+      this.forEach( function( item ) {
         if ( predicate( item ) ) {
           countValue++;
         }
@@ -42,12 +43,20 @@ define( function( require ) {
      * @returns {boolean}
      */
     contains: function( predicate ) {
-      this.forEach( this, function( item ) {
-        if ( predicate( item ) ) {
-          return true;
-        }
+
+      if ( _.isFunction( predicate ) ) {
+        this.forEach( function( item ) {
+
+          if ( predicate( item ) ) {
+            return true;
+          }
+        } );
         return false;
-      } );
+      }
+
+      var item = predicate;
+      return this.indexOf( item ) !== -1;
+
     },
 
     /**
@@ -64,6 +73,10 @@ define( function( require ) {
      * @param {function.prototype.constructor} clazz
      */
     clear: function( clazz ) {
+      if ( !clazz ) {
+        ObservableArray.prototype.clear.call( this );
+        return;
+      }
       var filteredItems = this.filterByClass( clazz );
       filteredItems.forEach( function( item ) {
         this.remove( item );
@@ -76,16 +89,16 @@ define( function( require ) {
      */
     filter: function( predicate ) {
       var itemList = new ItemList( [] );
-      this.forEach( this, function( item ) {
+      this.forEach( function( item ) {
         if ( predicate( item ) ) {
           itemList.add( item );
         }
-        return itemList;
       } );
+
+      return itemList;
     },
 
     /**
-     *
      * @param {function.prototype.constructor} clazz
      * @returns {*}
      */
@@ -93,7 +106,20 @@ define( function( require ) {
       return this.filter( function( item ) {
         return item instanceof clazz;
       } );
+    },
+
+    /**
+     *
+     * @param {prototype.constructor} type
+     * @returns {DerivedProperty}
+     */
+    propertyCount: function( type ) {
+      var self = this;
+      return new DerivedProperty( [ this.lengthProperty ], function() {
+        return self.countByClass( type ) | 0;//int
+      } );
     }
+
   } );
 } );
 

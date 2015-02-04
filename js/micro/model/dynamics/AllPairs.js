@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var FormulaUnit = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/dynamics/FormulaUnit' );
+  var FormulaUnit = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FormulaUnit' );
 
   /**
    *

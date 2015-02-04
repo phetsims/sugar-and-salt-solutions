@@ -10,10 +10,10 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var UpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/dynamics/UpdateStrategy' );
+  var UpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/UpdateStrategy' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var Compound = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Compound' );
-  var SphericalParticle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalParticle/SphericalParticle' );
+  var SphericalParticle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/SphericalParticle' );
 
   /**
    *

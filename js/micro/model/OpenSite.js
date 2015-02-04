@@ -57,7 +57,6 @@ define( function( require ) {
       if ( other instanceof Particle ) {
         return this.newInstance() instanceof other;
       }
-
       //the argument is a Constructor function
       var type = other;
       return this.newInstance().constructor === type;

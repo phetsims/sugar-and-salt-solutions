@@ -20,14 +20,29 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
 
-  function UpdateStrategy(){
-
+  /**
+   *
+   * @param {MicroModel} model
+   * @constructor
+   */
+  function UpdateStrategy( model ) {
+    this.model = model;
+    this.solution = model.solution;
+    this.waterVolume = model.waterVolume;
   }
 
-  return inherit(Object,UpdateStrategy);
+  return inherit( Object, UpdateStrategy, {
+    /**
+     * @abstract
+     * @param {Particle} particle
+     * @param {number} dt
+     */
+    stepInTime: function( particle, dt ) {
+      throw new Error( "stepInTime must be implemented in descendant class of UpdateStrategy" );
+    }
+  } );
 
-});
-
+} );
 
 
 //// Copyright 2002-2011, University of Colorado

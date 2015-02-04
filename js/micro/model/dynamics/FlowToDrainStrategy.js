@@ -11,8 +11,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var UpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/dynamics/UpdateStrategy' );
-  var FreeParticleStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/dynamics/FreeParticleStrategy' );
+  var UpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/UpdateStrategy' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -42,10 +41,15 @@ define( function( require ) {
      * @param {number} dt
      */
     stepInTime: function( particle, dt ) {
+      if ( !this.FreeParticleStrategy ) {
+        // There is a cyclic dependency between FreeParticleStrategy and FlowToDrainStrategy so loading FreeParticleStrategy
+        // inside the  function here
+        this.FreeParticleStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FreeParticleStrategy' );
+      }
 
       //If the user released the drain slider, then switch back to purely random motion
       if ( this.model.outputFlowRate.get() === 0 ) {
-        particle.setUpdateStrategy( new FreeParticleStrategy( this.model ) );
+        particle.setUpdateStrategy( new this.FreeParticleStrategy( this.model ) );
       }
 
       //Otherwise, move the particle with the pre-specified velocity and possible some random walk mixed in
@@ -60,7 +64,7 @@ define( function( require ) {
           //Mix in more of the original velocity to keep more of the random walk component
           var newVelocity = particle.velocity.get().times( 3 ).plus( this.velocity ).withMagnitude( initVelocity );
           particle.velocity.set( newVelocity );
-          new FreeParticleStrategy( this.model ).randomWalk( particle, dt );
+          new this.FreeParticleStrategy( this.model ).randomWalk( particle, dt );
         }
         else {
           particle.velocity.set( this.velocity );
