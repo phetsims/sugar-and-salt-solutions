@@ -83,7 +83,7 @@ define( function( require ) {
     //The region within which the user can drag the shakers, smaller than the visible region to make sure
     //the shakers can't be moved too far past the left edge of the beaker
     thisModel.dragRegion = Shape.rectangle( thisModel.visibleRegion.x + insetForDragRegion, thisModel.visibleRegion.y,
-        thisModel.visibleRegion.width - insetForDragRegion, thisModel.visibleRegion.height ).bounds;
+      thisModel.visibleRegion.width - insetForDragRegion, thisModel.visibleRegion.height ).bounds;
 
     //Max amount of water before the beaker overflows
     thisModel.maxWater = thisModel.beaker.getMaxFluidVolume();//Set a max amount of water that the user can add to the system so they can't overflow it
@@ -114,7 +114,7 @@ define( function( require ) {
       var width = rate * thisModel.inputFaucetMetrics.faucetWidth;
       var height = thisModel.inputFaucetMetrics.outputPoint.y;//assumes beaker floor is at y=0
       thisModel.inputWater.set( Shape.rectangle( thisModel.inputFaucetMetrics.outputPoint.x - width / 2,
-          thisModel.inputFaucetMetrics.outputPoint.y - height, width, height ) );
+        thisModel.inputFaucetMetrics.outputPoint.y - height, width, height ) );
     } );
 
     //Sets the shape of the water flowing out of the beaker, changing the shape updates the brightness of
@@ -123,7 +123,7 @@ define( function( require ) {
       var width = rate * thisModel.drainFaucetMetrics.faucetWidth;
       var height = beakerDimension.height * 2;
       thisModel.outputWater.set( Shape.rectangle( thisModel.drainFaucetMetrics.outputPoint.x - width / 2,
-          thisModel.drainFaucetMetrics.outputPoint.y - height, width, height ) );
+        thisModel.drainFaucetMetrics.outputPoint.y - height, width, height ) );
     } );
 
     //Solution model, the fluid + any dissolved solutes. Create the solution, which sits
@@ -133,7 +133,7 @@ define( function( require ) {
     //Observable flag which determines whether the beaker is full of solution, for purposes of preventing overflow
     //Convenience composite properties for determining whether the beaker
     //is full or empty so we can shut off the faucets when necessary
-    thisModel.beakerFull = new DerivedProperty( [thisModel.solution.volume, new Property( thisModel.maxWater )], function( volume, maxWater ) {
+    thisModel.beakerFull = new DerivedProperty( [ thisModel.solution.volume, new Property( thisModel.maxWater ) ], function( volume, maxWater ) {
       return volume >= maxWater;
     } );
 
@@ -259,7 +259,59 @@ define( function( require ) {
      */
     setInputFaucetMetrics: function( faucetMetrics ) {
       this.inputFaucetMetrics = faucetMetrics;
+    },
+
+    /**
+     * Reset the model state
+     */
+    reset: function() {
+      this.resetWater();
+      this.dispensers.forEach( function( dispenser ) {
+        dispenser.reset();
+      } );
+
+      this.dispenserType.reset();
+      this.showConcentrationValues.reset();
+      this.showConcentrationBarChart.reset();
+
+      //TODO notifyReset();
+    },
+
+    /**
+     * @protected
+     * Reset the water volume to the initial value and stop the flow rate for input and output faucets
+     */
+    resetWater: function() {
+      this.waterVolume.reset();
+      this.inputFlowRate.reset();
+      this.outputFlowRate.reset();
+    },
+
+    /**
+     * @abstract
+     * Determine if any salt can be removed for purposes of displaying a "remove salt" button
+     */
+    isAnySaltToRemove: function() {
+      throw new Error( "isAnySaltToRemove  must be implemented in the descendant class of SugarAndSaltSolutions Model" );
+    },
+
+    /**
+     * @abstract
+     * Determine if any sugar can be removed for purposes of displaying a "remove sugar" button
+     */
+    isAnySugarToRemove: function() {
+      throw new Error( "isAnySugarToRemove  must be implemented in the descendant class of SugarAndSaltSolutions Model" );
+    },
+
+    /**
+     * Gets the elapsed time of the model in seconds
+     * @returns {number}
+     */
+    getTime: function() {
+      return this.time;
     }
+
+
   } );
 
 } );

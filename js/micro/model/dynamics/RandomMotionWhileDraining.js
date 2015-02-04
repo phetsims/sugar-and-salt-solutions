@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var Vector2 = require( 'DOT/Vector2' );
-  var FlowToDrainStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/dynamics/FlowToDrainStrategy' );
+  var FlowToDrainStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FlowToDrainStrategy' );
 
   /**
    *

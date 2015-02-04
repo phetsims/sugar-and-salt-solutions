@@ -12,8 +12,8 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
-  var FlowOutOfDrainStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/dynamics/FlowOutOfDrainStrategy' );
-  var FlowToDrainStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/dynamics/FlowToDrainStrategy' );
+  var FlowOutOfDrainStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FlowOutOfDrainStrategy' );
+  var FlowToDrainStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FlowToDrainStrategy' );
   var Vector2 = require( 'DOT/Vector2' );
   var Logger = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Logger' );
   var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );

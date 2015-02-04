@@ -44,10 +44,10 @@ define( function( require ) {
     //Direction vectors (non-unit vectors) in the coordinate frame of the lattice, at the right spacing
     //and angle for generating the lattice topology
     //@protected
-    this.northUnitVector = new Vector2( 0, 1 ).times( spacing ).getRotatedInstance( angle );
-    this.southUnitVector = new Vector2( 0, -1 ).times( spacing ).getRotatedInstance( angle );
-    this.eastUnitVector = new Vector2( 1, 0 ).times( spacing ).getRotatedInstance( angle );
-    this.westUnitVector = new Vector2( -1, 0 ).times( spacing ).getRotatedInstance( angle );
+    this.northUnitVector = new Vector2( 0, 1 ).times( spacing ).rotated( angle );
+    this.southUnitVector = new Vector2( 0, -1 ).times( spacing ).rotated( angle );
+    this.eastUnitVector = new Vector2( 1, 0 ).times( spacing ).rotated( angle );
+    this.westUnitVector = new Vector2( -1, 0 ).times( spacing ).rotated( angle );
   }
 
   return inherit( Compound, Crystal, {

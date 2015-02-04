@@ -17,6 +17,9 @@ define( function( require ) {
   var Calcium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Calcium' );
   var Chloride = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Chloride' );
   var Map = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Map' );
+  var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/Sucrose' );
+  var Glucose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/Glucose' );
+  var Nitrate = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/Nitrate' );
 
 
   /**
@@ -27,132 +30,136 @@ define( function( require ) {
     this.map = map;
   }
 
-  return inherit( Object, Formula, {
-      /**
-       * Determine the count for the building block of the specified type
-       * @param {function} type
-       * @returns {number}
-       */
-      getFactor: function( type ) {
-        return this.map.get( type );
-      },
-
-      /**
-       * List the different types used in the formula
-       * @returns {Array<function>}
-       */
-      getTypes: function() {
-        return  this.map.keySet();
-      },
-
-      /**
-       * Determine if this formula contains the specified type of particle
-       * @param {function} type
-       * @returns {boolean}
-       */
-      contains: function( type ) {
-        return this.getTypes().contains( type );
-      },
-
-      /**
-       * Duplicates classes according to the formula counts, to facilitate iteration
-       * @returns {Array}
-       */
-      getFormulaUnit: function() {
-        var list = [];
-        _.each( this.getTypes, function( type ) {
-          list.push( this.getFactor( type ) );
-        } );
-        return list;
-      },
-
-      /**
-       *
-       * @returns {string}
-       */
-      getClass: function() {
-        return Object.prototype.toString.call( this );
-      },
-
-      equals: function( o ) {
-        if ( this === o ) { return true; }
-        if ( o === null || this.getClass() !== o.getClass() ) { return false; }
-
-        var formula = o;
-        if ( !this.map.equals( formula.map ) ) { return false; }
-        return true;
-      }
+  var FormulaExt = inherit( Object, Formula, {
+    /**
+     * Determine the count for the building block of the specified type
+     * @param {function} type
+     * @returns {number}
+     */
+    getFactor: function( type ) {
+      return this.map.get( type );
     },
 
-    //static
-    {
-      /**
-       * Factory method  for making a formula unit of 1:1
-       * @param {constructor} a
-       * @param {constructor} b
-       * @return {Formula}
-       */
-      formula_1By1: function( a, b ) {
-        return this.formula_1ByN( a, b, 1 );
-      },
+    /**
+     * List the different types used in the formula
+     * @returns {Array<function>}
+     */
+    getTypes: function() {
+      return this.map.keySet();
+    },
 
-      /**
-       * Factory method  for making a formula unit of 1:N, as in CaCl2
-       * @param {constructor} a
-       * @param {constructor} b
-       * @param {number} bCount
-       * @return {Formula}
-       */
-      formula_1ByN: function( a, b, bCount ) {
-        var particleMap = new Map();
-        particleMap.put( a, 1 );
-        particleMap.put( b, bCount );
-        return this.formula_ByMap( particleMap );
-      },
+    /**
+     * Determine if this formula contains the specified type of particle
+     * @param {function} type
+     * @returns {boolean}
+     */
+    contains: function( type ) {
+      return this.getTypes().contains( type );
+    },
 
-      /**
-       * Factory method  for making a formula unit of 1 such as in Sucrose or Glucose
-       * @param {function} type
-       * @return {Formula}
-       */
-      formula_By1: function( type ) {
-        var particleMap = new Map();
-        particleMap.put( type, 1 );
-        return this.formula_ByMap( particleMap );
-      },
+    /**
+     * Duplicates classes according to the formula counts, to facilitate iteration
+     * @returns {Array}
+     */
+    getFormulaUnit: function() {
+      var list = [];
+      _.each( this.getTypes, function( type ) {
+        list.push( this.getFactor( type ) );
+      } );
+      return list;
+    },
 
-      /**
-       * Create a formula by giving an explicit map
-       * @param map
-       * @return {Formula}
-       */
-      formula_ByMap: function( map ) {
-        var formula = new Formula( map );
-        return formula;
-      },
+    /**
+     *
+     * @returns {string}
+     */
+    getClass: function() {
+      return Object.prototype.toString.call( this );
+    },
 
-      /**
-       * The formula for calcium chloride must return Calcium first, otherwise the crystal
-       * growing procedure can run into too many dead ends
-       * @return {Formula}
-       */
-      createCalciumChloride: function() {
-        var formula = this.formula_1ByN( Calcium, Chloride, 2 );
+    equals: function( o ) {
+      if ( this === o ) { return true; }
+      if ( o === null || this.getClass() !== o.getClass() ) { return false; }
 
-        //override getTypes
-        formula.getTypes = function() {
-          var types = [];
-          types.push( Calcium );
-          types.push( Chloride );
-          return types;
-        };
-        return formula;
-      },
+      var formula = o;
+      if ( !this.map.equals( formula.map ) ) { return false; }
+      return true;
+    }
+  } );
 
-      //Formulae used in Sugar and Salt Solutions
-      SODIUM_CHLORIDE: this.formula_1By1( Sodium, Chloride ),
-      CALCIUM_CHLORIDE: this.createCalciumChloride()
-    } );
+  var FormulaFactory = {
+    /**
+     * Factory method  for making a formula unit of 1:1
+     * @param {constructor} a
+     * @param {constructor} b
+     * @return {Formula}
+     */
+    formula_1By1: function( a, b ) {
+      return this.formula_1ByN( a, b, 1 );
+    },
+
+    /**
+     * Factory method  for making a formula unit of 1:N, as in CaCl2
+     * @param {constructor} a
+     * @param {constructor} b
+     * @param {number} bCount
+     * @return {Formula}
+     */
+    formula_1ByN: function( a, b, bCount ) {
+      var particleMap = new Map();
+      particleMap.put( a, 1 );
+      particleMap.put( b, bCount );
+      return this.formula_ByMap( particleMap );
+    },
+
+    /**
+     * Factory method  for making a formula unit of 1 such as in Sucrose or Glucose
+     * @param {function} type
+     * @return {Formula}
+     */
+    formula_By1: function( type ) {
+      var particleMap = new Map();
+      particleMap.put( type, 1 );
+      return this.formula_ByMap( particleMap );
+    },
+
+    /**
+     * Create a formula by giving an explicit map
+     * @param map
+     * @return {Formula}
+     */
+    formula_ByMap: function( map ) {
+      var formula = new Formula( map );
+      return formula;
+    },
+
+    /**
+     * The formula for calcium chloride must return Calcium first, otherwise the crystal
+     * growing procedure can run into too many dead ends
+     * @return {Formula}
+     */
+    createCalciumChloride: function() {
+      var formula = this.formula_1ByN( Calcium, Chloride, 2 );
+
+      //override getTypes
+      formula.getTypes = function() {
+        var types = [];
+        types.push( Calcium );
+        types.push( Chloride );
+        return types;
+      };
+      return formula;
+    }
+  };
+
+  //Formulae used in Sugar and Salt Solutions
+  FormulaExt.SODIUM_CHLORIDE = FormulaFactory.formula_1By1( Sodium, Chloride );
+  FormulaExt.CALCIUM_CHLORIDE = FormulaFactory.createCalciumChloride();
+  FormulaExt.SODIUM_NITRATE = FormulaFactory.formula_1By1( Sodium, Nitrate );
+  FormulaExt.SUCROSE = FormulaFactory.formula_By1( Sucrose );
+  FormulaExt.GLUCOSE = FormulaFactory.formula_By1( Glucose );
+
+  return FormulaExt;
 } );
 
 //// Copyright 2002-2011, University of Colorado

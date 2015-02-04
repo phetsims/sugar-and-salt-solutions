@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var ToggleProperty = require( 'AXON/ToggleProperty' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
 
   /**
    *
@@ -19,9 +19,11 @@ define( function( require ) {
    * @constructor
    */
   function IonColor( microModel, particle ) {
-    ToggleProperty.call( this, particle.color, particle.chargeColor, microModel.showChargeColor );
+    DerivedProperty.call( this, [ microModel.showChargeColor ], function( showChargeColor ) {
+      return showChargeColor ? particle.chargeColor : particle.color;
+    } );
   }
 
-  return inherit( ToggleProperty, IonColor );
+  return inherit( DerivedProperty, IonColor );
 } );
 

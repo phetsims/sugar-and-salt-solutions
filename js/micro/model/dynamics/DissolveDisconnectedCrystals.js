@@ -13,7 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Map = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Map' );
   var Logger = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Logger' );
-  var CrystalDissolve = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/dynamics/CrystalDissolve' );
+  var CrystalDissolve = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalDissolve' );
 
   /**
    *
@@ -31,11 +31,11 @@ define( function( require ) {
 
     /**
      * If any crystal has been disconnected too long, it will be completely dissolved
-     * @param {ItemList<U> crystalItemList }
+     * @param {ItemList}
      */
     apply:function( crystalItemList ) {
       var self = this;
-      _.each(crystalItemList.toList(),function(crystal) {
+      _.each(crystalItemList.getArray(),function(crystal) {
         if ( crystal.isConnected() ) {
 
           //Clean up the map to prevent memory leak and reset for next time
@@ -50,7 +50,7 @@ define( function( require ) {
           //If it has been disconnected for too long, dissolve it completely
           if ( newCount > 30 ) {
             Logger.fine( "Crystal disconnected for " + newCount + " steps, dissolving..." );
-            new CrystalDissolve( self.model ).dissolve( crystal, crystal.getConstituents().toList() );
+            new CrystalDissolve( self.model ).dissolve( crystal, crystal.getConstituents() );
             crystalItemList.remove( crystal );
           }
         }

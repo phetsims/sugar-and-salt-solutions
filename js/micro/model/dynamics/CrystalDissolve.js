@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var Vector2 = require( 'DOT/Vector2' );
-  var FreeParticleStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/dynamics/FreeParticleStrategy' );
+  var FreeParticleStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FreeParticleStrategy' );
 
   /**
    *
@@ -26,18 +26,22 @@ define( function( require ) {
 
   return inherit( Object, CrystalDissolve, {
 
-    // Dissolve the lattice incrementally so that we get as close as possible to the saturation point
     /**
-     *
-     * @param {ItemList} crystals
-     * @param {Crystal} crystal
-     * @param {Property<boolean>} saturated
+     * Dissolve the lattice incrementally so that we get as close as possible to the saturation point
+     * This  is a overloaded function
+     * if the arguments count is  2, we consider args[0] to be {Crystal} crystal and args[1] to be elementsToDissolve
+     * if the arguments count is  3, we consider args[0] to be {ItemList} crystals and args[1]
+     * to be {Crystal} crystal and args[2] to be {Property} saturated
      */
-    dissolve: function( crystals, crystal, saturated ) {
-      if ( !saturated ) {
-        return this.incrementalDissolve( crystal, crystal );
+    dissolve: function() {
+      var args = Array.prototype.slice.call( arguments );
+      if ( args.length === 2 ) {
+        return this.incrementalDissolve( args[ 0 ], args[ 1 ] );
       }
 
+      var crystals = args[ 0 ];
+      var crystal = args[ 1 ];
+      var saturated = args[ 2 ];
       //For some unknown reason, limiting this to one dissolve element per step fixes bugs in dissolving the lattices
       //Without this limit, crystals do not dissolve when they should
       while ( !saturated.get() && crystal.numberConstituents() > 0 && new Date().getTime() -
@@ -45,7 +49,7 @@ define( function( require ) {
         this.lastDissolve = new Date().getTime();
         var toDissolve = crystal.getConstituentsToDissolve( this.model.solution.shape.get().bounds );
         if ( toDissolve ) {
-          this.incrementalDissolve( crystal, toDissolve.get() );
+          this.dissolve( crystal, toDissolve.get() );
         }
       }
 

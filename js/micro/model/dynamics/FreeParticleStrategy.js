@@ -11,9 +11,9 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var UpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/dynamics/UpdateStrategy' );
+  var UpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/UpdateStrategy' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
-  var FlowToDrainStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/dynamics/FlowToDrainStrategy' );
+
   var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -35,10 +35,16 @@ define( function( require ) {
      */
     stepInTime: function( particle, dt ) {
 
+      if ( !this.FlowToDrainStrategy ) {
+        // There is a cyclic dependency between FreeParticleStrategy and FlowToDrainStrategy so loading FlowToDrainStrategy
+        // inside the  function here
+        this.FlowToDrainStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FlowToDrainStrategy' );
+      }
+
       //Switch strategies if necessary
       //Note, this check prevents random motion during draining since the strategy is switched before random walk can take place
       if ( this.model.outputFlowRate.get() > 0 ) {
-        particle.setUpdateStrategy( new FlowToDrainStrategy( this.model, new Vector2(), false ) );
+        particle.setUpdateStrategy( new this.FlowToDrainStrategy( this.model, new Vector2(), false ) );
         particle.stepInTime( dt );
       }
       else {

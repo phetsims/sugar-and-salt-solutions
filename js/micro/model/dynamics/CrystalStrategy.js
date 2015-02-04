@@ -24,7 +24,7 @@ define( function( require ) {
    * @param {Property<boolean>} saturated
    * @constructor
    */
-  function CrystalStrategy( model, crystals, saturated) {
+  function CrystalStrategy( model, crystals, saturated ) {
     UpdateStrategy.call( this, model );
     this.crystals = crystals;
     this.saturated = saturated;
@@ -40,7 +40,6 @@ define( function( require ) {
      */
     stepInTime: function( particle, dt ) {
       var crystal = particle;
-
       //If the crystal has ever gone underwater, set a flag so that it can be kept from leaving the top of the water
       if ( this.solution.shape.get().bounds.containsBounds( crystal.getShape().bounds ) ) {
         crystal.setSubmerged();
