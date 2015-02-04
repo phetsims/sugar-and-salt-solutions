@@ -27,17 +27,16 @@ define( function( require ) {
     this.numberStepsDisconnected = new Map(); // {key:Crystal, value:Integer>}
   }
 
-  return inherit( Object, DissolveDisconnectedCrystals,{
+  return inherit( Object, DissolveDisconnectedCrystals, {
 
     /**
      * If any crystal has been disconnected too long, it will be completely dissolved
      * @param {ItemList}
      */
-    apply:function( crystalItemList ) {
+    apply: function( crystalItemList ) {
       var self = this;
-      _.each(crystalItemList.getArray(),function(crystal) {
+      _.each( crystalItemList.getArray(), function( crystal ) {
         if ( crystal.isConnected() ) {
-
           //Clean up the map to prevent memory leak and reset for next time
           self.numberStepsDisconnected.remove( crystal );
         }
@@ -54,12 +53,12 @@ define( function( require ) {
             crystalItemList.remove( crystal );
           }
         }
-      });
+      } );
 
-        //Prevent memory leak
-        if ( self.numberStepsDisconnected.keySet().length > 100 ) {
-          self.numberStepsDisconnected.clear();
-        }
+      //Prevent memory leak
+      if ( self.numberStepsDisconnected.keySet().length > 100 ) {
+        self.numberStepsDisconnected.clear();
+      }
     }
 
   } );

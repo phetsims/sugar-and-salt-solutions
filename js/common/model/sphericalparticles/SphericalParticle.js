@@ -42,7 +42,7 @@ define( function( require ) {
      * @return {Shape}
      */
     getShape: function() {
-      return  new Shape().ellipse( this.getPosition().getX(), this.getPosition().getY(), this.radius, this.radius );
+      return new Shape().ellipse( this.getPosition().x, this.getPosition().y, this.radius, this.radius );
     },
     getCharge: function() {
       return this.charge;

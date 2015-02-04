@@ -479,9 +479,11 @@ define( function( require ) {
     addSodiumChlorideCrystal: function( sodiumChlorideCrystal ) {
       var self = this;
       //Add the components of the lattice to the model so the graphics will be created
-      _.each( sodiumChlorideCrystal.iterator(), function( atom ) {
+      var particles = sodiumChlorideCrystal.iterator();
+      particles.forEach( function( atom ) {
         self.sphericalParticles.add( atom );
       } );
+
       this.sodiumChlorideCrystals.add( sodiumChlorideCrystal );
       sodiumChlorideCrystal.setUpdateStrategy( new CrystalStrategy( this, this.sodiumChlorideCrystals, this.sodiumChlorideSaturated ) );
     },

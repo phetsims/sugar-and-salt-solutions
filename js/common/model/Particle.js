@@ -31,7 +31,7 @@ define( function( require ) {
     //Flag to indicate whether the particle has ever been submerged underwater.  If so, the model update will constrain the particle so it doesn't leave the water again
     //Note this does not mean the particle is currently submerged, since it could get fully submerged once, then the water could evaporate so the particle is only partly submerged
     //In this case it should still be prevented from leaving the water area
-    this.hasSubmerged = false;
+    this.isSubmerged = false;
 
 
   }
@@ -44,14 +44,21 @@ define( function( require ) {
      * @param {number} dt (optional, if dt is not passed as a seconds argument acceleration is assumed to be dt. This
      * is to handle function overloading)
      */
-    stepInTime: function( acceleration, dt ) {
-      if ( dt ) {
+    stepInTime: function() {
+      var acceleration = 0;
+      var dt = 0;
+      var args = Array.prototype.slice.call( arguments );
+      if ( args.length === 2 ) {
+        acceleration = args[ 0 ];
+        dt = args[ 1 ];
         this.velocity.add( acceleration.times( dt ) );
         this.position.add( this.velocity.times( dt ) );
-        return;
       }
-      // Updates the particle according to its UpdateStrategy, the first argument is dt
-      this.updateStrategy.stepInTime( this, dt );
+      if ( args.length === 1 ) {
+        dt = args[ 0 ];
+        // Updates the particle according to its UpdateStrategy, the first argument is dt
+        this.updateStrategy.stepInTime( this, dt );
+      }
     },
     /**
      * @param {Vector2} location
@@ -91,14 +98,14 @@ define( function( require ) {
      * @returns {boolean}
      */
     hasSubmerged: function() {
-      return this.hasSubmerged;
+      return this.isSubmerged;
     },
     /**
      * Sets whether the particle has ever been submerged, for purposes of updating its location during the physics update.
      * See field documentation for more
      */
     setSubmerged: function() {
-      this.hasSubmerged = true;
+      this.isSubmerged = true;
     },
     /**
      * Sets the strategy this particle uses to move in time

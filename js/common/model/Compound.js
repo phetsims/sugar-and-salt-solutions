@@ -102,7 +102,7 @@ define( function( require ) {
      */
     iterator: function() {
       return _.map( this.constituents.getArray(), function( constituent ) {
-        constituent.particle;
+        return constituent.particle;
       } );
     },
 

@@ -42,6 +42,11 @@ define( function( require ) {
       return this.keys.indexOf( key ) !== -1;
     },
 
+    remove: function( key ) {
+      delete this.values[ this.keys.indexOf( key ) ];
+      delete this.keys[ this.keys.indexOf( key ) ];
+    },
+
     keySet: function() {
       return this.keys;
     },

@@ -154,7 +154,7 @@ define( function( require ) {
             var absolutePosition = relativePosition.plus( self.getPosition() );
             opposite.setPosition( absolutePosition );
             bondingSites.add( new OpenSite( relativePosition, opposite.getShape(), function() {
-              self.createPartner( constituent.particle );
+              return self.createPartner( constituent.particle );
             }, absolutePosition ) );
           }
         } );
@@ -173,7 +173,7 @@ define( function( require ) {
      * @returns {Array<Vector2>}
      */
     getPossibleDirections: function( constituent ) {
-      return [this.northUnitVector, this.southUnitVector, this.eastUnitVector, this.westUnitVector ];
+      return [ this.northUnitVector, this.southUnitVector, this.eastUnitVector, this.westUnitVector ];
     },
 
     /**
@@ -209,7 +209,7 @@ define( function( require ) {
         return null;
       }
       else {
-        return atLocation[0];
+        return atLocation.get( 0 );
       }
     },
 
@@ -284,7 +284,7 @@ define( function( require ) {
         filter( function( constituent ) {
           return waterBounds.contains( constituent.particle.getShape().bounds );
         } ).filter( function( constituent ) {
-          return  constituent.particle instanceof type;
+          return constituent.particle instanceof type;
         } ).filter( function( constituent ) {
           return !_.contains( ignore, constituent );
         } ).value();
@@ -310,13 +310,13 @@ define( function( require ) {
 
         console.log( "Crystal num components = " + c.length );
         for ( var i = 0; i < c.length; i++ ) {
-          console.log( "" + i + ": " + self.getNumBonds( c[i] ) );
+          console.log( "" + i + ": " + self.getNumBonds( c[ i ] ) );
         }
         console.log( "END crystal" );
 
         //Return the highest item
         if ( c.length > 0 ) {
-          return c[c.length - 1 ];
+          return c[ c.length - 1 ];
         }
       }
       return null;
@@ -367,10 +367,10 @@ define( function( require ) {
     getNeighbors: function( constituent ) {
       var self = this;
       var neighbors = []; // Array<Constituent>
-      _.each( [this.northUnitVector, this.southUnitVector, this.eastUnitVector, this.westUnitVector], function( direction ) {
-        var constituent = self.getConstituentAtLocation( constituent.relativePosition.plus( direction ) );
-        if ( constituent ) {
-          neighbors.push( constituent );
+      _.each( [ this.northUnitVector, this.southUnitVector, this.eastUnitVector, this.westUnitVector ], function( direction ) {
+        var constituentAtLocation = self.getConstituentAtLocation( constituent.relativePosition.plus( direction ) );
+        if ( constituentAtLocation ) {
+          neighbors.push( constituentAtLocation );
         }
       } );
       return neighbors;
@@ -412,7 +412,7 @@ define( function( require ) {
         //divisionResult's uniqueness is defined by quotient and remainder
         return divisionResult.quotient + "#" + divisionResult.remainder;
       } );
-      return result.length === 1 && result[0].remainder === 0;
+      return result.length === 1 && result[ 0 ].remainder === 0;
     }
   } );
 } );
