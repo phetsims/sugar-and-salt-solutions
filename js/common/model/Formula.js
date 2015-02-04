@@ -63,8 +63,9 @@ define( function( require ) {
      */
     getFormulaUnit: function() {
       var list = [];
-      _.each( this.getTypes, function( type ) {
-        list.push( this.getFactor( type ) );
+      var self = this;
+      _.each( this.getTypes(), function( type ) {
+        list.push( self.getFactor( type ) );
       } );
       return list;
     },

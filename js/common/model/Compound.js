@@ -70,7 +70,7 @@ define( function( require ) {
      * @param {Constituent} constituent
      */
     updateConstituentLocation: function( constituent ) {
-      constituent.particle.setPosition( this.getPosition().plus( constituent.relativePosition.getRotatedInstance( this.angle ) ) );
+      constituent.particle.setPosition( this.getPosition().plus( constituent.relativePosition.rotated( this.angle ) ) );
     },
 
     getAngle: function() {
@@ -85,6 +85,7 @@ define( function( require ) {
     getShape: function() {
       // If reduced to zero constituents, should be removed from the model before this is called otherwise
       // will cause ArrayIndexOutOfBoundsException
+
       var bounds2D = this.constituents.get( 0 ).particle.getShape().bounds;
       var rect = new Rectangle( bounds2D.getX(), bounds2D.getY(), bounds2D.getWidth(), bounds2D.getHeight() ); // TODO Ashraf, Do we need this extra Rect?
 

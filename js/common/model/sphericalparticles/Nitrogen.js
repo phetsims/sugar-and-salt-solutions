@@ -20,18 +20,16 @@ define( function( require ) {
    */
   function Nitrogen( options ) {
 
-    options = _.defaults( options || {}, {
+    options = _.extend( {
       radius: 75,
       chargeColor: ParticleColorConstants.NEGATIVE_COLOR,
       atomColor: Color.BLUE,
       charge: -1
-    } );
+    }, options || {} );
 
     SphericalParticle.call( this, options );
   }
 
-  return inherit( SphericalParticle, Nitrogen, {
-
-  } );
+  return inherit( SphericalParticle, Nitrogen, {} );
 
 } );

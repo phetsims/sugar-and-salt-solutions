@@ -120,7 +120,7 @@ define( function( require ) {
       var self = this;
       _.each( self.formula.getFormulaUnit(), function( type ) {
         if ( self.constituents.length === 0 ) {
-          self.addConstituent( new Constituent( self.createConstituentParticle( type ), Vector2.ZERO ) );
+          self.addConstituent( new Constituent( self.createConstituentParticle( type ), new Vector2() ) );
         }
         else {
           //find any particle that has open bonds
@@ -147,7 +147,7 @@ define( function( require ) {
       var bondingSites = new ItemList();
       var self = this;
       this.constituents.forEach( function( constituent ) {
-        _.each( this.getPossibleDirections( constituent ), function( direction ) {
+        _.each( self.getPossibleDirections( constituent ), function( direction ) {
           var relativePosition = constituent.relativePosition.plus( direction );
           if ( !self.isOccupied( relativePosition ) ) {
             var opposite = self.createPartner( constituent.particle );
@@ -219,7 +219,7 @@ define( function( require ) {
      * @param {Constituent} constituent
      */
     addConstituent: function( constituent ) {
-      Compound.prototype.addConstituent( this, constituent );
+      Compound.prototype.addConstituent.call( this, constituent );
       //Make sure the constituent at the location is the one and only one we just added, otherwise it will cause an
       //error by putting two constituents at the same lattice site
       var atLocation = this.getConstituentAtLocation( constituent.relativePosition );

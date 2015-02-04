@@ -43,12 +43,20 @@ define( function( require ) {
      * @returns {boolean}
      */
     contains: function( predicate ) {
-      this.forEach( function( item ) {
-        if ( predicate( item ) ) {
-          return true;
-        }
-      } );
-      return false;
+
+      if ( _.isFunction( predicate ) ) {
+        this.forEach( function( item ) {
+
+          if ( predicate( item ) ) {
+            return true;
+          }
+        } );
+        return false;
+      }
+
+      var item = predicate;
+      return this.indexOf( item ) !== -1;
+
     },
 
     /**
