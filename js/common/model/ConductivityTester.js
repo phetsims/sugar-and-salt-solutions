@@ -57,7 +57,7 @@ define( function( require ) {
     this.conductivityChangeEvents = new Events();
 
     //When brightness changes, forward change events to ConductivityTesterChangeListeners
-    this.brightnesProperty.link( function( brightness ) {
+    this.brightnessProperty.link( function( brightness ) {
       thisTester.conductivityChangeEvents.trigger( "brightnessChanged" );
     } );
 
