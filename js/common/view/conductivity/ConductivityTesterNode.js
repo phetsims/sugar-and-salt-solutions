@@ -27,7 +27,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   // images
-  var batteryImage = require( 'image!ACID_BASE_SOLUTIONS/battery.png' );
+  var batteryImage = require( 'image!SCENERY_PHET/battery-D-cell.png' );
 
   // constants
   var SHOW_ORIGIN = false; // draws a red circle at the origin, for debugging
