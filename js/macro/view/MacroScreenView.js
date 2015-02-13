@@ -21,6 +21,7 @@ define( function( require ) {
   var CrystalMakerCanvasNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/CrystalMakerCanvasNode' );
   var SoluteControlPanelNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SoluteControlPanelNode' );
   var DispenserRadioButtonSet = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/DispenserRadioButtonSet' );
+  var ConductivityTesterToolboxNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/ConductivityTesterToolboxNode' );
   var SelectableSoluteItem = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SelectableSoluteItem' );
   var VolumeIndicatorNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/VolumeIndicatorNode' );
   var ExpandableConcentrationBarChartNode = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/ExpandableConcentrationBarChartNode' );
@@ -109,12 +110,14 @@ define( function( require ) {
     //Show the solute control panel node behind the shaker node so the conductivity tester will also go in front
     thisView.behindShakerNode.addChild( soluteControlPanelNode );
 
-    //TODO conductivity Tester Layer
+    //Separate layer for the conductivity toolbox to make sure the conductivity node shows as submerged in the water, but still goes behind the shaker
+    thisView.conductivityToolboxLayer = new Node();
+    thisView.addChild(thisView.conductivityToolboxLayer);
 
     //Show the concentration bar chart behind the shaker so the user can drag the shaker in front
     var concentrationBarChart = new ExpandableConcentrationBarChartNode( macroModel.showConcentrationBarChart, macroModel.saltConcentration,
       macroModel.sugarConcentration, macroModel.showConcentrationValues, 1 );
-    concentrationBarChart.x = this.layoutBounds.maxX - concentrationBarChart.bounds.getWidth() - CONCENTRATION_PANEL_INSET;
+    concentrationBarChart.x = thisView.layoutBounds.maxX - concentrationBarChart.bounds.getWidth() - CONCENTRATION_PANEL_INSET;
     concentrationBarChart.y = CONCENTRATION_PANEL_INSET;
 
     thisView.behindShakerNode.addChild( concentrationBarChart );
@@ -123,6 +126,12 @@ define( function( require ) {
     soluteControlPanelNode.x = concentrationBarChart.bounds.getX() -
                                soluteControlPanelNode.bounds.getWidth() - DISPENSER_TYPE_PANEL_INSET;
     soluteControlPanelNode.y = CONCENTRATION_PANEL_INSET;
+
+    //Toolbox from which the conductivity tester can be dragged
+    thisView.conductivityToolboxLayer.addChild( new ConductivityTesterToolboxNode( macroModel.conductivityTester, modelViewTransform ) );
+    //Set the location of the control panel
+    thisView.conductivityToolboxLayer.x =  thisView.layoutBounds.getWidth()/3 ;// TODO - thisView.conductivityToolboxLayer.bounds.getWidth() - INSET;
+    thisView.conductivityToolboxLayer.y = 0;// TODO concentrationBarChart.bounds.getMaxY() + INSET;
 
 
     //Add a control that allows the user to remove solutes

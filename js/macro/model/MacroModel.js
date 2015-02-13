@@ -14,6 +14,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
   var BeakerDimension = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/BeakerDimension' );
+  var ConductivityTester = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ConductivityTester' );
   var AirborneCrystalMoles = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AirborneCrystalMoles' );
   var SoluteModel = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/SoluteModel' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
@@ -78,6 +79,9 @@ define( function( require ) {
     //Salt and its listeners
     thisModel.saltList = new ObservableArray();//The salt crystals that haven't been dissolved
 
+    //    //Model for the conductivity tester which is in the macro tab but not other tabs
+    thisModel.conductivityTester=new ConductivityTester( thisModel.beaker );
+
     //Model moles, concentration, amount dissolved, amount precipitated, etc. for salt and sugar
     //The chemistry team informed me that there is 0.2157/1000 meters cubed per mole of solid sugar
     thisModel.salt = new SoluteModel( thisModel.waterVolume, saltSaturationPoint, SugarAndSaltConstants.VOLUME_PER_SOLID_MOLE_SALT,
@@ -90,7 +94,7 @@ define( function( require ) {
     thisModel.anySolutes = thisModel.salt.moles.greaterThanNumber( 0 ).or( thisModel.sugar.moles.greaterThanNumber( 0 ) );
 
     //Total volume of the water plus any solid precipitate submerged under the water (and hence pushing it up)
-    thisModel.solidVolume = new DerivedProperty( [thisModel.salt.solidVolume, thisModel.sugar.solidVolume], function() {
+    thisModel.solidVolume = new DerivedProperty( [ thisModel.salt.solidVolume, thisModel.sugar.solidVolume ], function() {
       return thisModel.salt.solidVolume.get() + thisModel.sugar.solidVolume.get();
     } );
 
@@ -99,10 +103,10 @@ define( function( require ) {
     //When we were accounting for volume effects of dissolved solutes, the concentrations had to be defined here instead of
     //in SoluteModel because they depend on the total volume of the solution (which in turn depends on the amount of solute
     //dissolved in the solvent).
-    thisModel.saltConcentration = new DerivedProperty( [thisModel.salt.molesDissolved, thisModel.solution.volume], function() {
+    thisModel.saltConcentration = new DerivedProperty( [ thisModel.salt.molesDissolved, thisModel.solution.volume ], function() {
       return thisModel.salt.molesDissolved.get() / thisModel.solution.volume.get();
     } );
-    thisModel.sugarConcentration = new DerivedProperty( [thisModel.sugar.molesDissolved, thisModel.solution.volume], function() {
+    thisModel.sugarConcentration = new DerivedProperty( [ thisModel.sugar.molesDissolved, thisModel.solution.volume ], function() {
       return thisModel.sugar.molesDissolved.get() / thisModel.solution.volume.get();
     } );
 
@@ -114,11 +118,11 @@ define( function( require ) {
     thisModel.airborneSugarGrams = new AirborneCrystalMoles( thisModel.sugarList ).times( thisModel.sugar.gramsPerMole );
 
     //Properties to indicate if the user is allowed to add more of the solute.  If not allowed the dispenser is shown as empty.
-    thisModel.moreSaltAllowed = new DerivedProperty( [thisModel.salt.grams, thisModel.airborneSaltGrams], function() {
+    thisModel.moreSaltAllowed = new DerivedProperty( [ thisModel.salt.grams, thisModel.airborneSaltGrams ], function() {
       return (thisModel.salt.grams.get() + thisModel.airborneSaltGrams.get()) < 100;
     } );
 
-    thisModel.moreSugarAllowed = new DerivedProperty( [thisModel.sugar.grams, thisModel.airborneSugarGrams], function() {
+    thisModel.moreSugarAllowed = new DerivedProperty( [ thisModel.sugar.grams, thisModel.airborneSugarGrams ], function() {
       return (thisModel.sugar.grams.get() + thisModel.airborneSugarGrams.get()) < 100;
     } );
 
@@ -176,7 +180,7 @@ define( function( require ) {
     fireCrystalListChanged: function() {
       var changedCallbacks = this.crystalsListChangedCallbacks.slice( 0 );
       for ( var i = 0; i < changedCallbacks.length; i++ ) {
-        changedCallbacks[i]();
+        changedCallbacks[ i ]();
       }
     },
 
@@ -201,7 +205,7 @@ define( function( require ) {
         //If the salt hits the water during any point of its initial -> final trajectory, absorb it.
         //This is necessary because if the water layer is too thin, the crystal could have jumped over it completely
         if ( lineIntersectsBounds( initialLocation.x, initialLocation.y, crystal.position.get().x, crystal.position.get().y,
-          thisModel.solution.shape.get().bounds ) ) {
+            thisModel.solution.shape.get().bounds ) ) {
           hitTheWater.push( crystal );
         }
         //Any crystals that landed on the beaker base or on top of precipitate should immediately precipitate into solid
