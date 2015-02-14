@@ -132,6 +132,7 @@ define( function( require ) {
     //Set the location of the control panel
     thisView.conductivityToolboxLayer.x =  thisView.layoutBounds.getWidth()/3 ;// TODO - thisView.conductivityToolboxLayer.bounds.getWidth() - INSET;
     thisView.conductivityToolboxLayer.y = 0;// TODO concentrationBarChart.bounds.getMaxY() + INSET;
+    thisView.conductivityToolboxLayer.visible = false; // TODO
 
 
     //Add a control that allows the user to remove solutes
