@@ -91,7 +91,11 @@ define( function( require ) {
     //Flag to indicate if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).
     //This is used to show/hide the "remove solutes" button
     //Determine if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).
-    thisModel.anySolutes = thisModel.salt.moles.greaterThanNumber( 0 ).or( thisModel.sugar.moles.greaterThanNumber( 0 ) );
+    thisModel.anySolutes = new DerivedProperty( [thisModel.salt.moles, thisModel.sugar.moles],
+      function( saltMoles, sugarMoles ) {
+        return saltMoles > 0 || sugarMoles > 0;
+      } );
+
 
     //Total volume of the water plus any solid precipitate submerged under the water (and hence pushing it up)
     thisModel.solidVolume = new DerivedProperty( [ thisModel.salt.solidVolume, thisModel.sugar.solidVolume ], function() {

@@ -233,17 +233,23 @@ define( function( require ) {
     //This allows us to say, for example, that more NaNO3 may be added if Oxygen is not over the limit, adding another molecule to its kit that contains
     //oxygen would cause this to give incorrect limiting behavior
     //For sucrose & glucose, account for non-dissolved crystals.  Otherwise the user can go over the limit since falling crystals aren't counted
-    this.moreSodiumChlorideAllowed = this.sphericalParticles.propertyCount( Sodium ).lessThanNumber(
-      ParticleCountTable.MAX_SODIUM_CHLORIDE ).or( this.sphericalParticles.propertyCount( Chloride ).lessThanNumber(
-        ParticleCountTable.MAX_SODIUM_CHLORIDE ) );
+    this.moreSodiumChlorideAllowed = new DerivedProperty(
+      [this.sphericalParticles.propertyCount( Sodium ), this.sphericalParticles.propertyCount( Chloride )],
+      function( sodiumCount, chlorideCount ) {
+        return sodiumCount < ParticleCountTable.MAX_SODIUM_CHLORIDE || chlorideCount < ParticleCountTable.MAX_SODIUM_CHLORIDE;
+      } );
 
-    this.moreCalciumChlorideAllowed = this.sphericalParticles.propertyCount( Calcium ).lessThanNumber(
-      ParticleCountTable.MAX_CALCIUM_CHLORIDE ).or( this.sphericalParticles.propertyCount( Chloride ).lessThanNumber(
-        ParticleCountTable.MAX_CALCIUM_CHLORIDE ) );
+    this.moreCalciumChlorideAllowed = new DerivedProperty(
+      [this.sphericalParticles.propertyCount( Calcium ), this.sphericalParticles.propertyCount( Chloride )],
+      function( calciumCount, chlorideCount ) {
+        return calciumCount < ParticleCountTable.MAX_CALCIUM_CHLORIDE || chlorideCount < ParticleCountTable.MAX_CALCIUM_CHLORIDE;
+      } );
 
-    this.moreSodiumNitrateAllowed = this.sphericalParticles.propertyCount( Sodium ).lessThanNumber(
-      ParticleCountTable.MAX_SODIUM_NITRATE ).or( this.sphericalParticles.propertyCount( Oxygen ).lessThanNumber(
-        ParticleCountTable.MAX_SODIUM_NITRATE * 3 ) );
+    this.moreSodiumNitrateAllowed = new DerivedProperty(
+      [this.sphericalParticles.propertyCount( Sodium ), this.sphericalParticles.propertyCount( Oxygen )],
+      function( sodiumCount, oxygenCount ) {
+        return sodiumCount < ParticleCountTable.MAX_SODIUM_NITRATE || oxygenCount < ParticleCountTable.MAX_SODIUM_NITRATE * 3;
+      } );
 
     this.moreSucroseAllowed = ( this.freeParticles.propertyCount( Sucrose ).plus( this.numSucroseMoleculesInCrystal ) ).lessThanNumber(
       ParticleCountTable.MAX_SUCROSE );
