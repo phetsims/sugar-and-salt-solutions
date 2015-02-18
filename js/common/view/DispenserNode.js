@@ -71,13 +71,10 @@ define( function( require ) {
       thisNode.updateTransform();
     } );
 
-    //The MovableDragHandler expects object with 2 properties namely locationProperty and dragBounds
-    var movable = {
-      locationProperty: thisNode.model.center, // The property that gets updated by the MouseDragHandler when User drags the node
-      dragBounds: constraint // The bounds region within which the user is allowed to move the node
-    };
-
-    thisNode.addInputListener( new MovableDragHandler( movable, thisNode.modelViewTransform ) );
+    thisNode.addInputListener( new MovableDragHandler( thisNode.model.center, {
+      dragBounds: constraint,
+      modelViewTransform: thisNode.modelViewTransform
+    } ) );
 
     thisNode.model.center.link( function() {
       //Set the model height of the dispenser so the model will be able to emit
