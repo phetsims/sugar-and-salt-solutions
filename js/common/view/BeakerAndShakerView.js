@@ -21,6 +21,7 @@ define( function( require ) {
   var EvaporationSlider = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/EvaporationSlider' );
   var FaucetNodeContainer = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetNodeContainer' );
   var FaucetMetrics = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetMetrics' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Color = require( 'SCENERY/util/Color' );
 
   //constants
@@ -62,7 +63,10 @@ define( function( require ) {
     //while the sim is paused (2nd tab only)
     var maxFlowRate = 1;
     var inputFaucetNode = new FaucetNodeContainer( maxFlowRate, model.inputFlowRate,
-      model.clockRunning.and( model.beakerFull.derivedNot() ), {
+      new DerivedProperty( [model.clockRunning, model.beakerFull],
+        function( clockRunning, beakerFull ) {
+          return clockRunning && !beakerFull;
+        } ), {
         horizontalPipeLength: 2000,
         closeOnRelease: true,
         scale: 0.6
