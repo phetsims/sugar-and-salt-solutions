@@ -1,3 +1,4 @@
+
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
@@ -67,7 +68,7 @@ define( function( require ) {
     } );
 
     //Update the AffineTransform for the image when the model changes
-    Property.multilink( [ model.center, model.angle ], function() {
+    Property.lazyMultilink( [ model.center, model.angle ], function() {
       thisNode.updateTransform();
     } );
 

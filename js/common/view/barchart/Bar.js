@@ -31,20 +31,20 @@ define( function( require ) {
   /**
    *
    * @param {Property<Color>} colorProperty
-   * @param caption
-   * @param {Node} icon
+   * @param {string} caption
    * @param {Property<number>} valueProperty
    * @param {Property<boolean>} showValueProperty
    * @param {number} verticalAxisScale
    * @param {boolean} multiLineReadout
+   * @param {Node} icon // optional
    * @constructor
    */
-  function Bar( colorProperty, caption, icon, valueProperty, showValueProperty, verticalAxisScale, multiLineReadout ) {
+  function Bar( colorProperty, caption, valueProperty, showValueProperty, verticalAxisScale, multiLineReadout, icon ) {
     var thisBar = this;
     Node.call( thisBar );
 
     // Create and add the bar itself.
-    var bar = new Path( new Shape(), {lineWidth: 1, stroke: Color.BLACK, fill: colorProperty.get()} );
+    var bar = new Path( new Shape(), { lineWidth: 1, stroke: Color.BLACK, fill: colorProperty.get() } );
     thisBar.addChild( bar );
 
     colorProperty.link( function( color ) {
@@ -63,20 +63,22 @@ define( function( require ) {
     } );
 
     // Create and add the caption.
-    var captionNode = new HTMLText( caption, {font: SugarAndSaltConstants.CONTROL_FONT} );
+    var captionNode = new HTMLText( caption, { font: SugarAndSaltConstants.CONTROL_FONT } );
 
     // Position so that it is centered under the bar.
     thisBar.addChild( captionNode );
     captionNode.x = WIDTH / 2 - captionNode.bounds.width / 2;
     captionNode.y = CAPTION_INSET;
 
-    //If specified, show an icon below the caption (to save horizontal space)
-    thisBar.addChild( icon );
-    icon.x = captionNode.bounds.getCenterX() - icon.bounds.getWidth() / 2;
-    icon.y = captionNode.bounds.getMaxY();
+    if ( icon ) {
+      //If specified, show an icon below the caption (to save horizontal space)
+      thisBar.addChild( icon );
+      icon.x = captionNode.bounds.getCenterX() - icon.bounds.getWidth() / 2;
+      icon.y = captionNode.bounds.getMaxY();
+    }
 
     //Optionally show the readout of the exact value above the bar itself
-    var valueReadout = new HTMLText( "", {font: SugarAndSaltConstants.CONTROL_FONT} );
+    var valueReadout = new HTMLText( "", { font: SugarAndSaltConstants.CONTROL_FONT } );
     thisBar.addChild( valueReadout );
     valueProperty.link( function( molesPerMeterCubed ) {
 
