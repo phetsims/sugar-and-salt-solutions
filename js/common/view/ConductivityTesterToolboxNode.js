@@ -15,11 +15,17 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
-
+  var Panel = require( 'SUN/Panel' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
+  var Dimension2 = require( 'DOT/Dimension2' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var SugarAndSaltSolutionsConductivityTesterNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SugarAndSaltSolutionsConductivityTesterNode' );
+  var ConductivityTesterNode = require( 'SCENERY_PHET/ConductivityTesterNode' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+
+  // strings
+  var CONDUCTIVITY = require( 'string!SUGAR_AND_SALT_SOLUTIONS/conductivity' );
 
   /**
    *
@@ -27,21 +33,98 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function ConductivityTesterToolboxNode( conductivityTester, modelViewTransform ) {
+  function ConductivityTesterToolboxNode( submergedInWaterNode, conductivityTester, modelViewTransform ) {
     var thisNode = this;
-    Node.call( thisNode );
-
-    //@protected Background for ConductivityTester Icon
-    thisNode.background = new Path( Shape.rectangle( 0, 0, 10, 10 ), {
-      fill: 'white'
+    var conductivityTesterIconNode = ConductivityTesterNode.createIcon( 0, 85, -40, 60, {
+      bulbImageScale: 0.35,
+      batteryImageScale: 0.4,
+      negativeProbeFill: 'green',
+      // common to both probes
+      probeSize: new Dimension2( 16, 22 ), // {Dimension2} probe dimensions, in view coordinates
+      bulbToBatteryWireLength: 15 // length of the wire between bulb and battery, in view coordinates
     } );
- //  TODO thisNode.addChild( thisNode.background );
+
+    var titleNode = new Text( CONDUCTIVITY, { font: SugarAndSaltConstants.TITLE_FONT } );
+    var vBox = new VBox( {
+      children: [ titleNode, conductivityTesterIconNode ],
+      spacing: 0
+    } );
 
     var sugarAndSaltSolutionsConductivityTesterNode = new SugarAndSaltSolutionsConductivityTesterNode( conductivityTester, modelViewTransform );
-    thisNode.addChild( sugarAndSaltSolutionsConductivityTesterNode );
+    submergedInWaterNode.addChild( sugarAndSaltSolutionsConductivityTesterNode );
+
+    var startOffset; // where the drag started, relative to the Movable's origin, in parent view coordinates
+    sugarAndSaltSolutionsConductivityTesterNode.addInputListener( new SimpleDragHandler(
+      {
+        // Allow moving a finger (touch) across a node to pick it up.
+        allowTouchSnag: true,
+        // note where the drag started
+        start: function( event ) {
+          var location = modelViewTransform.modelToViewPosition( conductivityTester.locationProperty.get() );
+          startOffset = event.currentTarget.globalToParentPoint( event.pointer.point ).minus( location );
+        },
+
+        // change the location, adjust for starting offset
+        drag: function( event ) {
+          var parentPoint = event.currentTarget.globalToParentPoint( event.pointer.point ).minus( startOffset );
+          var location = modelViewTransform.viewToModelPosition( parentPoint );
+          conductivityTester.locationProperty.set( location );
+        },
+
+        end: function( event ) {
+          //if the user has dragged the ConductivityTesterNode into the panel, hide the ConductivityTesterNode
+          var droppableNodeBounds = sugarAndSaltSolutionsConductivityTesterNode.getDroppableComponent().getGlobalBounds();
+          var panelGlobalBounds = thisNode.getGlobalBounds();
+          if ( panelGlobalBounds.intersectsBounds( droppableNodeBounds ) ) {
+            conductivityTester.visible = false;
+          }
+        }
+      } ) );
+
+
+    conductivityTester.visibleProperty.link( function( visible ) {
+      sugarAndSaltSolutionsConductivityTesterNode.visible = visible;
+      conductivityTesterIconNode.visible = !visible;
+    } );
+
+    sugarAndSaltSolutionsConductivityTesterNode.visible = false;
+
+    // Add a listener that will allow the user to click on the Icon and make
+    // the sugarAndSaltSolutionsConductivityTesterNode visible
+    var iconDragListener = new SimpleDragHandler( {
+      start: function( event ) {
+        var conductivityTesterStartingPosition = modelViewTransform.viewToModelPosition( conductivityTesterIconNode.getGlobalBounds().center );
+        var bulbBounds = conductivityTester.getBulbRegion();
+        //adjust the location such that the bulb appears on the clicked position
+        conductivityTesterStartingPosition.y -= 1.4 * bulbBounds.height;
+        conductivityTesterStartingPosition.x -= bulbBounds.width / 2;
+        conductivityTester.setLocation( conductivityTesterStartingPosition );
+        conductivityTester.visible = true;
+        sugarAndSaltSolutionsConductivityTesterNode.moveToFront();
+
+      }
+    } );
+    conductivityTesterIconNode.addInputListener( iconDragListener );
+
+    // put everything in a panel
+    Panel.call( thisNode, vBox, {
+        fill: 'white',
+        yMargin: 6,
+        xMargin: 6,
+        lineWidth: 1,
+        cursor: 'pointer',
+        stroke: 'gray',
+        cornerRadius: 2,
+        backgroundPickable: true
+      }
+    );
+
+    //initial Location, the ConductivityTesterNode uses oldLocation while doing Translation so set the initial location in alignment with Panel
+    var initialLocation = modelViewTransform.viewToModelPosition( thisNode.bounds.center );
+    conductivityTester.setLocation( initialLocation );
   }
 
-  return inherit( Node, ConductivityTesterToolboxNode, {} );
+  return inherit( Panel, ConductivityTesterToolboxNode, {} );
 
 } );
 

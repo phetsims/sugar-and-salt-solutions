@@ -23,5 +23,6 @@
   "calciumChlorideNewLine": "Calcium<br>Chloride",
   "sodiumNitrateNewLine": "Sodium<br>Nitrate",
   "sucrose": "Sucrose",
-  "glucose": "Glucose"
+  "glucose": "Glucose",
+  "conductivity":"Conductivity"
 }

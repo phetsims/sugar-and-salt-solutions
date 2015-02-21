@@ -45,6 +45,7 @@ define( function( require ) {
   var INSET = 5;
   var CONCENTRATION_PANEL_INSET = 25;
   var DISPENSER_TYPE_PANEL_INSET = 15;
+  var CONDUCTIVITY_PANEL_INSET = 45;
 
   /**
    * @param {MacroModel} macroModel
@@ -112,7 +113,7 @@ define( function( require ) {
 
     //Separate layer for the conductivity toolbox to make sure the conductivity node shows as submerged in the water, but still goes behind the shaker
     thisView.conductivityToolboxLayer = new Node();
-    thisView.addChild(thisView.conductivityToolboxLayer);
+    thisView.submergedInWaterNode.addChild( thisView.conductivityToolboxLayer );
 
     //Show the concentration bar chart behind the shaker so the user can drag the shaker in front
     var concentrationBarChart = new ExpandableConcentrationBarChartNode( macroModel.showConcentrationBarChart, macroModel.saltConcentration,
@@ -128,12 +129,12 @@ define( function( require ) {
     soluteControlPanelNode.y = CONCENTRATION_PANEL_INSET;
 
     //Toolbox from which the conductivity tester can be dragged
-    thisView.conductivityToolboxLayer.addChild( new ConductivityTesterToolboxNode( macroModel.conductivityTester, modelViewTransform ) );
-    //Set the location of the control panel
-    thisView.conductivityToolboxLayer.x =  thisView.layoutBounds.getWidth()/3 ;// TODO - thisView.conductivityToolboxLayer.bounds.getWidth() - INSET;
-    thisView.conductivityToolboxLayer.y = 0;// TODO concentrationBarChart.bounds.getMaxY() + INSET;
-    thisView.conductivityToolboxLayer.visible = false; // TODO
+    thisView.conductivityToolboxNode = new ConductivityTesterToolboxNode( thisView.submergedInWaterNode, macroModel.conductivityTester, modelViewTransform );
+    thisView.submergedInWaterNode.addChild( thisView.conductivityToolboxNode );
 
+    //Set the location of the control panel
+    thisView.conductivityToolboxNode.x = concentrationBarChart.x + CONDUCTIVITY_PANEL_INSET;
+    thisView.conductivityToolboxNode.y = concentrationBarChart.bounds.getMaxY() + CONCENTRATION_PANEL_INSET;
 
     //Add a control that allows the user to remove solutes
     //Button should be inside the beaker at the bottom right so it doesn't collide with the leftmost tick marks

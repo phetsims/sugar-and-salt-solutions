@@ -63,7 +63,7 @@ define( function( require ) {
     //while the sim is paused (2nd tab only)
     var maxFlowRate = 1;
     var inputFaucetNode = new FaucetNodeContainer( maxFlowRate, model.inputFlowRate,
-      new DerivedProperty( [model.clockRunning, model.beakerFull],
+      new DerivedProperty( [ model.clockRunning, model.beakerFull ],
         function( clockRunning, beakerFull ) {
           return clockRunning && !beakerFull;
         } ), {
@@ -138,7 +138,7 @@ define( function( require ) {
     //Overlay node that renders as partially transparent in front of submerged objects, such as the conductivity tester.
     //When changing the transparency here make sure it looks good for precipitate as well as submerged probes
     thisView.addChild( new SolutionNode( modelViewTransform, model.solution, new Color( WATER_COLOR.getRed(),
-      WATER_COLOR.getGreen(), WATER_COLOR.getBlue(), 128 ) ) );
+      WATER_COLOR.getGreen(), WATER_COLOR.getBlue(), 0.5 ) ) );// 0.5 is opacity
 
     //Add an evaporation rate slider below the beaker
     var evaporationSlider = new EvaporationSlider( model.evaporationRate, model.waterVolume, model.clockRunning );
@@ -152,7 +152,5 @@ define( function( require ) {
 
   }
 
-  return inherit( SugarAndSaltSolutionsView, BeakerAndShakerView, {
-
-  } );
+  return inherit( SugarAndSaltSolutionsView, BeakerAndShakerView, {} );
 } );

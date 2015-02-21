@@ -11,23 +11,40 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Dimension2 = require( 'DOT/Dimension2' );
+  var Bounds2 = require( 'DOT/Bounds2' );
+  var Vector2 = require( 'DOT/Vector2' );
+
+  // constants
+  //Size of each probe in meters, corresponds to the side of the red or black object in model coordinates (meters),
+  //might need to be changed if we want to make the conductivity tester probes bigger or smaller
+  var PROBE_SIZE = new Dimension2( 0.0125, 0.025 );
+  // Move the probes down to encourage the user to dip them in the water without
+  // dipping the light bulb/battery in the water too, which would short out the circuit
+  var PROBE_OFFSET_Y = 0.065;
 
 
+  /**
+   *
+   * @param {Beaker} beaker
+   * @constructor
+   */
   function ConductivityTester( beaker ) {
     var thisTester = this;
     this.beaker = beaker;
-    //Note that in the typical usage scenario (dragged out of a toolbox), these values are overriden with
-    //other values in SugarAndSaltSolutionsConductivityTesterNode
+    var location = new Vector2( 0, 0 );
     PropertySet.call( thisTester, {
+      location: location,
+      negativeProbeLocation: new Vector2( location.x - 0.03, location.y - PROBE_OFFSET_Y ),
+      positiveProbeLocation: new Vector2( location.x + 0.07, location.y - PROBE_OFFSET_Y ),
       brightness: 0,//Brightness value (between 0 and 1)
       visible: false, //True if the user has selected to use the conductivity tester
       shortCircuited: false
     } );
 
-    this.brightnessProperty.link( function( brightness ) {
-      console.log( "brightness changed " + brightness );
-    } );
-
+    //Model bounds corresponding to where the battery and bulb are (set by the view)
+    this.batteryRegion = Bounds2.NOTHING;
+    this.bulbRegion = Bounds2.NOTHING;
   }
 
   return inherit( PropertySet, ConductivityTester, {
@@ -45,15 +62,77 @@ define( function( require ) {
 
     /**
      * Sets the location of the unit (battery + bulb) and notifies listeners
-     * @param {number} x
-     * @param {number} y
+     *
      */
-    setLocation: function( x, y ) {
-      this.location.setXY( x, y );
+    setLocation: function( location ) {
+      this.location = location;
+    },
 
+    /**
+     * Determine the size of the probes in meters
+     * @returns {Dimension2}
+     */
+    getProbeSizeReference: function() {
+      return PROBE_SIZE;
+    },
+
+
+    /**
+     * Setters and getters for the battery region, set by the view since bulb and battery are primarily view components.
+     * Used to determine if the circuit should short out.
+     * @param {Bounds2} bounds
+     */
+    setBatteryRegion: function( bounds ) {
+      this.batteryRegion = bounds;
+    },
+
+    /**
+     * @returns {Bounds2}
+     */
+    getBatteryRegion: function() {
+      return this.batteryRegion;
+    },
+
+
+    /**
+     * Setters and getters for the bulb region, set by the view since bulb and battery are primarily view components.
+     * Used to determine if the circuit should short out.
+     * @param {Bounds2} bounds
+     */
+    setBulbRegion: function( bounds ) {
+      this.bulbRegion = bounds;
+    },
+
+    /**
+     * @returns {Bounds2}
+     */
+    getBulbRegion: function() {
+      return this.bulbRegion;
+
+    },
+
+    /**
+     * Returns the region in space occupied by the positive probe, used for hit detection with the entire probe region
+     * @returns {Bounds2}
+     */
+    getPositiveProbeRegion: function() {
+      return Bounds2.rect( this.positiveProbeLocation.x - this.getProbeSizeReference().width / 2, this.positiveProbeLocation.y,
+        this.getProbeSizeReference().width, this.getProbeSizeReference().height );
+    },
+
+    /**
+     * Returns the region in space occupied by the negative probe, used for hit detection with the entire probe region
+     * @returns {Bounds2}
+     */
+    getNegativeProbeRegion: function() {
+      return Bounds2.rect( this.negativeProbeLocation.x - this.getProbeSizeReference().width / 2, this.negativeProbeLocation.y,
+        this.getProbeSizeReference().width, this.getProbeSizeReference().height );
     }
+
   } );
-} );
+
+} )
+;
 
 
 //// Copyright 2002-2011, University of Colorado
@@ -97,9 +176,7 @@ define( function( require ) {
 
 
 //
-//    //Model shapes corresponding to where the battery and bulb are
-//    private Shape batteryRegion;
-//    private Shape bulbRegion;
+
 //
 //    //Determine if the conductivity tester is visible
 //    public boolean isVisible() {
@@ -111,22 +188,9 @@ define( function( require ) {
 //        conductivityTesterListeners.add( conductivityTesterChangeListener );
 //    }
 //
-//    //Determine the size of the probes in meters
-//    public PDimension getProbeSizeReference() {
-//        return PROBE_SIZE;
-//    }
+
 //
-//    //Returns the region in space occupied by the positive probe, used for hit detection with the entire probe region
-//    public ImmutableRectangle2D getPositiveProbeRegion() {
-//        return new ImmutableRectangle2D( positiveProbeLocation.getX() - getProbeSizeReference().getWidth() / 2, positiveProbeLocation.getY(),
-//                                         getProbeSizeReference().getWidth(), getProbeSizeReference().getHeight() );
-//    }
-//
-//    //Returns the region in space occupied by the negative probe, used for hit detection with the entire probe region
-//    public ImmutableRectangle2D getNegativeProbeRegion() {
-//        return new ImmutableRectangle2D( negativeProbeLocation.getX() - getProbeSizeReference().getWidth() / 2, negativeProbeLocation.getY(),
-//                                         getProbeSizeReference().getWidth(), getProbeSizeReference().getHeight() );
-//    }
+
 //
 //    //Determine the location of the positive probe
 //    public Point2D getPositiveProbeLocationReference() {
@@ -148,21 +212,5 @@ define( function( require ) {
 //
 
 //
-//    //Setters and getters for the battery region, set by the view since bulb and battery are primarily view components. Used to determine if the circuit should short out.
-//    public void setBatteryRegion( Shape shape ) {
-//        this.batteryRegion = shape;
-//    }
-//
-//    public Shape getBatteryRegion() {
-//        return batteryRegion;
-//    }
-//
-//    //Setters and getters for the bulb region, set by the view since bulb and battery are primarily view components.  Used to determine if the circuit should short out.
-//    public void setBulbRegion( Shape shape ) {
-//        this.bulbRegion = shape;
-//    }
-//
-//    public Shape getBulbRegion() {
-//        return bulbRegion;
-//    }
+
 //}

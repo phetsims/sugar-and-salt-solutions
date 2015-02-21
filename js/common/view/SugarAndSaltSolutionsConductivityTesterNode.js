@@ -14,15 +14,8 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var ConductivityTesterNode = require( 'SCENERY_PHET/ConductivityTesterNode' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Dimension2 = require( 'DOT/Dimension2' );
-  var Range = require( 'DOT/Range' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var Color = require( 'SCENERY/util/Color' );
-
-  //Size of each probe in meters, corresponds to the side of the red or black object in model coordinates (meters),
-  //might need to be changed if we want to make the conductivity tester probes bigger or smaller
-  var PROBE_SIZE = new Dimension2( 0.0125, 0.025 );
 
 
   /**
@@ -32,46 +25,46 @@ define( function( require ) {
    * @constructor
    */
   function SugarAndSaltSolutionsConductivityTesterNode( conductivityTester, modelViewTransform ) {
+    var thisNode = this;
+    var modelProbeSize = conductivityTester.getProbeSizeReference();
+    var probeSize = new Dimension2( modelViewTransform.modelToViewDeltaX( modelProbeSize.width ),
+      modelViewTransform.modelToViewDeltaY( -modelProbeSize.height ) );
 
-    var beaker = conductivityTester.beaker;
-
-    //ConductivityTesterNode expects theses values in view coordinates
-    var beakerHeight = modelViewTransform.modelToViewDeltaY( -beaker.height );
-    var beakerTop = modelViewTransform.modelToViewY( beaker.y );
-
-    var negativeProbeX = modelViewTransform.modelToViewDeltaX( -beaker.width / 3 );
-    var positiveProbeX = modelViewTransform.modelToViewDeltaX( beaker.width / 3 );
-
-    var conductivityTesterProperties = new PropertySet( {
-      location: new Vector2( 0, beakerHeight ),
-      negativeProbeLocation: new Vector2( negativeProbeX, beakerHeight ),
-      positiveProbeLocation: new Vector2( positiveProbeX, beakerHeight )
-    } );
-
-    var probeDragYRange = new Range( beakerTop - 20, beakerTop + 50 );
-
-    //probeSize in view Coordinates
-    var probeSize = new Dimension2( modelViewTransform.modelToViewDeltaX( PROBE_SIZE.width ),
-      modelViewTransform.modelToViewDeltaY( -PROBE_SIZE.height ) );
-
-    ConductivityTesterNode.call( this,
+    ConductivityTesterNode.call( thisNode,
       conductivityTester.brightnessProperty,
-      conductivityTesterProperties.locationProperty,
-      conductivityTesterProperties.positiveProbeLocationProperty,
-      conductivityTesterProperties.negativeProbeLocationProperty, {
-        probeSize: probeSize,
-        probeDragYRange: probeDragYRange,
+      conductivityTester.locationProperty,
+      conductivityTester.positiveProbeLocationProperty,
+      conductivityTester.negativeProbeLocationProperty, {
+        modelViewTransform: modelViewTransform,
         negativeProbeFill: 'green',
+        probeSize: probeSize, // Probe Size is given in view coordinates
         positiveLabelFill: 'black',
         negativeLabelFill: 'black',
-        wireStroke: new Color(192, 192, 192),
+        wireStroke: new Color( 192, 192, 192 ),
         wireLineWidth: 2,
         bulbImageScale: 0.7,
         batteryImageScale: 0.8
       }
     );
 
+    thisNode.cursor = 'pointer';
+
+    conductivityTester.locationProperty.link( function( location ) {
+      var modelLightBubBounds = modelViewTransform.viewToModelBounds( thisNode.lightBulbNode.bounds );
+      conductivityTester.setBulbRegion( modelLightBubBounds );
+
+    } );
   }
 
-  return inherit( ConductivityTesterNode, SugarAndSaltSolutionsConductivityTesterNode, {} );
+  return inherit( ConductivityTesterNode, SugarAndSaltSolutionsConductivityTesterNode, {
+
+    /**
+     *
+     * @returns {Node}
+     */
+    getDroppableComponent: function() {
+      return this.lightBulbNode;
+    }
+
+  } );
 } );

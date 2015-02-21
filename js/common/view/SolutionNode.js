@@ -30,10 +30,7 @@ define( function( require ) {
     } );
 
     //solution.shape is a derived property based on volume of the solution
-    var solutionPath = new Path( modelViewTransform.modelToViewShape( solution.shape.get() ),
-      { fill: color
-      }
-    );
+    var solutionPath = new Path( modelViewTransform.modelToViewShape( solution.shape.get() ), { fill: color } );
     thisNode.addChild( solutionPath );
 
     solution.shape.link( function( shape ) {
@@ -42,9 +39,7 @@ define( function( require ) {
 
   }
 
-  return inherit( Node, SolutionNode, {
-
-  } );
+  return inherit( Node, SolutionNode, {} );
 
 } );
 

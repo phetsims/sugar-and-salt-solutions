@@ -24,7 +24,9 @@ define( function( require ) {
   var MacroSaltShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSaltShaker' );
   var MacroSugarDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSugarDispenser' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Property = require( 'AXON/Property' );
   var ObservableArray = require( 'AXON/ObservableArray' );
+
 
   // strings
   var saltString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/salt' );
@@ -79,8 +81,13 @@ define( function( require ) {
     //Salt and its listeners
     thisModel.saltList = new ObservableArray();//The salt crystals that haven't been dissolved
 
-    //    //Model for the conductivity tester which is in the macro tab but not other tabs
-    thisModel.conductivityTester=new ConductivityTester( thisModel.beaker );
+    //Model for the conductivity tester which is in the macro tab but not other tabs
+    thisModel.conductivityTester = new ConductivityTester( thisModel.beaker );
+
+    // Both the probes move simultaneously, so listen to a change in single probe
+    thisModel.conductivityTester.negativeProbeLocationProperty.link( function() {
+      thisModel.updateConductivityTesterBrightness();
+    } );
 
     //Model moles, concentration, amount dissolved, amount precipitated, etc. for salt and sugar
     //The chemistry team informed me that there is 0.2157/1000 meters cubed per mole of solid sugar
@@ -91,11 +98,10 @@ define( function( require ) {
     //Flag to indicate if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).
     //This is used to show/hide the "remove solutes" button
     //Determine if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).
-    thisModel.anySolutes = new DerivedProperty( [thisModel.salt.moles, thisModel.sugar.moles],
+    thisModel.anySolutes = new DerivedProperty( [ thisModel.salt.moles, thisModel.sugar.moles ],
       function( saltMoles, sugarMoles ) {
         return saltMoles > 0 || sugarMoles > 0;
       } );
-
 
     //Total volume of the water plus any solid precipitate submerged under the water (and hence pushing it up)
     thisModel.solidVolume = new DerivedProperty( [ thisModel.salt.solidVolume, thisModel.sugar.solidVolume ], function() {
@@ -137,7 +143,18 @@ define( function( require ) {
     thisModel.dispensers.push( new MacroSugarDispenser( thisModel.beaker.getCenterX(), thisModel.beaker.getTopY() + thisModel.beaker.getHeight() * 0.5,
       thisModel.beaker, thisModel.moreSugarAllowed, sugarString, thisModel.distanceScale, thisModel.dispenserType, DispenserType.SUGAR, this ) );
 
-    thisModel.crystalsListChangedCallbacks = []; // function()
+    thisModel.crystalsListChangedCallbacks = []; // function callBacks
+
+    //Update the conductivity tester when the water level changes, since it might move up to touch a probe (or move out from underneath a submerged probe)
+    Property.multilink( [ thisModel.saltConcentration, thisModel.solution.shape, thisModel.outputWater ], function() {
+      thisModel.updateConductivityTesterBrightness();
+    } );
+
+    //When the conductivity tester probe locations change, also update the conductivity tester brightness since they may come into
+    //contact (or leave contact) with the fluid
+    this.conductivityTester.locationProperty.link( function() {
+      thisModel.updateConductivityTesterBrightness();
+    } );
   }
 
   return inherit( SugarAndSaltSolutionModel, MacroModel, {
@@ -180,7 +197,10 @@ define( function( require ) {
       this.crystalsListChangedCallbacks.push( callback );
     },
 
-    // @private Notify if Crystals Item List got changed
+    /**
+     * @private
+     * Notify if Crystals Item List got changed
+     */
     fireCrystalListChanged: function() {
       var changedCallbacks = this.crystalsListChangedCallbacks.slice( 0 );
       for ( var i = 0; i < changedCallbacks.length; i++ ) {
@@ -189,7 +209,7 @@ define( function( require ) {
     },
 
     /**
-     *Propagate the sugar and salt crystals, and absorb them if they hit the water
+     * Propagate the sugar and salt crystals, and absorb them if they hit the water
      * @param {number} dt
      * @param {ObservableArray<MacroCrystal>} crystalList
      */
@@ -198,7 +218,7 @@ define( function( require ) {
       var hitTheWater = []; // Array<MacroCrystal>
 
       crystalList.forEach( function( crystal ) {
-        //Store the initial location so we can use the (final - start) line to check for collision with water, so it can't
+        // Store the initial location so we can use the (final - start) line to check for collision with water, so it can't
         // jump over the water rectangle
         var initialLocation = crystal.position.get();
 
@@ -212,13 +232,13 @@ define( function( require ) {
             thisModel.solution.shape.get().bounds ) ) {
           hitTheWater.push( crystal );
         }
-        //Any crystals that landed on the beaker base or on top of precipitate should immediately precipitate into solid
-        //so that they take up the right volume and are consistent with our other representations
+        // Any crystals that landed on the beaker base or on top of precipitate should immediately precipitate into solid
+        // so that they take up the right volume and are consistent with our other representations
         else if ( crystal.isLanded() ) {
           hitTheWater.push( crystal );
         }
       } );
-      //Remove the salt crystals that hit the water
+      // Remove the salt crystals that hit the water
       thisModel.removeCrystals( crystalList, hitTheWater );
 
       //increase concentration in the water for crystals that hit
@@ -340,6 +360,45 @@ define( function( require ) {
       toRemove.forEach( function( crystal ) {
         crystalList.remove( crystal );
       } );
+    },
+
+    /**
+     * @protected
+     * Update the conductivity tester brightness when the probes come into contact with (or stop contacting) the fluid
+     */
+    updateConductivityTesterBrightness: function() {
+
+      //Check for a collision with the probe, using the full region of each probe (so if any part intersects, there is still an electrical connection).
+      var waterBounds = this.solution.shape.get().bounds;
+
+      //See if both probes are touching water that might have salt in it
+      var bothProbesTouching = this.isProbeTouchingWaterThatMightHaveSalt( this.conductivityTester.getPositiveProbeRegion() ) &&
+                               this.isProbeTouchingWaterThatMightHaveSalt( this.conductivityTester.getNegativeProbeRegion() );
+
+      //Check to see if the circuit is shorted out (if light bulb or battery is submerged).
+      //Null checks are necessary since those regions are computed from view components and may not have been computed yet (but will be non-null
+      //if the user dragged out the conductivity tester from the toolbox)
+      var batterySubmerged = this.conductivityTester.getBatteryRegion() && waterBounds.intersectsBounds( this.conductivityTester.getBatteryRegion() );
+      var bulbSubmerged = this.conductivityTester.getBulbRegion() && waterBounds.intersectsBounds( this.conductivityTester.getBulbRegion() );
+
+      //The circuit should short out if the battery or bulb is submerged, but only if the water is conducting due to having some salt
+      var shortCircuited = ( batterySubmerged || bulbSubmerged ) && this.saltConcentration.get() > 0;
+
+      //Set the brightness to be a linear function of the salt concentration (but keeping it bounded between 0 and 1 which are the limits of the conductivity tester brightness
+      //Use a scale factor that matches up with the limits on saturation (manually sampled at runtime)
+      this.conductivityTester.brightness = bothProbesTouching && !shortCircuited ? Util.clamp( this.saltConcentration.get() * 1.62E-4, 0, 1 ) : 0.0;
+      this.conductivityTester.shortCircuited = shortCircuited;
+    },
+
+    /**
+     * Determine if a conductivity tester probe is touching water in the beaker, or water flowing out of the beaker
+     * (which would have the same concentration as the water in the beaker)
+     * @param regionBounds
+     * @returns {*}
+     */
+    isProbeTouchingWaterThatMightHaveSalt: function( regionBounds ) {
+      var waterBounds = this.solution.shape.get().bounds;
+      return waterBounds.intersectsBounds( regionBounds ) || this.outputWater.get().bounds.intersectsBounds( regionBounds );
     }
 
   } );
@@ -461,12 +520,7 @@ define( function( require ) {
 //            }
 //        } );
 //
-//        //Update the conductivity tester when the water level changes, since it might move up to touch a probe (or move out from underneath a submerged probe)
-//        new RichSimpleObserver() {
-//            @Override public void update() {
-//                updateConductivityTesterBrightness();
-//            }
-//        }.observe( saltConcentration, solution.shape, outputWater );
+
 //    }
 //
 
@@ -477,50 +531,8 @@ define( function( require ) {
 //        sugarAdded.updateListeners( sugar );
 //    }
 //
+//
 
-//
-//    //Propagate the sugar and salt crystals, and absorb them if they hit the water
-//    private void updateCrystals( double dt, final ArrayList<? extends MacroCrystal> crystalList ) {
-//        ArrayList<MacroCrystal> hitTheWater = new ArrayList<MacroCrystal>();
-//        for ( MacroCrystal crystal : crystalList ) {
-//            //Store the initial location so we can use the (final - start) line to check for collision with water, so it can't jump over the water rectangle
-//            Vector2D initialLocation = crystal.position.get();
-//
-//            //slow the motion down a little bit or it moves too fast since the camera is zoomed in so much
-//            crystal.stepInTime( gravity.times( crystal.mass ), dt / 10, beaker.getLeftWall(), beaker.getRightWall(), beaker.getFloor(),
-//                                new Line2D.Double( beaker.getFloor().getX1(), 0, beaker.getFloor().getX2(), 0 ) );
-//
-//            //If the salt hits the water during any point of its initial -> final trajectory, absorb it.
-//            //This is necessary because if the water layer is too thin, the crystal could have jumped over it completely
-//            if ( new Line2D.Double( initialLocation.toPoint2D(), crystal.position.get().toPoint2D() ).intersects( solution.shape.get().getBounds2D() ) ) {
-//                hitTheWater.add( crystal );
-//            }
-//            //Any crystals that landed on the beaker base or on top of precipitate should immediately precipitate into solid so that they take up the right volume and are consistent with our other representations
-//            else if ( crystal.isLanded() ) {
-//                hitTheWater.add( crystal );
-//            }
-//        }
-//        //Remove the salt crystals that hit the water
-//        removeCrystals( crystalList, hitTheWater );
-//
-//        //increase concentration in the water for crystals that hit
-//        for ( MacroCrystal crystal : hitTheWater ) {
-//            crystalAbsorbed( crystal );
-//        }
-//
-//        //Update the properties representing how many crystals are in the air, to make sure we stop pouring out crystals if we have reached the limit
-//        // (even if poured out crystals didn't get dissolved yet)
-//        airborneSaltGrams.notifyIfChanged();
-//        airborneSugarGrams.notifyIfChanged();
-//    }
-//
-//    //Determine if a conductivity tester probe is touching water in the beaker, or water flowing out of the beaker (which would have the same concentration as the water in the beaker)
-//    private boolean isProbeTouchingWaterThatMightHaveSalt( ImmutableRectangle2D region ) {
-//        Rectangle2D waterBounds = solution.shape.get().getBounds2D();
-//
-//        final Rectangle2D regionBounds = region.toRectangle2D();
-//        return waterBounds.intersects( region.toRectangle2D() ) || outputWater.get().getBounds2D().intersects( regionBounds );
-//    }
 //
 //    //Update the conductivity tester brightness when the probes come into contact with (or stop contacting) the fluid
 //    protected void updateConductivityTesterBrightness() {
