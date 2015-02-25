@@ -140,7 +140,7 @@ define( function( require ) {
 
     //@private Flag to indicate whether the fluid is draining, since the display
     // concentrations are held steady while draining
-    this.isDraining = this.outputFlowRate.greaterThanNumber( 0.0 );
+    this.isDraining = new DerivedProperty( [this.outputFlowRate], function( outputFlowRate ) { return outputFlowRate > 0; } );
 
     //Constituents of dissolved solutes, such as sodium, nitrate, sucrose, etc.
     this.sodium = new SoluteConstituent( this, new IonColor( this, new Sodium() ), Sodium, this.isDraining );
@@ -688,7 +688,7 @@ define( function( require ) {
      * @returns {Property}
      */
     isAnySugarToRemove: function() {
-      return this.sucrose.concentration.greaterThanNumber( 0.0 );
+      return new DerivedProperty( [this.sucrose.concentration], function( sucroseConcentration ) { return sucroseConcentration > 0; } );
     },
 
     /**

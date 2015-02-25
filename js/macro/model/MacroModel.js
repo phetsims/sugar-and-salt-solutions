@@ -331,7 +331,7 @@ define( function( require ) {
      * @returns {Property<Boolean>}
      */
     isAnySaltToRemove: function() {
-      return this.salt.moles.greaterThanNumber( 0.0 );
+      return new DerivedProperty( [this.salt.moles], function( saltMoles ) { return saltMoles > 0; } );
     },
 
     /**
@@ -339,7 +339,7 @@ define( function( require ) {
      * @returns {Property<Boolean>}
      */
     isAnySugarToRemove: function() {
-      return this.sugar.moles.greaterThanNumber( 0.0 );
+      return new DerivedProperty( [this.sugar.moles], function( sugarMoles ) { return sugarMoles > 0; } );
     },
 
     /**
