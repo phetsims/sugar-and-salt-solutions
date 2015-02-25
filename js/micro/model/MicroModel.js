@@ -264,11 +264,15 @@ define( function( require ) {
         return sodiumCount < ParticleCountTable.MAX_SODIUM_NITRATE || oxygenCount < ParticleCountTable.MAX_SODIUM_NITRATE * 3;
       } );
 
-    this.moreSucroseAllowed = ( this.freeParticles.propertyCount( Sucrose ).plus( this.numSucroseMoleculesInCrystal ) ).lessThanNumber(
-      ParticleCountTable.MAX_SUCROSE );
+    this.moreSucroseAllowed = new DerivedProperty( [this.freeParticles.propertyCount( Sucrose ), this.numSucroseMoleculesInCrystal],
+      function( sucroseCount, numSucroseMoleculesInCrystal ) {
+        return sucroseCount + numSucroseMoleculesInCrystal > ParticleCountTable.MAX_SUCROSE;
+      } );
 
-    this.moreGlucoseAllowed = ( this.freeParticles.propertyCount( Glucose ).plus( this.numGlucoseMoleculesInCrystal ) ).lessThanNumber(
-      ParticleCountTable.MAX_GLUCOSE );
+    this.moreGlucoseAllowed = new DerivedProperty( [this.freeParticles.propertyCount( Glucose ), this.numGlucoseMoleculesInCrystal],
+      function( sucroseCount, numGlucoseMoleculesInCrystal ) {
+        return sucroseCount + numGlucoseMoleculesInCrystal > ParticleCountTable.MAX_GLUCOSE;
+      } );
 
     //Add models for the various dispensers: sugar, salt, etc.
     //Note that this is done by associating a DispenserType with the dispenser model element, a more direct way would be to create
