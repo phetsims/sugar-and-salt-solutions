@@ -177,15 +177,28 @@ define( function( require ) {
     //However, this has incorrect behavior for kits of mixed types, such as NaCl and CaCl2, since Cl saturation would
     //lead to crystallization of both compounds (even if not enough Na)
     //Therefore it is essential to use "and" conjunctions to supported kits that share a solute component
-    this.sodiumChlorideSaturated = this.sodium.concentration.greaterThanNumber( this.sodiumChlorideSaturationPoint ).and(
-      this.chloride.concentration.greaterThanNumber( this.sodiumChlorideSaturationPoint ) );
-    this.calciumChlorideSaturated = this.calcium.concentration.greaterThanNumber( this.calciumChlorideSaturationPoint ).and(
-      this.chloride.concentration.greaterThanNumber( this.calciumChlorideSaturationPoint * 2 ) );
-    this.sucroseSaturated = this.sucrose.concentration.greaterThanNumber( this.sucroseSaturationPoint );
-    this.glucoseSaturated = this.glucose.concentration.greaterThanNumber( this.glucoseSaturationPoint );
-    this.sodiumNitrateSaturated = this.sodium.concentration.greaterThanNumber( this.sodiumNitrateSaturationPoint ).and(
-      this.nitrate.concentration.greaterThanNumber( this.sodiumNitrateSaturationPoint ) );
+    this.sodiumChlorideSaturated = new DerivedProperty( [this.sodium.concentration, this.chloride.concentration],
+      function( sodiumConcentration, chlorideConcentration ) {
+        return sodiumConcentration > thisModel.sodiumChlorideSaturationPoint && chlorideConcentration > thisModel.sodiumChlorideSaturationPoint;
+      } );
 
+    this.calciumChlorideSaturated = new DerivedProperty( [this.calcium.concentration, this.chloride.concentration],
+      function( calciumConcentration, chlorideConcentration ) {
+        return calciumConcentration > thisModel.calciumChlorideSaturationPoint && chlorideConcentration > thisModel.calciumChlorideSaturationPoint * 2;
+      } );
+
+    this.sucroseSaturated = new DerivedProperty( [this.sucrose.concentration], function( sucroseConcentration ) {
+      return sucroseConcentration > thisModel.sucroseSaturationPoint;
+    } );
+
+    this.glucoseSaturated = new DerivedProperty( [this.glucose.concentration], function( glucoseSaturation ) {
+      return glucoseSaturation > thisModel.glucoseSaturationPoint;
+    } );
+
+    this.sodiumNitrateSaturated = new DerivedProperty( [this.sodium.concentration, this.nitrate.concentration],
+      function( sodiumConcentration, nitrateConcentration ) {
+        return sodiumConcentration > thisModel.sodiumNitrateSaturationPoint && nitrateConcentration > thisModel.sodiumNitrateSaturationPoint;
+      } );
 
     //Keep track of which kit the user has selected so that particle draining can happen in formula units
     // so there isn't an unbalanced number of solutes for crystallization
@@ -661,10 +674,13 @@ define( function( require ) {
 
     /**
      * Determine if there is any table salt to remove
-     * @returns {Property}
+     * @returns {DerivedProperty}
      */
     isAnySaltToRemove: function() {
-      return this.sodium.concentration.greaterThanNumber( 0.0 ).and( this.chloride.concentration.greaterThanNumber( 0.0 ) );
+      return new DerivedProperty( [this.sodium.concentration, this.chloride.concentration],
+        function( sodiumConcentration, chlorideConcentration ) {
+          return sodiumConcentration > 0 && chlorideConcentration > 0;
+        } );
     },
 
     /**

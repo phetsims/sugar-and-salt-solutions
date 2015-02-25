@@ -85,7 +85,9 @@ define( function( require ) {
     //user can't try to drain water while the sim is paused (2nd tab only)
     var distanceFromBeaker = 110;
     var drainFaucetNode = new FaucetNodeContainer( maxFlowRate, model.outputFlowRate,
-      model.clockRunning.and( model.lowerFaucetCanDrain ), {
+      new DerivedProperty( [model.clockRunning, model.lowerFaucetCanDrain], function( clockRunning, lowerFaucetCanDrain ) {
+        return clockRunning && lowerFaucetCanDrain;
+      } ), {
         scale: 0.6,
         horizontalPipeLength: 180,
         closeOnRelease: true

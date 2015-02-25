@@ -19,6 +19,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var Panel = require( 'SUN/Panel' );
   var HSlider = require( 'SUN/HSlider' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
 
   //string
@@ -50,7 +51,9 @@ define( function( require ) {
       trackSize: trackSize,
       trackFill: trackFill,
       thumbSize: new Dimension2( 22, 30 ),
-      enabledProperty: waterVolume.greaterThanNumber( 0 ).and( clockRunning ),
+      enabledProperty: new DerivedProperty( [waterVolume, clockRunning], function( waterVolume, clockRunning ) {
+        return waterVolume > 0 && clockRunning;
+      } ),
       endDrag: function() { evaporationRate.set( 0 ); }  // at end of drag, snap evaporation rate back to zero
     } );
 
