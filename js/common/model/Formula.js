@@ -65,7 +65,9 @@ define( function( require ) {
       var list = [];
       var self = this;
       _.each( this.getTypes(), function( type ) {
-        list.push( self.getFactor( type ) );
+        for ( var i = 0; i < self.getFactor( type ); i++ ) {
+          list.push( type );
+        }
       } );
       return list;
     },

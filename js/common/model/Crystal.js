@@ -129,7 +129,9 @@ define( function( require ) {
           } );
 
           if ( openSites.length > 0 ) {
-            self.addConstituent( openSites.get( _.random( openSites.length ) ).toConstituent() );
+            var randIndex = _.random( openSites.length - 1 );
+            var randSite = openSites.get( randIndex );
+            self.addConstituent( randSite.toConstituent() );
           }
           else {
             return false;

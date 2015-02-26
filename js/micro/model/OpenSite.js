@@ -54,7 +54,7 @@ define( function( require ) {
      * @returns {boolean}
      */
     matches: function( other ) {
-      if ( other instanceof Particle ) {
+     if ( other instanceof Particle ) {
         return this.newInstance() instanceof other;
       }
       //the argument is a Constructor function

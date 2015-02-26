@@ -59,7 +59,6 @@ define( function( require ) {
   var SUCROSE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sucrose' );
   var GLUCOSE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/glucose' );
 
-
   // constants
   //Debugging flag for draining particles through the faucet
   // TODO var DEBUG_DRAINING = false;
@@ -140,7 +139,7 @@ define( function( require ) {
 
     //@private Flag to indicate whether the fluid is draining, since the display
     // concentrations are held steady while draining
-    this.isDraining = new DerivedProperty( [this.outputFlowRate], function( outputFlowRate ) { return outputFlowRate > 0; } );
+    this.isDraining = new DerivedProperty( [ this.outputFlowRate ], function( outputFlowRate ) { return outputFlowRate > 0; } );
 
     //Constituents of dissolved solutes, such as sodium, nitrate, sucrose, etc.
     this.sodium = new SoluteConstituent( this, new IonColor( this, new Sodium() ), Sodium, this.isDraining );
@@ -177,25 +176,25 @@ define( function( require ) {
     //However, this has incorrect behavior for kits of mixed types, such as NaCl and CaCl2, since Cl saturation would
     //lead to crystallization of both compounds (even if not enough Na)
     //Therefore it is essential to use "and" conjunctions to supported kits that share a solute component
-    this.sodiumChlorideSaturated = new DerivedProperty( [this.sodium.concentration, this.chloride.concentration],
+    this.sodiumChlorideSaturated = new DerivedProperty( [ this.sodium.concentration, this.chloride.concentration ],
       function( sodiumConcentration, chlorideConcentration ) {
         return sodiumConcentration > thisModel.sodiumChlorideSaturationPoint && chlorideConcentration > thisModel.sodiumChlorideSaturationPoint;
       } );
 
-    this.calciumChlorideSaturated = new DerivedProperty( [this.calcium.concentration, this.chloride.concentration],
+    this.calciumChlorideSaturated = new DerivedProperty( [ this.calcium.concentration, this.chloride.concentration ],
       function( calciumConcentration, chlorideConcentration ) {
         return calciumConcentration > thisModel.calciumChlorideSaturationPoint && chlorideConcentration > thisModel.calciumChlorideSaturationPoint * 2;
       } );
 
-    this.sucroseSaturated = new DerivedProperty( [this.sucrose.concentration], function( sucroseConcentration ) {
+    this.sucroseSaturated = new DerivedProperty( [ this.sucrose.concentration ], function( sucroseConcentration ) {
       return sucroseConcentration > thisModel.sucroseSaturationPoint;
     } );
 
-    this.glucoseSaturated = new DerivedProperty( [this.glucose.concentration], function( glucoseSaturation ) {
+    this.glucoseSaturated = new DerivedProperty( [ this.glucose.concentration ], function( glucoseSaturation ) {
       return glucoseSaturation > thisModel.glucoseSaturationPoint;
     } );
 
-    this.sodiumNitrateSaturated = new DerivedProperty( [this.sodium.concentration, this.nitrate.concentration],
+    this.sodiumNitrateSaturated = new DerivedProperty( [ this.sodium.concentration, this.nitrate.concentration ],
       function( sodiumConcentration, nitrateConcentration ) {
         return sodiumConcentration > thisModel.sodiumNitrateSaturationPoint && nitrateConcentration > thisModel.sodiumNitrateSaturationPoint;
       } );
@@ -247,29 +246,29 @@ define( function( require ) {
     //oxygen would cause this to give incorrect limiting behavior
     //For sucrose & glucose, account for non-dissolved crystals.  Otherwise the user can go over the limit since falling crystals aren't counted
     this.moreSodiumChlorideAllowed = new DerivedProperty(
-      [this.sphericalParticles.propertyCount( Sodium ), this.sphericalParticles.propertyCount( Chloride )],
+      [ this.sphericalParticles.propertyCount( Sodium ), this.sphericalParticles.propertyCount( Chloride ) ],
       function( sodiumCount, chlorideCount ) {
         return sodiumCount < ParticleCountTable.MAX_SODIUM_CHLORIDE || chlorideCount < ParticleCountTable.MAX_SODIUM_CHLORIDE;
       } );
 
     this.moreCalciumChlorideAllowed = new DerivedProperty(
-      [this.sphericalParticles.propertyCount( Calcium ), this.sphericalParticles.propertyCount( Chloride )],
+      [ this.sphericalParticles.propertyCount( Calcium ), this.sphericalParticles.propertyCount( Chloride ) ],
       function( calciumCount, chlorideCount ) {
         return calciumCount < ParticleCountTable.MAX_CALCIUM_CHLORIDE || chlorideCount < ParticleCountTable.MAX_CALCIUM_CHLORIDE;
       } );
 
     this.moreSodiumNitrateAllowed = new DerivedProperty(
-      [this.sphericalParticles.propertyCount( Sodium ), this.sphericalParticles.propertyCount( Oxygen )],
+      [ this.sphericalParticles.propertyCount( Sodium ), this.sphericalParticles.propertyCount( Oxygen ) ],
       function( sodiumCount, oxygenCount ) {
         return sodiumCount < ParticleCountTable.MAX_SODIUM_NITRATE || oxygenCount < ParticleCountTable.MAX_SODIUM_NITRATE * 3;
       } );
 
-    this.moreSucroseAllowed = new DerivedProperty( [this.freeParticles.propertyCount( Sucrose ), this.numSucroseMoleculesInCrystal],
+    this.moreSucroseAllowed = new DerivedProperty( [ this.freeParticles.propertyCount( Sucrose ), this.numSucroseMoleculesInCrystal ],
       function( sucroseCount, numSucroseMoleculesInCrystal ) {
         return sucroseCount + numSucroseMoleculesInCrystal > ParticleCountTable.MAX_SUCROSE;
       } );
 
-    this.moreGlucoseAllowed = new DerivedProperty( [this.freeParticles.propertyCount( Glucose ), this.numGlucoseMoleculesInCrystal],
+    this.moreGlucoseAllowed = new DerivedProperty( [ this.freeParticles.propertyCount( Glucose ), this.numGlucoseMoleculesInCrystal ],
       function( sucroseCount, numGlucoseMoleculesInCrystal ) {
         return sucroseCount + numGlucoseMoleculesInCrystal > ParticleCountTable.MAX_GLUCOSE;
       } );
@@ -681,7 +680,7 @@ define( function( require ) {
      * @returns {DerivedProperty}
      */
     isAnySaltToRemove: function() {
-      return new DerivedProperty( [this.sodium.concentration, this.chloride.concentration],
+      return new DerivedProperty( [ this.sodium.concentration, this.chloride.concentration ],
         function( sodiumConcentration, chlorideConcentration ) {
           return sodiumConcentration > 0 && chlorideConcentration > 0;
         } );
@@ -692,7 +691,7 @@ define( function( require ) {
      * @returns {Property}
      */
     isAnySugarToRemove: function() {
-      return new DerivedProperty( [this.sucrose.concentration], function( sucroseConcentration ) { return sucroseConcentration > 0; } );
+      return new DerivedProperty( [ this.sucrose.concentration ], function( sucroseConcentration ) { return sucroseConcentration > 0; } );
     },
 
     /**
