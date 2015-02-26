@@ -1,77 +1,69 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.common.view;
-//
-//import java.awt.Color;
-//import java.awt.geom.Point2D;
-//
-//import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;
-//import edu.colorado.phet.common.phetcommon.model.property.BooleanProperty;
-//import edu.colorado.phet.common.phetcommon.model.property.ObservableProperty;
-//import edu.colorado.phet.common.phetcommon.util.function.VoidFunction1;
-//import edu.colorado.phet.common.phetcommon.view.graphics.transforms.ModelViewTransform;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SphericalParticle;
-//import edu.umd.cs.piccolo.PCanvas;
-//import edu.umd.cs.piccolo.PNode;
-//import edu.umd.cs.piccolo.nodes.PImage;
-//import edu.umd.cs.piccolox.PFrame;
-//
-//import static edu.colorado.phet.common.phetcommon.view.PhetColorScheme.RED_COLORBLIND;
-//import static edu.colorado.phet.sugarandsaltsolutions.micro.view.AtomImageCache.getAtomImage;
-//
-///**
-// * Piccolo node that draws a shaded sphere in the location of the spherical particle.
-// * It switches between showing color for the atomic identity or color for the charge (blue = negative, red = positive, yellow = neutral)
-// *
-// * @author Sam Reid
-// */
-//public class SphericalParticleNode extends PNode {
-//
-//    public SphericalParticleNode( final ModelViewTransform transform, final SphericalParticle particle,
-//
-//                                  //Flag to show the color based on charge, or based on atom identity
-//                                  final ObservableProperty<Boolean> showChargeColor ) {
-//
-//        //Sphere node used by both charge color and atom identity color
-//        class SimpleSphereNode extends PImage {
-//            SimpleSphereNode( Color color ) {
-//
-//                //Use a cached image to improve performance for large molecules such as sucrose
-//                super( getAtomImage( transform.modelToViewDeltaX( particle.radius * 2 ), color ) );
-//                particle.addPositionObserver( new VoidFunction1<Vector2D>() {
-//                    public void apply( Vector2D position ) {
-//                        Point2D.Double viewPoint = transform.modelToView( position ).toPoint2D();
-//                        setOffset( viewPoint.x - getFullBounds().getWidth() / 2, viewPoint.y - getFullBounds().getHeight() / 2 );
-//                    }
-//                } );
-//            }
-//        }
-//
-//        //Show the charge color, if user selected
-//        addChild( new SimpleSphereNode( particle.chargeColor ) {{
-//            showChargeColor.addObserver( new VoidFunction1<Boolean>() {
-//                public void apply( Boolean showChargeColor ) {
-//                    setVisible( showChargeColor );
-//                }
-//            } );
-//        }} );
-//
-//        //Show the atom color, if user selected
-//        addChild( new SimpleSphereNode( particle.color ) {{
-//            showChargeColor.addObserver( new VoidFunction1<Boolean>() {
-//                public void apply( Boolean showChargeColor ) {
-//                    setVisible( !showChargeColor );
-//                }
-//            } );
-//        }} );
-//    }
-//
-//    //Test application that draws a particle
-//    public static void main( String[] args ) {
-//        new PFrame( SphericalParticleNode.class.getName(), false, new PCanvas() {{
-//            SphericalParticle p = new SphericalParticle( 100.0, new Vector2D( 0, 0 ), RED_COLORBLIND, +1 );
-//            getLayer().addChild( new SphericalParticleNode( ModelViewTransform.createIdentity(), p, new BooleanProperty( false ) ) {{
-//                setOffset( 100, 100 );
-//            }} );
-//        }} ).setVisible( true );
-//    }
-//}
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Node that draws a shaded sphere in the location of the spherical particle.
+ * It switches between showing color for the atomic identity or color for the
+ * charge (blue = negative, red = positive, yellow = neutral)
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var AtomImageCache = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/AtomImageCache' );
+  var SimpleSphereNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SimpleSphereNode' );
+
+  /**
+   *
+   * @param {ModelViewTransform2} modelViewTransform
+   * @param {SphericalParticle} particle
+   * @param {Property<boolean>} showChargeColorProperty   //Flag to show the color based on charge, or based on atom identity
+   * @constructor
+   */
+  function SphericalParticleNode( modelViewTransform, particle, showChargeColorProperty ) {
+    var thisNode = this;
+    Node.call( thisNode );
+    var chargeColorSphereNode = null;
+    var atomColorSphereNode = null;
+    var nodesAdded = false;
+
+    //Use a cached image to improve performance for large molecules such as sucrose
+    AtomImageCache.getAtomImage( modelViewTransform.modelToViewDeltaX( particle.radius * 2 ),
+      particle.chargeColor, function( imageNode ) {
+        chargeColorSphereNode = new SimpleSphereNode( modelViewTransform, particle.positionProperty, imageNode );
+        if ( !nodesAdded && atomColorSphereNode ) {
+          addSphereNodes();
+        }
+      } );
+
+    AtomImageCache.getAtomImage( modelViewTransform.modelToViewDeltaX( particle.radius * 2 ),
+      particle.color, function( imageNode ) {
+        atomColorSphereNode = new SimpleSphereNode( modelViewTransform, particle.positionProperty, imageNode );
+        if ( !nodesAdded && chargeColorSphereNode ) {
+          addSphereNodes();
+        }
+      } );
+
+    // add charge and atom nodes when both are asynchronously loaded
+    function addSphereNodes() {
+      nodesAdded = true;
+
+      //Show the charge color, if user selected
+      thisNode.addChild( chargeColorSphereNode );
+      showChargeColorProperty.link( function( showChargeColor ) {
+        chargeColorSphereNode.visible = showChargeColor;
+      } );
+
+      //Show the atom color, if user selected
+      thisNode.addChild( atomColorSphereNode );
+      showChargeColorProperty.link( function( showChargeColor ) {
+        chargeColorSphereNode.visible = !showChargeColor;
+      } );
+    }
+  }
+
+  return inherit( Node, SphericalParticleNode );
+} );

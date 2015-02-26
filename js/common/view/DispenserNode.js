@@ -1,4 +1,3 @@
-
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
@@ -32,7 +31,7 @@ define( function( require ) {
    */
   function DispenserNode( modelViewTransform, model, constraint ) {
     var thisNode = this;
-    Node.call( thisNode, { cursor: 'pointer'} );
+    Node.call( thisNode, { cursor: 'pointer' } );
 
     //@private
     thisNode.modelViewTransform = modelViewTransform;
@@ -47,7 +46,8 @@ define( function( require ) {
     //Show a rectangle at the rotation point of the shaker
     if ( DEBUG ) {
       var debugRectNode = new Path( new Shape.rectangle( 0, 0, 10, 10 ), {
-          fill: Color.BLUE}
+          fill: Color.BLUE
+        }
       );
       thisNode.addChild( debugRectNode );
       Property.multilink( [ model.center, model.angle ], function() {
@@ -57,15 +57,7 @@ define( function( require ) {
       } );
     }
 
-    //Text label that shows "Sugar" or "Salt" along the axis of the dispenser.  It is a child of the image node so it
-    //will move and rotate with the image node.
-    //The Text Label will be added after the actual Image node which are dynamically set based on moreAllowed property
-    // see SugarDispenserNode / SaltShaker Node
-    thisNode.textLabel = new Text( model.name, {
-      font: new PhetFont( { size: 30} ),
-      fill: 'black',
-      rotation: Math.PI / 2
-    } );
+    thisNode.createTextLabel();
 
     //Update the AffineTransform for the image when the model changes
     Property.lazyMultilink( [ model.center, model.angle ], function() {
@@ -84,11 +76,25 @@ define( function( require ) {
       thisNode.model.translate();
 
     } );
-
-
   }
 
   return inherit( Node, DispenserNode, {
+    /**
+     * @protected
+     * Allow Dispensers to create a variant of Text labels
+     *
+     */
+    createTextLabel: function() {
+      //Text label that shows "Sugar" or "Salt" along the axis of the dispenser.  It is a child of the image node so it
+      //will move and rotate with the image node.
+      //The Text Label will be added after the actual Image node which are dynamically set based on moreAllowed property
+      // see SugarDispenserNode / SaltShaker Node
+      this.textLabel = new Text( this.model.name, {
+        font: new PhetFont( { size: 30 } ),
+        fill: 'black',
+        rotation: Math.PI / 2
+      } );
+    },
 
     //@protected
     updateTransform: function() {
@@ -108,7 +114,6 @@ define( function( require ) {
 
       //Center on the view point
       this.imageNode.setCenter( viewPoint );
-
     }
 
   } );

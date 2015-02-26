@@ -1,61 +1,53 @@
-//// Copyright 2002-2011, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.micro.view;
-//
-//import java.awt.Color;
-//import java.awt.image.BufferedImage;
-//import java.util.HashMap;
-//
-//import edu.colorado.phet.common.piccolophet.nodes.ShadedSphereNode;
-//
-//import static edu.colorado.phet.common.phetcommon.view.util.BufferedImageUtils.toBufferedImage;
-//
-///**
-// * Caches images for atoms because creating a new one for each particle creates a 1 second delay when creating sucrose crystals.
-// *
-// * @author Sam Reid
-// */
-//public class AtomImageCache {
-//
-//    //Keys for caching the images by diameter and color
-//    static class Key {
-//        public final double diameter;
-//        public final Color color;
-//
-//        Key( double diameter, Color color ) {
-//            this.diameter = diameter;
-//            this.color = color;
-//        }
-//
-//        //Necessary since the key is used in a map as a key, automatically generated (by IDEA)
-//        @Override public boolean equals( Object o ) {
-//            if ( this == o ) { return true; }
-//            if ( o == null || getClass() != o.getClass() ) { return false; }
-//
-//            Key key = (Key) o;
-//
-//            return Double.compare( key.diameter, diameter ) == 0 && color.equals( key.color );
-//        }
-//
-//        //Necessary since the key is used in a map as a key, automatically generated (by IDEA)
-//        @Override public int hashCode() {
-//            int result;
-//            long temp;
-//            temp = diameter != +0.0d ? Double.doubleToLongBits( diameter ) : 0L;
-//            result = (int) ( temp ^ ( temp >>> 32 ) );
-//            result = 31 * result + color.hashCode();
-//            return result;
-//        }
-//    }
-//
-//    //Map that contains the created images
-//    public static final HashMap<Key, BufferedImage> map = new HashMap<Key, BufferedImage>();
-//
-//    //Load a cached image, or create and cache one if it doesn't already exist in the cache
-//    public static BufferedImage getAtomImage( double diameter, Color color ) {
-//        Key key = new Key( diameter, color );
-//        if ( !map.containsKey( key ) ) {
-//            map.put( key, toBufferedImage( new ShadedSphereNode( diameter, color, Color.white, Color.black ).toImage() ) );
-//        }
-//        return map.get( key );
-//    }
-//}
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Atom Image Factory - uses node.toImage and caches the image representation of the node. This is done to improve
+ * performance
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
+
+
+  // Map that contains the loaded images
+  // uses the following stringified  object as key
+  // diameter+" "+color.toNumber
+  var imageMap = {};
+
+  /**
+   * @constructor
+   */
+  function AtomImageCache() {
+  }
+
+  return inherit( Object, AtomImageCache, {},
+    //statics
+    {
+      /**
+       * Uses toImage(asynchronous) method to convert a node to Image
+       * Since toImage is asynchronous this method uses a call back function
+       *
+       * @param {number} diameter
+       * @param {Color} color
+       * @param {function} addImageNodeCallBack
+       */
+      getAtomImage: function( diameter, color, addImageNodeCallBack ) {
+        var key = diameter + " " + color.toNumber();
+        if ( !imageMap[ key ] ) {
+          var shadedSphereNode = new ShadedSphereNode( diameter, { mainColor: color } );
+          shadedSphereNode.toImageNodeAsynchronous( function( imageNode ) {
+            imageMap[ key ] = imageNode;
+            addImageNodeCallBack( imageNode );
+          } );
+        }
+        else {
+          addImageNodeCallBack( imageMap[ key ] );
+        }
+      }
+    } );
+} );

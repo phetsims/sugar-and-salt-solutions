@@ -17,7 +17,6 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var Color = require( 'SCENERY/util/Color' );
 
-
   /**
    *
    * @param {ConductivityTester} conductivityTester

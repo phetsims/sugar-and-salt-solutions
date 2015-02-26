@@ -1,7 +1,8 @@
 // Copyright 2002-2014, University of Colorado Boulder
-
 /**
  * This "map" utility supports HashMap like  functionality by allowing any object to be used as key.
+ * Equality is by reference not by value
+ *
  * @author Sharfudeen Ashraf (For Ghent University)
  */
 define( function( require ) {
