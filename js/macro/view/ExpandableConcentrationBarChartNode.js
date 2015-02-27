@@ -44,7 +44,7 @@ define( function( require ) {
       titleNode: titleNode,
       fill: SugarAndSaltConstants.WATER_COLOR,
       contentAlign: 'center',
-      titleAlign: 'center',
+      titleAlignX: 'center',
       buttonAlign: 'right',
       titleYMargin: 4,
       contentXMargin: 10,
