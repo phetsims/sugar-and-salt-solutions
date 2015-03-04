@@ -21,7 +21,7 @@ define( function( require ) {
    */
   function SugarAndSaltSolutionsView( layoutBounds ) {
     var thisView = this;
-    ScreenView.call( thisView, {renderer: 'svg', layoutBounds: layoutBounds} );
+    ScreenView.call( thisView, { layoutBounds: layoutBounds } );
 
     //Root node that shows the nodes in the stage coordinate frame
     thisView.rootNode = new Node();
