@@ -124,8 +124,14 @@ define( function( require ) {
     //Keep track of how many moles of crystal are in the air, since we need to prevent user from adding more than
     //10 moles to the system
     //This shuts off salt/sugar when there is salt/sugar in the air that could get added to the solution
-    thisModel.airborneSaltGrams = new AirborneCrystalMoles( thisModel.saltList ).times( thisModel.salt.gramsPerMole );
-    thisModel.airborneSugarGrams = new AirborneCrystalMoles( thisModel.sugarList ).times( thisModel.sugar.gramsPerMole );
+    thisModel.airborneSaltGrams = new DerivedProperty( [new AirborneCrystalMoles( thisModel.saltList )], function( airborneCrystalMoles ) {
+      return airborneCrystalMoles * thisModel.salt.gramsPerMole;
+    } );
+
+    thisModel.airborneSugarGrams = new DerivedProperty( [new AirborneCrystalMoles( thisModel.sugarList )], function( airborneCrystalMoles ) {
+      return airborneCrystalMoles * thisModel.sugar.gramsPerMole;
+    } );
+
 
     //Properties to indicate if the user is allowed to add more of the solute.  If not allowed the dispenser is shown as empty.
     thisModel.moreSaltAllowed = new DerivedProperty( [ thisModel.salt.grams, thisModel.airborneSaltGrams ], function() {
@@ -229,7 +235,7 @@ define( function( require ) {
         //If the salt hits the water during any point of its initial -> final trajectory, absorb it.
         //This is necessary because if the water layer is too thin, the crystal could have jumped over it completely
         if ( lineIntersectsBounds( initialLocation.x, initialLocation.y, crystal.position.get().x, crystal.position.get().y,
-            thisModel.solution.shape.get().bounds ) ) {
+          thisModel.solution.shape.get().bounds ) ) {
           hitTheWater.push( crystal );
         }
         // Any crystals that landed on the beaker base or on top of precipitate should immediately precipitate into solid

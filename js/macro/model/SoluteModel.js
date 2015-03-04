@@ -35,7 +35,9 @@ define( function( require ) {
 
     //The amount of moles necessary to fully saturate the solution, past this,
     //the solute will start to precipitate.
-    thisSoluteModel.saturationPointMoles = waterVolume.times( saturationPoint );
+    thisSoluteModel.saturationPointMoles = new DerivedProperty( [waterVolume], function( volume ) {
+      return volume * saturationPoint;
+    } );
 
     //The amount that is dissolved is solution
     thisSoluteModel.molesDissolved = new DerivedProperty( [ thisSoluteModel.moles, thisSoluteModel.saturationPointMoles ],
@@ -53,10 +55,14 @@ define( function( require ) {
     //The volume (in SI) of the amount of solid
     //Solid precipitate should push up the water level, so that every mole of
     //salt takes up 0.02699 L, and every mole of sugar takes up 0.2157 L
-    thisSoluteModel.solidVolume = thisSoluteModel.molesPrecipitated.times( volumePerSolidMole );
+    thisSoluteModel.solidVolume = new DerivedProperty( [thisSoluteModel.molesPrecipitated], function( molesPrecipitated ) {
+      return molesPrecipitated * volumePerSolidMole;
+    } );
 
     //The amount in grams
-    thisSoluteModel.grams = thisSoluteModel.moles.times( gramsPerMole );
+    thisSoluteModel.grams = new DerivedProperty( [thisSoluteModel.moles], function( moles ) {
+      return moles * gramsPerMole;
+    } );
   }
 
   return inherit( Object, SoluteModel, {
