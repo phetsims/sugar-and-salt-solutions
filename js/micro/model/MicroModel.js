@@ -50,7 +50,7 @@ define( function( require ) {
   var SucroseCrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/SucroseCrystalGrowth' );
   var GlucoseCrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/GlucoseCrystalGrowth' );
   var GlucoseDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/GlucoseDispenser' );
-
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
   // strings
   var SODIUM_CHLORIDE_NEW_LINE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sodiumChlorideNewLine' );
@@ -125,11 +125,11 @@ define( function( require ) {
     //Choose nitrate to be blue because the Nitrogen atom is blue, even though it is negative and therefore also blue under "show charge color" condition
     //@private
     this.sucroseColor = new DerivedProperty( [ thisModel.showChargeColor ], function() {
-      return thisModel.showChargeColor.get() ? ParticleColorConstants.NEUTRAL_COLOR : ParticleColorConstants.RED_COLORBLIND;
+      return thisModel.showChargeColor.get() ? ParticleColorConstants.NEUTRAL_COLOR : PhetColorScheme.RED_COLORBLIND;
     } );
     //@private
     this.glucoseColor = new DerivedProperty( [ thisModel.showChargeColor ], function() {
-      return thisModel.showChargeColor.get() ? ParticleColorConstants.NEUTRAL_COLOR : ParticleColorConstants.RED_COLORBLIND;
+      return thisModel.showChargeColor.get() ? ParticleColorConstants.NEUTRAL_COLOR : PhetColorScheme.RED_COLORBLIND;
     } );
     //@private
     this.nitrateColor = new DerivedProperty( [ thisModel.showChargeColor ], function() {
