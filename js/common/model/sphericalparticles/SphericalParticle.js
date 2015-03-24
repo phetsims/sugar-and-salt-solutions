@@ -18,7 +18,7 @@ define( function( require ) {
 
 
   /**
-   * @param options ( {number} radius, {Vector2} position, {Color} color, {number} charge, {Color} chargeColor) )
+   * @param {Object} [options] ( {number} radius, {Vector2} position, {Color} color, {number} charge, {Color} chargeColor) )
    * refer the constructor signature in the table given in the design doc and to-do doc,
    * @constructor
    */

@@ -12,7 +12,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param options // double radius, Vector2D position, Color color, double charge, Color chargeColor
    * @constructor
    */
   function Units() {

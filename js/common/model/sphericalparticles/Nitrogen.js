@@ -15,7 +15,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
 
   /**
-   * @param options (or empty) // for use by clients that need to support other partial charge models.
+   * @param {Object} [options] for use by clients that need to support other partial charge models.
    * @constructor
    */
   function Nitrogen( options ) {

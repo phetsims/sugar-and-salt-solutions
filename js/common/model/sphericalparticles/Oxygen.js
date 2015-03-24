@@ -14,7 +14,7 @@ define( function( require ) {
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
   /**
-   * @param options (or empty) // for use by clients that need to support other partial charge models.
+   * @param {Object} [options] for use by clients that need to support other partial charge models.
    * @constructor
    */
   function Oxygen( options ) {
