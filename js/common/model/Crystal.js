@@ -267,10 +267,11 @@ define( function( require ) {
       } );
       return toDissolve;
     },
-    //Choose a particle of the specified type, to be dissolved off the crystal used by
-    // getConstituentsToDissolve to ensure it dissolves according to the formula ratio
+
+
     /**
-     *
+     * Choose a particle of the specified type, to be dissolved off the crystal used by
+     * getConstituentsToDissolve to ensure it dissolves according to the formula ratio
      * @param type
      * @param waterBounds
      * @param {Array<Constituent>} ignore
@@ -284,7 +285,7 @@ define( function( require ) {
       //Also make sure it is the requested type (to match formula ratio), and make sure it hasn't already been flagged for removal
       var c = _.chain( this.constituents.getArray() ).
         filter( function( constituent ) {
-          return waterBounds.contains( constituent.particle.getShape().bounds );
+          return waterBounds.containsBounds( constituent.particle.getShape().bounds );
         } ).filter( function( constituent ) {
           return constituent.particle instanceof type;
         } ).filter( function( constituent ) {
@@ -296,7 +297,7 @@ define( function( require ) {
 
         //Find the smallest number of bonds of any of the particles
         var minBonds = self.getNumBonds( _.min( c, function( constituent ) {
-          self.getNumBonds( constituent );
+          return self.getNumBonds( constituent );
         } ) );
 
         //Only consider particles with the smallest number of bonds since they are closest to the edge

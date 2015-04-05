@@ -44,6 +44,9 @@ define( function( require ) {
     thisModel.drainPipeBottomY = drainPipeBottomY;
     thisModel.drainPipeTopY = drainPipeTopY;
 
+    //The elapsed running time of the model
+    this.time = 0;
+
     //Scale to help accommodate micro tab, for Macro tab the scale is 1.0
     //The amount to scale model translations so that micro tab emits solute at the appropriate time.  Without
     //this factor, the tiny (1E-9 meters) drag motion in the Micro tab wouldn't be enough to emit solute

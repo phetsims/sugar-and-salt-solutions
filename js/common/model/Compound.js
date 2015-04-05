@@ -35,7 +35,7 @@ define( function( require ) {
     this.angle = angle;
 
     //The time the lattice entered the water, if any
-    this.underwaterTime = 0;
+    this.underwaterTime = null; // new None<Double>();
 
     //Members in the compound
     this.constituents = new ItemList();
@@ -108,7 +108,7 @@ define( function( require ) {
     },
 
     isUnderwaterTimeRecorded: function() {
-      return _.isNumber( this.underwaterTime ) && isFinite( this.underwaterTime );
+      return _.isNumber( this.underwaterTime );
     },
 
     /**

@@ -10,9 +10,9 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var Vector2 = require( 'DOT/Vector2' );
   var FreeParticleStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FreeParticleStrategy' );
+  var DynamicsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DynamicsConstants' );
 
   /**
    *
@@ -20,6 +20,8 @@ define( function( require ) {
    * @constructor
    */
   function CrystalDissolve( model ) {
+    this.model = model;
+
     //@private Debugging tool to visualize the dissolving process
     this.lastDissolve = new Date().getTime();
   }
@@ -48,8 +50,8 @@ define( function( require ) {
                                                                       this.lastDissolve > 2 && !this.model.isWaterBelowCrystalThreshold() ) {
         this.lastDissolve = new Date().getTime();
         var toDissolve = crystal.getConstituentsToDissolve( this.model.solution.shape.get().bounds );
-        if ( toDissolve ) {
-          this.dissolve( crystal, toDissolve.get() );
+        if ( toDissolve.length ) {
+          this.dissolve( crystal, toDissolve );
         }
       }
 
@@ -95,7 +97,7 @@ define( function( require ) {
       var particleAboveWater = constituent.particle.getShape().bounds.getMaxY() >
                                this.model.solution.shape.get().bounds.getMaxY();
       var velocityAngle = particleAboveWater ? 0 : Math.random() * Math.PI * 2;
-      var velocity = new Vector2( 0, -1 ).times( SugarAndSaltConstants.FREE_PARTICLE_SPEED ).rotated( velocityAngle );
+      var velocity = new Vector2( 0, -1 ).times( DynamicsConstants.FREE_PARTICLE_SPEED ).rotated( velocityAngle );
       constituent.particle.velocity.set( velocity );
 
       //Remove the constituent from the crystal and instead make it move under a random walk
