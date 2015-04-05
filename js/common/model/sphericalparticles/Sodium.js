@@ -26,12 +26,9 @@ define( function( require ) {
       atomColor: Color.MAGENTA,
       charge: 1
     };
-
     SphericalParticle.call( this, options );
   }
 
-  return inherit( SphericalParticle, Sodium, {
-
-  } );
+  return inherit( SphericalParticle, Sodium, {} );
 
 } );

@@ -17,6 +17,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
 
   // strings
   var macroScreenTitle = require( 'string!SUGAR_AND_SALT_SOLUTIONS/macro' );
@@ -49,6 +50,7 @@ define( function( require ) {
     var backgroundColor = new Color( 0, 51, 153 );
     var layoutBounds = SugarAndSaltConstants.LAYOUT_BOUNDS;
     var aspectRatio = layoutBounds.width / layoutBounds.height;
+    SugarAndSaltSharedProperties.sizeScale.set( 1 );
     Screen.call( this, macroScreenTitle, createScreenIcon(),
       function() { return new MacroModel( aspectRatio ); },
       function( model ) { return new MacroScreenView( model ); },
