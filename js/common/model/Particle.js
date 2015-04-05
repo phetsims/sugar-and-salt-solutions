@@ -52,7 +52,7 @@ define( function( require ) {
         acceleration = args[ 0 ];
         dt = args[ 1 ];
         this.velocity.add( acceleration.times( dt ) );
-        this.position.add( this.velocity.times( dt ) );
+        this.setPosition( this.position.plus( this.velocity.times( dt ) ) );
       }
       if ( args.length === 1 ) {
         dt = args[ 0 ];
@@ -64,7 +64,7 @@ define( function( require ) {
      * @param {Vector2} location
      */
     setPosition: function( location ) {
-      this.position.set( location );
+      this.positionProperty.set( location );
     },
     /**
      * Convenience method to translate a particle by the specified model delta (in meters)
@@ -73,10 +73,10 @@ define( function( require ) {
      */
     translate: function( delta, dy ) {
       if ( dy ) {
-        this.position.addXY( delta, dy );
+        this.setPosition(this.position.plusXY( delta, dy ));
       }
       else {
-        this.position.add( delta );
+        this.setPosition(this.position.plus( delta ));
       }
     },
     /**

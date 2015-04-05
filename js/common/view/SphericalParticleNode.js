@@ -32,12 +32,16 @@ define( function( require ) {
 
     //Use a cached image to improve performance for large molecules such as sucrose
     AtomImageCache.getAtomImage( modelViewTransform.modelToViewDeltaX( particle.radius * 2 ),
-      particle.chargeColor, function( imageNode ) {
+      particle.chargeColor,
+
+      //asynchronous call back
+      function( imageNode ) {
         chargeColorSphereNode = new SimpleSphereNode( modelViewTransform, particle.positionProperty, imageNode );
         if ( !nodesAdded && atomColorSphereNode ) {
           addSphereNodes();
         }
-      } );
+      }
+    );
 
     AtomImageCache.getAtomImage( modelViewTransform.modelToViewDeltaX( particle.radius * 2 ),
       particle.color, function( imageNode ) {
