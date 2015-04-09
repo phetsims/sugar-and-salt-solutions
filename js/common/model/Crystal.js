@@ -17,6 +17,7 @@ define( function( require ) {
   var DivisionResult = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/DivisionResult' );
   var Constituent = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Constituent' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Logger = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Logger' );
 
 
   /**
@@ -81,7 +82,7 @@ define( function( require ) {
         }
         else {
           //If there was a dead end, clear this crystal and try again
-          console.log( "crystal growth failed: tryIndex = " + tryIndex );
+          Logger.fine( "crystal growth failed: tryIndex = " + tryIndex );
           while ( this.numberConstituents() > 0 ) {
             this.removeConstituent( this.getConstituent( 0 ) );
           }
@@ -203,7 +204,7 @@ define( function( require ) {
         //It has been difficult to identify the cause of this case, so we also overrode addConstituent to check for errors
         //during the build process
         var err = new Error( "Too many particles at the same location, getting one of them randomly" );
-        console.log( err.stack );
+        Logger.fine( err.stack );
         var index = _.random( atLocation.length );
         return atLocation.get( index );
       }
@@ -232,7 +233,7 @@ define( function( require ) {
         //Error during the build process, print an exception with the stack trace so we can find out
         //which step in crystal constriction caused the problem
         var err = new Error( "Wrong constituent during add process" );
-        console.log( err.stack );
+        Logger.fine( err.stack );
       }
     },
 
@@ -311,11 +312,11 @@ define( function( require ) {
           return constituent.particle.getPosition().y;
         } );
 
-        console.log( "Crystal num components = " + c.length );
+        Logger.fine( "Crystal num components = " + c.length );
         for ( var i = 0; i < c.length; i++ ) {
-          console.log( "" + i + ": " + self.getNumBonds( c[ i ] ) );
+          Logger.fine( "" + i + ": " + self.getNumBonds( c[ i ] ) );
         }
-        console.log( "END crystal" );
+        Logger.fine( "END crystal" );
 
         //Return the highest item
         if ( c.length > 0 ) {
