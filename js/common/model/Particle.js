@@ -51,6 +51,7 @@ define( function( require ) {
       if ( args.length === 2 ) {
         acceleration = args[ 0 ];
         dt = args[ 1 ];
+
         this.velocity.add( acceleration.times( dt ) );
         this.setPosition( this.position.plus( this.velocity.times( dt ) ) );
       }

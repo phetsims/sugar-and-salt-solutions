@@ -202,7 +202,7 @@ define( function( require ) {
       //Find the pair of particles closest to each other, and move them even closer to each other.
       //When they are close enough, form the crystal
       var seeds = this.getAllSeeds(); //Array<IFormulaUnit>
-      seeds = _.sortBy( seeds, function( formulaUnit ) {
+      seeds = _.sortBy( seeds.getArray(), function( formulaUnit ) {
         return formulaUnit.getDistance();
       } );
 

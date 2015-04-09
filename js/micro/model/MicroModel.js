@@ -723,14 +723,12 @@ define( function( require ) {
      * @param {number} volumeDropped
      */
     waterLevelDropped: function( particles, volumeDropped ) {
-
       var self = this;
       var changeInWaterHeight = self.beaker.getHeightForVolume( volumeDropped ) - this.beaker.getHeightForVolume( 0 );
       particles.forEach( function( particle ) {
         if ( self.waterVolume.get() > 0 ) {
-          var yLocationInBeaker = particle.getPosition().getY();
+          var yLocationInBeaker = particle.getPosition().y;
           var waterTopY = self.beaker.getHeightForVolume( self.waterVolume.get() );
-
           //Only move particles down if they are fully underwater
           if ( yLocationInBeaker < waterTopY ) {
             var fractionToTop = yLocationInBeaker / waterTopY;
@@ -740,7 +738,6 @@ define( function( require ) {
             self.preventFromLeavingBeaker( particle );
           }
         }
-
         //This step must be done after prevention of particles leaving the top because falling through
         // the bottom is worse (never returns), pushing through the top, particles
         //would just fall back to the water level

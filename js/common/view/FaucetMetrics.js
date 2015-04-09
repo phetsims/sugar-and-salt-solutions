@@ -49,11 +49,11 @@ define( function( require ) {
      */
     getInputPoint: function() {
       var solutionShapeBounds = this.model.solution.shape.get().bounds;
-      if ( solutionShapeBounds.getMinY() < this.inputPoint.getY() && this.inputPoint.getY() < solutionShapeBounds.getMaxY() ) {
+      if ( solutionShapeBounds.getMinY() < this.inputPoint.y && this.inputPoint.y < solutionShapeBounds.getMaxY() ) {
         return this.inputPoint;
       }
       else {
-        return new Vector2( this.inputPoint.getX(), solutionShapeBounds.getMaxY() );
+        return new Vector2( this.inputPoint.x, solutionShapeBounds.getMaxY() );
       }
     },
     /**

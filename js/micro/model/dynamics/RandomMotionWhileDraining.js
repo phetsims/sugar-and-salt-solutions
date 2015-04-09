@@ -10,8 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
-  var Vector2 = require( 'DOT/Vector2' );
+  var DynamicsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DynamicsConstants' );
   var FlowToDrainStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FlowToDrainStrategy' );
 
   /**
@@ -28,10 +27,10 @@ define( function( require ) {
     apply: function() {
       var self = this;
       var drain = this.model.getDrainFaucetMetrics().getInputPoint();
-      _.each( this.model.freeParticles, function( particle ) {
+      _.each( this.model.freeParticles.getArray(), function( particle ) {
         //Get the velocity for the particle
-        var velocity = new Vector2( particle.getPosition(), drain ).
-          withMagnitude( SugarAndSaltConstants.FREE_PARTICLE_SPEED ).times( self.getRelativeSpeed( drain, particle ) );
+        var velocity = drain.minus( particle.getPosition() ).
+          withMagnitude( DynamicsConstants.FREE_PARTICLE_SPEED ).times( self.getRelativeSpeed( drain, particle ) );
         particle.setUpdateStrategy( new FlowToDrainStrategy( self.model, velocity, true ) );
       } );
     },
@@ -45,7 +44,6 @@ define( function( require ) {
      * @returns {number}
      */
     getRelativeSpeed: function( drain, particle ) {
-
       //Only use this heuristic when further than 25% of beaker width away from the drain, otherwise particles close to
       //the drain move too fast and end up waiting at the drain
       var numberBeakerWidthsToDrain = Math.max( 0.25,

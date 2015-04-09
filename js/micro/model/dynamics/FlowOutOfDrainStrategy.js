@@ -11,9 +11,9 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var UpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/UpdateStrategy' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var Compound = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Compound' );
   var SphericalParticle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/SphericalParticle' );
+  var DynamicsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DynamicsConstants' );
 
   /**
    *
@@ -36,7 +36,7 @@ define( function( require ) {
     stepInTime: function( particle, dt ) {
 
       //Accelerate the particle due to gravity and perform an euler integration step
-      particle.stepInTime( this.model.getExternalForce( false ).times( 1.0 / SugarAndSaltConstants.PARTICLE_MASS ), dt );
+      particle.stepInTime( this.model.getExternalForce( false ).times( 1.0 / DynamicsConstants.PARTICLE_MASS ), dt );
 
       //If the particle has fallen too far (say 3 beaker heights), remove it from the model completely
       if ( particle.getPosition().y < -3 * this.model.beaker.getHeight() ) {

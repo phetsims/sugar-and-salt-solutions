@@ -59,10 +59,10 @@ define( function( require ) {
         //If closest to the drain, move directly toward the drain so it can reach it in the desired amount of time to keep the
         //concentration as steady as possible
         if ( this.randomWalk ) {
-          var initVelocity = particle.velocity.get().magnitude();
+          var initVelocity = particle.velocity.magnitude();
 
           //Mix in more of the original velocity to keep more of the random walk component
-          var newVelocity = particle.velocity.get().times( 3 ).plus( this.velocity ).withMagnitude( initVelocity );
+          var newVelocity = particle.velocity.times( 3 ).plus( this.velocity ).withMagnitude( initVelocity );
           particle.velocity.set( newVelocity );
           new this.FreeParticleStrategy( this.model ).randomWalk( particle, dt );
         }
@@ -72,7 +72,7 @@ define( function( require ) {
         }
 
         //Make sure the particles move down with the water level so they don't hang in the air where the water was
-        if ( !this.model.solution.shape.get().bounds.contains( particle.getShape().bounds ) ) {
+        if ( !this.model.solution.shape.get().bounds.containsBounds( particle.getShape().bounds ) ) {
           this.model.preventFromLeavingBeaker( particle );
         }
       }

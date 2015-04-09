@@ -118,6 +118,10 @@ define( function( require ) {
       return new DerivedProperty( [ this.lengthProperty ], function() {
         return self.countByClass( type ) | 0;//int
       } );
+    },
+
+    isEmpty: function() {
+      return this.length === 0;
     }
 
   } );
