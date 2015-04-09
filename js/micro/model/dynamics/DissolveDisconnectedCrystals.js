@@ -44,7 +44,7 @@ define( function( require ) {
 
           //Increment the counts in the map
           var newCount = self.numberStepsDisconnected.contains( crystal ) ? self.numberStepsDisconnected.get( crystal ) + 1 : 1;
-          self.put( crystal, newCount );
+          self.numberStepsDisconnected.put( crystal, newCount );
 
           //If it has been disconnected for too long, dissolve it completely
           if ( newCount > 30 ) {
