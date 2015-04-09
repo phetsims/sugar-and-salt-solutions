@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 /**
  * Displays the exact volume of the solution, as a text label inside the solution.
  *

@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 /**
  * List containing all pairs of particles that could be used to seed a crystal
  *

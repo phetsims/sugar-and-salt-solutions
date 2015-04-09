@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 /**
  * Model element for the sugar dispenser, which includes its position and rotation.  Sugar is emitted from the
  * sugar dispenser only while the user is rotating it, and while it is at a good angle (quadrant III).

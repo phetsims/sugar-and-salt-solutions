@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 /**
  *
  * Move the particles about with a random walk, but making sure they remain within the solution (if they started within it)
