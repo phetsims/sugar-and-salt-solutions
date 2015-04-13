@@ -39,7 +39,7 @@ define( function( require ) {
      * @param {number} dt
      */
     moveTogether: function( dt ) {
-      var unitVectorFromAToB = new Vector2( this._1.getPosition(), this._2.getPosition() ).normalized();
+      var unitVectorFromAToB = this._2.getPosition().minus( this._1.getPosition() ).normalized();
       var velocity = unitVectorFromAToB.times( DynamicsConstants.FREE_PARTICLE_SPEED );
       this._1.velocity.set( velocity );
       this._2.velocity.set( velocity.times( -1 ) );
@@ -52,7 +52,7 @@ define( function( require ) {
      * @returns {Array<Particle>}
      */
     getParticles: function() {
-      return [this._1, this._2];
+      return [ this._1, this._2 ];
     }
 
   } );

@@ -1,5 +1,4 @@
 // Copyright 2002-2013, University of Colorado Boulder
-
 /**
  * Absolute locations in model coordinates (in meters) of where
  * particles flow to leave the drain pipe, and where they leave when they exit the drain pipe.
@@ -13,7 +12,6 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
-
 
   /**
    *
@@ -53,7 +51,7 @@ define( function( require ) {
         return this.inputPoint;
       }
       else {
-        return new Vector2( this.inputPoint.x, solutionShapeBounds.getMaxY() );
+        return new Vector2( this.inputPoint.x, this.inputPoint.y );
       }
     },
     /**

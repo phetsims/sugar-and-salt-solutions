@@ -64,7 +64,7 @@ define( function( require ) {
         else {
 
           //Randomly choose an existing crystal to possibly bond to
-          var crystal = this.crystals.get( _.random( this.crystals.length ) );
+          var crystal = this.crystals.get( _.random( this.crystals.length - 1 ) );
           //Find a good configuration to have the particles move toward, should be the closest one so that it can
           // easily be found again in subsequent steps
           var targetConfiguration = this.getTargetConfiguration( crystal );
@@ -189,7 +189,7 @@ define( function( require ) {
         return null;
       }
       else {
-        return matches[0];
+        return matches[ 0 ];
       }
     },
 
@@ -209,7 +209,7 @@ define( function( require ) {
       //If there was a match, move the closest particles even closer together
       //If they are close enough, convert them into a crystal
       if ( seeds.length > 0 ) {
-        var closestSet = seeds[0];
+        var closestSet = seeds[ 0 ];
         closestSet.moveTogether( dt );
         if ( closestSet.getDistance() <= dt * DynamicsConstants.FREE_PARTICLE_SPEED ) {
           this.convertToCrystal( closestSet );
@@ -226,7 +226,7 @@ define( function( require ) {
      * @param {IFormulaUnit} seed
      */
     convertToCrystal: function( seed ) {
-      var a = seed.getParticles()[0];
+      var a = seed.getParticles()[ 0 ];
       var self = this;
 
       //Create a crystal based on the 'a' particle, then add the 'b' particle as the second constituent
@@ -264,7 +264,7 @@ define( function( require ) {
       sites = _.shuffle( sites.getArray() );
       var selectedSite = null;
       for ( var i = 0; i < sites.length; i++ ) {
-        var site = sites[i];
+        var site = sites[ i ];
         if ( site.matches( b ) ) {
           selectedSite = site;
           break;
