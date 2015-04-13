@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 /**
  * Base class model for Sugar and Salt Solutions, which keeps track of the physical model as well
  * as the MVC model for view components (such as whether certain components are enabled).

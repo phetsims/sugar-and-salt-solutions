@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 
 /**
  *  Control that allows the user to expand/collapse the concentration bar chart, also contains said bar chart.

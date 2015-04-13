@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 /**
  * This strategy dissolves crystals incrementally so that the concentration will be below or near the saturation point.
  *

@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 /**
  *
  * Workaround for completely dissolving any crystals that have become disconnected as a result of partial dissolving

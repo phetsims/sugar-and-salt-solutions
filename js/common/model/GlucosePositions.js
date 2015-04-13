@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 /**
  * Provides physical locations (positions) of the atoms within a glucose molecule.
  * Positions sampled from a 2d rasterized view of glucose from JMol with ProjectorUtil

@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 /**
  * Button that allows the user to remove a particular type of solute, only shown if the sim contains the solute.
  *

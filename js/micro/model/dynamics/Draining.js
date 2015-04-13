@@ -1,4 +1,4 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 /**
  * Moves the particles toward the drain when the user drains the water out, constraining
  * the number of formula units for each solute type to be integral
