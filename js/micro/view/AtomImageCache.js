@@ -42,6 +42,8 @@ define( function( require ) {
           var shadedSphereNode = new ShadedSphereNode( diameter, { mainColor: color } );
           shadedSphereNode.toImageNodeAsynchronous( function( imageNode ) {
             imageMap[ key ] = imageNode;
+            imageNode.x = imageNode.bounds.width / 2;
+            imageNode.y = imageNode.bounds.height / 2;
             addImageNodeCallBack( imageNode );
           } );
         }

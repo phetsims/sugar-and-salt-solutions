@@ -18,6 +18,7 @@ define( function( require ) {
   var Chloride = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Chloride' );
   var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
   var CrystalStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalStrategy' );
+  var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
 
   /**
    *
@@ -32,11 +33,11 @@ define( function( require ) {
   return inherit( CrystalGrowth, CalciumChlorideCrystalGrowth, {
     /**
      * @protected
-     * @return {Array<IFormulaUnit>}
+     * @return {ItemList}
      */
     getAllSeeds: function() {
-      var aList = this.model.freeParticles.filter( Calcium );
-      var bList = this.model.freeParticles.filter( Chloride );
+      var aList = this.model.freeParticles.filterByClass( Calcium );
+      var bList = this.model.freeParticles.filterByClass( Chloride );
       var formulaUnits = [];
       _.each( aList.getArray(), function( a ) {
         _.each( bList.getArray(), function( b ) {
@@ -48,7 +49,9 @@ define( function( require ) {
           } );
         } );
       } );
-      return formulaUnits;
+
+
+      return new ItemList(formulaUnits);
     },
 
     /**

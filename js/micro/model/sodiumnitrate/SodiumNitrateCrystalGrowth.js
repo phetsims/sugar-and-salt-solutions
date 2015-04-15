@@ -34,7 +34,7 @@ define( function( require ) {
      * @returns {AllPairs}
      */
     getAllSeeds: function() {
-      return new AllPairs( this.model.freeParticles, Sodium.class, Nitrate.class );
+      return new AllPairs( this.model.freeParticles, Sodium, Nitrate );
     },
 
     /**

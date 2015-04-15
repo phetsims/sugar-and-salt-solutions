@@ -16,7 +16,6 @@ define( function( require ) {
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
   var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
 
-
   /**
    * @param {Object} [options] ( {number} radius, {Vector2} position, {Color} color, {number} charge, {Color} chargeColor) )
    * refer the constructor signature in the table given in the design doc and to-do doc,
@@ -28,12 +27,10 @@ define( function( require ) {
       options.position = new Vector2();
     }
     Particle.call( this, options.position );
-
     this.radius = options.radius;
     this.color = options.atomColor; //Color corresponding to the identity of the atom
     this.charge = options.charge; //The charge of the atom
     this.chargeColor = options.chargeColor;  //Color for the charge of the atom, red = positive, yellow = neutral, blue = negative
-
 
     //On Every getShape and getShapeBounds call, spherical Particle creates a new Shape Instance.
     //The prev Values for x,y and radius help us to see if new instance needs to be created or to return a old cached instance
@@ -42,9 +39,7 @@ define( function( require ) {
     this.prevPositionX = this.getPosition().x;
     this.prevPositionY = this.getPosition().y;
     this.prevRadius = this.radius;
-
     this.shapeBounds = this.shape.bounds;
-
   }
 
   return inherit( Particle, SphericalParticle, {

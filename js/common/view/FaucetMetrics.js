@@ -51,8 +51,13 @@ define( function( require ) {
         return this.inputPoint;
       }
       else {
-        return new Vector2( this.inputPoint.x, this.inputPoint.y );
+        return new Vector2( this.inputPoint.x, solutionShapeBounds.getMaxY() );
       }
+    },
+
+    //Ashraf Did for debugging purposes, TODO clean up this method
+    getImageInputPoint:function(){
+      return this.inputPoint;
     },
     /**
      * Copies this FaucetMetrics but with the substituted inputX value to

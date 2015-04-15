@@ -60,7 +60,6 @@ define( function( require ) {
         //concentration as steady as possible
         if ( this.randomWalk ) {
           var initVelocity = particle.velocity.magnitude();
-
           //Mix in more of the original velocity to keep more of the random walk component
           var newVelocity = particle.velocity.times( 3 ).plus( this.velocity ).withMagnitude( initVelocity );
           particle.velocity.set( newVelocity );

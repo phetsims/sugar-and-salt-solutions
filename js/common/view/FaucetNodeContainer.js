@@ -20,8 +20,8 @@ define( function( require ) {
   //constants
   //Locations in the image file where the input pipe connects to the faucet.
   var INPUT_PIPE_X = 0;
-  var INPUT_PIPE_Y1 = 32;
-  var INPUT_PIPE_Y2 = 78;
+  var INPUT_PIPE_Y1 = 0;
+  var INPUT_PIPE_Y2 = -300; // TODO Ashraf Why this value works?
 
   // Locations in the image file where the fluid comes out of the faucet. (Ashraf , this is with reference to the FaucetNode's origin)
   var OUTPUT_PIPE_X1 = -38;

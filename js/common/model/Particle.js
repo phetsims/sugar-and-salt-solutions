@@ -51,7 +51,6 @@ define( function( require ) {
       if ( args.length === 2 ) {
         acceleration = args[ 0 ];
         dt = args[ 1 ];
-
         this.velocity.add( acceleration.times( dt ) );
         this.setPosition( this.position.plus( this.velocity.times( dt ) ) );
       }
@@ -73,11 +72,11 @@ define( function( require ) {
      * double {number} dy
      */
     translate: function( delta, dy ) {
-      if ( dy ) {
-        this.setPosition(this.position.plusXY( delta, dy ));
+      if ( !_.isNaN( dy ) ) {
+        this.setPosition( this.position.plusXY( delta, dy ) );
       }
       else {
-        this.setPosition(this.position.plus( delta ));
+        this.setPosition( this.position.plus( delta ) );
       }
     },
     /**

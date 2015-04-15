@@ -11,7 +11,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var DynamicsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DynamicsConstants' );
   var FlowOutOfDrainStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FlowOutOfDrainStrategy' );
   var FlowToDrainStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FlowToDrainStrategy' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -115,13 +115,13 @@ define( function( require ) {
 
         // compute the speed/velocity to make this particle arrive at the drain at the same time as the other particles in the formula unit
         var speed = distanceToTarget / timeToError;
-        var velocity = drain.minus(particle.getPosition()).withMagnitude( speed );
+        var velocity = drain.minus( particle.getPosition() ).withMagnitude( speed );
 
         //Set the update strategy of the particle, it will be updated when the strategies are invoked in MicroModel
         particle.setUpdateStrategy( new FlowToDrainStrategy( self.model, velocity, false ) );
 
         Logger.fine( "i = " + 0 + ", target time = " + self.model.
-          getTime() + ", velocity = " + speed + " nominal velocity = " + SugarAndSaltConstants.FREE_PARTICLE_SPEED );
+          getTime() + ", velocity = " + speed + " nominal velocity = " + DynamicsConstants.FREE_PARTICLE_SPEED );
 
       } );
 
@@ -144,7 +144,7 @@ define( function( require ) {
             self.model.drainedParticles.add( unitParticle );
             //Okay to reschedule now since one particle just left, so there will be no phase problem
             unitParticle.setPosition( self.model.getDrainFaucetMetrics().outputPoint );
-            unitParticle.velocity.set( new Vector2( 0, -SugarAndSaltConstants.FREE_PARTICLE_SPEED / 2 ) );
+            unitParticle.velocity.set( new Vector2( 0, -DynamicsConstants.FREE_PARTICLE_SPEED / 2 ) );
           } );
         }
       }
@@ -183,8 +183,6 @@ define( function( require ) {
           self.usedParticles.remove( particle );
         } );
 
-
-        return new ItemList( [] );
       }
 
       return new ItemList( list );

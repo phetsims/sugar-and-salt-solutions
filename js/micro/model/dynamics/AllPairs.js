@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
+  var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
   var FormulaUnit = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FormulaUnit' );
 
   /**
@@ -21,7 +21,7 @@ define( function( require ) {
    * @constructor
    */
   function AllPairs( freeParticles, typeA, typeB ) {
-    ObservableArray.call( this );
+    ItemList.call( this,[] );
     var aList = freeParticles.filterByClass( typeA ).getArray();
     var bList = freeParticles.filterByClass( typeB ).getArray();
     var self = this;
@@ -35,5 +35,5 @@ define( function( require ) {
     } );
   }
 
-  return inherit( ObservableArray, AllPairs );
+  return inherit( ItemList, AllPairs );
 } );

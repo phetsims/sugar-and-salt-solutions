@@ -30,7 +30,7 @@ define( function( require ) {
     var viewMinX = 45;
     var viewMinY = 155;
     var viewPortBounds = new Bounds2( viewMinX, viewMinY, viewMinX + layoutBounds.width * modelScale,
-        viewMinY + (layoutBounds.height * modelScale) );
+      viewMinY + (layoutBounds.height * modelScale) );
 
     var thisView = this;
     thisView.model = microModel;
@@ -45,17 +45,17 @@ define( function( require ) {
 
     //When any spherical particle is added in the model, add graphics for them in the view
     thisView.model.sphericalParticles.addItemAddedListener( function( addedParticle ) {
-       var  sphericalParticleNode = new SphericalParticleNode( modelViewTransform, addedParticle,
-          thisView.model.showChargeColor );
-        thisView.addChild( sphericalParticleNode );
+      var sphericalParticleNode = new SphericalParticleNode( modelViewTransform, addedParticle,
+        thisView.model.showChargeColor );
+      thisView.addChild( sphericalParticleNode );
 
       //Create the Node for the particle, and wire it up to be removed when the particle leaves the model
-        thisView.model.sphericalParticles.addItemRemovedListener( function removalListener( removedParticle ) {
-          if ( removedParticle === addedParticle ) {
-            thisView.removeChild( sphericalParticleNode );
-            thisView.model.sphericalParticles.removeItemRemovedListener( removalListener );
-          }
-        } );
+      thisView.model.sphericalParticles.addItemRemovedListener( function removalListener( removedParticle ) {
+        if ( removedParticle === addedParticle ) {
+          thisView.removeChild( sphericalParticleNode );
+          thisView.model.sphericalParticles.removeItemRemovedListener( removalListener );
+        }
+      } );
 
     } );
 
