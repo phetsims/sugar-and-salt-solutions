@@ -18,7 +18,6 @@ define( function( require ) {
   var NeutralOxygen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/NeutralOxygen' );
   var Carbon = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Carbon' );
 
-
   /**
    *
    * @param {string} text
@@ -64,33 +63,43 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getOrigin: function() {
-      var items = (this.text.substring( 0, this.text.indexOf( '\n' ) )).split( "," );
-
-      //ignore  the type items[0]
-      //Read the position
-      return new Vector2( items[ 1 ], items[ 2 ] );
+      var line = (this.text.substring( 0, this.text.indexOf( '\n' ) ));
+      return this.readPosition( line );
     },
 
-    //Reads a line from the string and converts to an Atom instance at the right model location
     /**
-     *
+     * Refactored position reading function into a common code - Ashraf
+     * @param {string} line
+     * @returns {Vector2}
+     */
+    readPosition: function( line ) {
+      var items = line.split( "," );
+      //Read the type and location
+      var x = +items[ 0 ].split( " " )[ 1 ];
+      var y = +items[ 1 ];
+      return new Vector2( x, y );
+    },
+
+
+    /**
+     * Reads a line from the string and converts to an Atom instance at the right model location
      * @param {string} line
      * @returns {AtomPosition}
      */
     parseAtom: function( line ) {
 
-      var items = line.split( " " );
+      var items = line.split( "," );
 
       //Read the type and location
-      var type = items[ 0 ];
-      var x = items[ 1 ];
-      var y = items[ 2 ];
+      var type = items[ 0 ].split( " " )[ 0 ]; // TODO remove duplicate Ashraf
+      var x = +items[ 0 ].split( " " )[ 1 ];
+      var y = +items[ 1 ];
 
       //For showing partial charges on sucrose, read from the file from certain atoms that have a charge
       //http://www.chemistryland.com/CHM130W/LabHelp/Experiment10/Exp10.html
       var charge = "";
-      if ( items[ 3 ] ) {
-        charge = items[ 3 ];
+      if ( items[ 2 ] ) {
+        charge = items[ 2 ];
       }
 
       //Add an atom instance based on the type, location and partial charge (if any)
@@ -122,7 +131,7 @@ define( function( require ) {
           };
           return carbon;
         }
-        if ( type.equals( "O" ) ) {
+        if ( type === "O" ) {
           var neutralOxygen = new NeutralOxygen();
           neutralOxygen.getPartialChargeDisplayValue = function() {
             if ( finalCharge.equals( "charge" ) ) {

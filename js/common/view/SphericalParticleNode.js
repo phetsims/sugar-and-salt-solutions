@@ -54,7 +54,6 @@ define( function( require ) {
     // add charge and atom nodes when both are asynchronously loaded
     function addSphereNodes() {
       nodesAdded = true;
-
       //Show the charge color, if user selected
       thisNode.addChild( chargeColorSphereNode );
       showChargeColorProperty.link( function( showChargeColor ) {
@@ -66,6 +65,8 @@ define( function( require ) {
       showChargeColorProperty.link( function( showChargeColor ) {
         chargeColorSphereNode.visible = !showChargeColor;
       } );
+
+      thisNode.invalidateBounds();
     }
   }
 

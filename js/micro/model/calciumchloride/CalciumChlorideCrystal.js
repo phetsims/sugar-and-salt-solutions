@@ -43,7 +43,7 @@ define( function( require ) {
      * @returns {Particle}
      */
     createConstituentParticle: function( type ) {
-      return type === Calcium.class ? new Calcium() : new Chloride();
+      return type === Calcium ? new Calcium() : new Chloride();
     },
 
     /**

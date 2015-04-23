@@ -116,9 +116,9 @@ define( function( require ) {
       }
     },
 
-    //Look for a place for each member of an entire formula unit to bind to the pre-existing crystal
+
     /**
-     *
+     * Look for a place for each member of an entire formula unit to bind to the pre-existing crystal
      * @param {Crystal} crystal
      * @returns {TargetConfiguration}
      */

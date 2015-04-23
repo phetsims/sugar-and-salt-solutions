@@ -21,7 +21,6 @@ define( function( require ) {
    * @constructor
    */
   function Sucrose( relativePosition, angle ) {
-
     relativePosition = relativePosition || new Vector2();
     angle = angle || Math.random() * 2 * Math.PI;
     SugarMolecule.call( this, relativePosition, angle, new SucrosePositions() );

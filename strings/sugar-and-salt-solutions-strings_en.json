@@ -24,5 +24,9 @@
   "sodiumNitrateNewLine": "Sodium<br>Nitrate",
   "sucrose": "Sucrose",
   "glucose": "Glucose",
-  "conductivity":"Conductivity"
+  "conductivity": "Conductivity",
+  "sodium": "Na<sup>+</sup>",
+  "chloride": "Cl<sup>-</sup>",
+  "calcium": "Ca<sup>2+</sup>",
+  "nitrate": "NO<sub>3</sub><sup>-</sup>"
 }

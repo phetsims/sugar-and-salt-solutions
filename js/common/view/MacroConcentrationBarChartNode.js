@@ -20,7 +20,6 @@ define( function( require ) {
   // strings
   var CONCENTRATION = require( 'string!SUGAR_AND_SALT_SOLUTIONS/concentration' );
 
-
   /**
    *
    * @param {Property<boolean>} showConcentrationBarChart
@@ -62,25 +61,3 @@ define( function( require ) {
 
 } );
 
-//// Copyright 2002-2011, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.macro.view;
-//
-//import edu.colorado.phet.common.phetcommon.model.property.ObservableProperty;
-//import edu.colorado.phet.common.phetcommon.model.property.Property;
-//import edu.colorado.phet.common.phetcommon.model.property.SettableProperty;
-//import edu.colorado.phet.sugarandsaltsolutions.common.view.MinimizedConcentrationBarChart;
-//import edu.umd.cs.piccolo.PNode;
-//
-///**
-// *
-// *
-// * @author Sam Reid
-// */
-//public class ExpandableConcentrationBarChartNode extends PNode {
-//    public ExpandableConcentrationBarChartNode( final Property<Boolean> showConcentrationBarChart, ObservableProperty<Double> saltConcentration,
-//                                                ObservableProperty<Double> sugarConcentration, SettableProperty<Boolean> showConcentrationValues, double scaleFactor ) {
-//
-
-
-//    }
-//}

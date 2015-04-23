@@ -1,55 +1,64 @@
-//// Copyright 2002-2011, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.micro.view;
-//
-//import edu.colorado.phet.common.phetcommon.model.property.Property;
-//import edu.colorado.phet.common.phetcommon.model.property.SettableProperty;
-//import edu.colorado.phet.sugarandsaltsolutions.common.view.barchart.Bar;
-//import edu.colorado.phet.sugarandsaltsolutions.common.view.barchart.BarItem;
-//import edu.colorado.phet.sugarandsaltsolutions.common.view.barchart.ConcentrationBarChart;
-//import edu.umd.cs.piccolo.PNode;
-//
-///**
-// * Bar chart that shows Na+ and Cl- concentrations for table salt.
-// *
-// * @author Sam Reid
-// */
-//public class MicroConcentrationBarChart extends ConcentrationBarChart {
-//
-//    private final PNode barLayer = new PNode();
-//    private final SettableProperty<Boolean> showValues;
-//
-//    public MicroConcentrationBarChart( Property<Boolean> visible,
-//                                       SettableProperty<Boolean> showValues,
-//                                       BarItem... bars ) {
-//        super( showValues, visible,
-//
-//               //Leave enough space for the captions.  This is hard coded since the value is difficult to compute dynamically: largest of all (insets + text + insets + caption + insets)
-//               //It is also okay that this is hard-coded since translations typically expand horizontally instead of vertically
-//               0, false );
-//        addChild( barLayer );
-//        this.showValues = showValues;
-//        setBars( bars );
-//    }
-//
-//    //Clear the previous bars and display the specified bars
-//    public void setBars( BarItem... bars ) {
-//        barLayer.removeAllChildren();
-//
-//        //Convert from model units (mol/L) to stage units by multiplying by this scale factor
-//        final double verticalAxisScale = 8 / 1000.0;
-//
-//        //Add the bar node for each of the specified bars
-//        double spacing = background.getFullBounds().getWidth() / ( bars.length + 1 );
-//        double barX = spacing;
-//        for ( BarItem bar : bars ) {
-//            final double finalBarX = barX;
-//
-//            //Use a StandardizedNodeX here to center the bars on the desired points horizontally so the bars will be equidistant
-//            barLayer.addChild( new StandardizedNodeX( new Bar( bar.color, bar.caption, bar.icon.apply(), bar.concentration, showValues, verticalAxisScale, true ) ) {{
-//                setOffset( finalBarX - getFullBoundsReference().width / 2, abscissaY );
-//            }} );
-//
-//            barX = barX + spacing;
-//        }
-//    }
-//}
+// Copyright 2002-2014, University of Colorado Boulder
+/**
+ * Bar chart that shows Na+ and Cl- concentrations for table salt.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Sharfudeen Ashraf (For Ghent University)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var ConcentrationBarChart = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/barchart/ConcentrationBarChart' );
+  var StandardizedNodeX = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/StandardizedNodeX' );
+  var Bar = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/barchart/Bar' );
+
+
+  /**
+   *
+   * @param {Property<boolean>} visible
+   * @param {Property<boolean>} showValues
+   * @param {Array<Bar>} bars
+   * @constructor
+   */
+  function MicroConcentrationBarChart( visible, showValues ) {
+    var thisChart = this;
+    ConcentrationBarChart.call( thisChart, showValues, visible,
+      // Leave enough space for the captions.  This is hard coded since the value is difficult to compute dynamically:
+      // largest of all (insets + text + insets + caption + insets)
+      // It is also okay that this is hard-coded since translations typically expand horizontally instead of vertically
+      0, true );
+
+    this.showValues = showValues;
+  }
+
+  return inherit( ConcentrationBarChart, MicroConcentrationBarChart, {
+
+    //Clear the previous bars and display the specified bars
+    setBars: function( bars ) {
+      var thisChart = this;
+      thisChart.removeAllChildren();
+
+      //Convert from model units (mol/L) to stage units by multiplying by this scale factor
+      var verticalAxisScale = 8 / 1000.0;
+
+      //Add the bar node for each of the specified bars
+      var spacing = thisChart.background.bounds.getWidth() / ( bars.length + 1 );
+      var barX = spacing;
+
+      _.each( bars, function( bar ) {
+        var finalBarX = barX;
+        var standardizedNode = new StandardizedNodeX( new Bar( bar.color, bar.caption,
+          bar.concentration, thisChart.showValues, verticalAxisScale, true, bar.icon ) );
+
+        //Use a StandardizedNodeX here to center the bars on the desired points horizontally so the bars will be equidistant
+       // Ashraf TODO  thisChart.addChild( standardizedNode );
+        standardizedNode.x = finalBarX - standardizedNode.bounds.width / 2;
+        standardizedNode.y = thisChart.abscissaY;
+        barX = barX + spacing;
+
+      } );
+    }
+  } );
+} );

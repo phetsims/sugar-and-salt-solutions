@@ -1,89 +1,82 @@
-//// Copyright 2002-2012, University of Colorado
-//package edu.colorado.phet.sugarandsaltsolutions.micro.view;
-//
-//import java.util.ArrayList;
-//
-//import edu.colorado.phet.common.phetcommon.util.Option;
-//import edu.colorado.phet.common.phetcommon.util.Option.Some;
-//import edu.colorado.phet.common.phetcommon.util.function.Function0;
-//import edu.colorado.phet.common.phetcommon.view.graphics.transforms.ModelViewTransform;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.Particle;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SphericalParticle;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SphericalParticle.Calcium;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SphericalParticle.Chloride;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SphericalParticle.Sodium;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.sucrose.Sucrose;
-//import edu.colorado.phet.sugarandsaltsolutions.common.view.SphericalParticleNode;
-//import edu.colorado.phet.sugarandsaltsolutions.common.view.barchart.BarItem;
-//import edu.colorado.phet.sugarandsaltsolutions.micro.model.MicroModel;
-//import edu.colorado.phet.sugarandsaltsolutions.micro.model.glucose.Glucose;
-//import edu.colorado.phet.sugarandsaltsolutions.micro.model.sodiumnitrate.Nitrate;
-//import edu.umd.cs.piccolo.PNode;
-//
-//import static edu.colorado.phet.common.phetcommon.math.vector.Vector2D.ZERO;
-//import static edu.colorado.phet.sugarandsaltsolutions.SugarAndSaltSolutionsResources.Strings.*;
-//
-///**
-// * List of the kits the user can choose from, for showing the appropriate bars in the concentration bar charts
-// *
-// * @author Sam Reid
-// */
-//public class MicroSoluteKitList {
-//    private final ArrayList<MicroSoluteKit> kits = new ArrayList<MicroSoluteKit>();
-//
-//    public MicroSoluteKitList( final MicroModel model, final ModelViewTransform transform ) {
-//
-//        //Create icons to be shown beneath each bar.  Functions are used to create new icons for each kit since giving the same PNode multiple parents caused layout problems
-//        Function0<Option<PNode>> sodiumIcon = new Function0<Option<PNode>>() {
-//            public Option<PNode> apply() {
-//                return new Some<PNode>( new SphericalParticleNode( transform, new Sodium(), model.showChargeColor ) );
-//            }
-//        };
-//        Function0<Option<PNode>> chlorideIcon = new Function0<Option<PNode>>() {
-//            public Option<PNode> apply() {
-//                return new Some<PNode>( new SphericalParticleNode( transform, new Chloride(), model.showChargeColor ) );
-//            }
-//        };
-//        Function0<Option<PNode>> sucroseIcon = new Function0<Option<PNode>>() {
-//            public Option<PNode> apply() {
-//                return new Some<PNode>( new CompositeParticleNode<SphericalParticle>( transform, new Sucrose(), model.showChargeColor ) );
-//            }
-//        };
-//        Function0<Option<PNode>> glucoseIcon = new Function0<Option<PNode>>() {
-//            public Option<PNode> apply() {
-//                return new Some<PNode>( new CompositeParticleNode<SphericalParticle>( transform, new Glucose(), model.showChargeColor ) );
-//            }
-//        };
-//        Function0<Option<PNode>> calciumIcon = new Function0<Option<PNode>>() {
-//            public Option<PNode> apply() {
-//                return new Some<PNode>( new SphericalParticleNode( transform, new Calcium(), model.showChargeColor ) );
-//            }
-//        };
-//        Function0<Option<PNode>> nitrateIcon = new Function0<Option<PNode>>() {
-//            public Option<PNode> apply() {
-//                return new Some<PNode>( new CompositeParticleNode<Particle>( transform, new Nitrate( 0, ZERO ), model.showChargeColor ) );
-//            }
-//        };
-//
-//        //This is the logic for which components are present within each kit.  If kits change, this will need to be updated
-//        //Put the positive ions to the left of the negative ions
-//        kits.add( new MicroSoluteKit( new BarItem( model.sodium, SODIUM, sodiumIcon ),
-//                                      new BarItem( model.chloride, CHLORIDE, chlorideIcon ),
-//                                      new BarItem( model.sucrose, SUCROSE, sucroseIcon ) ) );
-//
-//        kits.add( new MicroSoluteKit( new BarItem( model.sodium, SODIUM, sodiumIcon ),
-//                                      new BarItem( model.calcium, CALCIUM, calciumIcon ),
-//                                      new BarItem( model.chloride, CHLORIDE, chlorideIcon ) ) );
-//
-//        kits.add( new MicroSoluteKit( new BarItem( model.sodium, SODIUM, sodiumIcon ),
-//                                      new BarItem( model.chloride, CHLORIDE, chlorideIcon ),
-//                                      new BarItem( model.nitrate, NITRATE, nitrateIcon ) ) );
-//
-//        kits.add( new MicroSoluteKit( new BarItem( model.sucrose, SUCROSE, sucroseIcon ),
-//                                      new BarItem( model.glucose, GLUCOSE, glucoseIcon ) ) );
-//    }
-//
-//    public MicroSoluteKit getKit( int kit ) {
-//        return kits.get( kit );
-//    }
-//}
+//  Copyright 2002-2014, University of Colorado Boulder
+/**
+ * List of the kits the user can choose from, for showing the appropriate bars in the concentration bar charts
+ *
+ * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var SphericalParticleNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SphericalParticleNode' );
+  var CompositeParticleNode = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/CompositeParticleNode' );
+  var MicroSoluteKit = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/MicroSoluteKit' );
+  var BarItem = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/barchart/BarItem' );
+  var Sodium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Sodium' );
+  var Chloride = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Chloride' );
+  var Calcium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Calcium' );
+  var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/Sucrose' );
+  var Glucose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/Glucose' );
+  var Nitrate = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/Nitrate' );
+  var Vector2 = require( 'DOT/Vector2' );
+
+  //strings
+  var CHLORIDE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/chloride' );
+  var CALCIUM = require( 'string!SUGAR_AND_SALT_SOLUTIONS/calcium' );
+  var NITRATE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/nitrate' );
+  var SUCROSE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sucrose' );
+  var GLUCOSE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/glucose' );
+  var SODIUM = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sodium' );
+
+  /**
+   *
+   * @param {MicroModel} model
+   * @param {ModelViewTransform2} transform
+   * @constructor
+   */
+  function MicroSoluteKitList( model, transform ) {
+    // private
+    this.kits = []; // Array<MicroSoluteKit>
+
+    // Create icons to be shown beneath each bar.  Functions are used to create new icons for each kit since
+    // giving the same PNode multiple parents caused layout problems
+    var sodiumIcon = new SphericalParticleNode( transform, new Sodium(), model.showChargeColor );
+    var chlorideIcon = new SphericalParticleNode( transform, new Chloride(), model.showChargeColor );
+    var sucroseIcon = new CompositeParticleNode( transform, new Sucrose(), model.showChargeColor );
+    var glucoseIcon = new CompositeParticleNode( transform, new Glucose(), model.showChargeColor );
+    var calciumIcon = new SphericalParticleNode( transform, new Calcium(), model.showChargeColor );
+    var nitrateIcon = new CompositeParticleNode( transform, new Nitrate( 0, Vector2.ZERO ), model.showChargeColor );
+
+
+    //This is the logic for which components are present within each kit.  If kits change, this will need to be updated
+    //Put the positive ions to the left of the negative ions
+    this.kits.push( new MicroSoluteKit( [ new BarItem( model.sodium, SODIUM, sodiumIcon ),
+      new BarItem( model.chloride, CHLORIDE, chlorideIcon ),
+      new BarItem( model.sucrose, SUCROSE, sucroseIcon ) ] ) );
+
+    this.kits.push( new MicroSoluteKit( [ new BarItem( model.sodium, SODIUM, sodiumIcon ),
+      new BarItem( model.calcium, CALCIUM, calciumIcon ),
+      new BarItem( model.chloride, CHLORIDE, chlorideIcon ) ] ) );
+
+    this.kits.push( new MicroSoluteKit( [ new BarItem( model.sodium, SODIUM, sodiumIcon ),
+      new BarItem( model.chloride, CHLORIDE, chlorideIcon ),
+      new BarItem( model.nitrate, NITRATE, nitrateIcon ) ] ) );
+
+    this.kits.push( new MicroSoluteKit( [ new BarItem( model.sucrose, SUCROSE, sucroseIcon ),
+      new BarItem( model.glucose, GLUCOSE, glucoseIcon ) ] ) );
+
+  }
+
+  return inherit( Object, MicroSoluteKitList, {
+    /**
+     * @param {number} kit
+     * @returns {MicroSoluteKit}
+     */
+    getKit: function( kit ) {
+      return this.kits[ kit ];
+    }
+
+  } );
+} );

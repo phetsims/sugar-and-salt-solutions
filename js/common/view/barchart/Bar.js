@@ -69,19 +69,19 @@ define( function( require ) {
     thisBar.addChild( captionNode );
     captionNode.x = WIDTH / 2 - captionNode.bounds.width / 2;
     captionNode.y = CAPTION_INSET;
-
     if ( icon ) {
       //If specified, show an icon below the caption (to save horizontal space)
       thisBar.addChild( icon );
-      icon.x = captionNode.bounds.getCenterX() - icon.bounds.getWidth() / 2;
-      icon.y = captionNode.bounds.getMaxY();
+      var x = captionNode.bounds.getCenterX() - icon.bounds.getWidth() / 2;
+      var y = captionNode.bounds.getMaxY();
+      icon.x = x;
+      icon.y = y;
     }
 
     //Optionally show the readout of the exact value above the bar itself
     var valueReadout = new HTMLText( "", { font: SugarAndSaltConstants.CONTROL_FONT } );
     thisBar.addChild( valueReadout );
     valueProperty.link( function( molesPerMeterCubed ) {
-
       //Convert to Moles per Liter from SI
       //See: http://wiki.answers.com/Q/How_many_metres_cubed_are_in_a_litre
       var litersPerCubicMeter = 1000;

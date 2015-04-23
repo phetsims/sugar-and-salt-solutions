@@ -13,10 +13,16 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var BeakerAndShakerView = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/BeakerAndShakerView' );
+  var ExpandableConcentrationBarChartNode = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/ExpandableConcentrationBarChartNode' );
+  var MicroSoluteKitList = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/MicroSoluteKitList' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var SphericalParticleNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SphericalParticleNode' );
+
+  // constants
+  // Insets to be used for padding between edge of canvas and controls, or between controls
+  var CONCENTRATION_PANEL_INSET = 25;
 
   /**
    *
@@ -40,16 +46,29 @@ define( function( require ) {
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelBounds, viewPortBounds );
     BeakerAndShakerView.call( thisView, microModel, layoutBounds, modelViewTransform );
 
+    // List of the kits the user can choose from, for showing the appropriate bar charts + controls
+    thisView.kitList = new MicroSoluteKitList( microModel, modelViewTransform );
+
     // TODO - All periodic table, kit selection,
 
+    // Show the concentration bar chart behind the shaker so the user can drag the shaker in front
+    var concentrationBarChart = new ExpandableConcentrationBarChartNode( microModel.showConcentrationBarChart, microModel.showConcentrationValues );
+    concentrationBarChart.x = thisView.layoutBounds.maxX - concentrationBarChart.bounds.getWidth() - CONCENTRATION_PANEL_INSET;
+    concentrationBarChart.y = CONCENTRATION_PANEL_INSET;
 
-    //When any spherical particle is added in the model, add graphics for them in the view
+    microModel.selectedKit.link( function( kit ) {
+      concentrationBarChart.setBars( thisView.kitList.getKit( kit ).barItems );
+    } );
+
+    thisView.behindShakerNode.addChild( concentrationBarChart );
+
+    // When any spherical particle is added in the model, add graphics for them in the view
     thisView.model.sphericalParticles.addItemAddedListener( function( addedParticle ) {
       var sphericalParticleNode = new SphericalParticleNode( modelViewTransform, addedParticle,
         thisView.model.showChargeColor );
       thisView.addChild( sphericalParticleNode );
 
-      //Create the Node for the particle, and wire it up to be removed when the particle leaves the model
+      // Create the Node for the particle, and wire it up to be removed when the particle leaves the model
       thisView.model.sphericalParticles.addItemRemovedListener( function removalListener( removedParticle ) {
         if ( removedParticle === addedParticle ) {
           thisView.removeChild( sphericalParticleNode );

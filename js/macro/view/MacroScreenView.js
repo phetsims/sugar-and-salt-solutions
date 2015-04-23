@@ -24,7 +24,7 @@ define( function( require ) {
   var ConductivityTesterToolboxNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/ConductivityTesterToolboxNode' );
   var SelectableSoluteItem = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SelectableSoluteItem' );
   var VolumeIndicatorNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/VolumeIndicatorNode' );
-  var ExpandableConcentrationBarChartNode = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/ExpandableConcentrationBarChartNode' );
+  var MacroConcentrationBarChartNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/MacroConcentrationBarChartNode' );
   var PrecipitateNode = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/PrecipitateNode' );
   var RemoveSoluteControlNode = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/RemoveSoluteControlNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -116,7 +116,7 @@ define( function( require ) {
     thisView.submergedInWaterNode.addChild( thisView.conductivityToolboxLayer );
 
     //Show the concentration bar chart behind the shaker so the user can drag the shaker in front
-    var concentrationBarChart = new ExpandableConcentrationBarChartNode( macroModel.showConcentrationBarChart, macroModel.saltConcentration,
+    var concentrationBarChart = new MacroConcentrationBarChartNode( macroModel.showConcentrationBarChart, macroModel.saltConcentration,
       macroModel.sugarConcentration, macroModel.showConcentrationValues, 1 );
     concentrationBarChart.x = thisView.layoutBounds.maxX - concentrationBarChart.bounds.getWidth() - CONCENTRATION_PANEL_INSET;
     concentrationBarChart.y = CONCENTRATION_PANEL_INSET;
