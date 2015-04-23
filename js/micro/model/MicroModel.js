@@ -18,7 +18,6 @@ define( function( require ) {
   var DispenserType = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/DispenserType' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
   var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Property = require( 'AXON/Property' );
   var ParticleColorConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/ParticleColorConstants' );
@@ -107,7 +106,7 @@ define( function( require ) {
     this.drainedParticles = new ItemList();
 
     //User setting for whether color should be based on charge or identity
-    this.showChargeColor = new BooleanProperty( false );
+    this.showChargeColor = new Property( false );
 
     //Determine if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).
     //This is used to show/hide the "remove solutes" button

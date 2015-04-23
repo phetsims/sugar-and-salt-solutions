@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var Property = require( 'AXON/Property' );
   var ConstantDtClock = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ConstantDtClock' );
 
   /**
@@ -25,7 +25,7 @@ define( function( require ) {
 
     //Settable property that indicates whether the clock is running or paused.
     //The clock is never turned off in the first tab, since there are no dynamics and hence no pause button
-    this.clockRunning = new BooleanProperty( true );
+    this.clockRunning = new Property( true );
   }
 
   return inherit( Object, AbstractSugarAndSaltSolutionsModel, {
