@@ -1,0 +1,80 @@
+{
+  "sugar-and-salt-solutions.name": {
+    "value": "Sugar And Salt Solutions"
+  },
+  "solute": {
+    "value": "Solute"
+  },
+  "salt": {
+    "value": "Salt"
+  },
+  "sugar": {
+    "value": "Sugar"
+  },
+  "concentration": {
+    "value": "Concentration"
+  },
+  "evaporation": {
+    "value": "Evaporation"
+  },
+  "showValues": {
+    "value": "Show values"
+  },
+  "none": {
+    "value": "none"
+  },
+  "lots": {
+    "value": "lots"
+  },
+  "macro": {
+    "value": "Macro"
+  },
+  "micro": {
+    "value": "Micro"
+  },
+  "water": {
+    "value": "Water"
+  },
+  "pattern.litersWater": {
+    "value": "{0}L water"
+  },
+  "pattern.litersSolution": {
+    "value": "{0}L solution"
+  },
+  "pattern.molesPerLiter": {
+    "value": "{0} mol/L"
+  },
+  "pattern.molesPerLiterMultiline": {
+    "value": "{0}<br>mol/L"
+  },
+  "removeSalt": {
+    "value": "Remove salt"
+  },
+  "removeSugar": {
+    "value": "Remove sugar"
+  },
+  "removeSolute": {
+    "value": "Remove solute"
+  },
+  "removeSolutes": {
+    "value": "Remove solutes"
+  },
+  "sodiumChlorideNewLine": {
+    "value": "Sodium"
+  },
+  "calciumChlorideNewLine": {
+    "value": "Calcium"
+  },
+  "sodiumNitrateNewLine": {
+    "value": "Sodium<br>Nitrate"
+  },
+  "sucrose": {
+    "value": "Sucrose"
+  },
+  "glucose": {
+    "value": "Glucose"
+  },
+  "conductivity": {
+    "value": "Conductivity"
+  }
+}
