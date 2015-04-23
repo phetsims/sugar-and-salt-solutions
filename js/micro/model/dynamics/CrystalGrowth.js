@@ -48,29 +48,33 @@ define( function( require ) {
       var self = this;
       var timeSinceLast = this.model.getTime() - this.lastNewCrystalFormationTime;
 
-      //Require some time to pass since each crystallization event so it isn't too jumpy (but if water below threshold,
-      //then proceed quickly or it will look unphysical as each ion jumps to the crystal one after the other
+      // Require some time to pass since each crystallization event so it isn't too jumpy (but if water below threshold,
+      // then proceed quickly or it will look unphysical as each ion jumps to the crystal one after the other
       var elapsedTimeLongEnough = timeSinceLast > 0.1 || this.model.isWaterBelowCrystalThreshold();
 
-      //Form new crystals or add on to existing crystals
+      // Form new crystals or add on to existing crystals
       if ( ( saturated.get() || this.model.isWaterBelowCrystalThreshold() ) && elapsedTimeLongEnough ) {
         this.lastNewCrystalFormationTime = this.model.getTime();
         if ( this.crystals.length === 0 ) {
-          //Create a crystal if there weren't any
+
+          // Create a crystal if there weren't any
           if ( SugarAndSalSolutionsConstants.DEBUG ) {
             Logger.fine( "No crystals, starting a new one, num crystals = " + this.crystals.length );
           }
           this.towardNewCrystal( dt );
         }
-        //If the solution is saturated, try adding on to an existing crystal
+
+        // If the solution is saturated, try adding on to an existing crystal
         else {
 
           //Randomly choose an existing crystal to possibly bond to
           var crystal = this.crystals.get( _.random( this.crystals.length - 1 ) );
+
           //Find a good configuration to have the particles move toward, should be the closest one so that it can
           // easily be found again in subsequent steps
           var targetConfiguration = this.getTargetConfiguration( crystal );
           if ( targetConfiguration ) {
+            
             //With some probability, form a new crystal anyways (if there aren't too many crystals)
             if ( _.random( 1, true ) > 0.8 && this.crystals.length <= 2 ) {
               if ( SugarAndSalSolutionsConstants.DEBUG ) {
@@ -78,18 +82,22 @@ define( function( require ) {
               }
               this.towardNewCrystal( dt );
             }
-            //If close enough have all particles from the formula unit join the lattice at the same time.
-            //Having a large factor here makes it possible for particles to jump on to crystals quickly
-            //And fixes many problems in crystallization, including large or unbalanced concentrations
+
+            // If close enough have all particles from the formula unit join the lattice at the same time.
+            // Having a large factor here makes it possible for particles to jump on to crystals quickly
+            // And fixes many problems in crystallization, including large or unbalanced concentrations
             else if ( targetConfiguration.distance <= DynamicsConstants.FREE_PARTICLE_SPEED * dt * 1000 ) {
               _.each( targetConfiguration.getMatches().getArray(), function( match ) {
+
                 //Remove the particle from the list of free particles
                 self.model.freeParticles.remove( match.particle );
+
                 //Add it as a constituent of the crystal
                 crystal.addConstituent( new Constituent( match.particle, match.site.relativePosition ) );
               } );
             }
-            //Otherwise, move matching particles closer to the target location
+
+            // Otherwise, move matching particles closer to the target location
             else if ( targetConfiguration.distance <= this.model.beaker.getWidth() / 2 ) {
               _.each( targetConfiguration.getMatches().getArray(), function( match ) {
                 match.particle.velocity.set( match.site.absolutePosition.minus(
@@ -105,7 +113,7 @@ define( function( require ) {
             }
           }
 
-          //No matches, so start a new crystal
+          // No matches, so start a new crystal
           else {
             if ( SugarAndSalSolutionsConstants.DEBUG ) {
               Logger.fine( "No matches, starting a new crystal" );
@@ -116,9 +124,9 @@ define( function( require ) {
       }
     },
 
-
+    // Look for a place for each member of an entire formula unit to bind to the pre-existing crystal
     /**
-     * Look for a place for each member of an entire formula unit to bind to the pre-existing crystal
+     *
      * @param {Crystal} crystal
      * @returns {TargetConfiguration}
      */
