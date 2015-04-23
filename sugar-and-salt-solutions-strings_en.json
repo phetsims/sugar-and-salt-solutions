@@ -76,5 +76,17 @@
   },
   "conductivity": {
     "value": "Conductivity"
+  },
+  "chloride": {
+    "value": "Chloride"
+  },
+  "calcium": {
+    "value": "Calcium"
+  },
+  "nitrate": {
+    "value": "Nitrate"
+  },
+  "sodium": {
+    "value": "Sodium"
   }
 }
