@@ -31,7 +31,7 @@ define( function( require ) {
   /**
    *
    * @param {Property<number>}evaporationRate
-   * @param {NumberProperty} waterVolume
+   * @param {Property} waterVolume
    * @param {Property<boolean>} clockRunning
    * @constructor
    */
