@@ -14,7 +14,6 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var AbstractSugarAndSaltSolutionsModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AbstractSugarAndSaltSolutionsModel' );
   var FaucetMetrics = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetMetrics' );
@@ -57,14 +56,14 @@ define( function( require ) {
 
     //Model for input and output flows
     thisModel.inputFlowRate = new Property( 0.0 );//rate that water flows into the beaker, between 0 and 1
-    thisModel.outputFlowRate = new NumberProperty( 0.0 );//rate that water flows out of the beaker, between 0 and 1
+    thisModel.outputFlowRate = new Property( 0.0 );//rate that water flows out of the beaker, between 0 and 1
 
     //Rate at which liquid evaporates
     //Scaled down since the evaporation control rate  is 100 times bigger than flow scales
     thisModel.evaporationRateScale = faucetFlowRate / 300.0;
 
     //volume in SI (m^3).  Start at 1 L (halfway up the 2L beaker).  Note that 0.001 cubic meters = 1L
-    thisModel.waterVolume = new NumberProperty( beakerDimension.getVolume() / 2 ); //Start the water halfway up the beaker
+    thisModel.waterVolume = new Property( beakerDimension.getVolume() / 2 ); //Start the water halfway up the beaker
 
     //Inset so the beaker doesn't touch the edge of the model bounds
     thisModel.inset = beakerDimension.width * 0.1;
