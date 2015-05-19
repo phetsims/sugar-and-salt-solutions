@@ -4,21 +4,7 @@
   "license": "GPLv3",
   "simTitleStringKey": "SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions.name",
   "phetLibs": [
-    "sugar-and-salt-solutions",
-    "assert",
-    "axon",
-    "babel",
-    "brand",
-    "chipper",
-    "dot",
-    "joist",
-    "kite",
-    "phet-core",
-    "phetcommon",
-    "scenery",
-    "scenery-phet",
-    "sherpa",
-    "sun"
+    "sugar-and-salt-solutions"
   ],
   "repository": {
     "type": "git",
