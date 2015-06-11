@@ -150,16 +150,11 @@ define( function( require ) {
       listener: function() {
         macroModel.reset();
       },
-      right:  this.layoutBounds.maxX - 10,
+      right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
     } );
     this.addChild( resetAllButton );
   }
 
-  return inherit( BeakerAndShakerView, MacroScreenView, {
-    // Called by the animation loop. Optional, so if your view has no animation, you can omit this.
-    step: function( dt ) {
-      // Handle view animation here.
-    }
-  } );
+  return inherit( BeakerAndShakerView, MacroScreenView );
 } );
