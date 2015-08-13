@@ -74,8 +74,15 @@ define( function( require ) {
       thisBar.addChild( icon );
       var x = captionNode.bounds.getCenterX() - icon.bounds.getWidth() / 2;
       var y = captionNode.bounds.getMaxY();
-      icon.x = x;
-      icon.y = y;
+
+      // TODO: See https://github.com/phetsims/sugar-and-salt-solutions/issues/16
+      // TODO: There is an asynchronous toImage call that generates the bounds in SphericalParticleNode
+      // TODO: and before it completes, the bounds are Infinite
+      // TODO: The isFinite() checks here are workarounds
+      if ( isFinite( x ) && isFinite( y ) ) {
+        icon.x = x;
+        icon.y = y;
+      }
     }
 
     //Optionally show the readout of the exact value above the bar itself
