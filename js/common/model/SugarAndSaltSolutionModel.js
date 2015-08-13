@@ -269,7 +269,9 @@ define( function( require ) {
     reset: function() {
       this.resetWater();
       this.dispensers.forEach( function( dispenser ) {
-        dispenser.reset();
+
+        // TODO: Reset the dispensers
+        //dispenser.reset();
       } );
 
       this.dispenserType.reset();
