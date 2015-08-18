@@ -15,9 +15,6 @@
   },
   "phet": {
     "requirejsNamespace": "SUGAR_AND_SALT_SOLUTIONS",
-    "simTitleStringKey": "SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions.name",
-    "phetLibs": [
-      "sugar-and-salt-solutions"
-    ]
+    "simTitleStringKey": "SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions.name"
   }
 }
