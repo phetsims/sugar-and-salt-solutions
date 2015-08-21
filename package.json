@@ -14,7 +14,6 @@
     "requirejs": "~2.1.8"
   },
   "phet": {
-    "requirejsNamespace": "SUGAR_AND_SALT_SOLUTIONS",
-    "simTitleStringKey": "SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions.name"
+    "requirejsNamespace": "SUGAR_AND_SALT_SOLUTIONS"
   }
 }
