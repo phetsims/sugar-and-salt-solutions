@@ -15,7 +15,7 @@ define( function( require ) {
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var simTitle = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions.name' );
+  var simTitle = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sugar-and-salt-solutions.title' );
 
   var simOptions = {
     credits: {
