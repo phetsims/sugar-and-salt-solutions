@@ -1,4 +1,5 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
+
 /**
  * Shows all components of a molecule, used in bar chart legends, but not
  * used in the beaker play area--in that case each atom is a top-level node.

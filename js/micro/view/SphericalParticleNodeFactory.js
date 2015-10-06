@@ -1,3 +1,4 @@
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions.micro.view;
 //
 //import edu.colorado.phet.common.phetcommon.model.property.ObservableProperty;

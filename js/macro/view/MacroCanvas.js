@@ -1,4 +1,4 @@
-//// Copyright 2002-2011, University of Colorado
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions.macro.view;
 //
 //import java.awt.geom.Rectangle2D;

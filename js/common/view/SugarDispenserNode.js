@@ -80,7 +80,7 @@ define( function( require ) {
   return inherit( DispenserNode, SugarDispenserNode );
 } );
 
-//// Copyright 2002-2011, University of Colorado
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions.common.view;
 //
 //import java.awt.geom.Point2D;

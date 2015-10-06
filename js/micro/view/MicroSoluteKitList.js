@@ -1,4 +1,5 @@
-//  Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
+
 /**
  * List of the kits the user can choose from, for showing the appropriate bars in the concentration bar charts
  *

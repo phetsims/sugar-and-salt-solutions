@@ -38,7 +38,7 @@ define( function( require ) {
 
   return inherit( Compound, Nitrate );
 } );
-//// Copyright 2002-2012, University of Colorado
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model.sodiumnitrate;
 //
 //import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;

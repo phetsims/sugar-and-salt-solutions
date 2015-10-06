@@ -117,7 +117,7 @@ define( function( require ) {
 
 } );
 
-//// Copyright 2002-2012, University of Colorado
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions.macro.model;
 //
 //import java.awt.geom.Line2D;

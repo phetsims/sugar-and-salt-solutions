@@ -45,7 +45,7 @@ define( function( require ) {
 } );
 
 
-//// Copyright 2002-2011, University of Colorado
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model.dynamics;
 //
 //import edu.colorado.phet.common.phetcommon.model.property.doubleproperty.DoubleProperty;

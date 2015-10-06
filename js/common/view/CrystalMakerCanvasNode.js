@@ -1,4 +1,4 @@
-// Copyright 2002-20144, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 
 /**
  * Draws the graphical representation of  salt and sugar crystals directly to canvas for performance.

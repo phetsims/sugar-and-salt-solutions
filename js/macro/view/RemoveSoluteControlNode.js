@@ -45,7 +45,7 @@ define( function( require ) {
   return inherit( Node, RemoveSoluteControlNode );
 } );
 
-//// Copyright 2002-2011, University of Colorado
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions.macro.view;
 //
 //import edu.colorado.phet.common.phetcommon.util.function.VoidFunction0;

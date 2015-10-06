@@ -43,7 +43,7 @@ define( function( require ) {
 
 } );
 
-//// Copyright 2002-2011, University of Colorado
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions.common.view;
 //
 //import java.awt.Color;

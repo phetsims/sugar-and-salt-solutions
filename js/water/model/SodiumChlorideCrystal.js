@@ -1,4 +1,4 @@
-//// Copyright 2002-2012, University of Colorado
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions.water.model;
 //
 //import edu.colorado.phet.common.phetcommon.math.vector.Vector2D;

@@ -1,3 +1,5 @@
+// Copyright 2002-2015, University of Colorado Boulder
+
 //package edu.colorado.phet.sugarandsaltsolutions.micro.view.periodictable;
 //
 //import java.awt.Color;

@@ -36,7 +36,7 @@ define( function( require ) {
 
   return inherit( DerivedProperty, CrystalMoleculeCount );
 } );
-//// Copyright 2002-2011, University of Colorado
+// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model;
 //
 //import edu.colorado.phet.common.phetcommon.model.property.Property;

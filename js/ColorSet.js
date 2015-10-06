@@ -1,3 +1,4 @@
+// Copyright 2002-2013, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions;
 //
 //import java.awt.Color;

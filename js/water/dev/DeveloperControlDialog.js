@@ -1,4 +1,4 @@
-//// Copyright 2002-2011, University of Colorado
+// Copyright 2002-2013, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions.water.dev;
 //
 //import java.awt.Window;
