@@ -48,7 +48,7 @@ define( function( require ) {
 
           //If it has been disconnected for too long, dissolve it completely
           if ( newCount > 30 ) {
-            Logger.fine( "Crystal disconnected for " + newCount + " steps, dissolving..." );
+            Logger.fine( 'Crystal disconnected for ' + newCount + ' steps, dissolving...' );
             new CrystalDissolve( self.model ).dissolve( crystal, crystal.getConstituents() );
             crystalItemList.remove( crystal );
           }

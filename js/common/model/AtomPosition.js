@@ -28,7 +28,7 @@ define( function( require ) {
      * @return {SphericalParticle}
      */
     createConstituent: function() {
-      throw new Error( "createConstituent must be implemented in descendant classes of AtomPosition" );
+      throw new Error( 'createConstituent must be implemented in descendant classes of AtomPosition' );
     }
   } );
 } );

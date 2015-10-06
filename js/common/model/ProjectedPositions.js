@@ -41,7 +41,7 @@ define( function( require ) {
     getAtoms: function() {
       var list = [];
       var self = this;
-      _.each( this.text.split( "\n" ), function( row ) {
+      _.each( this.text.split( '\n' ), function( row ) {
         //Iterate over the list and convert each line to an atom instance
         list.push( self.parseAtom( row ) );
       } );
@@ -73,9 +73,9 @@ define( function( require ) {
      * @returns {Vector2}
      */
     readPosition: function( line ) {
-      var items = line.split( "," );
+      var items = line.split( ',' );
       //Read the type and location
-      var x = +items[ 0 ].split( " " )[ 1 ];
+      var x = +items[ 0 ].split( ' ' )[ 1 ];
       var y = +items[ 1 ];
       return new Vector2( x, y );
     },
@@ -88,16 +88,16 @@ define( function( require ) {
      */
     parseAtom: function( line ) {
 
-      var items = line.split( "," );
+      var items = line.split( ',' );
 
       //Read the type and location
-      var type = items[ 0 ].split( " " )[ 0 ]; // TODO remove duplicate Ashraf
-      var x = +items[ 0 ].split( " " )[ 1 ];
+      var type = items[ 0 ].split( ' ' )[ 0 ]; // TODO remove duplicate Ashraf
+      var x = +items[ 0 ].split( ' ' )[ 1 ];
       var y = +items[ 1 ];
 
       //For showing partial charges on sucrose, read from the file from certain atoms that have a charge
       //http://www.chemistryland.com/CHM130W/LabHelp/Experiment10/Exp10.html
-      var charge = "";
+      var charge = '';
       if ( items[ 2 ] ) {
         charge = items[ 2 ];
       }
@@ -108,33 +108,33 @@ define( function( require ) {
 
       //override
       atomPosition.createConstituent = function() {
-        if ( type === "H" ) {
+        if ( type === 'H' ) {
           var hydrogen = new Hydrogen();
 
           //override
           hydrogen.getPartialChargeDisplayValue = function() {
-            if ( finalCharge.equals( "charge" ) ) {
+            if ( finalCharge.equals( 'charge' ) ) {
               return SphericalParticle.prototype.getPartialChargeDisplayValue.call( this );
             }
             else { return 0.0; }
           };
           return hydrogen;
         }
-        if ( type === "C" ) {
+        if ( type === 'C' ) {
           var carbon = new Carbon();
           //override
           carbon.getPartialChargeDisplayValue = function() {
             //All the charged carbons have a partial positive charge,
             //see http://www.chemistryland.com/CHM130W/LabHelp/Experiment10/Exp10.html
-            if ( finalCharge.equals( "charge" ) ) { return 1.0; }
+            if ( finalCharge.equals( 'charge' ) ) { return 1.0; }
             else { return 0.0; }
           };
           return carbon;
         }
-        if ( type === "O" ) {
+        if ( type === 'O' ) {
           var neutralOxygen = new NeutralOxygen();
           neutralOxygen.getPartialChargeDisplayValue = function() {
-            if ( finalCharge.equals( "charge" ) ) {
+            if ( finalCharge.equals( 'charge' ) ) {
               return SphericalParticle.prototype.getPartialChargeDisplayValue.call( this );
             }
             else { return 0.0; }

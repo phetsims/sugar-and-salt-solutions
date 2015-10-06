@@ -86,7 +86,7 @@ define( function( require ) {
     }
 
     //Optionally show the readout of the exact value above the bar itself
-    var valueReadout = new HTMLText( "", { font: SugarAndSaltConstants.CONTROL_FONT } );
+    var valueReadout = new HTMLText( '', { font: SugarAndSaltConstants.CONTROL_FONT } );
     thisBar.addChild( valueReadout );
     valueProperty.link( function( molesPerMeterCubed ) {
       //Convert to Moles per Liter from SI

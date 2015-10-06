@@ -296,7 +296,7 @@ define( function( require ) {
      * Determine if any salt can be removed for purposes of displaying a "remove salt" button
      */
     isAnySaltToRemove: function() {
-      throw new Error( "isAnySaltToRemove  must be implemented in the descendant class of SugarAndSaltSolutions Model" );
+      throw new Error( 'isAnySaltToRemove  must be implemented in the descendant class of SugarAndSaltSolutions Model' );
     },
 
     /**
@@ -304,7 +304,7 @@ define( function( require ) {
      * Determine if any sugar can be removed for purposes of displaying a "remove sugar" button
      */
     isAnySugarToRemove: function() {
-      throw new Error( "isAnySugarToRemove  must be implemented in the descendant class of SugarAndSaltSolutions Model" );
+      throw new Error( 'isAnySugarToRemove  must be implemented in the descendant class of SugarAndSaltSolutions Model' );
     },
 
     /**

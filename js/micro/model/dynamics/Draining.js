@@ -95,7 +95,7 @@ define( function( require ) {
       //Sanity check on the number of deltas to reach a problem, if this is negative it could indicate some unexpected change in initial concentration
       //In any case, shouldn't propagate toward the drain with a negative delta, because that causes a negative speed and motion away from the drain
       if ( timeToError < 0 ) {
-        Logger.fine( ": timeToError = " + timeToError + ", recomputing initial concentration and postponing drain" );
+        Logger.fine( ': timeToError = ' + timeToError + ', recomputing initial concentration and postponing drain' );
         this.model.checkStartDrain( drainData );
         return;
       }
@@ -109,7 +109,7 @@ define( function( require ) {
       var closestFormulaUnit = this.getParticlesToDrain( drainData.formula );
 
       _.each( closestFormulaUnit.getArray(), function( particle ) {
-        Logger.fine( particle + " #x: " + particle.getPosition().x );
+        Logger.fine( particle + ' #x: ' + particle.getPosition().x );
         //Compute the target time, distance, speed and velocity, and apply to the particle so they will reach the drain at evenly spaced temporal intervals
         var distanceToTarget = particle.getPosition().distance( drain );
 
@@ -120,8 +120,8 @@ define( function( require ) {
         //Set the update strategy of the particle, it will be updated when the strategies are invoked in MicroModel
         particle.setUpdateStrategy( new FlowToDrainStrategy( self.model, velocity, false ) );
 
-        Logger.fine( "i = " + 0 + ", target time = " + self.model.
-          getTime() + ", velocity = " + speed + " nominal velocity = " + DynamicsConstants.FREE_PARTICLE_SPEED );
+        Logger.fine( 'i = ' + 0 + ', target time = ' + self.model.
+          getTime() + ', velocity = ' + speed + ' nominal velocity = ' + DynamicsConstants.FREE_PARTICLE_SPEED );
 
       } );
 

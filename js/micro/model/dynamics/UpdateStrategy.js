@@ -38,7 +38,7 @@ define( function( require ) {
      * @param {number} dt
      */
     stepInTime: function( particle, dt ) {
-      throw new Error( "stepInTime must be implemented in descendant class of UpdateStrategy" );
+      throw new Error( 'stepInTime must be implemented in descendant class of UpdateStrategy' );
     }
   } );
 

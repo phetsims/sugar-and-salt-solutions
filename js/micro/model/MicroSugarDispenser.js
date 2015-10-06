@@ -57,7 +57,7 @@ define( function( require ) {
      * @param {Vector2} outputPoint
      */
     doAddSugar: function( outputPoint ) {
-      throw new Error( "doAddSugar must be implemented in descendant class of MicroSugarDispenser " );
+      throw new Error( 'doAddSugar must be implemented in descendant class of MicroSugarDispenser ' );
     }
   } );
 } );

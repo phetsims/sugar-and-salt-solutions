@@ -312,7 +312,7 @@ define( function( require ) {
       var currentDrainFlowRate = this.outputFlowRate.get() * this.faucetFlowRate;
       var timeToDrainFully = this.solution.volume.get() / currentDrainFlowRate;
 
-      Logger.fine( "time to drain fully: " + timeToDrainFully );
+      Logger.fine( 'time to drain fully: ' + timeToDrainFully );
 
       if ( currentDrainFlowRate > 0 ) {
         if ( drainData.previousDrainFlowRate === 0 ) {
@@ -342,7 +342,7 @@ define( function( require ) {
       else if ( this.selectedKit.get() === 1 ) { return this.countFreeFormulaUnitsKit1( formula ); }
       else if ( this.selectedKit.get() === 2 ) { return this.countFreeFormulaUnitsKit2( formula ); }
       else if ( this.selectedKit.get() === 3 ) { return this.countFreeFormulaUnitsKit3( formula ); }
-      else { throw new Error( "Kit not found" ); }
+      else { throw new Error( 'Kit not found' ); }
     },
 
 
@@ -446,12 +446,12 @@ define( function( require ) {
       if ( DEBUG_CRYSTAL_RATIO ) {
         this.sodiumChlorideCrystals.forEach( function( sodiumChlorideCrystal ) {
           var matches = sodiumChlorideCrystal.matchesFormulaRatio();
-          console.log( "matches = " + matches );
+          console.log( 'matches = ' + matches );
         } );
 
         var debugCount = 0;
         this.calciumChlorideCrystals.forEach( function( calciumChlorideCrystal ) {
-          console.log( "calciumChlorideCrystal[" + debugCount + ", match = " + calciumChlorideCrystal.matchesFormulaRatio() );
+          console.log( 'calciumChlorideCrystal[' + debugCount + ', match = ' + calciumChlorideCrystal.matchesFormulaRatio() );
           debugCount++;
         } );
 
@@ -462,7 +462,7 @@ define( function( require ) {
         allCrystals.forEach( function( crystal ) {
           var matches = crystal.matchesFormulaRatio();
           if ( !matches ) {
-            console.log( "Crystal didn't match formula ratio: " + crystal );
+            console.log( 'Crystal didn\'t match formula ratio: ' + crystal );
           }
         } );
       }

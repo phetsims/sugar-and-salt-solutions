@@ -82,7 +82,7 @@ define( function( require ) {
         }
         else {
           //If there was a dead end, clear this crystal and try again
-          Logger.fine( "crystal growth failed: tryIndex = " + tryIndex );
+          Logger.fine( 'crystal growth failed: tryIndex = ' + tryIndex );
           while ( this.numberConstituents() > 0 ) {
             this.removeConstituent( this.getConstituent( 0 ) );
           }
@@ -203,7 +203,7 @@ define( function( require ) {
       if ( atLocation.length > 1 ) {
         //It has been difficult to identify the cause of this case, so we also overrode addConstituent to check for errors
         //during the build process
-        var err = new Error( "Too many particles at the same location, getting one of them randomly" );
+        var err = new Error( 'Too many particles at the same location, getting one of them randomly' );
         Logger.fine( err.stack );
         var index = _.random( atLocation.length );
         return atLocation.get( index );
@@ -232,7 +232,7 @@ define( function( require ) {
       else {
         //Error during the build process, print an exception with the stack trace so we can find out
         //which step in crystal constriction caused the problem
-        var err = new Error( "Wrong constituent during add process" );
+        var err = new Error( 'Wrong constituent during add process' );
         Logger.fine( err.stack );
       }
     },
@@ -312,11 +312,11 @@ define( function( require ) {
           return constituent.particle.getPosition().y;
         } );
 
-        Logger.fine( "Crystal num components = " + c.length );
+        Logger.fine( 'Crystal num components = ' + c.length );
         for ( var i = 0; i < c.length; i++ ) {
-          Logger.fine( "" + i + ": " + self.getNumBonds( c[ i ] ) );
+          Logger.fine( '' + i + ': ' + self.getNumBonds( c[ i ] ) );
         }
-        Logger.fine( "END crystal" );
+        Logger.fine( 'END crystal' );
 
         //Return the highest item
         if ( c.length > 0 ) {
@@ -414,7 +414,7 @@ define( function( require ) {
 
       _.uniq( result, function( divisionResult ) {
         //divisionResult's uniqueness is defined by quotient and remainder
-        return divisionResult.quotient + "#" + divisionResult.remainder;
+        return divisionResult.quotient + '#' + divisionResult.remainder;
       } );
       return result.length === 1 && result[ 0 ].remainder === 0;
     }

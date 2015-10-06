@@ -42,7 +42,7 @@ define( function( require ) {
     } );
 
     //Use a large font so it will be easy to read inside the water
-    var volumeDisplayTextNode = new Text( "", {font: CONTROL_FONT} );
+    var volumeDisplayTextNode = new Text( '', { font: CONTROL_FONT } );
     thisNode.addChild( volumeDisplayTextNode );
 
     Property.multilink( [solution.volume, anySolutes], function( volume, anySolutesValue ) {

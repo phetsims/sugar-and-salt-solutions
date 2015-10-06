@@ -37,7 +37,7 @@ define( function( require ) {
        * @param {function} addImageNodeCallBack
        */
       getAtomImage: function( diameter, color, addImageNodeCallBack ) {
-        var key = diameter + " " + color.toNumber();
+        var key = diameter + ' ' + color.toNumber();
         if ( !imageMap[ key ] ) {
           var shadedSphereNode = new ShadedSphereNode( diameter, { mainColor: color } );
           shadedSphereNode.toImageNodeAsynchronous( function( imageNode ) {

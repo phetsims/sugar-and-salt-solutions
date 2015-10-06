@@ -49,7 +49,7 @@ define( function( require ) {
           this.model.sphericalParticles.remove( particle );
         }
         else {
-          var err = new Error( "No match found" );
+          var err = new Error( 'No match found' );
           console.log( err );
         }
 
