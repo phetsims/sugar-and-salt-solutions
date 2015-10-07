@@ -16,7 +16,7 @@ define( function( require ) {
   var DynamicsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DynamicsConstants' );
   var CrystallizationMatch = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystallizationMatch' );
   var TargetConfiguration = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/TargetConfiguration' );
-  var SugarAndSalSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
   var Logger = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Logger' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -58,7 +58,7 @@ define( function( require ) {
         if ( this.crystals.length === 0 ) {
 
           // Create a crystal if there weren't any
-          if ( SugarAndSalSolutionsConstants.DEBUG ) {
+          if ( SugarAndSaltConstants.DEBUG ) {
             Logger.fine( 'No crystals, starting a new one, num crystals = ' + this.crystals.length );
           }
           this.towardNewCrystal( dt );
@@ -77,7 +77,7 @@ define( function( require ) {
             
             //With some probability, form a new crystal anyways (if there aren't too many crystals)
             if ( _.random( 1, true ) > 0.8 && this.crystals.length <= 2 ) {
-              if ( SugarAndSalSolutionsConstants.DEBUG ) {
+              if ( SugarAndSaltConstants.DEBUG ) {
                 Logger.fine( 'Random choice to form new crystal instead of joining another' );
               }
               this.towardNewCrystal( dt );
@@ -105,7 +105,7 @@ define( function( require ) {
               } );
             }
             else {
-              if ( SugarAndSalSolutionsConstants.DEBUG ) {
+              if ( SugarAndSaltConstants.DEBUG ) {
                 Logger.fine( 'Best match was too far away (' + targetConfiguration.distance / this.model.beaker.getWidth() + ' beaker ' +
                              'widths, so trying to form new crystal from lone ions' );
               }
@@ -115,7 +115,7 @@ define( function( require ) {
 
           // No matches, so start a new crystal
           else {
-            if ( SugarAndSalSolutionsConstants.DEBUG ) {
+            if ( SugarAndSaltConstants.DEBUG ) {
               Logger.fine( 'No matches, starting a new crystal' );
             }
             this.towardNewCrystal( dt );
@@ -250,7 +250,7 @@ define( function( require ) {
           var selectedSite = self.getBindingSite( crystal, particle );
           //Add the second particle as the second constituent of the crystal
           if ( !selectedSite ) {
-            if ( SugarAndSalSolutionsConstants.DEBUG ) {
+            if ( SugarAndSaltConstants.DEBUG ) {
               Logger.fine( 'No available sites to bind to, this probably shouldn\'t have happened.' );
             }
           }
