@@ -39,21 +39,20 @@ define( function( require ) {
 
   /**
    *
-   * @param wrapper
+   * @param {CanvasRenderingContext2D} context
    * @param {ObservableArray<MacroCrystal>} crystals // TODO change to normal array Ashraf
    * @param {number} size
    * @param {Color} color
    */
-  function drawCrystals( wrapper, modelViewTransform, crystals, size, color ) {
+  function drawCrystals( context, modelViewTransform, crystals, size, color ) {
 
-    var context = wrapper.context;
     var numberOfCrystals = crystals.length;
 
     //Use a scaled cartoon size for the grains, since actual grain sizes would be much to large
     var cartoonSize = size / 5 * 2;
 
     if ( numberOfCrystals > 0 ) {
-      wrapper.setFillStyle( color );
+      context.fillStyle = color.getCanvasStyle();
       context.beginPath();
     }
     // draw into one big path
@@ -77,22 +76,22 @@ define( function( require ) {
 
     /**
      * @override
-     * @param {CanvasContextWrapper} wrapper
+     * @param {CanvasRenderingContext2D} context
      */
-    paintCanvas: function( wrapper ) {
+    paintCanvas: function( context ) {
 
       var sugarCrystals = this.modelElement.sugarList;
       var saltCrystals = this.modelElement.saltList;
 
       if ( sugarCrystals.length > 0 ) {
         var sugarCrystalModelSize = sugarCrystals.get( 0 ).length;
-        drawCrystals( wrapper, this.modelViewTransform, sugarCrystals,
+        drawCrystals( context, this.modelViewTransform, sugarCrystals,
           this.modelViewTransform.modelToViewDeltaX( sugarCrystalModelSize ), SUGAR_COLOR );
       }
 
       if ( saltCrystals.length > 0 ) {
         var saltCrystalModelSize = saltCrystals.get( 0 ).length;
-        drawCrystals( wrapper, this.modelViewTransform, saltCrystals,
+        drawCrystals( context, this.modelViewTransform, saltCrystals,
           this.modelViewTransform.modelToViewDeltaX( saltCrystalModelSize ), SALT_COLOR );
       }
 
