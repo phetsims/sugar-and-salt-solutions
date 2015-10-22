@@ -45,7 +45,7 @@ define( function( require ) {
 
     //Show a rectangle at the rotation point of the shaker
     if ( DEBUG ) {
-      var debugRectNode = new Path( new Shape.rectangle( 0, 0, 10, 10 ), {
+      var debugRectNode = new Path( Shape.rectangle( 0, 0, 10, 10 ), {
           fill: Color.BLUE
         }
       );
