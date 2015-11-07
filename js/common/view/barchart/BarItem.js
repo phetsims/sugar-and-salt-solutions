@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 /**
  * Item that can be shown in the bar chart, along with concentration, color, caption and icon
  *

@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 /**
  * Composes data relevant to any kind of dissolved solute constituent, such as sodium, nitrate, sucrose, etc.
  *

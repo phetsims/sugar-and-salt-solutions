@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 
 /**
  * A compound represents 0 or more (usually 1 or more) constituents which can be put into solution.  It may be constructed

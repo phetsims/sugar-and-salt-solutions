@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 /**
  * Abstract base class in sugar and salt solution models, which provides clock and reset functions.
  *

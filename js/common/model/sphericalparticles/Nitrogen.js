@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 /**
  * These classes contains state information for particular  particles and
  * ions and permit matching in MicroModel for particle counting.

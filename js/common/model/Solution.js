@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 /**
  *  The fluid combination of water and dissolved solutes, sitting on top of any precipitated solid.
  *

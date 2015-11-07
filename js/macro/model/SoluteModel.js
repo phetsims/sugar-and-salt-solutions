@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 /**
  * Model of the amount in moles, concentration, amount dissolved,
  * amount precipitated, for sugar and salt in the introductory (macro) tab.

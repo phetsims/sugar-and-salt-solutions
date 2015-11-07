@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 /**
  * Constants for Salt and Sugar dispensers, to keep track of which one the user is using.
  *

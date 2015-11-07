@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 /**
  * Node that translates its content so that in the x-direction the origin is at 0, the y direction is unchanged.
  * This is to help with layouts for nodes that don't default to this coordinate frame.

@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 
 /**
  * The toolbox node that the conductivity tester gets dragged out of and back into.

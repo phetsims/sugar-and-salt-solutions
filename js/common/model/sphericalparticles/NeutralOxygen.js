@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 /**
  * When participating in sucrose or glucose or other neutral crystals oxygen atoms should be shown as neutral
  *

@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 /**
  * Provides growth for sodium nitrate crystals.  Works with IncrementalGrowth by giving it specific
  * information about seeding and creating sodium nitrate crystals
