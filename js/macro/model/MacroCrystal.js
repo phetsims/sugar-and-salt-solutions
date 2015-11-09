@@ -58,10 +58,10 @@ define( function( require ) {
      * propagate the crystal according to the specified applied forces, using euler integration
      * @param {Vector2} appliedForce
      * @param {number} dt
-     * @param {Segment.Line} leftBeakerWall
-     * @param {Segment.Line} rightBeakerWall
-     * @param {Segment.Line} beakerFloor
-     * @param {Segment.Line} topOfSolid
+     * @param {kite.Line} leftBeakerWall
+     * @param {kite.Line} rightBeakerWall
+     * @param {kite.Line} beakerFloor
+     * @param {kite.Line} topOfSolid
      */
     stepInTime: function( appliedForce, dt, leftBeakerWall, rightBeakerWall, beakerFloor, topOfSolid ) {
       if ( !this.landed ) {
