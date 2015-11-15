@@ -23,10 +23,9 @@ define( function( require ) {
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
 
   //string
-  var EVAPORATION = require( 'string!SUGAR_AND_SALT_SOLUTIONS/evaporation' );
-  var NONE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/none' );
-  var LOTS = require( 'string!SUGAR_AND_SALT_SOLUTIONS/lots' );
-
+  var evaporationString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/evaporation' );
+  var noneString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/none' );
+  var lotsString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/lots' );
 
   /**
    *
@@ -39,7 +38,7 @@ define( function( require ) {
 
     var thisControl = this;
     var trackSize = new Dimension2( 200, 6 );
-    var label = new Text( EVAPORATION, { font: SugarAndSaltConstants.TITLE_FONT } );
+    var label = new Text( evaporationString, { font: SugarAndSaltConstants.TITLE_FONT } );
 
     // fill with a gradient
     var trackFill = new LinearGradient( 0, 0, trackSize.width, 0 )
@@ -58,8 +57,8 @@ define( function( require ) {
     } );
 
     //Show labels for "none" and "lots"
-    slider.addMajorTick( 0, new Text( NONE, { font: SugarAndSaltConstants.CONTROL_FONT } ) );
-    slider.addMajorTick( maxEvaporationRate, new Text( LOTS, { font: SugarAndSaltConstants.CONTROL_FONT } ) );
+    slider.addMajorTick( 0, new Text( noneString, { font: SugarAndSaltConstants.CONTROL_FONT } ) );
+    slider.addMajorTick( maxEvaporationRate, new Text( lotsString, { font: SugarAndSaltConstants.CONTROL_FONT } ) );
 
     var content = new Node();
     content.addChild( label );

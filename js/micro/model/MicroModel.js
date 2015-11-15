@@ -52,11 +52,11 @@ define( function( require ) {
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
   // strings
-  var SODIUM_CHLORIDE_NEW_LINE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sodiumChlorideNewLine' );
-  var CALCIUM_CHLORIDE_NEW_LINE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/calciumChlorideNewLine' );
-  var SODIUM_NITRATE_NEW_LINE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sodiumNitrateNewLine' );
-  var SUCROSE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sucrose' );
-  var GLUCOSE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/glucose' );
+  var sodiumChlorideNewLineString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sodiumChlorideNewLine' );
+  var calciumChlorideNewLineString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/calciumChlorideNewLine' );
+  var sodiumNitrateNewLineString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sodiumNitrateNewLine' );
+  var sucroseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sucrose' );
+  var glucoseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/glucose' );
 
   // constants
   //Debugging flag for draining particles through the faucet
@@ -276,19 +276,19 @@ define( function( require ) {
     //Note that this is done by associating a DispenserType with the dispenser model element, a more direct way would be to create
     // class Substance that has both a dispenser type and a node factory
     this.dispensers.push( new SodiumChlorideShaker( this.beaker.getCenterX(), this.beaker.getTopY() + this.beaker.getHeight() * 0.5,
-      this.beaker, this.moreSodiumChlorideAllowed, SODIUM_CHLORIDE_NEW_LINE, this.distanceScale, this.dispenserType, DispenserType.SALT, this ) );
+      this.beaker, this.moreSodiumChlorideAllowed, sodiumChlorideNewLineString, this.distanceScale, this.dispenserType, DispenserType.SALT, this ) );
 
     this.dispensers.push( new SodiumNitrateShaker( this.beaker.getCenterX(), this.beaker.getTopY() + this.beaker.getHeight() * 0.5,
-      this.beaker, this.moreSodiumNitrateAllowed, SODIUM_NITRATE_NEW_LINE, this.distanceScale, this.dispenserType, DispenserType.SODIUM_NITRATE, this ) );
+      this.beaker, this.moreSodiumNitrateAllowed, sodiumNitrateNewLineString, this.distanceScale, this.dispenserType, DispenserType.SODIUM_NITRATE, this ) );
 
     this.dispensers.push( new SucroseDispenser( this.beaker.getCenterX(), this.beaker.getTopY() + this.beaker.getHeight() * 0.5,
-      this.beaker, this.moreSucroseAllowed, SUCROSE, this.distanceScale, this.dispenserType, DispenserType.SUGAR, this ) );
+      this.beaker, this.moreSucroseAllowed, sucroseString, this.distanceScale, this.dispenserType, DispenserType.SUGAR, this ) );
 
     this.dispensers.push( new CalciumChlorideShaker( this.beaker.getCenterX(), this.beaker.getTopY() + this.beaker.getHeight() * 0.5,
-      this.beaker, this.moreCalciumChlorideAllowed, CALCIUM_CHLORIDE_NEW_LINE, this.distanceScale, this.dispenserType, DispenserType.CALCIUM_CHLORIDE, this ) );
+      this.beaker, this.moreCalciumChlorideAllowed, calciumChlorideNewLineString, this.distanceScale, this.dispenserType, DispenserType.CALCIUM_CHLORIDE, this ) );
 
     this.dispensers.push( new GlucoseDispenser( this.beaker.getCenterX(), this.beaker.getTopY() + this.beaker.getHeight() * 0.5,
-      this.beaker, this.moreGlucoseAllowed, GLUCOSE, this.distanceScale, this.dispenserType, DispenserType.GLUCOSE, this ) );
+      this.beaker, this.moreGlucoseAllowed, glucoseString, this.distanceScale, this.dispenserType, DispenserType.GLUCOSE, this ) );
 
     //When the output flow rate changes, recompute the desired flow rate for each formula type to help ensure a constant
     // concentration over time for each formula constituents

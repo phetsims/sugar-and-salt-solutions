@@ -20,8 +20,8 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   // strings
-  var PATTERN__MOLES_PER_LITER = require( 'string!SUGAR_AND_SALT_SOLUTIONS/pattern.molesPerLiter' );
-  var PATTERN__MOLES_PER_LITER_MULTILINE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/pattern.molesPerLiterMultiline' );
+  var patternMolesPerLiterString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/pattern.molesPerLiter' );
+  var patternMolesPerLiterMultilineString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/pattern.molesPerLiterMultiline' );
 
   // constants
   var WIDTH = 40;
@@ -97,8 +97,8 @@ define( function( require ) {
       //Update the text
       //Use multiline in tabs with 3+ bars, otherwise readouts will overlap each other
       var valueStr = Util.toFixed( molesPerLiter, 2 );
-      valueReadout.text = StringUtils.format( multiLineReadout ? PATTERN__MOLES_PER_LITER_MULTILINE :
-                                              PATTERN__MOLES_PER_LITER, valueStr );
+      valueReadout.text = StringUtils.format( multiLineReadout ? patternMolesPerLiterMultilineString :
+                                              patternMolesPerLiterString, valueStr );
 
       //Show the label centered above the bar, even if bar is zero height
       valueReadout.x = bar.bounds.getCenterX() - valueReadout.bounds.getWidth() / 2;

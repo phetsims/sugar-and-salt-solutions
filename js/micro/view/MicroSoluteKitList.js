@@ -23,13 +23,13 @@ define( function( require ) {
   var Nitrate = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/Nitrate' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  //strings
-  var CHLORIDE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/chloride' );
-  var CALCIUM = require( 'string!SUGAR_AND_SALT_SOLUTIONS/calcium' );
-  var NITRATE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/nitrate' );
-  var SUCROSE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sucrose' );
-  var GLUCOSE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/glucose' );
-  var SODIUM = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sodium' );
+  // strings
+  var chlorideString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/chloride' );
+  var calciumString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/calcium' );
+  var nitrateString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/nitrate' );
+  var sucroseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sucrose' );
+  var glucoseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/glucose' );
+  var sodiumString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sodium' );
 
   /**
    *
@@ -53,20 +53,20 @@ define( function( require ) {
 
     //This is the logic for which components are present within each kit.  If kits change, this will need to be updated
     //Put the positive ions to the left of the negative ions
-    this.kits.push( new MicroSoluteKit( [ new BarItem( model.sodium, SODIUM, sodiumIcon ),
-      new BarItem( model.chloride, CHLORIDE, chlorideIcon ),
-      new BarItem( model.sucrose, SUCROSE, sucroseIcon ) ] ) );
+    this.kits.push( new MicroSoluteKit( [ new BarItem( model.sodium, sodiumString, sodiumIcon ),
+      new BarItem( model.chloride, chlorideString, chlorideIcon ),
+      new BarItem( model.sucrose, sucroseString, sucroseIcon ) ] ) );
 
-    this.kits.push( new MicroSoluteKit( [ new BarItem( model.sodium, SODIUM, sodiumIcon ),
-      new BarItem( model.calcium, CALCIUM, calciumIcon ),
-      new BarItem( model.chloride, CHLORIDE, chlorideIcon ) ] ) );
+    this.kits.push( new MicroSoluteKit( [ new BarItem( model.sodium, sodiumString, sodiumIcon ),
+      new BarItem( model.calcium, calciumString, calciumIcon ),
+      new BarItem( model.chloride, chlorideString, chlorideIcon ) ] ) );
 
-    this.kits.push( new MicroSoluteKit( [ new BarItem( model.sodium, SODIUM, sodiumIcon ),
-      new BarItem( model.chloride, CHLORIDE, chlorideIcon ),
-      new BarItem( model.nitrate, NITRATE, nitrateIcon ) ] ) );
+    this.kits.push( new MicroSoluteKit( [ new BarItem( model.sodium, sodiumString, sodiumIcon ),
+      new BarItem( model.chloride, chlorideString, chlorideIcon ),
+      new BarItem( model.nitrate, nitrateString, nitrateIcon ) ] ) );
 
-    this.kits.push( new MicroSoluteKit( [ new BarItem( model.sucrose, SUCROSE, sucroseIcon ),
-      new BarItem( model.glucose, GLUCOSE, glucoseIcon ) ] ) );
+    this.kits.push( new MicroSoluteKit( [ new BarItem( model.sucrose, sucroseString, sucroseIcon ),
+      new BarItem( model.glucose, glucoseString, glucoseIcon ) ] ) );
 
   }
 

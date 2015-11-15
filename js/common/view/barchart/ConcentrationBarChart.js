@@ -20,7 +20,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var SHOW_VALUES = require( 'string!SUGAR_AND_SALT_SOLUTIONS/showValues' );
+  var showValuesString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/showValues' );
 
   //Insets to be used for padding between edge of canvas and controls, or between controls
   var INSET = 10;
@@ -58,7 +58,7 @@ define( function( require ) {
     //Add a checkbox that lets the user toggle on and off whether actual values are shown
     //It is only shown in the first tab, since values are suppressed in the Micro tab
     if ( showShowValuesCheckbox ) {
-      var showValuesCheckbox = new CheckBox( new Text( SHOW_VALUES, { font: SugarAndSaltConstants.CONTROL_FONT} ),
+      var showValuesCheckbox = new CheckBox( new Text( showValuesString, { font: SugarAndSaltConstants.CONTROL_FONT } ),
         showValues, {
           boxWidth: 20
         } );

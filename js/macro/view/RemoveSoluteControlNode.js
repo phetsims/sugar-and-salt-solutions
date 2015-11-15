@@ -11,14 +11,14 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-
-  // strings
-  var REMOVE_SALT = require( 'string!SUGAR_AND_SALT_SOLUTIONS/removeSalt' );
-  var REMOVE_SUGAR = require( 'string!SUGAR_AND_SALT_SOLUTIONS/removeSugar' );
   var RemoveSoluteButtonNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/RemoveSoluteButtonNode' );
 
+  // strings
+  var removeSaltString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/removeSalt' );
+  var removeSugarString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/removeSugar' );
+
   // constants
-  //Insets to be used for padding between edge of canvas and controls, or between controls
+  // Insets to be used for padding between edge of canvas and controls, or between controls
   var INSET = 5;
 
   /**
@@ -31,11 +31,11 @@ define( function( require ) {
     Node.call( thisNode );
 
     //Button to remove salt, only shown if there is any salt
-    var saltButton = new RemoveSoluteButtonNode( REMOVE_SALT, model.isAnySaltToRemove(), model.removeSalt.bind( model ) );
+    var saltButton = new RemoveSoluteButtonNode( removeSaltString, model.isAnySaltToRemove(), model.removeSalt.bind( model ) );
     thisNode.addChild( saltButton );
 
     //Button to remove sugar, only shown if there is any sugar
-    var sugarButton = new RemoveSoluteButtonNode( REMOVE_SUGAR, model.isAnySugarToRemove(), model.removeSugar.bind( model ) );
+    var sugarButton = new RemoveSoluteButtonNode( removeSugarString, model.isAnySugarToRemove(), model.removeSugar.bind( model ) );
     thisNode.addChild( sugarButton );
 
     //Put the buttons next to each other, leaving the origin at (0,0) so it can be positioned easily by the client

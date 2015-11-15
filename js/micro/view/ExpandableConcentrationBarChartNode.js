@@ -16,7 +16,7 @@
     var Text = require( 'SCENERY/nodes/Text' );
 
     // strings
-    var CONCENTRATION = require( 'string!SUGAR_AND_SALT_SOLUTIONS/concentration' );
+    var concentrationString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/concentration' );
 
     /**
      *
@@ -32,7 +32,7 @@
 
       //The bar chart itself (when toggled to be visible)
       this.microConcentrationBarChart = new MicroConcentrationBarChart( showConcentrationBarChart, showConcentrationValues );
-      var titleNode = new Text( CONCENTRATION, { font: SugarAndSaltConstants.TITLE_FONT } );
+      var titleNode = new Text( concentrationString, { font: SugarAndSaltConstants.TITLE_FONT } );
       var accordionBoxNode = new AccordionBox( this.microConcentrationBarChart , {
         //Node that says "concentration" and has a "+" button to expand the concentration bar chart
         titleNode: titleNode,

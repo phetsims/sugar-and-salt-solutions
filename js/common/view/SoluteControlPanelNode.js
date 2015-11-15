@@ -18,7 +18,7 @@ define( function( require ) {
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
 
   // strings
-  var SOLUTE = require( 'string!SUGAR_AND_SALT_SOLUTIONS/solute' );
+  var soluteString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/solute' );
 
   /**
    * @param {Node} soluteSelector
@@ -26,7 +26,7 @@ define( function( require ) {
    */
   function SoluteControlPanelNode( soluteSelector ) {
     var thisPanel = this;
-    var title = new Text( SOLUTE, { font: SugarAndSaltConstants.TITLE_FONT} );
+    var title = new Text( soluteString, { font: SugarAndSaltConstants.TITLE_FONT } );
 
     var vBoxContent = new VBox( {children: [title, soluteSelector ],
       spacing: 5, //Use a smaller spacing so that the content doesn't get too far away from the title in the Micro tab;

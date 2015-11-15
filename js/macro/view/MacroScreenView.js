@@ -37,8 +37,8 @@ define( function( require ) {
   var mockupImage = require( 'image!SUGAR_AND_SALT_SOLUTIONS/mockup-macro.png' );
 
   // strings
-  var SALT = require( 'string!SUGAR_AND_SALT_SOLUTIONS/salt' );
-  var SUGAR = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sugar' );
+  var saltString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/salt' );
+  var sugarString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sugar' );
 
   // constants
   //Insets to be used for padding between edge of canvas and controls, or between controls
@@ -105,8 +105,8 @@ define( function( require ) {
 
     //Create the control panel for choosing sugar vs salt, use a radio-button-based selector for solutes.
     var soluteControlPanelNode = new SoluteControlPanelNode(
-      new DispenserRadioButtonSet( macroModel.dispenserType, [ new SelectableSoluteItem( SALT, DispenserType.SALT ),
-        new SelectableSoluteItem( SUGAR, DispenserType.SUGAR ) ] ) );
+      new DispenserRadioButtonSet( macroModel.dispenserType, [ new SelectableSoluteItem( saltString, DispenserType.SALT ),
+        new SelectableSoluteItem( sugarString, DispenserType.SUGAR ) ] ) );
 
     //Show the solute control panel node behind the shaker node so the conductivity tester will also go in front
     thisView.behindShakerNode.addChild( soluteControlPanelNode );

@@ -20,7 +20,7 @@ define( function( require ) {
   var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
 
   // strings
-  var macroScreenTitle = require( 'string!SUGAR_AND_SALT_SOLUTIONS/macro' );
+  var macroString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/macro' );
 
   /**
    * Creates the icon for this screen.
@@ -51,7 +51,7 @@ define( function( require ) {
     var layoutBounds = SugarAndSaltConstants.LAYOUT_BOUNDS;
     var aspectRatio = layoutBounds.width / layoutBounds.height;
     SugarAndSaltSharedProperties.sizeScale.set( 1 );
-    Screen.call( this, macroScreenTitle, createScreenIcon(),
+    Screen.call( this, macroString, createScreenIcon(),
       function() { return new MacroModel( aspectRatio ); },
       function( model ) { return new MacroScreenView( model ); },
       { backgroundColor: backgroundColor }

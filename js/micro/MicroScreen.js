@@ -26,7 +26,7 @@ define( function( require ) {
   var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
 
   // strings
-  var microScreenTitle = require( 'string!SUGAR_AND_SALT_SOLUTIONS/micro' );
+  var microString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/micro' );
 
   /**
    * Creates the icon for this screen.
@@ -39,7 +39,7 @@ define( function( require ) {
 
     //TODO Micro Icon
     var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
-    return new Node( { children: [ background] } );
+    return new Node( { children: [ background ] } );
 
   };
 
@@ -55,7 +55,7 @@ define( function( require ) {
     var layoutBounds = SugarAndSaltConstants.LAYOUT_BOUNDS;
     var aspectRatio = layoutBounds.width / layoutBounds.height;
     SugarAndSaltSharedProperties.sizeScale.set( 0.35 );
-    Screen.call( this, microScreenTitle, createScreenIcon(),
+    Screen.call( this, microString, createScreenIcon(),
       function() { return new MicroModel( aspectRatio ); },
       function( model ) { return new MicroScreenView( model ); },
       { backgroundColor: backgroundColor }

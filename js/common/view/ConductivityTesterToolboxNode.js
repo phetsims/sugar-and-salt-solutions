@@ -25,7 +25,7 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   // strings
-  var CONDUCTIVITY = require( 'string!SUGAR_AND_SALT_SOLUTIONS/conductivity' );
+  var conductivityString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/conductivity' );
 
   /**
    *
@@ -44,7 +44,7 @@ define( function( require ) {
       bulbToBatteryWireLength: 15 // length of the wire between bulb and battery, in view coordinates
     } );
 
-    var titleNode = new Text( CONDUCTIVITY, { font: SugarAndSaltConstants.TITLE_FONT } );
+    var titleNode = new Text( conductivityString, { font: SugarAndSaltConstants.TITLE_FONT } );
     var vBox = new VBox( {
       children: [ titleNode, conductivityTesterIconNode ],
       spacing: 0
