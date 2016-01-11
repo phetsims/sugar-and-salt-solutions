@@ -44,6 +44,8 @@
         contentXMargin: 10,
         buttonXMargin: 8,
         buttonLength: 20,
+        buttonTouchAreaDilatedX: 16,
+        buttonTouchAreaDilatedY: 16,
         contentYSpacing: 2,
         contentYMargin: 2,
         expandedProperty: showConcentrationBarChart //Only show this bar chart if the user has opted to do so
