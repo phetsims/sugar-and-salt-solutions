@@ -36,7 +36,7 @@ define( function( require ) {
         value: item.dispenserType } );
     } );
 
-    thisNode.addChild( new VerticalAquaRadioButtonGroup( dispensersRadioItems, { touchXPadding: 5 } ) );
+    thisNode.addChild( new VerticalAquaRadioButtonGroup( dispensersRadioItems, { touchAreaXDilation: 5 } ) );
   }
 
   return inherit( Node, DispenserRadioButtonSet, {
