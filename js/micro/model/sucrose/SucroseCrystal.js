@@ -23,6 +23,7 @@ define( function( require ) {
    * @constructor
    */
   function SucroseCrystal( position, angle ) {
+
     //Sugar size is actually about 1 nm, but we need to make them closer together or the sucrose lattices look disjoint
     //Also, scale everything by the model sizeScale, including distances between atoms
     Crystal.call( this, Formula.SUCROSE, position,

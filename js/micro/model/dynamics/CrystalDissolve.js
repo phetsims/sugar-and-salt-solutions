@@ -65,7 +65,7 @@ define( function( require ) {
         this.removeConstituent( crystal, crystal.getConstituent( 0 ) );
       }
 
-      //Remove the crystal from the list so it will no longer keep its constituents together
+      // Remove the crystal from the list so it will no longer keep its constituents together
       if ( crystal.numberConstituents() === 0 ) {
         crystals.remove( crystal );
       }

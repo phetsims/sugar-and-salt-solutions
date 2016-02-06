@@ -217,8 +217,8 @@ define( function( require ) {
         return formulaUnit.getDistance();
       } );
 
-      //If there was a match, move the closest particles even closer together
-      //If they are close enough, convert them into a crystal
+      // If there was a match, move the closest particles even closer together
+      // If they are close enough, convert them into a crystal
       if ( seeds.length > 0 ) {
         var closestSet = seeds[ 0 ];
         closestSet.moveTogether( dt );
