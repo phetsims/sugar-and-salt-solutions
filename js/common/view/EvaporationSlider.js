@@ -12,7 +12,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Dimension2 = require( 'DOT/Dimension2' );
-  var Range = require( 'DOT/Range' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -46,7 +46,7 @@ define( function( require ) {
       .addColorStop( 1, Color.BLACK );
 
     var maxEvaporationRate = 100;
-    var slider = new HSlider( evaporationRate, new Range( 0, maxEvaporationRate ), {
+    var slider = new HSlider( evaporationRate, new RangeWithValue( 0, maxEvaporationRate ), {
       trackSize: trackSize,
       trackFill: trackFill,
       thumbSize: new Dimension2( 22, 30 ),
