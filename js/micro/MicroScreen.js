@@ -21,7 +21,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
   var Color = require( 'SCENERY/util/Color' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
 
@@ -29,36 +28,24 @@ define( function( require ) {
   var microString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/micro' );
 
   /**
-   * Creates the icon for this screen.
-   * @returns {Node}
-   */
-  var createScreenIcon = function() {
-
-    var width = Screen.HOME_SCREEN_ICON_SIZE.width;
-    var height = Screen.HOME_SCREEN_ICON_SIZE.height;
-
-    //TODO Micro Icon
-    var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
-    return new Node( { children: [ background ] } );
-
-  };
-
-  /**
    * @constructor
    */
   function MicroScreen() {
 
-    //If this is a single-screen sim, then no icon is necessary.
-    //If there are multiple screens, then the icon must be provided here.
+    var options = {
+      name: microString,
+      backgroundColor: new Color( 0, 51, 153 )
+      //TODO add homeScreenIcon
+    };
 
-    var backgroundColor = new Color( 0, 51, 153 );
     var layoutBounds = SugarAndSaltConstants.LAYOUT_BOUNDS;
     var aspectRatio = layoutBounds.width / layoutBounds.height;
     SugarAndSaltSharedProperties.sizeScale.set( 0.35 );
-    Screen.call( this, microString, createScreenIcon(),
+
+    Screen.call( this,
       function() { return new MicroModel( aspectRatio ); },
       function( model ) { return new MicroScreenView( model ); },
-      { backgroundColor: backgroundColor }
+      options
     );
   }
 
