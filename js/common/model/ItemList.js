@@ -62,7 +62,7 @@ define( function( require ) {
     /**
      * Count the items in the list that are an instance of the specified class
      * @param {function.prototype.constructor} clazz
-     * @returns {Number}
+     * @returns {number}
      */
     countByClass: function( clazz ) {
       return this.filterByClass( clazz ).length;
