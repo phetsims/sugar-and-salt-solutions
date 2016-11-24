@@ -23,6 +23,8 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var microString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/micro' );
@@ -34,7 +36,7 @@ define( function( require ) {
 
     var options = {
       name: microString,
-      backgroundColor: new Color( 0, 51, 153 )
+      backgroundColorProperty: new Property( new Color( 0, 51, 153 ) )
       //TODO add homeScreenIcon
     };
 

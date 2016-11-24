@@ -17,6 +17,8 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var macroString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/macro' );
@@ -31,7 +33,7 @@ define( function( require ) {
 
       // Color recommendation from KL so that white sugar and salt will show against it.
       // Same color as geometric optics background.
-      backgroundColor: new Color( 0, 51, 153 )
+      backgroundColorProperty: new Property( new Color( 0, 51, 153 ) )
 
       //TODO add homeScreenIcon
     };
