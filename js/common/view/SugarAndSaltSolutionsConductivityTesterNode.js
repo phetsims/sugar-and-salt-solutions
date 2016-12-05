@@ -24,12 +24,12 @@ define( function( require ) {
    * @constructor
    */
   function SugarAndSaltSolutionsConductivityTesterNode( conductivityTester, modelViewTransform ) {
-    var thisNode = this;
+    var self = this;
     var modelProbeSize = conductivityTester.getProbeSizeReference();
     var probeSize = new Dimension2( modelViewTransform.modelToViewDeltaX( modelProbeSize.width ),
       modelViewTransform.modelToViewDeltaY( -modelProbeSize.height ) );
 
-    ConductivityTesterNode.call( thisNode,
+    ConductivityTesterNode.call( self,
       conductivityTester.brightnessProperty,
       conductivityTester.locationProperty,
       conductivityTester.positiveProbeLocationProperty,
@@ -46,10 +46,10 @@ define( function( require ) {
       }
     );
 
-    thisNode.cursor = 'pointer';
+    self.cursor = 'pointer';
 
     conductivityTester.locationProperty.link( function( location ) {
-      var modelLightBubBounds = modelViewTransform.viewToModelBounds( thisNode.lightBulbNode.bounds );
+      var modelLightBubBounds = modelViewTransform.viewToModelBounds( self.lightBulbNode.bounds );
       conductivityTester.setBulbRegion( modelLightBubBounds );
 
     } );

@@ -34,14 +34,14 @@ define( function( require ) {
    * @constructor
    */
   function SugarAndSaltSolutionModel( aspectRatio, framesPerSecond, beakerDimension, faucetFlowRate, drainPipeBottomY, drainPipeTopY, distanceScale ) {
-    var thisModel = this;
-    AbstractSugarAndSaltSolutionsModel.call( thisModel, framesPerSecond );
+    var self = this;
+    AbstractSugarAndSaltSolutionsModel.call( self, framesPerSecond );
     //Use the same aspect ratio as the view to minimize insets with blank regions
-    thisModel.aspectRatio = aspectRatio;
-    thisModel.beakerDimension = beakerDimension;//Dimensions of the beaker
-    thisModel.faucetFlowRate = faucetFlowRate; //Flow controls vary between 0 and 1, this scales it down to a good model value
-    thisModel.drainPipeBottomY = drainPipeBottomY;
-    thisModel.drainPipeTopY = drainPipeTopY;
+    self.aspectRatio = aspectRatio;
+    self.beakerDimension = beakerDimension;//Dimensions of the beaker
+    self.faucetFlowRate = faucetFlowRate; //Flow controls vary between 0 and 1, this scales it down to a good model value
+    self.drainPipeBottomY = drainPipeBottomY;
+    self.drainPipeTopY = drainPipeTopY;
 
     //The elapsed running time of the model
     this.time = 0;
@@ -49,103 +49,103 @@ define( function( require ) {
     //Scale to help accommodate micro tab, for Macro tab the scale is 1.0
     //The amount to scale model translations so that micro tab emits solute at the appropriate time.  Without
     //this factor, the tiny (1E-9 meters) drag motion in the Micro tab wouldn't be enough to emit solute
-    thisModel.distanceScale = distanceScale;
+    self.distanceScale = distanceScale;
 
     //Which dispenser the user has selected
-    thisModel.dispenserType = new Property( DispenserType.SALT );
+    self.dispenserType = new Property( DispenserType.SALT );
 
     //Model for input and output flows
-    thisModel.inputFlowRate = new Property( 0.0 );//rate that water flows into the beaker, between 0 and 1
-    thisModel.outputFlowRate = new Property( 0.0 );//rate that water flows out of the beaker, between 0 and 1
+    self.inputFlowRate = new Property( 0.0 );//rate that water flows into the beaker, between 0 and 1
+    self.outputFlowRate = new Property( 0.0 );//rate that water flows out of the beaker, between 0 and 1
 
     //Rate at which liquid evaporates
     //Scaled down since the evaporation control rate  is 100 times bigger than flow scales
-    thisModel.evaporationRateScale = faucetFlowRate / 300.0;
+    self.evaporationRateScale = faucetFlowRate / 300.0;
 
     //volume in SI (m^3).  Start at 1 L (halfway up the 2L beaker).  Note that 0.001 cubic meters = 1L
-    thisModel.waterVolume = new Property( beakerDimension.getVolume() / 2 ); //Start the water halfway up the beaker
+    self.waterVolume = new Property( beakerDimension.getVolume() / 2 ); //Start the water halfway up the beaker
 
     //Inset so the beaker doesn't touch the edge of the model bounds
-    thisModel.inset = beakerDimension.width * 0.1;
-    thisModel.modelWidth = beakerDimension.width + this.inset * 2;
+    self.inset = beakerDimension.width * 0.1;
+    self.modelWidth = beakerDimension.width + this.inset * 2;
 
     //Beaker model
-    thisModel.beaker = new Beaker( beakerDimension.x, 0, beakerDimension.width, beakerDimension.height,
+    self.beaker = new Beaker( beakerDimension.x, 0, beakerDimension.width, beakerDimension.height,
       beakerDimension.depth, beakerDimension.wallThickness );
 
     //Part of the model that must be visible within the view
     //Visible model region: a bit bigger than the beaker, used to set the stage aspect ratio in the canvas
-    thisModel.visibleRegion = Shape.rectangle( -thisModel.modelWidth / 2, -thisModel.inset,
-      thisModel.modelWidth, thisModel.modelWidth / thisModel.aspectRatio ).bounds;
+    self.visibleRegion = Shape.rectangle( -self.modelWidth / 2, -self.inset,
+      self.modelWidth, self.modelWidth / self.aspectRatio ).bounds;
 
     //Create the region within which the user can drag the shakers, must remove some of the visible
     //region--otherwise the shakers can be dragged too far to the left of the beaker
-    var insetForDragRegion = thisModel.visibleRegion.width / 6;
+    var insetForDragRegion = self.visibleRegion.width / 6;
 
     //The region within which the user can drag the shakers, smaller than the visible region to make sure
     //the shakers can't be moved too far past the left edge of the beaker
-    thisModel.dragRegion = Shape.rectangle( thisModel.visibleRegion.x + insetForDragRegion, thisModel.visibleRegion.y,
-      thisModel.visibleRegion.width - insetForDragRegion, thisModel.visibleRegion.height ).bounds;
+    self.dragRegion = Shape.rectangle( self.visibleRegion.x + insetForDragRegion, self.visibleRegion.y,
+      self.visibleRegion.width - insetForDragRegion, self.visibleRegion.height ).bounds;
 
     //Max amount of water before the beaker overflows
-    thisModel.maxWater = thisModel.beaker.getMaxFluidVolume();//Set a max amount of water that the user can add to the system so they can't overflow it
+    self.maxWater = self.beaker.getMaxFluidVolume();//Set a max amount of water that the user can add to the system so they can't overflow it
 
     //User setting: whether the concentration bar chart should be shown
-    thisModel.showConcentrationBarChart = new Property( true );
+    self.showConcentrationBarChart = new Property( true );
 
     //Models for dispensers that can be used to add solute to the beaker solution
-    thisModel.dispensers = [];//Create the list of dispensers
+    self.dispensers = [];//Create the list of dispensers
 
     //Rate at which liquid (but no solutes) leaves the model
     this.evaporationRate = new Property( 0.0 );//Between 0 and 100
 
     //@private Model location (in meters) of where water will flow out the drain (both toward and away
     //from drain faucet), set by the view since view locations are chosen first for consistency across tabs
-    thisModel.drainFaucetMetrics = new FaucetMetrics( thisModel, Vector2.ZERO, Vector2.ZERO, 0 );
+    self.drainFaucetMetrics = new FaucetMetrics( self, Vector2.ZERO, Vector2.ZERO, 0 );
 
     //@private
-    thisModel.inputFaucetMetrics = new FaucetMetrics( thisModel, Vector2.ZERO, Vector2.ZERO, 0 );
+    self.inputFaucetMetrics = new FaucetMetrics( self, Vector2.ZERO, Vector2.ZERO, 0 );
 
     // The shape of the input and output water.  The Shape of the water draining out the output faucet
     // is also needed for purposes of determining whether there is an electrical connection for the conductivity tester
-    thisModel.inputWater = new Property( new Shape() );
-    thisModel.outputWater = new Property( new Shape() );
+    self.inputWater = new Property( new Shape() );
+    self.outputWater = new Property( new Shape() );
 
     //Sets the shape of the water into the beaker
-    thisModel.inputFlowRate.link( function( rate ) {
-      var width = rate * thisModel.inputFaucetMetrics.faucetWidth;
-      var height = thisModel.inputFaucetMetrics.outputPoint.y;//assumes beaker floor is at y=0
-      thisModel.inputWater.set( Shape.rectangle( thisModel.inputFaucetMetrics.outputPoint.x - width / 2,
-        thisModel.inputFaucetMetrics.outputPoint.y - height, width, height ) );
+    self.inputFlowRate.link( function( rate ) {
+      var width = rate * self.inputFaucetMetrics.faucetWidth;
+      var height = self.inputFaucetMetrics.outputPoint.y;//assumes beaker floor is at y=0
+      self.inputWater.set( Shape.rectangle( self.inputFaucetMetrics.outputPoint.x - width / 2,
+        self.inputFaucetMetrics.outputPoint.y - height, width, height ) );
     } );
 
     //Sets the shape of the water flowing out of the beaker, changing the shape updates the brightness of
     //the conductivity tester in the macro tab
-    thisModel.outputFlowRate.link( function( rate ) {
-      var width = rate * thisModel.drainFaucetMetrics.faucetWidth;
+    self.outputFlowRate.link( function( rate ) {
+      var width = rate * self.drainFaucetMetrics.faucetWidth;
       var height = beakerDimension.height * 2;
-      thisModel.outputWater.set( Shape.rectangle( thisModel.drainFaucetMetrics.outputPoint.x - width / 2,
-        thisModel.drainFaucetMetrics.outputPoint.y - height, width, height ) );
+      self.outputWater.set( Shape.rectangle( self.drainFaucetMetrics.outputPoint.x - width / 2,
+        self.drainFaucetMetrics.outputPoint.y - height, width, height ) );
     } );
 
     //Solution model, the fluid + any dissolved solutes. Create the solution, which sits
     //atop the solid precipitate (if any)
-    thisModel.solution = new Solution( thisModel.waterVolume, thisModel.beaker );
+    self.solution = new Solution( self.waterVolume, self.beaker );
 
     //Observable flag which determines whether the beaker is full of solution, for purposes of preventing overflow
     //Convenience composite properties for determining whether the beaker
     //is full or empty so we can shut off the faucets when necessary
-    thisModel.beakerFull = new DerivedProperty( [ thisModel.solution.volume, new Property( thisModel.maxWater ) ], function( volume, maxWater ) {
+    self.beakerFull = new DerivedProperty( [ self.solution.volume, new Property( self.maxWater ) ], function( volume, maxWater ) {
       return volume >= maxWater;
     } );
 
     //Flag to indicate whether there is enough solution to flow through the lower drain.
     //Determine if the lower faucet is allowed to let fluid flow out.  It can if any part of the fluid overlaps any part of the pipe range.
     //This logic is used in the model update step to determine if water can flow out, as well as in the user interface to determine if the user can turn on the output faucet
-    thisModel.lowerFaucetCanDrain = new VerticalRangeContains( thisModel.solution.shape, drainPipeBottomY, drainPipeTopY );
+    self.lowerFaucetCanDrain = new VerticalRangeContains( self.solution.shape, drainPipeBottomY, drainPipeTopY );
 
     //True if the values should be shown in the user interface
-    thisModel.showConcentrationValues = new Property( false );
+    self.showConcentrationValues = new Property( false );
   }
 
   return inherit( AbstractSugarAndSaltSolutionsModel, SugarAndSaltSolutionModel, {

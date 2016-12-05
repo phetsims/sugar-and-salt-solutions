@@ -38,41 +38,41 @@ define( function( require ) {
     var viewPortBounds = new Bounds2( viewMinX, viewMinY, viewMinX + layoutBounds.width * modelScale,
       viewMinY + (layoutBounds.height * modelScale) );
 
-    var thisView = this;
-    thisView.model = microModel;
+    var self = this;
+    self.model = microModel;
 
     // Manually tuned so that the model part shows up in the left side of the canvas,
     // leaving enough room for controls, labels, and positioning it so it appears near the bottom
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelBounds, viewPortBounds );
-    BeakerAndShakerView.call( thisView, microModel, layoutBounds, modelViewTransform );
+    BeakerAndShakerView.call( self, microModel, layoutBounds, modelViewTransform );
 
     // List of the kits the user can choose from, for showing the appropriate bar charts + controls
-    thisView.kitList = new MicroSoluteKitList( microModel, modelViewTransform );
+    self.kitList = new MicroSoluteKitList( microModel, modelViewTransform );
 
     // TODO - All periodic table, kit selection,
 
     // Show the concentration bar chart behind the shaker so the user can drag the shaker in front
     var concentrationBarChart = new ExpandableConcentrationBarChartNode( microModel.showConcentrationBarChart, microModel.showConcentrationValues );
-    concentrationBarChart.x = thisView.layoutBounds.maxX - concentrationBarChart.bounds.getWidth() - CONCENTRATION_PANEL_INSET;
+    concentrationBarChart.x = self.layoutBounds.maxX - concentrationBarChart.bounds.getWidth() - CONCENTRATION_PANEL_INSET;
     concentrationBarChart.y = CONCENTRATION_PANEL_INSET;
 
     microModel.selectedKit.link( function( kit ) {
-      concentrationBarChart.setBars( thisView.kitList.getKit( kit ).barItems );
+      concentrationBarChart.setBars( self.kitList.getKit( kit ).barItems );
     } );
 
-    thisView.behindShakerNode.addChild( concentrationBarChart );
+    self.behindShakerNode.addChild( concentrationBarChart );
 
     // When any spherical particle is added in the model, add graphics for them in the view
-    thisView.model.sphericalParticles.addItemAddedListener( function( addedParticle ) {
+    self.model.sphericalParticles.addItemAddedListener( function( addedParticle ) {
       var sphericalParticleNode = new SphericalParticleNode( modelViewTransform, addedParticle,
-        thisView.model.showChargeColor );
-      thisView.addChild( sphericalParticleNode );
+        self.model.showChargeColor );
+      self.addChild( sphericalParticleNode );
 
       // Create the Node for the particle, and wire it up to be removed when the particle leaves the model
-      thisView.model.sphericalParticles.addItemRemovedListener( function removalListener( removedParticle ) {
+      self.model.sphericalParticles.addItemRemovedListener( function removalListener( removedParticle ) {
         if ( removedParticle === addedParticle ) {
-          thisView.removeChild( sphericalParticleNode );
-          thisView.model.sphericalParticles.removeItemRemovedListener( removalListener );
+          self.removeChild( sphericalParticleNode );
+          self.model.sphericalParticles.removeItemRemovedListener( removalListener );
         }
       } );
 

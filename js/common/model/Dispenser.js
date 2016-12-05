@@ -28,43 +28,43 @@ define( function( require ) {
    * @constructor
    */
   function Dispenser( x, y, angle, beaker, moreAllowed, name, distanceScale, selectedType, type, model ) {
-    var thisDispenser = this;
+    var self = this;
 
     //True if the user has selected this dispenser type
-    thisDispenser.enabled = new Property( false );
+    self.enabled = new Property( false );
 
     //Beaker into which the solute will be dispensed
     //@protected
-    thisDispenser.beaker = beaker;
+    self.beaker = beaker;
 
     //True if the user is allowed to add more solute, false if the limit has been reached (10 moles per solute).
-    thisDispenser.moreAllowed = moreAllowed;
+    self.moreAllowed = moreAllowed;
 
     //The name of the dispenser contents, to be displayed on the side of the dispenser node
-    thisDispenser.name = name;
+    self.name = name;
 
     //A reference to the model for adding particles to it
-    thisDispenser.model = model;
+    self.model = model;
 
     //Model the angle of rotation, 0 degrees is straight up (not tilted)
-    thisDispenser.angle = new Property( angle );
+    self.angle = new Property( angle );
 
     //Start centered above the fluid
-    thisDispenser.center = new Property( new Vector2( x, y ) );
+    self.center = new Property( new Vector2( x, y ) );
 
     //The amount to scale model translations so that micro tab emits solute at the appropriate time.  Without this factor,
     //the tiny (1E-9 meters) drag motion in the Micro tab wouldn't be enough to emit solute
-    thisDispenser.distanceScale = distanceScale;
+    self.distanceScale = distanceScale;
 
     //The height of the dispenser in meters, for purposes of making sure the crystals come out at the right location
     //relative to the image. This is used since we want to keep the view the same in each module, but to have different
     //actual model dimensions
     //@protected
-    thisDispenser.dispenserHeight = 0;
+    self.dispenserHeight = 0;
 
     //Wire up the Dispenser so it is enabled when the model has the right type dispenser selected
     selectedType.link( function( dispenserType ) {
-      thisDispenser.enabled.set( dispenserType === type );
+      self.enabled.set( dispenserType === type );
     } );
 
   }

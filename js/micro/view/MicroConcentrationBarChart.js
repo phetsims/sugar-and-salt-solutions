@@ -23,8 +23,7 @@ define( function( require ) {
    * @constructor
    */
   function MicroConcentrationBarChart( visible, showValues ) {
-    var thisChart = this;
-    ConcentrationBarChart.call( thisChart, showValues, visible,
+    ConcentrationBarChart.call( this, showValues, visible,
       // Leave enough space for the captions.  This is hard coded since the value is difficult to compute dynamically:
       // largest of all (insets + text + insets + caption + insets)
       // It is also okay that this is hard-coded since translations typically expand horizontally instead of vertically
@@ -37,25 +36,25 @@ define( function( require ) {
 
     //Clear the previous bars and display the specified bars
     setBars: function( bars ) {
-      var thisChart = this;
-      thisChart.removeAllChildren();
+      var self = this;
+      self.removeAllChildren();
 
       //Convert from model units (mol/L) to stage units by multiplying by this scale factor
       var verticalAxisScale = 8 / 1000.0;
 
       //Add the bar node for each of the specified bars
-      var spacing = thisChart.background.bounds.getWidth() / ( bars.length + 1 );
+      var spacing = self.background.bounds.getWidth() / ( bars.length + 1 );
       var barX = spacing;
 
       _.each( bars, function( bar ) {
         var finalBarX = barX;
         var standardizedNode = new StandardizedNodeX( new Bar( bar.color, bar.caption,
-          bar.concentration, thisChart.showValues, verticalAxisScale, true, bar.icon ) );
+          bar.concentration, self.showValues, verticalAxisScale, true, bar.icon ) );
 
         //Use a StandardizedNodeX here to center the bars on the desired points horizontally so the bars will be equidistant
-       // Ashraf TODO  thisChart.addChild( standardizedNode );
+       // Ashraf TODO  self.addChild( standardizedNode );
         standardizedNode.x = finalBarX - standardizedNode.bounds.width / 2;
-        standardizedNode.y = thisChart.abscissaY;
+        standardizedNode.y = self.abscissaY;
         barX = barX + spacing;
 
       } );

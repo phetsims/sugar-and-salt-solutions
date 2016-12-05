@@ -22,8 +22,7 @@ define( function( require ) {
    * @constructor
    */
   function SolutionNode( modelViewTransform, solution, color ) {
-    var thisNode = this;
-    Node.call( thisNode, {
+    Node.call( this, {
       //Make it so the mouse events pass through the front water layer so it is
       //still possible to pick and move the conductivity tester probes
       pickable: false
@@ -31,7 +30,7 @@ define( function( require ) {
 
     //solution.shape is a derived property based on volume of the solution
     var solutionPath = new Path( modelViewTransform.modelToViewShape( solution.shape.get() ), { fill: color } );
-    thisNode.addChild( solutionPath );
+    this.addChild( solutionPath );
 
     solution.shape.link( function( shape ) {
       solutionPath.setShape( modelViewTransform.modelToViewShape( shape ) );

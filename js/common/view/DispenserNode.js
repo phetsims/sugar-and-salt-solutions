@@ -30,18 +30,18 @@ define( function( require ) {
    * @constructor
    */
   function DispenserNode( modelViewTransform, model, constraint ) {
-    var thisNode = this;
-    Node.call( thisNode, { cursor: 'pointer' } );
+    var self = this;
+    Node.call( self, { cursor: 'pointer' } );
 
     //@private
-    thisNode.modelViewTransform = modelViewTransform;
+    self.modelViewTransform = modelViewTransform;
     //@private
-    thisNode.model = model;
+    self.model = model;
 
     //Show the image of the shaker, with the text label on the side of the dispenser
     //@protected
-    thisNode.imageNode = new Node();// The actual Image node will be set as a child by the overriding classes of Dispenser Node
-    thisNode.addChild( thisNode.imageNode );
+    self.imageNode = new Node();// The actual Image node will be set as a child by the overriding classes of Dispenser Node
+    self.addChild( self.imageNode );
 
     //Show a rectangle at the rotation point of the shaker
     if ( DEBUG ) {
@@ -49,7 +49,7 @@ define( function( require ) {
           fill: Color.BLUE
         }
       );
-      thisNode.addChild( debugRectNode );
+      self.addChild( debugRectNode );
       Property.multilink( [ model.center, model.angle ], function() {
         var viewCenterPos = modelViewTransform.modelToViewPosition( model.center.get() );
         debugRectNode.x = viewCenterPos.x;
@@ -57,23 +57,23 @@ define( function( require ) {
       } );
     }
 
-    thisNode.createTextLabel();
+    self.createTextLabel();
 
     //Update the AffineTransform for the image when the model changes
     Property.lazyMultilink( [ model.center, model.angle ], function() {
-      thisNode.updateTransform();
+      self.updateTransform();
     } );
 
-    thisNode.addInputListener( new MovableDragHandler( thisNode.model.center, {
+    self.addInputListener( new MovableDragHandler( self.model.center, {
       dragBounds: constraint,
-      modelViewTransform: thisNode.modelViewTransform
+      modelViewTransform: self.modelViewTransform
     } ) );
 
-    thisNode.model.center.link( function() {
+    self.model.center.link( function() {
       //Set the model height of the dispenser so the model will be able to emit
       //crystals in the right location (at the output part of the image)
-      thisNode.model.setDispenserHeight( thisNode.modelViewTransform.viewToModelDeltaY( thisNode.imageNode.bounds.getHeight() ) );
-      thisNode.model.translate();
+      self.model.setDispenserHeight( self.modelViewTransform.viewToModelDeltaY( self.imageNode.bounds.getHeight() ) );
+      self.model.translate();
 
     } );
   }

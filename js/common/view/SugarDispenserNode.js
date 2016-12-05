@@ -48,12 +48,12 @@ define( function( require ) {
    * @constructor
    */
   function SugarDispenserNode( modelViewTransform, model, micro, dragConstraint ) {
-    var thisNode = this;
-    DispenserNode.call( thisNode, modelViewTransform, model, dragConstraint );
+    var self = this;
+    DispenserNode.call( self, modelViewTransform, model, dragConstraint );
 
     // Hide the sugar dispenser if it is not enabled (selected by the user)
     model.enabled.link( function( enabled ) {
-      thisNode.visible = enabled;
+      self.visible = enabled;
     } );
 
     //Choose the image based on the angle.  If it is tipped sideways the opening should flip open.
@@ -62,14 +62,14 @@ define( function( require ) {
       var open = model.open.get();
       var allowed = model.moreAllowed.get();
 
-      thisNode.imageNode.removeAllChildren();
-      thisNode.imageNode.addChild( micro ? ( open ? openMicro : closedMicro )
+      self.imageNode.removeAllChildren();
+      self.imageNode.addChild( micro ? ( open ? openMicro : closedMicro )
           : ( open && allowed ? openFull :
               open && !allowed ? openEmpty :
               !open && allowed ? closedFull :
               closedEmpty )
       );
-      thisNode.imageNode.addChild( thisNode.textLabel );
+      self.imageNode.addChild( self.textLabel );
     } );
     //Have to update the transform once after the image size changes (since it goes from null to non-null) in
     // the auto-callback above

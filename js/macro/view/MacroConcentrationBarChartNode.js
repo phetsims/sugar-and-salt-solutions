@@ -30,8 +30,8 @@ define( function( require ) {
    * @constructor
    */
   function MacroConcentrationBarChartNode( showConcentrationBarChart, saltConcentration, sugarConcentration, showConcentrationValues, scaleFactor ) {
-    var thisNode = this;
-    Node.call( thisNode, {fill: SugarAndSaltConstants.WATER_COLOR} );
+    var self = this;
+    Node.call( self, {fill: SugarAndSaltConstants.WATER_COLOR} );
 
     //The bar chart itself (when toggled to be visible)
     var barChartNode = new SugarSaltBarChart( saltConcentration, sugarConcentration, showConcentrationValues,
@@ -56,7 +56,7 @@ define( function( require ) {
       expandedProperty: showConcentrationBarChart //Only show this bar chart if the user has opted to do so
     } );
 
-    thisNode.addChild( accordionBoxNode );
+    self.addChild( accordionBoxNode );
   }
 
   return inherit( Node, MacroConcentrationBarChartNode );

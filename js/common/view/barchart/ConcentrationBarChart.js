@@ -34,23 +34,23 @@ define( function( require ) {
    * @constructor
    */
   function ConcentrationBarChart( showValues, visible, verticalSpacingForCaptions, showShowValuesCheckbox ) {
-    var thisChart = this;
-    Node.call( thisChart );
+    var self = this;
+    Node.call( self );
 
     //@protected Background for the bar chart
-    thisChart.background = new Path( Shape.rectangle( 0, 0, 180, 170 + verticalSpacingForCaptions ), {
+    self.background = new Path( Shape.rectangle( 0, 0, 180, 170 + verticalSpacingForCaptions ), {
       fill: SugarAndSaltConstants.WATER_COLOR//Background for the bar chart
     } );
-    thisChart.addChild( thisChart.background );
+    self.addChild( self.background );
 
-    thisChart.barChartContentNode = new Node();
-    thisChart.addChild( thisChart.barChartContentNode );
+    self.barChartContentNode = new Node();
+    self.addChild( self.barChartContentNode );
 
     //The x-axis, the baseline for the bars
     //@protected
-    thisChart.abscissaY = thisChart.background.bounds.getHeight() - 60 - verticalSpacingForCaptions;
-    thisChart.barChartContentNode.addChild( new Path( Shape.lineSegment( 0, thisChart.abscissaY,
-      thisChart.background.bounds.getWidth(), thisChart.abscissaY ), {
+    self.abscissaY = self.background.bounds.getHeight() - 60 - verticalSpacingForCaptions;
+    self.barChartContentNode.addChild( new Path( Shape.lineSegment( 0, self.abscissaY,
+      self.background.bounds.getWidth(), self.abscissaY ), {
       lineWidth: 1,
       stroke: Color.BLACK
     } ) );
@@ -62,13 +62,13 @@ define( function( require ) {
         showValues, {
           boxWidth: 20
         } );
-      thisChart.barChartContentNode.addChild( showValuesCheckbox );
-      showValuesCheckbox.x = thisChart.bounds.getWidth() / 2 - showValuesCheckbox.bounds.width / 2;
-      showValuesCheckbox.y = thisChart.getHeight() - showValuesCheckbox.bounds.getHeight() - INSET;
+      self.barChartContentNode.addChild( showValuesCheckbox );
+      showValuesCheckbox.x = self.bounds.getWidth() / 2 - showValuesCheckbox.bounds.width / 2;
+      showValuesCheckbox.y = self.getHeight() - showValuesCheckbox.bounds.getHeight() - INSET;
     }
 
     //Only show this bar chart if the user has opted to do so
-    visible.linkAttribute( thisChart, 'visible' );
+    visible.linkAttribute( self, 'visible' );
   }
 
   return inherit( Node, ConcentrationBarChart, {

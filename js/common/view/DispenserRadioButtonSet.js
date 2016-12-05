@@ -22,8 +22,8 @@ define( function( require ) {
    * @constructor
    */
   function DispenserRadioButtonSet( dispenserType, items ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
     //@private
     this.dispenserType = dispenserType;
     //@private
@@ -36,7 +36,7 @@ define( function( require ) {
         value: item.dispenserType } );
     } );
 
-    thisNode.addChild( new VerticalAquaRadioButtonGroup( dispensersRadioItems, { touchAreaXDilation: 5 } ) );
+    self.addChild( new VerticalAquaRadioButtonGroup( dispensersRadioItems, { touchAreaXDilation: 5 } ) );
   }
 
   return inherit( Node, DispenserRadioButtonSet, {
@@ -57,9 +57,9 @@ define( function( require ) {
      */
     containsDispenser: function() {
       var isDispenserAvailable = false;
-      var thisSet = this;
+      var self = this;
       _.each( this.items, function( item ) {
-        if ( item.dispenserType === thisSet.dispenserType.get() ) {
+        if ( item.dispenserType === self.dispenserType.get() ) {
           isDispenserAvailable = true;
         }
       } );

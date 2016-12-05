@@ -36,13 +36,10 @@ define( function( require ) {
    * @constructor
    */
   function FaucetNodeContainer( maxFlowRate, flowRateProperty, enabledProperty, options ) {
-    var thisNode = this;
-    Node.call( thisNode, {} );
+    Node.call( this, {} );
 
-    thisNode.faucetNode = new FaucetNode( maxFlowRate, flowRateProperty, enabledProperty, options );
-    thisNode.addChild( thisNode.faucetNode );
-
-
+    this.faucetNode = new FaucetNode( maxFlowRate, flowRateProperty, enabledProperty, options );
+    this.addChild( this.faucetNode );
   }
 
   return inherit( Node, FaucetNodeContainer, {

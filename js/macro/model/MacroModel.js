@@ -62,8 +62,8 @@ define( function( require ) {
    * @constructor
    */
   function MacroModel( aspectRatio ) {
-    var thisModel = this;
-    SugarAndSaltSolutionModel.call( thisModel,
+    var self = this;
+    SugarAndSaltSolutionModel.call( self,
       aspectRatio, //Use the same aspect ratio as the view to minimize insets with blank regions
       30, //frames per second
       new BeakerDimension( 0.2 ),
@@ -76,36 +76,36 @@ define( function( require ) {
     );
 
     //Sugar and its listeners
-    thisModel.sugarList = new ObservableArray();//The sugar crystals that haven't been dissolved
+    self.sugarList = new ObservableArray();//The sugar crystals that haven't been dissolved
 
     //Salt and its listeners
-    thisModel.saltList = new ObservableArray();//The salt crystals that haven't been dissolved
+    self.saltList = new ObservableArray();//The salt crystals that haven't been dissolved
 
     //Model for the conductivity tester which is in the macro tab but not other tabs
-    thisModel.conductivityTester = new ConductivityTester( thisModel.beaker );
+    self.conductivityTester = new ConductivityTester( self.beaker );
 
     // Both the probes move simultaneously, so listen to a change in single probe
-    thisModel.conductivityTester.negativeProbeLocationProperty.link( function() {
-      thisModel.updateConductivityTesterBrightness();
+    self.conductivityTester.negativeProbeLocationProperty.link( function() {
+      self.updateConductivityTesterBrightness();
     } );
 
     //Model moles, concentration, amount dissolved, amount precipitated, etc. for salt and sugar
     //The chemistry team informed me that there is 0.2157/1000 meters cubed per mole of solid sugar
-    thisModel.salt = new SoluteModel( thisModel.waterVolume, saltSaturationPoint, SugarAndSaltConstants.VOLUME_PER_SOLID_MOLE_SALT,
+    self.salt = new SoluteModel( self.waterVolume, saltSaturationPoint, SugarAndSaltConstants.VOLUME_PER_SOLID_MOLE_SALT,
       MacroSalt.molarMass );
-    thisModel.sugar = new SoluteModel( thisModel.waterVolume, sugarSaturationPoint, 0.2157 / 1000.0, MacroSugar.molarMass );
+    self.sugar = new SoluteModel( self.waterVolume, sugarSaturationPoint, 0.2157 / 1000.0, MacroSugar.molarMass );
 
     //Flag to indicate if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).
     //This is used to show/hide the "remove solutes" button
     //Determine if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).
-    thisModel.anySolutes = new DerivedProperty( [ thisModel.salt.moles, thisModel.sugar.moles ],
+    self.anySolutes = new DerivedProperty( [ self.salt.moles, self.sugar.moles ],
       function( saltMoles, sugarMoles ) {
         return saltMoles > 0 || sugarMoles > 0;
       } );
 
     //Total volume of the water plus any solid precipitate submerged under the water (and hence pushing it up)
-    thisModel.solidVolume = new DerivedProperty( [ thisModel.salt.solidVolume, thisModel.sugar.solidVolume ], function() {
-      return thisModel.salt.solidVolume.get() + thisModel.sugar.solidVolume.get();
+    self.solidVolume = new DerivedProperty( [ self.salt.solidVolume, self.sugar.solidVolume ], function() {
+      return self.salt.solidVolume.get() + self.sugar.solidVolume.get();
     } );
 
     //The concentration in the liquid in moles / m^3
@@ -113,53 +113,53 @@ define( function( require ) {
     //When we were accounting for volume effects of dissolved solutes, the concentrations had to be defined here instead of
     //in SoluteModel because they depend on the total volume of the solution (which in turn depends on the amount of solute
     //dissolved in the solvent).
-    thisModel.saltConcentration = new DerivedProperty( [ thisModel.salt.molesDissolved, thisModel.solution.volume ], function() {
-      return thisModel.salt.molesDissolved.get() / thisModel.solution.volume.get();
+    self.saltConcentration = new DerivedProperty( [ self.salt.molesDissolved, self.solution.volume ], function() {
+      return self.salt.molesDissolved.get() / self.solution.volume.get();
     } );
-    thisModel.sugarConcentration = new DerivedProperty( [ thisModel.sugar.molesDissolved, thisModel.solution.volume ], function() {
-      return thisModel.sugar.molesDissolved.get() / thisModel.solution.volume.get();
+    self.sugarConcentration = new DerivedProperty( [ self.sugar.molesDissolved, self.solution.volume ], function() {
+      return self.sugar.molesDissolved.get() / self.solution.volume.get();
     } );
 
     //Amounts of sugar and salt in crystal form falling from the dispenser
     //Keep track of how many moles of crystal are in the air, since we need to prevent user from adding more than
     //10 moles to the system
     //This shuts off salt/sugar when there is salt/sugar in the air that could get added to the solution
-    thisModel.airborneSaltGrams = new DerivedProperty( [new AirborneCrystalMoles( thisModel.saltList )], function( airborneCrystalMoles ) {
-      return airborneCrystalMoles * thisModel.salt.gramsPerMole;
+    self.airborneSaltGrams = new DerivedProperty( [new AirborneCrystalMoles( self.saltList )], function( airborneCrystalMoles ) {
+      return airborneCrystalMoles * self.salt.gramsPerMole;
     } );
 
-    thisModel.airborneSugarGrams = new DerivedProperty( [new AirborneCrystalMoles( thisModel.sugarList )], function( airborneCrystalMoles ) {
-      return airborneCrystalMoles * thisModel.sugar.gramsPerMole;
+    self.airborneSugarGrams = new DerivedProperty( [new AirborneCrystalMoles( self.sugarList )], function( airborneCrystalMoles ) {
+      return airborneCrystalMoles * self.sugar.gramsPerMole;
     } );
 
 
     //Properties to indicate if the user is allowed to add more of the solute.  If not allowed the dispenser is shown as empty.
-    thisModel.moreSaltAllowed = new DerivedProperty( [ thisModel.salt.grams, thisModel.airborneSaltGrams ], function() {
-      return (thisModel.salt.grams.get() + thisModel.airborneSaltGrams.get()) < 100;
+    self.moreSaltAllowed = new DerivedProperty( [ self.salt.grams, self.airborneSaltGrams ], function() {
+      return (self.salt.grams.get() + self.airborneSaltGrams.get()) < 100;
     } );
 
-    thisModel.moreSugarAllowed = new DerivedProperty( [ thisModel.sugar.grams, thisModel.airborneSugarGrams ], function() {
-      return (thisModel.sugar.grams.get() + thisModel.airborneSugarGrams.get()) < 100;
+    self.moreSugarAllowed = new DerivedProperty( [ self.sugar.grams, self.airborneSugarGrams ], function() {
+      return (self.sugar.grams.get() + self.airborneSugarGrams.get()) < 100;
     } );
 
     //Add models for the various dispensers: sugar, salt, etc.
-    thisModel.dispensers.push( new MacroSaltShaker( thisModel.beaker.getCenterX(), thisModel.beaker.getTopY() + thisModel.beaker.getHeight() * 0.5,
-      thisModel.beaker, thisModel.moreSaltAllowed, saltString, thisModel.distanceScale, thisModel.dispenserType, DispenserType.SALT, this ) );
+    self.dispensers.push( new MacroSaltShaker( self.beaker.getCenterX(), self.beaker.getTopY() + self.beaker.getHeight() * 0.5,
+      self.beaker, self.moreSaltAllowed, saltString, self.distanceScale, self.dispenserType, DispenserType.SALT, this ) );
 
-    thisModel.dispensers.push( new MacroSugarDispenser( thisModel.beaker.getCenterX(), thisModel.beaker.getTopY() + thisModel.beaker.getHeight() * 0.5,
-      thisModel.beaker, thisModel.moreSugarAllowed, sugarString, thisModel.distanceScale, thisModel.dispenserType, DispenserType.SUGAR, this ) );
+    self.dispensers.push( new MacroSugarDispenser( self.beaker.getCenterX(), self.beaker.getTopY() + self.beaker.getHeight() * 0.5,
+      self.beaker, self.moreSugarAllowed, sugarString, self.distanceScale, self.dispenserType, DispenserType.SUGAR, this ) );
 
-    thisModel.crystalsListChangedCallbacks = []; // function callBacks
+    self.crystalsListChangedCallbacks = []; // function callBacks
 
     //Update the conductivity tester when the water level changes, since it might move up to touch a probe (or move out from underneath a submerged probe)
-    Property.multilink( [ thisModel.saltConcentration, thisModel.solution.shape, thisModel.outputWater ], function() {
-      thisModel.updateConductivityTesterBrightness();
+    Property.multilink( [ self.saltConcentration, self.solution.shape, self.outputWater ], function() {
+      self.updateConductivityTesterBrightness();
     } );
 
     //When the conductivity tester probe locations change, also update the conductivity tester brightness since they may come into
     //contact (or leave contact) with the fluid
     this.conductivityTester.locationProperty.link( function() {
-      thisModel.updateConductivityTesterBrightness();
+      self.updateConductivityTesterBrightness();
     } );
   }
 
@@ -220,7 +220,7 @@ define( function( require ) {
      * @param {ObservableArray<MacroCrystal>} crystalList
      */
     updateCrystals: function( dt, crystalList ) {
-      var thisModel = this;
+      var self = this;
       var hitTheWater = []; // Array<MacroCrystal>
 
       crystalList.forEach( function( crystal ) {
@@ -229,13 +229,13 @@ define( function( require ) {
         var initialLocation = crystal.position.get();
 
         //slow the motion down a little bit or it moves too fast since the camera is zoomed in so much
-        crystal.stepInTime( gravity.times( crystal.mass ), dt / 10, thisModel.beaker.getLeftWall(), thisModel.beaker.getRightWall(),
-          thisModel.beaker.getFloor(), thisModel.beaker.getTopOfSolid() );
+        crystal.stepInTime( gravity.times( crystal.mass ), dt / 10, self.beaker.getLeftWall(), self.beaker.getRightWall(),
+          self.beaker.getFloor(), self.beaker.getTopOfSolid() );
 
         //If the salt hits the water during any point of its initial -> final trajectory, absorb it.
         //This is necessary because if the water layer is too thin, the crystal could have jumped over it completely
         if ( lineIntersectsBounds( initialLocation.x, initialLocation.y, crystal.position.get().x, crystal.position.get().y,
-          thisModel.solution.shape.get().bounds ) ) {
+          self.solution.shape.get().bounds ) ) {
           hitTheWater.push( crystal );
         }
         // Any crystals that landed on the beaker base or on top of precipitate should immediately precipitate into solid
@@ -245,17 +245,17 @@ define( function( require ) {
         }
       } );
       // Remove the salt crystals that hit the water
-      thisModel.removeCrystals( crystalList, hitTheWater );
+      self.removeCrystals( crystalList, hitTheWater );
 
       //increase concentration in the water for crystals that hit
       hitTheWater.forEach( function( crystal ) {
-        thisModel.crystalAbsorbed( crystal );
+        self.crystalAbsorbed( crystal );
       } );
 
       //Update the properties representing how many crystals are in the air, to make sure we stop pouring out crystals
       // if we have reached the limit.(even if poured out crystals didn't get dissolved yet)
-      thisModel.airborneSaltGrams.notifyObserversStatic(); // Notify if another the underlying item got changed
-      thisModel.airborneSugarGrams.notifyObserversStatic();
+      self.airborneSaltGrams.notifyObserversStatic(); // Notify if another the underlying item got changed
+      self.airborneSugarGrams.notifyObserversStatic();
     },
 
     /**

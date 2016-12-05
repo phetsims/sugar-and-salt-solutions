@@ -61,13 +61,13 @@ define( function( require ) {
     var viewPortBounds = new Bounds2( viewMinX, viewMinY, viewMinX + layoutBounds.width * modelScale,
       viewMinY + (layoutBounds.height * modelScale) );
 
-    var thisView = this;
-    thisView.model = macroModel;
+    var self = this;
+    self.model = macroModel;
 
     // Manually tuned so that the model part shows up in the left side of the canvas,
     // leaving enough room for controls, labels, and positioning it so it appears near the bottom
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelBounds, viewPortBounds );
-    BeakerAndShakerView.call( thisView, macroModel, layoutBounds, modelViewTransform );
+    BeakerAndShakerView.call( self, macroModel, layoutBounds, modelViewTransform );
 
     //Show the mock-up and a slider to change its transparency
     var mockupOpacityProperty = new Property( 0.2 );
@@ -81,14 +81,14 @@ define( function( require ) {
 
     //Show the crystal layer behind the water and beaker so the crystals look like they go
     // into the water instead of in front of it.
-    thisView.submergedInWaterNode.addChild( crystalLayer );
+    self.submergedInWaterNode.addChild( crystalLayer );
 
     var crystalBounds = new Bounds2( 30, 0, 800, 500 );
     var crystalMakerCanvasNode = new CrystalMakerCanvasNode( macroModel, modelViewTransform, crystalBounds );
     crystalLayer.addChild( crystalMakerCanvasNode );
 
     //Show the precipitate as the sum of salt and sugar
-    thisView.submergedInWaterNode.addChild( new PrecipitateNode( modelViewTransform,
+    self.submergedInWaterNode.addChild( new PrecipitateNode( modelViewTransform,
       new DerivedProperty( [ macroModel.salt.solidVolume, macroModel.sugar.solidVolume ], function( saltVolume, sugarVolume ) {
         return saltVolume + sugarVolume;
       } ), macroModel.beaker ) );
@@ -100,7 +100,7 @@ define( function( require ) {
     };
 
     //Readout the volume of the water in Liters, only visible if the user opted to show values (in the concentration bar chart)
-    thisView.addChild( new VolumeIndicatorNode( modelViewTransform, macroModel.solution, macroModel.showConcentrationValues,
+    self.addChild( new VolumeIndicatorNode( modelViewTransform, macroModel.solution, macroModel.showConcentrationValues,
       macroModel.anySolutes, beakerVolumeReadoutFormat ) );
 
     //Create the control panel for choosing sugar vs salt, use a radio-button-based selector for solutes.
@@ -109,19 +109,19 @@ define( function( require ) {
         new SelectableSoluteItem( sugarString, DispenserType.SUGAR ) ] ) );
 
     //Show the solute control panel node behind the shaker node so the conductivity tester will also go in front
-    thisView.behindShakerNode.addChild( soluteControlPanelNode );
+    self.behindShakerNode.addChild( soluteControlPanelNode );
 
     //Separate layer for the conductivity toolbox to make sure the conductivity node shows as submerged in the water, but still goes behind the shaker
-    thisView.conductivityToolboxLayer = new Node();
-    thisView.submergedInWaterNode.addChild( thisView.conductivityToolboxLayer );
+    self.conductivityToolboxLayer = new Node();
+    self.submergedInWaterNode.addChild( self.conductivityToolboxLayer );
 
     //Show the concentration bar chart behind the shaker so the user can drag the shaker in front
     var concentrationBarChart = new MacroConcentrationBarChartNode( macroModel.showConcentrationBarChart, macroModel.saltConcentration,
       macroModel.sugarConcentration, macroModel.showConcentrationValues, 1 );
-    concentrationBarChart.x = thisView.layoutBounds.maxX - concentrationBarChart.bounds.getWidth() - CONCENTRATION_PANEL_INSET;
+    concentrationBarChart.x = self.layoutBounds.maxX - concentrationBarChart.bounds.getWidth() - CONCENTRATION_PANEL_INSET;
     concentrationBarChart.y = CONCENTRATION_PANEL_INSET;
 
-    thisView.behindShakerNode.addChild( concentrationBarChart );
+    self.behindShakerNode.addChild( concentrationBarChart );
 
     //Position soluteControlPanelNode
     soluteControlPanelNode.x = concentrationBarChart.bounds.getX() -
@@ -129,17 +129,17 @@ define( function( require ) {
     soluteControlPanelNode.y = CONCENTRATION_PANEL_INSET;
 
     //Toolbox from which the conductivity tester can be dragged
-    thisView.conductivityToolboxNode = new ConductivityTesterToolboxNode( thisView.submergedInWaterNode, macroModel.conductivityTester, modelViewTransform );
-    thisView.submergedInWaterNode.addChild( thisView.conductivityToolboxNode );
+    self.conductivityToolboxNode = new ConductivityTesterToolboxNode( self.submergedInWaterNode, macroModel.conductivityTester, modelViewTransform );
+    self.submergedInWaterNode.addChild( self.conductivityToolboxNode );
 
     //Set the location of the control panel
-    thisView.conductivityToolboxNode.x = concentrationBarChart.x + CONDUCTIVITY_PANEL_INSET;
-    thisView.conductivityToolboxNode.y = concentrationBarChart.bounds.getMaxY() + CONCENTRATION_PANEL_INSET;
+    self.conductivityToolboxNode.x = concentrationBarChart.x + CONDUCTIVITY_PANEL_INSET;
+    self.conductivityToolboxNode.y = concentrationBarChart.bounds.getMaxY() + CONCENTRATION_PANEL_INSET;
 
     //Add a control that allows the user to remove solutes
     //Button should be inside the beaker at the bottom right so it doesn't collide with the leftmost tick marks
     var removeSoluteControlNode = new RemoveSoluteControlNode( macroModel );
-    thisView.addChild( removeSoluteControlNode );
+    self.addChild( removeSoluteControlNode );
     removeSoluteControlNode.x = modelViewTransform.modelToViewX( macroModel.beaker.getMaxX() ) -
                                 removeSoluteControlNode.bounds.getWidth() - INSET;
     removeSoluteControlNode.y = modelViewTransform.modelToViewY( macroModel.beaker.getY() ) -

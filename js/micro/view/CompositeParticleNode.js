@@ -24,14 +24,13 @@ define( function( require ) {
    * @constructor
    */
   function CompositeParticleNode( modelViewTransform, compound, showChargeColor ) {
-    var thisNode = this;
     Node.call( this );
     for ( var i = 0; i < compound.numberConstituents(); i++ ) {
       var constituent = compound.getConstituent( i );
 
       // Put particles at the correct relative locations and add as children, necessary for icons like NO3 in the bar chart
       constituent.particle.setPosition( constituent.relativePosition );
-      thisNode.addChild( new SphericalParticleNode( modelViewTransform, constituent.particle, showChargeColor ) );
+      this.addChild( new SphericalParticleNode( modelViewTransform, constituent.particle, showChargeColor ) );
     }
   }
   return inherit( Node, CompositeParticleNode );

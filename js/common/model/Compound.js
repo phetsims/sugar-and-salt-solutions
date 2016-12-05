@@ -58,9 +58,9 @@ define( function( require ) {
      * the crystal location and their relative location within the crystal
      */
     updateConstituentLocations: function() {
-      var thisCompound = this;
+      var self = this;
       this.constituents.forEach( function( constituent ) {
-        thisCompound.updateConstituentLocation( constituent );
+        self.updateConstituentLocation( constituent );
       } );
     },
 

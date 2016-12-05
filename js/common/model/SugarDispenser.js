@@ -30,14 +30,14 @@ define( function( require ) {
    * @constructor
    */
   function SugarDispenser( x, y, beaker, moreAllowed, sugarDispenserName, distanceScale, selectedType, type, model ) {
-    var thisShaker = this;
-    Dispenser.call( thisShaker, x, y, Math.PI * 3 / 4, beaker, moreAllowed, sugarDispenserName, distanceScale,
+    var self = this;
+    Dispenser.call( self, x, y, Math.PI * 3 / 4, beaker, moreAllowed, sugarDispenserName, distanceScale,
       selectedType, type, model );
-    thisShaker.model = model;
+    self.model = model;
     //True if the flap on the top of the dispenser is open and sugar can flow out
-    thisShaker.open = new Property( false );
+    self.open = new Property( false );
     //@private
-    thisShaker.translating = false;
+    self.translating = false;
     //@private
     this.positions = []; // Vec2 instances
 

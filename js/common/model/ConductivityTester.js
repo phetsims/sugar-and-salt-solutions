@@ -30,10 +30,10 @@ define( function( require ) {
    * @constructor
    */
   function ConductivityTester( beaker ) {
-    var thisTester = this;
+    var self = this;
     this.beaker = beaker;
     var location = new Vector2( 0, 0 );
-    PropertySet.call( thisTester, {
+    PropertySet.call( self, {
       location: location,
       negativeProbeLocation: new Vector2( location.x - 0.03, location.y - PROBE_OFFSET_Y ),
       positiveProbeLocation: new Vector2( location.x + 0.07, location.y - PROBE_OFFSET_Y ),

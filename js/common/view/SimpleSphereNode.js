@@ -20,14 +20,14 @@ define( function( require ) {
    * @constructor
    */
   function SimpleSphereNode( modelViewTransform, positionProperty, imageNode ) {
-    var thisNode = this;
-    Node.call( thisNode, {
+    var self = this;
+    Node.call( self, {
       children: [ imageNode ]
     } );
     positionProperty.link( function( position ) {
       var viewPoint = modelViewTransform.modelToViewPosition( position );
-      thisNode.x = viewPoint.x - thisNode.bounds.width / 2;
-      thisNode.y = viewPoint.y - thisNode.bounds.height / 2;
+      self.x = viewPoint.x - self.bounds.width / 2;
+      self.y = viewPoint.y - self.bounds.height / 2;
     } );
   }
 

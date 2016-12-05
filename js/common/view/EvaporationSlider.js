@@ -36,7 +36,7 @@ define( function( require ) {
    */
   function EvaporationSlider( evaporationRate, waterVolume, clockRunning ) {
 
-    var thisControl = this;
+    var self = this;
     var trackSize = new Dimension2( 200, 6 );
     var label = new Text( evaporationString, { font: SugarAndSaltConstants.TITLE_FONT } );
 
@@ -67,7 +67,7 @@ define( function( require ) {
     slider.left = label.right + 10;
     slider.centerY = label.centerY - 10;
 
-    Panel.call( thisControl, content,
+    Panel.call( self, content,
       { xMargin: 8, yMargin: 4, fill: '#F0F0F0', stroke: 'gray', lineWidth: 1, resize: false } );
 
   }

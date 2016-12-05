@@ -24,8 +24,8 @@ define( function( require ) {
    * @constructor
    */
   function SphericalParticleNode( modelViewTransform, particle, showChargeColorProperty ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
     var chargeColorSphereNode = null;
     var atomColorSphereNode = null;
     var nodesAdded = false;
@@ -55,18 +55,18 @@ define( function( require ) {
     function addSphereNodes() {
       nodesAdded = true;
       //Show the charge color, if user selected
-      thisNode.addChild( chargeColorSphereNode );
+      self.addChild( chargeColorSphereNode );
       showChargeColorProperty.link( function( showChargeColor ) {
         chargeColorSphereNode.visible = showChargeColor;
       } );
 
       //Show the atom color, if user selected
-      thisNode.addChild( atomColorSphereNode );
+      self.addChild( atomColorSphereNode );
       showChargeColorProperty.link( function( showChargeColor ) {
         chargeColorSphereNode.visible = !showChargeColor;
       } );
 
-      thisNode.invalidateBounds();
+      self.invalidateBounds();
     }
   }
 

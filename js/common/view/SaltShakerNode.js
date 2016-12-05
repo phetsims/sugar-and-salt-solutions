@@ -29,8 +29,8 @@ define( function( require ) {
    * @constructor
    */
   function SaltShakerNode( modelViewTransform, model, micro, constraint ) {
-    var thisNode = this;
-    DispenserNode.call( thisNode, modelViewTransform, model, constraint );
+    var self = this;
+    DispenserNode.call( self, modelViewTransform, model, constraint );
 
     //Create images to use in each scenario
     var fullImage = new Image( micro ? SALT_MICRO : SALT_FULL );
@@ -43,15 +43,15 @@ define( function( require ) {
 
     //Hide the sugar dispenser if it is not enabled (selected by the user)
     model.enabled.link( function( enabled ) {
-        thisNode.visible = enabled;
+        self.visible = enabled;
       }
     );
 
     //Switch between the empty and full images based on whether the user is allowed to add more salt
     model.moreAllowed.link( function( moreAllowed ) {
-        thisNode.imageNode.removeAllChildren();
-        thisNode.imageNode.addChild( moreAllowed ? fullImage : emptyImage );
-        thisNode.imageNode.addChild( thisNode.textLabel );
+        self.imageNode.removeAllChildren();
+        self.imageNode.addChild( moreAllowed ? fullImage : emptyImage );
+        self.imageNode.addChild( self.textLabel );
       }
     );
 

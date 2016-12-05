@@ -65,9 +65,9 @@ define( function( require ) {
   var DEBUG_CRYSTAL_RATIO = false;
 
   function MicroModel( aspectRatio ) {
-    var thisModel = this;
+    var self = this;
 
-    SugarAndSaltSolutionModel.call( thisModel,
+    SugarAndSaltSolutionModel.call( self,
       aspectRatio, //Use the same aspect ratio as the view to minimize insets with blank regions
       30, //frames per second
       //The volume of the micro beaker should be 2E-23L
@@ -112,7 +112,7 @@ define( function( require ) {
     //This is used to show/hide the "remove solutes" button
     //@private
     this.anySolutes = new DerivedProperty( [ this.freeParticles.lengthProperty ], function( length ) {
-      return thisModel.freeParticles.length > 0;
+      return self.freeParticles.length > 0;
     } );
 
     //The number of different types of solute in solution, to determine whether to show singular or plural text for the "remove solute(s)" button
@@ -123,16 +123,16 @@ define( function( require ) {
     // Colors for all the dissolved solutes
     //Choose nitrate to be blue because the Nitrogen atom is blue, even though it is negative and therefore also blue under "show charge color" condition
     //@private
-    this.sucroseColor = new DerivedProperty( [ thisModel.showChargeColor ], function() {
-      return thisModel.showChargeColor.get() ? ParticleColorConstants.NEUTRAL_COLOR : PhetColorScheme.RED_COLORBLIND;
+    this.sucroseColor = new DerivedProperty( [ self.showChargeColor ], function() {
+      return self.showChargeColor.get() ? ParticleColorConstants.NEUTRAL_COLOR : PhetColorScheme.RED_COLORBLIND;
     } );
     //@private
-    this.glucoseColor = new DerivedProperty( [ thisModel.showChargeColor ], function() {
-      return thisModel.showChargeColor.get() ? ParticleColorConstants.NEUTRAL_COLOR : PhetColorScheme.RED_COLORBLIND;
+    this.glucoseColor = new DerivedProperty( [ self.showChargeColor ], function() {
+      return self.showChargeColor.get() ? ParticleColorConstants.NEUTRAL_COLOR : PhetColorScheme.RED_COLORBLIND;
     } );
     //@private
-    this.nitrateColor = new DerivedProperty( [ thisModel.showChargeColor ], function() {
-      return thisModel.showChargeColor.get() ? Color.BLUE : Color.BLUE; // why blue for both conditions..check ..? TODO
+    this.nitrateColor = new DerivedProperty( [ self.showChargeColor ], function() {
+      return self.showChargeColor.get() ? Color.BLUE : Color.BLUE; // why blue for both conditions..check ..? TODO
     } );
 
 
@@ -177,25 +177,25 @@ define( function( require ) {
     //Therefore it is essential to use "and" conjunctions to supported kits that share a solute component
     this.sodiumChlorideSaturated = new DerivedProperty( [ this.sodium.concentration, this.chloride.concentration ],
       function( sodiumConcentration, chlorideConcentration ) {
-        return sodiumConcentration > thisModel.sodiumChlorideSaturationPoint && chlorideConcentration > thisModel.sodiumChlorideSaturationPoint;
+        return sodiumConcentration > self.sodiumChlorideSaturationPoint && chlorideConcentration > self.sodiumChlorideSaturationPoint;
       } );
 
     this.calciumChlorideSaturated = new DerivedProperty( [ this.calcium.concentration, this.chloride.concentration ],
       function( calciumConcentration, chlorideConcentration ) {
-        return calciumConcentration > thisModel.calciumChlorideSaturationPoint && chlorideConcentration > thisModel.calciumChlorideSaturationPoint * 2;
+        return calciumConcentration > self.calciumChlorideSaturationPoint && chlorideConcentration > self.calciumChlorideSaturationPoint * 2;
       } );
 
     this.sucroseSaturated = new DerivedProperty( [ this.sucrose.concentration ], function( sucroseConcentration ) {
-      return sucroseConcentration > thisModel.sucroseSaturationPoint;
+      return sucroseConcentration > self.sucroseSaturationPoint;
     } );
 
     this.glucoseSaturated = new DerivedProperty( [ this.glucose.concentration ], function( glucoseSaturation ) {
-      return glucoseSaturation > thisModel.glucoseSaturationPoint;
+      return glucoseSaturation > self.glucoseSaturationPoint;
     } );
 
     this.sodiumNitrateSaturated = new DerivedProperty( [ this.sodium.concentration, this.nitrate.concentration ],
       function( sodiumConcentration, nitrateConcentration ) {
-        return sodiumConcentration > thisModel.sodiumNitrateSaturationPoint && nitrateConcentration > thisModel.sodiumNitrateSaturationPoint;
+        return sodiumConcentration > self.sodiumNitrateSaturationPoint && nitrateConcentration > self.sodiumNitrateSaturationPoint;
       } );
 
     //Keep track of which kit the user has selected so that particle draining can happen in formula units
@@ -206,15 +206,15 @@ define( function( require ) {
     this.selectedKit = new Property( 0 );
     this.selectedKit.link( function( value ) {
       //When the user switches kits, clear the solutes and reset the water level
-      thisModel.clearSolutes();
-      thisModel.resetWater();
+      self.clearSolutes();
+      self.resetWater();
 
       //TODO: Consider consolidating this and other kit definition code in MicroModel.countFreeFormulaUnits
       //Decided not to implement before 1.00 published, but may be useful if other kit features are added in the future
-      if ( value === 0 ) { thisModel.kit = new MicroModelKit( Formula.SODIUM_CHLORIDE, Formula.SUCROSE ); }
-      else if ( value === 1 ) { thisModel.kit = new MicroModelKit( Formula.SODIUM_CHLORIDE, Formula.CALCIUM_CHLORIDE ); }
-      else if ( value === 2 ) { thisModel.kit = new MicroModelKit( Formula.SODIUM_CHLORIDE, Formula.SODIUM_NITRATE ); }
-      else if ( value === 3 ) { thisModel.kit = new MicroModelKit( Formula.SUCROSE, Formula.GLUCOSE ); }
+      if ( value === 0 ) { self.kit = new MicroModelKit( Formula.SODIUM_CHLORIDE, Formula.SUCROSE ); }
+      else if ( value === 1 ) { self.kit = new MicroModelKit( Formula.SODIUM_CHLORIDE, Formula.CALCIUM_CHLORIDE ); }
+      else if ( value === 2 ) { self.kit = new MicroModelKit( Formula.SODIUM_CHLORIDE, Formula.SODIUM_NITRATE ); }
+      else if ( value === 3 ) { self.kit = new MicroModelKit( Formula.SUCROSE, Formula.GLUCOSE ); }
 
     } );
 
@@ -293,11 +293,11 @@ define( function( require ) {
     //When the output flow rate changes, recompute the desired flow rate for each formula type to help ensure a constant
     // concentration over time for each formula constituents
     this.outputFlowRate.link( function( outputFlowRate ) {
-      thisModel.checkStartDrain( thisModel.sodiumChlorideDrainData );
-      thisModel.checkStartDrain( thisModel.sucroseDrainData );
-      thisModel.checkStartDrain( thisModel.calciumChlorideDrainData );
-      thisModel.checkStartDrain( thisModel.sodiumNitrateDrainData );
-      thisModel.checkStartDrain( thisModel.glucoseDrainData );
+      self.checkStartDrain( self.sodiumChlorideDrainData );
+      self.checkStartDrain( self.sucroseDrainData );
+      self.checkStartDrain( self.calciumChlorideDrainData );
+      self.checkStartDrain( self.sodiumNitrateDrainData );
+      self.checkStartDrain( self.glucoseDrainData );
     } );
 
   }

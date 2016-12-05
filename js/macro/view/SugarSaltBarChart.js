@@ -31,23 +31,23 @@ define( function( require ) {
    */
   function SugarSaltBarChart( saltConcentration, sugarConcentration, showValues, visible, scaleFactor ) {
 
-    var thisChart = this;
-    ConcentrationBarChart.call( thisChart, showValues, visible, 0, true );
+    var self = this;
+    ConcentrationBarChart.call( self, showValues, visible, 0, true );
 
     //Convert from model units (Mols) to stage units by multiplying by this scale factor
     var verticalAxisScale = 160 * 1E-4 * scaleFactor;
 
     //Add a Salt concentration bar
     var saltBar = new Bar( new Property( Color.WHITE ), saltString, saltConcentration, showValues, verticalAxisScale, false );
-    thisChart.addBar( saltBar );
-    saltBar.x = thisChart.background.bounds.getWidth() * 0.25 - SugarAndSaltConstants.BAR_WIDTH / 2;
-    saltBar.y = thisChart.abscissaY;
+    self.addBar( saltBar );
+    saltBar.x = self.background.bounds.getWidth() * 0.25 - SugarAndSaltConstants.BAR_WIDTH / 2;
+    saltBar.y = self.abscissaY;
 
     //Add a Sugar concentration bar
     var sugarBar = new Bar( new Property( Color.WHITE ), sugarString, sugarConcentration, showValues, verticalAxisScale, false );
-    thisChart.addBar( sugarBar );
-    sugarBar.x = thisChart.background.bounds.getWidth() * 0.75 - SugarAndSaltConstants.BAR_WIDTH / 2;
-    sugarBar.y = thisChart.abscissaY;
+    self.addBar( sugarBar );
+    sugarBar.x = self.background.bounds.getWidth() * 0.75 - SugarAndSaltConstants.BAR_WIDTH / 2;
+    sugarBar.y = self.abscissaY;
   }
 
   return inherit( ConcentrationBarChart, SugarSaltBarChart );

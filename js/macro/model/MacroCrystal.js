@@ -21,25 +21,25 @@ define( function( require ) {
    * @constructor
    */
   function MacroCrystal( position, moles, volumePerMole ) {
-    var thisCrsytal = this;
+    var self = this;
 
-    thisCrsytal.mass = 1E-6;//kg
-    thisCrsytal.position = new Property( position );
-    thisCrsytal.velocity = new Property( new Vector2( 0, 0 ) );
-    thisCrsytal.acceleration = new Property( new Vector2( 0, 0 ) );
+    self.mass = 1E-6;//kg
+    self.position = new Property( position );
+    self.velocity = new Property( new Vector2( 0, 0 ) );
+    self.acceleration = new Property( new Vector2( 0, 0 ) );
 
     //@private The number of moles of the crystal.  We couldn't just count the number of atoms since it would overflow Long
-    thisCrsytal.moles = moles;
+    self.moles = moles;
 
     //Compute the length of a side
     var volume = volumePerMole * moles;
 
     //Length in m^3 of one side of the crystal, assuming it is perfectly cubic
-    thisCrsytal.length = Math.pow( volume, 1.0 / 3.0 );
+    self.length = Math.pow( volume, 1.0 / 3.0 );
 
     //@private True of the salt has landed on the floor of the beaker.  In this case it won't move anymore and will
     //dissolve when liquid hits
-    thisCrsytal.landed = false;
+    self.landed = false;
 
   }
 

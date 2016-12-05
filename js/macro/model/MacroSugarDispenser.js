@@ -24,9 +24,7 @@ define( function( require ) {
    * @constructor
    */
   function MacroSugarDispenser( x, y, beaker, moreAllowed, sugarDispenserName, distanceScale, selectedType, type, model ) {
-
-    var thisDispenser = this;
-    SugarDispenser.call( thisDispenser, x, y, beaker, moreAllowed, sugarDispenserName, distanceScale, selectedType, type, model );
+    SugarDispenser.call( this, x, y, beaker, moreAllowed, sugarDispenserName, distanceScale, selectedType, type, model );
   }
 
   return inherit( SugarDispenser, MacroSugarDispenser, {

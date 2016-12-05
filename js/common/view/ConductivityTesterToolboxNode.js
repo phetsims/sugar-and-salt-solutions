@@ -34,7 +34,7 @@ define( function( require ) {
    * @constructor
    */
   function ConductivityTesterToolboxNode( submergedInWaterNode, conductivityTester, modelViewTransform ) {
-    var thisNode = this;
+    var self = this;
     var conductivityTesterIconNode = ConductivityTesterNode.createIcon( 0, 85, -40, 60, {
       bulbImageScale: 0.35,
       batteryImageScale: 0.4,
@@ -74,7 +74,7 @@ define( function( require ) {
         end: function( event ) {
           //if the user has dragged the ConductivityTesterNode into the panel, hide the ConductivityTesterNode
           var droppableNodeBounds = sugarAndSaltSolutionsConductivityTesterNode.getDroppableComponent().getGlobalBounds();
-          var panelGlobalBounds = thisNode.getGlobalBounds();
+          var panelGlobalBounds = self.getGlobalBounds();
           if ( panelGlobalBounds.intersectsBounds( droppableNodeBounds ) ) {
             conductivityTester.visible = false;
           }
@@ -107,7 +107,7 @@ define( function( require ) {
     conductivityTesterIconNode.addInputListener( iconDragListener );
 
     // put everything in a panel
-    Panel.call( thisNode, vBox, {
+    Panel.call( self, vBox, {
         fill: 'white',
         yMargin: 6,
         xMargin: 6,
@@ -120,7 +120,7 @@ define( function( require ) {
     );
 
     //initial Location, the ConductivityTesterNode uses oldLocation while doing Translation so set the initial location in alignment with Panel
-    var initialLocation = modelViewTransform.viewToModelPosition( thisNode.bounds.center );
+    var initialLocation = modelViewTransform.viewToModelPosition( self.bounds.center );
     conductivityTester.setLocation( initialLocation );
   }
 

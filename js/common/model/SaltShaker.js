@@ -30,11 +30,11 @@ define( function( require ) {
    * @constructor
    */
   function SaltShaker( x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model ) {
-    var thisShaker = this;
-    Dispenser.call( thisShaker, x, y, Math.PI * 3 / 4, beaker, moreAllowed, name, distanceScale, selectedType, type, model );
+    var self = this;
+    Dispenser.call( self, x, y, Math.PI * 3 / 4, beaker, moreAllowed, name, distanceScale, selectedType, type, model );
 
     //@private Keep track of how much the salt shaker was shaken, if so, then generate salt on the next updateModel() step
-    thisShaker.shakeAmount = 0;
+    self.shakeAmount = 0;
 
     //@private Keep track of recorded positions when the shaker is translated so we can compute accelerations, which are
     //responsible for shaking out the salt
@@ -44,8 +44,8 @@ define( function( require ) {
         //If the shaker is emptied, prevent spurious grains from coming out the next time it is refilled by setting
         // the shake amount to 0.0 and clearing the sampled positions
         if ( !allowed ) {
-          thisShaker.shakeAmount = 0;
-          thisShaker.positions = [];
+          self.shakeAmount = 0;
+          self.positions = [];
         }
       }
     );

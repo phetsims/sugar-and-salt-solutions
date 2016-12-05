@@ -40,12 +40,12 @@ define( function( require ) {
    * @constructor
    */
   function Bar( colorProperty, caption, valueProperty, showValueProperty, verticalAxisScale, multiLineReadout, icon ) {
-    var thisBar = this;
-    Node.call( thisBar );
+    var self = this;
+    Node.call( self );
 
     // Create and add the bar itself.
     var bar = new Path( new Shape(), { lineWidth: 1, stroke: Color.BLACK, fill: colorProperty.get() } );
-    thisBar.addChild( bar );
+    self.addChild( bar );
 
     colorProperty.link( function( color ) {
       bar.fill = color;
@@ -66,12 +66,12 @@ define( function( require ) {
     var captionNode = new HTMLText( caption, { font: SugarAndSaltConstants.CONTROL_FONT } );
 
     // Position so that it is centered under the bar.
-    thisBar.addChild( captionNode );
+    self.addChild( captionNode );
     captionNode.x = WIDTH / 2 - captionNode.bounds.width / 2;
     captionNode.y = CAPTION_INSET;
     if ( icon ) {
       //If specified, show an icon below the caption (to save horizontal space)
-      thisBar.addChild( icon );
+      self.addChild( icon );
       var x = captionNode.bounds.getCenterX() - icon.bounds.getWidth() / 2;
       var y = captionNode.bounds.getMaxY();
 
@@ -87,7 +87,7 @@ define( function( require ) {
 
     //Optionally show the readout of the exact value above the bar itself
     var valueReadout = new HTMLText( '', { font: SugarAndSaltConstants.CONTROL_FONT } );
-    thisBar.addChild( valueReadout );
+    self.addChild( valueReadout );
     valueProperty.link( function( molesPerMeterCubed ) {
       //Convert to Moles per Liter from SI
       //See: http://wiki.answers.com/Q/How_many_metres_cubed_are_in_a_litre

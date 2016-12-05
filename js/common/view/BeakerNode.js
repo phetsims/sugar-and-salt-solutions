@@ -21,9 +21,8 @@ define( function( require ) {
    * @constructor
    */
   function BeakerNode( beaker, modelViewTransform ) {
-    var thisNode = this;
-    Node.call( thisNode );
-    thisNode.addChild( new Path( modelViewTransform.modelToViewShape( beaker.getWallPath( beaker.topDelta ) ), {
+    Node.call( this );
+    this.addChild( new Path( modelViewTransform.modelToViewShape( beaker.getWallPath( beaker.topDelta ) ), {
         fill: ColorConstants.LIGHT_GRAY
       }
     ) );

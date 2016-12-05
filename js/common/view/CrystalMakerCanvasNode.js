@@ -28,12 +28,12 @@ define( function( require ) {
    */
   function CrystalMakerCanvasNode( modelElement, modelViewTransform, canvasBounds ) {
 
-    var thisNode = this;
-    thisNode.modelElement = modelElement;
-    thisNode.modelViewTransform = modelViewTransform;
-    CanvasNode.call( thisNode, { pickable: false, canvasBounds: canvasBounds } );
+    var self = this;
+    self.modelElement = modelElement;
+    self.modelViewTransform = modelViewTransform;
+    CanvasNode.call( self, { pickable: false, canvasBounds: canvasBounds } );
     modelElement.registerListChangedCallback( function() {
-      thisNode.invalidatePaint();
+      self.invalidatePaint();
     } );
   }
 

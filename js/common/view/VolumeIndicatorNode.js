@@ -35,15 +35,15 @@ define( function( require ) {
    * @constructor
    */
   function VolumeIndicatorNode( modelViewTransform, solution, visible, anySolutes, formatter ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
     visible.link( function( visibleValue ) {
-      thisNode.visible = visibleValue;
+      self.visible = visibleValue;
     } );
 
     //Use a large font so it will be easy to read inside the water
     var volumeDisplayTextNode = new Text( '', { font: CONTROL_FONT } );
-    thisNode.addChild( volumeDisplayTextNode );
+    self.addChild( volumeDisplayTextNode );
 
     Property.multilink( [ solution.volume, anySolutes ], function( volume, anySolutesValue ) {
       //Apply the context sensitive formatter (e.g., accounting for the module and whether on the
@@ -58,8 +58,8 @@ define( function( require ) {
     // Update the location so it remains in the top left of the fluid
     solution.shape.link( function( shape ) {
       var waterViewBounds = modelViewTransform.modelToViewShape( shape ).bounds;
-      thisNode.x = waterViewBounds.getX() + INSET;
-      thisNode.y = waterViewBounds.getY() + INSET;
+      self.x = waterViewBounds.getX() + INSET;
+      self.y = waterViewBounds.getY() + INSET;
     } );
   }
 

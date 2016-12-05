@@ -42,20 +42,20 @@ define( function( require ) {
    * @constructor
    */
   function BeakerAndShakerView( model, layoutBounds, modelViewTransform, micro, showBeakerTickLabels ) {
-    var thisView = this;
-    SugarAndSaltSolutionsView.call( thisView, layoutBounds );
+    var self = this;
+    SugarAndSaltSolutionsView.call( self, layoutBounds );
 
-    thisView.micro = micro; //This flag indicates whether it is the micro or macro tab since different images are used depending on the tab
-    thisView.showBeakerTickLabels = showBeakerTickLabels; //Ticks are shown in Macro and Micro tab, but values are omitted from Micro tab
+    self.micro = micro; //This flag indicates whether it is the micro or macro tab since different images are used depending on the tab
+    self.showBeakerTickLabels = showBeakerTickLabels; //Ticks are shown in Macro and Micro tab, but values are omitted from Micro tab
 
     //Gets the ModelViewTransform used to go between model coordinates (SI) and stage coordinates (roughly pixels)
     //The member  name transform  overrides the inbuilt //Ashraf
     //@protected
-    thisView.modelViewTransform = modelViewTransform;
+    self.modelViewTransform = modelViewTransform;
 
     //Show the water flowing out of the top and bottom faucets
-    thisView.addChild( new WaterNode( modelViewTransform, model.inputWater ) );
-    thisView.addChild( new WaterNode( modelViewTransform, model.outputWater ) );
+    self.addChild( new WaterNode( modelViewTransform, model.inputWater ) );
+    self.addChild( new WaterNode( modelViewTransform, model.outputWater ) );
 
     //Add the faucets, the first faucet should have the water stop at the base of the beaker. This faucet should extend very far in
     //case the user makes the sim short and fat, so the faucet pipe will always be visible
@@ -74,10 +74,10 @@ define( function( require ) {
 
     inputFaucetNode.x = 143;
     inputFaucetNode.y = 155;
-    thisView.addChild( inputFaucetNode );
+    self.addChild( inputFaucetNode );
 
     model.setInputFaucetMetrics( FaucetMetrics.createFaucetMetricsByFaucetNode( modelViewTransform, model,
-      thisView.rootNode, inputFaucetNode ) );
+      self.rootNode, inputFaucetNode ) );
 
     //Add a faucet that drains the beaker; there is no input pipe for this since it attaches directly to the beaker
     //Move it far enough from the beaker that the slider isn't touching it, but not so far that the flowing water would
@@ -100,23 +100,23 @@ define( function( require ) {
     //fluid level
     var distanceFromBeakerBottom = 35;
     drainFaucetNode.x = beakerBottomRightView.x + distanceFromBeaker;
-    drainFaucetNode.y = thisView.bounds.maxY - beakerBottomRightView.y - distanceFromBeakerBottom;
-    thisView.addChild( drainFaucetNode );
+    drainFaucetNode.y = self.bounds.maxY - beakerBottomRightView.y - distanceFromBeakerBottom;
+    self.addChild( drainFaucetNode );
 
     //Use the view coordinates to set the model coordinates for how particle should flow toward and flow out the drain pipe
     //But make sure the output drain input point is within the fluid so particles can reach it
     var fullShape = model.beaker.getWaterShape( 0, model.beaker.getMaxFluidVolume() );
     model.setDrainFaucetMetrics( FaucetMetrics.createFaucetMetricsByFaucetNode( modelViewTransform, model,
-        thisView.rootNode, drainFaucetNode ).clampInputWithinFluid( fullShape.bounds.getMaxX() - fullShape.bounds.getWidth() * 0.02 )
+        self.rootNode, drainFaucetNode ).clampInputWithinFluid( fullShape.bounds.getMaxX() - fullShape.bounds.getWidth() * 0.02 )
     );
 
     //Add a node for children that should be behind the shakers
     //@protected
-    thisView.behindShakerNode = new Node();
-    thisView.addChild( thisView.behindShakerNode );
+    self.behindShakerNode = new Node();
+    self.addChild( self.behindShakerNode );
 
     //For nodes that should look like they go into the water, such as the conductivity tester probes
-    thisView.submergedInWaterNode = new Node();
+    self.submergedInWaterNode = new Node();
 
     //make sure the shaker doesn't go out of bounds
     var shakerConstraintRegion = new Bounds2( model.dragRegion.minX, model.beaker.getTopY() * 1.3,
@@ -124,22 +124,22 @@ define( function( require ) {
 
     //add the salt and sugar dispenser nodes, which should always be in front of everything
     _.each( model.dispensers, function( dispenser ) {
-      thisView.submergedInWaterNode.addChild( dispenser.createNode( modelViewTransform, thisView.micro, shakerConstraintRegion ) );
+      self.submergedInWaterNode.addChild( dispenser.createNode( modelViewTransform, self.micro, shakerConstraintRegion ) );
     } );
 
-    thisView.addChild( new BeakerNode( model.beaker, modelViewTransform ) );
+    self.addChild( new BeakerNode( model.beaker, modelViewTransform ) );
 
     //Show the full water node at the correct color, then overlay a partially transparent one on top, so that
     //some objects (such as the conductivity tester) will look submerged
-    thisView.addChild( new SolutionNode( modelViewTransform, model.solution, WATER_COLOR ) );
+    self.addChild( new SolutionNode( modelViewTransform, model.solution, WATER_COLOR ) );
 
 
     //Node that shows things that get submerged such as the conductivity tester
-    thisView.addChild( thisView.submergedInWaterNode );
+    self.addChild( self.submergedInWaterNode );
 
     //Overlay node that renders as partially transparent in front of submerged objects, such as the conductivity tester.
     //When changing the transparency here make sure it looks good for precipitate as well as submerged probes
-    thisView.addChild( new SolutionNode( modelViewTransform, model.solution, new Color( WATER_COLOR.getRed(),
+    self.addChild( new SolutionNode( modelViewTransform, model.solution, new Color( WATER_COLOR.getRed(),
       WATER_COLOR.getGreen(), WATER_COLOR.getBlue(), 0.5 ) ) );// 0.5 is opacity
 
     //Add an evaporation rate slider below the beaker
@@ -150,7 +150,7 @@ define( function( require ) {
 
     //Other content that should go behind the shakers
     //Add it behind the shaker node so the conductivity tester will also go in front
-    thisView.behindShakerNode.addChild( evaporationSlider );
+    self.behindShakerNode.addChild( evaporationSlider );
 
   }
 

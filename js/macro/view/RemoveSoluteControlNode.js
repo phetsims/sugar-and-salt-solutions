@@ -27,16 +27,16 @@ define( function( require ) {
    * @constructor
    */
   function RemoveSoluteControlNode( model ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
 
     //Button to remove salt, only shown if there is any salt
     var saltButton = new RemoveSoluteButtonNode( removeSaltString, model.isAnySaltToRemove(), model.removeSalt.bind( model ) );
-    thisNode.addChild( saltButton );
+    self.addChild( saltButton );
 
     //Button to remove sugar, only shown if there is any sugar
     var sugarButton = new RemoveSoluteButtonNode( removeSugarString, model.isAnySugarToRemove(), model.removeSugar.bind( model ) );
-    thisNode.addChild( sugarButton );
+    self.addChild( sugarButton );
 
     //Put the buttons next to each other, leaving the origin at (0,0) so it can be positioned easily by the client
     sugarButton.x = saltButton.bounds.getMaxX() + INSET;

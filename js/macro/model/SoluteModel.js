@@ -22,32 +22,32 @@ define( function( require ) {
    * @constructor
    */
   function SoluteModel( waterVolume, saturationPoint, volumePerSolidMole, gramsPerMole ) {
-    var thisSoluteModel = this;
+    var self = this;
 
     //Volume in meters cubed per solid mole
-    thisSoluteModel.volumePerSolidMole = volumePerSolidMole;
+    self.volumePerSolidMole = volumePerSolidMole;
 
     //The molar mass, the mass (in grams) per mole
-    thisSoluteModel.gramsPerMole = gramsPerMole;
+    self.gramsPerMole = gramsPerMole;
 
     //Salt moles and concentration
-    thisSoluteModel.moles = new Property( 0.0 ); //The amount of the solute in moles
+    self.moles = new Property( 0.0 ); //The amount of the solute in moles
 
     //The amount of moles necessary to fully saturate the solution, past this,
     //the solute will start to precipitate.
-    thisSoluteModel.saturationPointMoles = new DerivedProperty( [waterVolume], function( volume ) {
+    self.saturationPointMoles = new DerivedProperty( [waterVolume], function( volume ) {
       return volume * saturationPoint;
     } );
 
     //The amount that is dissolved is solution
-    thisSoluteModel.molesDissolved = new DerivedProperty( [ thisSoluteModel.moles, thisSoluteModel.saturationPointMoles ],
+    self.molesDissolved = new DerivedProperty( [ self.moles, self.saturationPointMoles ],
       function( molesValue, saturationPointMolesValue ) {
         return Math.min( molesValue, saturationPointMolesValue );
       }
     );
 
     //The amount that precipitated (solidified)
-    thisSoluteModel.molesPrecipitated = new DerivedProperty( [thisSoluteModel.moles, thisSoluteModel.molesDissolved],
+    self.molesPrecipitated = new DerivedProperty( [self.moles, self.molesDissolved],
       function( molesValue, molesDissolvedValue ) {
         return Math.max( molesValue - molesDissolvedValue, 0 );
       } );
@@ -55,12 +55,12 @@ define( function( require ) {
     //The volume (in SI) of the amount of solid
     //Solid precipitate should push up the water level, so that every mole of
     //salt takes up 0.02699 L, and every mole of sugar takes up 0.2157 L
-    thisSoluteModel.solidVolume = new DerivedProperty( [thisSoluteModel.molesPrecipitated], function( molesPrecipitated ) {
+    self.solidVolume = new DerivedProperty( [self.molesPrecipitated], function( molesPrecipitated ) {
       return molesPrecipitated * volumePerSolidMole;
     } );
 
     //The amount in grams
-    thisSoluteModel.grams = new DerivedProperty( [thisSoluteModel.moles], function( moles ) {
+    self.grams = new DerivedProperty( [self.moles], function( moles ) {
       return moles * gramsPerMole;
     } );
   }

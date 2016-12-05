@@ -22,11 +22,11 @@ define( function( require ) {
    * @constructor
    */
   function WaterNode( transform, waterShapeProperty ) {
-    var thisNode = this;
-    Path.call( thisNode, transform.modelToViewShape( waterShapeProperty.value ), {fill: BeakerAndShakerConstants.WATER_COLOR} );
+    var self = this;
+    Path.call( self, transform.modelToViewShape( waterShapeProperty.value ), {fill: BeakerAndShakerConstants.WATER_COLOR} );
 
     waterShapeProperty.link( function( newWaterShape ) {
-      thisNode.setShape( transform.modelToViewShape( newWaterShape ) );
+      self.setShape( transform.modelToViewShape( newWaterShape ) );
     } );
 
   }

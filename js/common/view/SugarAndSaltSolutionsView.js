@@ -20,12 +20,11 @@ define( function( require ) {
    * @constructor
    */
   function SugarAndSaltSolutionsView( layoutBounds ) {
-    var thisView = this;
-    ScreenView.call( thisView, { layoutBounds: layoutBounds } );
+    ScreenView.call( this, { layoutBounds: layoutBounds } );
 
     //Root node that shows the nodes in the stage coordinate frame
-    thisView.rootNode = new Node();
-    ScreenView.prototype.addChild.call( thisView, thisView.rootNode );
+    this.rootNode = new Node();
+    ScreenView.prototype.addChild.call( this, this.rootNode );
   }
 
   return inherit( ScreenView, SugarAndSaltSolutionsView, {

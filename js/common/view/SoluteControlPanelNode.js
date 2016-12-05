@@ -25,7 +25,6 @@ define( function( require ) {
    * @constructor
    */
   function SoluteControlPanelNode( soluteSelector ) {
-    var thisPanel = this;
     var title = new Text( soluteString, { font: SugarAndSaltConstants.TITLE_FONT } );
 
     var vBoxContent = new VBox( {children: [title, soluteSelector ],
@@ -34,15 +33,13 @@ define( function( require ) {
       resize: false
     } );
 
-    Panel.call( thisPanel, vBoxContent, {
+    Panel.call( this, vBoxContent, {
       xMargin: 4,
       yMargin: 4,
       fill: Color.WHITE,
       stroke: 'gray',
       lineWidth: 1
     } );
-
-
   }
 
   return inherit( Panel, SoluteControlPanelNode );

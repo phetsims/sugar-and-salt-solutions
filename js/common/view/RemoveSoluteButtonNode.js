@@ -22,19 +22,19 @@ define( function( require ) {
    * @constructor
    */
   function RemoveSoluteButtonNode( text, visibleProperty, remove ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
     var removeSoluteButton = new TextPushButton( text, {
       font: SugarAndSaltConstants.CONTROL_FONT,
       baseColor: SugarAndSaltConstants.BUTTON_COLOR,
       //When the user presses the button,clear the solute
       listener: function() {remove();}
     } );
-    thisNode.addChild( removeSoluteButton );
+    self.addChild( removeSoluteButton );
 
     //Only show the button if there is solute to be removed
     visibleProperty.link( function( visible ) {
-      thisNode.visible = visible;
+      self.visible = visible;
     } );
   }
 

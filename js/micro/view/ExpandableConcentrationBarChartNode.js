@@ -27,8 +27,8 @@
      */
     function ExpandableConcentrationBarChartNode( showConcentrationBarChart,
                                                   showConcentrationValues ) {
-      var thisNode = this;
-      Node.call( thisNode, { fill: SugarAndSaltConstants.WATER_COLOR } );
+      var self = this;
+      Node.call( self, { fill: SugarAndSaltConstants.WATER_COLOR } );
 
       //The bar chart itself (when toggled to be visible)
       this.microConcentrationBarChart = new MicroConcentrationBarChart( showConcentrationBarChart, showConcentrationValues );
@@ -51,7 +51,7 @@
         expandedProperty: showConcentrationBarChart //Only show this bar chart if the user has opted to do so
       } );
 
-      thisNode.addChild( accordionBoxNode );
+      self.addChild( accordionBoxNode );
 
     }
 
