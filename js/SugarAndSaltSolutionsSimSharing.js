@@ -4,7 +4,7 @@
 ///**
 // * Sim-sharing enums specific to this sim.
 // *
-// * @author Chris Malley (cmalley@pixelzoom.com)
+// * @author Chris Malley (PixelZoom, Inc.)
 // */
 //public class SugarAndSaltSolutionsSimSharing {
 //    public enum UserComponents implements IUserComponent {
