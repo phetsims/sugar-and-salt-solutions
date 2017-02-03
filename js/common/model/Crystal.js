@@ -290,14 +290,14 @@ define( function( require ) {
         } ).filter( function( constituent ) {
           return constituent.particle instanceof type;
         } ).filter( function( constituent ) {
-          return !_.contains( ignore, constituent );
+          return !_.includes( ignore, constituent );
         } ).value();
 
       //Make sure list not empty after filtering based on desired type
       if ( c.length > 0 ) {
 
         //Find the smallest number of bonds of any of the particles
-        var minBonds = self.getNumBonds( _.min( c, function( constituent ) {
+        var minBonds = self.getNumBonds( _.minBy( c, function( constituent ) {
           return self.getNumBonds( constituent );
         } ) );
 
@@ -353,7 +353,7 @@ define( function( require ) {
 
         //Signify that we should visit each unvisited neighbor
         _.each( self.getNeighbors( c ), function( neighbor ) {
-          if ( !_.contains( toVisit, neighbor ) && !_.contains( visited, neighbor ) ) {
+          if ( !_.includes( toVisit, neighbor ) && !_.includes( visited, neighbor ) ) {
             toVisit.push( neighbor );
           }
         } );

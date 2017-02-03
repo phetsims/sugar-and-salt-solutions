@@ -173,13 +173,13 @@ define( function( require ) {
       //find a particle that will move to this site, make sure the particle matches the desired type and the particle
       //hasn't already been used
       var particlesToConsider = this.model.freeParticles.filterByClass( type ).filter( function( particle ) {
-          return !_.contains( usedParticles, particle );
+          return !_.includes( usedParticles, particle );
         }
       );
 
       //Only look for sites that match the type for the component in the formula
       var matchingSites = crystal.getOpenSites().filter( function( site ) {
-          return site.matches( type ) && !_.contains( usedLocations, site.relativePosition );
+          return site.matches( type ) && !_.includes( usedLocations, site.relativePosition );
         }
       );
 
