@@ -25,7 +25,7 @@ define( function( require ) {
   return inherit( Object, AtomPosition, {
     /**
      * Create the SphericalParticle corresponding to this atom type that can be used in the model
-     * @return {SphericalParticle}
+     * @returns {SphericalParticle}
      */
     createConstituent: function() {
       throw new Error( 'createConstituent must be implemented in descendant classes of AtomPosition' );

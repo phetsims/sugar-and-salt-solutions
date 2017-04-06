@@ -168,7 +168,7 @@ define( function( require ) {
      * @protected
      * Update the model when the clock ticks
      * @param {number} dt
-     * @return {number} how much water was drained out
+     * @returns {number} how much water was drained out
      */
     updateModel: function( dt ) {
 

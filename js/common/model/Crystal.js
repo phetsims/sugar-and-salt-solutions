@@ -55,7 +55,7 @@ define( function( require ) {
     /**
      * Create an instance that could bond with the specified original particle for purposes of growing crystals from scratch
      * @param {Particle} original
-     * @return {Particle}
+     * @returns {Particle}
      * @abstract
      */
     createPartner: function( original ) {

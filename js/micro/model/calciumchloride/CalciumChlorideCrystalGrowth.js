@@ -33,7 +33,7 @@ define( function( require ) {
   return inherit( CrystalGrowth, CalciumChlorideCrystalGrowth, {
     /**
      * @protected
-     * @return {ItemList}
+     * @returns {ItemList}
      */
     getAllSeeds: function() {
       var aList = this.model.freeParticles.filterByClass( Calcium );

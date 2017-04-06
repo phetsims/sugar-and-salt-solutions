@@ -49,7 +49,7 @@ define( function( require ) {
     /**
      * @override
      * @param {Constituent} constituent
-     * @return {Array<Vector2>}
+     * @returns {Array<Vector2>}
      */
     getPossibleDirections: function( constituent ) {
       //If there's something North/South, then do not allow going East/West and vice versa

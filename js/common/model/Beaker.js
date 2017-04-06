@@ -71,7 +71,7 @@ define( function( require ) {
      * so the water doesn't overlap the edges.Without this, the top part of the beaker (its opening)
      * would be twice as thick as the walls of the rectangular part of the beaker
      * @param {number} delta
-     * @return {Shape}
+     * @returns {Shape}
      *
      * // TODO comments needs to be in synch with the JavaScript implementation which doesnt use Area operations
      * // like Add,Subtract etc (constructive plane geometry)
@@ -115,7 +115,7 @@ define( function( require ) {
      * Rearrange the equation "Volume = width * height * depth"  To solve for
      * height, assumes a square tank like a fish tank
      * @param {number} volume
-     * @return {number}
+     * @returns {number}
      */
     getHeightForVolume: function( volume ) {
       return volume / this.width / this.depth;
@@ -123,7 +123,7 @@ define( function( require ) {
 
     /**
      * Gets the bottom right corner for attaching the output faucet
-     * @return {Vector2}
+     * @returns {Vector2}
      */
     getOutputFaucetAttachmentPoint: function() {
       return new Vector2( this.x + this.width, this.y );
@@ -131,7 +131,7 @@ define( function( require ) {
 
     /**
      * Determine how much water could this beaker hold in meters cubed
-     * @return {number}
+     * @returns {number}
      */
     getMaxFluidVolume: function() {
       //Rectangular like a fish tank
@@ -140,7 +140,7 @@ define( function( require ) {
 
     /**
      * Get the center of the empty beaker
-     * @return {number}
+     * @returns {number}
      */
     getCenterX: function() {
       return this.toRectangle().bounds.getCenterX();
@@ -148,7 +148,7 @@ define( function( require ) {
 
     /**
      * Get the top of the empty beaker
-     * @return {number}
+     * @returns {number}
      */
     getTopY: function() {
       return this.y + this.height;
@@ -156,7 +156,7 @@ define( function( require ) {
 
     /**
      * Get the height of the empty beaker
-     * @return {number}
+     * @returns {number}
      */
     getHeight: function() {
       return this.height;
@@ -164,7 +164,7 @@ define( function( require ) {
 
     /**
      * Gets the leftmost x component of the water-containing part of the beaker
-     * @return {number}
+     * @returns {number}
      */
     getX: function() {
       return this.x;
@@ -172,7 +172,7 @@ define( function( require ) {
 
     /**
      * Gets the width of the walls (edges) of the container
-     * @return {number}
+     * @returns {number}
      */
     getWallThickness: function() {
       return this.wallThickness;
@@ -204,7 +204,7 @@ define( function( require ) {
     /**
      * @param {number} y
      * @param {number} volume
-     * @return {Shape<rect>}
+     * @returns {Shape<rect>}
      */
     //Get the rectangular shape water would occupy given the y-value (in case there are solutes below it) and volume
     getWaterShape: function( y, volume ) {

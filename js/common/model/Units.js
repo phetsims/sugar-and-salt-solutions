@@ -23,7 +23,7 @@ define( function( require ) {
     /**
      * Convert picometers to meters (SI)
      * @param {number} picometers
-     * @return {number}
+     * @returns {number}
      */
     picometersToMeters: function( picometers ) {
       return picometers * 1E-12;

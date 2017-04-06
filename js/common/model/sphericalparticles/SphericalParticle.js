@@ -45,7 +45,7 @@ define( function( require ) {
   return inherit( Particle, SphericalParticle, {
     /**
      * @Override
-     * @return {Shape}
+     * @returns {Shape}
      */
     getShape: function() {
       if ( this.isDirty() ) {
@@ -101,7 +101,7 @@ define( function( require ) {
     /**
      * Get the value to use for showing partial charge.  Necessary to support showing a subset of particle
      * charges for sucrose: http://www.chemistryland.com/CHM130W/LabHelp/Experiment10/Exp10.html
-     * @return {number}
+     * @returns {number}
      */
     getPartialChargeDisplayValue: function() {
       return this.getCharge();

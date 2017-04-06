@@ -153,7 +153,7 @@ define( function( require ) {
      * Update the model when the clock ticks, and return the amount of drained water (in meters cubed)
      * so that subclasses like MacroModel can decrease the amount of dissolved solutes
      * @param {number} dt
-     * @return {number}
+     * @returns {number}
      */
     updateModel: function( dt ) {
       this.time += dt;

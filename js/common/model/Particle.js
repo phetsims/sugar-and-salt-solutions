@@ -81,7 +81,7 @@ define( function( require ) {
     },
     /**
      * Get a shape for the particle for purposes of collision detection with beaker solution and beaker walls
-     * @return {Shape}
+     * @returns {Shape}
      */
     getShape: function() {
       throw new Error( 'getShape should be implemented in descendant classes.' );

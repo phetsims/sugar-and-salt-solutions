@@ -289,7 +289,7 @@ define( function( require ) {
      * @abstract
      * Create the right subtype of crystal at the specified location.  It will be populated by the convertToCrystal method
      * @param {Vector2} position
-     * @return {Crystal}
+     * @returns {Crystal}
      */
     newCrystal: function( position ) {
       throw new Error( 'newCrystal should be implemented in descendant classes of CrystalGrowth' );
@@ -300,7 +300,7 @@ define( function( require ) {
      * @abstract
      * Crystal-specific code to generate a list of all matching sets of particles according to the chemical formula,
      * these are particles that could form a new crystal, if they are close enough together
-     * @return {Array<IFormulaUnit>}
+     * @returns {Array<IFormulaUnit>}
      */
     getAllSeeds: function() {
       throw new Error( 'getAllSeeds should be implemented in descendant classes of CrystalGrowth' );

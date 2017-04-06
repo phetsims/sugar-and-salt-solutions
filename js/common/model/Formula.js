@@ -95,7 +95,7 @@ define( function( require ) {
      * Factory method  for making a formula unit of 1:1
      * @param {constructor} a
      * @param {constructor} b
-     * @return {Formula}
+     * @returns {Formula}
      */
     formula_1By1: function( a, b ) {
       return this.formula_1ByN( a, b, 1 );
@@ -106,7 +106,7 @@ define( function( require ) {
      * @param {constructor} a
      * @param {constructor} b
      * @param {number} bCount
-     * @return {Formula}
+     * @returns {Formula}
      */
     formula_1ByN: function( a, b, bCount ) {
       var particleMap = new Map();
@@ -118,7 +118,7 @@ define( function( require ) {
     /**
      * Factory method  for making a formula unit of 1 such as in Sucrose or Glucose
      * @param {function} type
-     * @return {Formula}
+     * @returns {Formula}
      */
     formula_By1: function( type ) {
       var particleMap = new Map();
@@ -129,7 +129,7 @@ define( function( require ) {
     /**
      * Create a formula by giving an explicit map
      * @param map
-     * @return {Formula}
+     * @returns {Formula}
      */
     formula_ByMap: function( map ) {
       var formula = new Formula( map );
@@ -139,7 +139,7 @@ define( function( require ) {
     /**
      * The formula for calcium chloride must return Calcium first, otherwise the crystal
      * growing procedure can run into too many dead ends
-     * @return {Formula}
+     * @returns {Formula}
      */
     createCalciumChloride: function() {
       var formula = this.formula_1ByN( Calcium, Chloride, 2 );

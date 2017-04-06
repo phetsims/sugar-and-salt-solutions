@@ -36,7 +36,7 @@ define( function( require ) {
 
     /**
      * Get the positions for a specific list of atom types.
-     * @return {Array<AtomPosition>}
+     * @returns {Array<AtomPosition>}
      */
     getAtoms: function() {
       var list = [];
