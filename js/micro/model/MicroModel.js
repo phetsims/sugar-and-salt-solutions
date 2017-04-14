@@ -396,7 +396,7 @@ define( function( require ) {
     /**
      * When the simulation clock ticks, move the particles
      * @param {number} dt
-     * @returns {*}
+     * @returns {number}
      */
     updateModel: function( dt ) {
       SugarAndSaltSolutionModel.prototype.updateModel.call( this, dt );

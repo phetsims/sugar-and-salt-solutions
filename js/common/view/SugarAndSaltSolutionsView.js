@@ -37,7 +37,7 @@ define( function( require ) {
     /**
      * Get the root node used for stage coordinates, necessary
      * when transforming through the global coordinate frame to stage
-     * @returns {*}
+     * @returns {Node}
      */
     getRootNode: function() {
       return this.rootNode;

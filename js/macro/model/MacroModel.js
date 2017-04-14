@@ -47,7 +47,7 @@ define( function( require ) {
    * @param {number} x2
    * @param {number} y2
    * @param {Bounds2} r
-   * @returns {*}
+   * @returns {boolean}
    */
   function lineIntersectsBounds( x1, y1, x2, y2, r ) {
     return Util.lineSegmentIntersection( x1, y1, x2, y2, r.minX, r.minY, r.maxX, r.minY ) ||
@@ -400,7 +400,7 @@ define( function( require ) {
      * Determine if a conductivity tester probe is touching water in the beaker, or water flowing out of the beaker
      * (which would have the same concentration as the water in the beaker)
      * @param regionBounds
-     * @returns {*}
+     * @returns {boolean}
      */
     isProbeTouchingWaterThatMightHaveSalt: function( regionBounds ) {
       var waterBounds = this.solution.shape.get().bounds;
