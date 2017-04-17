@@ -14,7 +14,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Color = require( 'SCENERY/util/Color' );
   var Shape = require( 'KITE/Shape' );
-  var HTMLText = require( 'SCENERY/nodes/HTMLText' );
+  var RichText = require( 'SCENERY_PHET/RichText' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Util = require( 'DOT/Util' );
@@ -63,7 +63,7 @@ define( function( require ) {
     } );
 
     // Create and add the caption.
-    var captionNode = new HTMLText( caption, { font: SugarAndSaltConstants.CONTROL_FONT } );
+    var captionNode = new RichText( caption, { font: SugarAndSaltConstants.CONTROL_FONT } );
 
     // Position so that it is centered under the bar.
     self.addChild( captionNode );
@@ -86,7 +86,7 @@ define( function( require ) {
     }
 
     //Optionally show the readout of the exact value above the bar itself
-    var valueReadout = new HTMLText( '', { font: SugarAndSaltConstants.CONTROL_FONT } );
+    var valueReadout = new RichText( '', { font: SugarAndSaltConstants.CONTROL_FONT } );
     self.addChild( valueReadout );
     valueProperty.link( function( molesPerMeterCubed ) {
       //Convert to Moles per Liter from SI
