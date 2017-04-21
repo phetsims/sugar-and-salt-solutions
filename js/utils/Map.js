@@ -3,6 +3,9 @@
  * This "map" utility supports HashMap like  functionality by allowing any object to be used as key.
  * Equality is by reference not by value
  *
+ * TODO: If and when development resumes on this simulation, this Map function should be replaced with  native JS
+ * implementation of Map, see https://github.com/phetsims/gene-expression-essentials/issues/63 for more information.
+ *
  * @author Sharfudeen Ashraf (For Ghent University)
  */
 define( function( require ) {
