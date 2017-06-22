@@ -50,7 +50,7 @@ define( function( require ) {
 
       //If any part touched the water, the lattice should slow down and move at a constant speed
       if ( anyPartUnderwater ) {
-        crystal.velocity.set( new Vector2( 0, -1 ).times( 0.25E-9 ) );
+        crystal.velocityProperty.set( new Vector2( 0, -1 ).times( 0.25E-9 ) );
       }
 
       //Collide with the bottom of the beaker before doing underwater check so that crystals will dissolve

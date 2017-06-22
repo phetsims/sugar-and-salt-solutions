@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -30,34 +30,44 @@ define( function( require ) {
    * @constructor
    */
   function ConductivityTester( beaker ) {
-    var self = this;
     this.beaker = beaker;
     var location = new Vector2( 0, 0 );
-    PropertySet.call( self, {
-      location: location,
-      negativeProbeLocation: new Vector2( location.x - 0.03, location.y - PROBE_OFFSET_Y ),
-      positiveProbeLocation: new Vector2( location.x + 0.07, location.y - PROBE_OFFSET_Y ),
-      brightness: 0,//Brightness value (between 0 and 1)
-      visible: false, //True if the user has selected to use the conductivity tester
-      shortCircuited: false
-    } );
+
+    this.locationProperty = new Property( location );
+    this.negativeProbeLocationProperty = new Property( new Vector2( location.x - 0.03, location.y - PROBE_OFFSET_Y ) );
+    this.positiveProbeLocationProperty = new Property( new Vector2( location.x + 0.07, location.y - PROBE_OFFSET_Y ) );
+    this.brightnessProperty = new Property( 0 );//Brightness value (between 0 and 1)
+    this.visibleProperty = new Property( false ); //True if the user has selected to use the conductivity tester
+    this.shortCircuitedProperty = new Property( false );
+
+    Property.preventGetSet( this, 'location' );
+    Property.preventGetSet( this, 'negativeProbeLocation' );
+    Property.preventGetSet( this, 'positiveProbeLocation' );
+    Property.preventGetSet( this, 'brightness' );
+    Property.preventGetSet( this, 'visible' );
+    Property.preventGetSet( this, 'shortCircuited' );
 
     //Model bounds corresponding to where the battery and bulb are (set by the view)
     this.batteryRegion = Bounds2.NOTHING;
     this.bulbRegion = Bounds2.NOTHING;
   }
 
-  return inherit( PropertySet, ConductivityTester, {
+  return inherit( Object, ConductivityTester, {
     /**
      * Get the bulb brightness, a function of the conductivity of the liquid.
      * @returns {number}
      */
     getBrightness: function() {
-      return this.brightness;
+      return this.brightnessProperty.value;
     },
 
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      this.locationProperty.reset();
+      this.negativeProbeLocationProperty.reset();
+      this.positiveProbeLocationProperty.reset();
+      this.brightnessProperty.reset();
+      this.visibleProperty.reset();
+      this.shortCircuitedProperty.reset();
     },
 
     /**
@@ -65,7 +75,7 @@ define( function( require ) {
      *
      */
     setLocation: function( location ) {
-      this.location = location;
+      this.locationProperty.value = location;
     },
 
     /**
@@ -116,7 +126,7 @@ define( function( require ) {
      * @returns {Bounds2}
      */
     getPositiveProbeRegion: function() {
-      return Bounds2.rect( this.positiveProbeLocation.x - this.getProbeSizeReference().width / 2, this.positiveProbeLocation.y,
+      return Bounds2.rect( this.positiveProbeLocationProperty.value.x - this.getProbeSizeReference().width / 2, this.positiveProbeLocationProperty.value.y,
         this.getProbeSizeReference().width, this.getProbeSizeReference().height );
     },
 
@@ -125,7 +135,7 @@ define( function( require ) {
      * @returns {Bounds2}
      */
     getNegativeProbeRegion: function() {
-      return Bounds2.rect( this.negativeProbeLocation.x - this.getProbeSizeReference().width / 2, this.negativeProbeLocation.y,
+      return Bounds2.rect( this.negativeProbeLocationProperty.value.x - this.getProbeSizeReference().width / 2, this.negativeProbeLocationProperty.value.y,
         this.getProbeSizeReference().width, this.getProbeSizeReference().height );
     }
 

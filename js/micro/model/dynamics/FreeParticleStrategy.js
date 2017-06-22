@@ -70,21 +70,21 @@ define( function( require ) {
       }
 
       var initialPosition = particle.getPosition();
-      var initialVelocity = particle.velocity;
+      var initialVelocity = particle.velocityProperty.value;
 
       //If the particle is underwater and there is any water, move the particle about at the free particle speed
       if ( particle.hasSubmerged() && this.waterVolume.get() > 0 ) {
 
         //If the particle velocity was set to zero (from a zero water volume, restore it to non-zero so it can be scaled
-        if ( particle.velocity.magnitude() === 0 ) {
+        if ( particle.velocityProperty.value.magnitude() === 0 ) {
           particle.velocityProperty.set( Vector2.createPolar( 1, RandomUtil.randomAngle() ) );
         }
-        particle.velocityProperty.set( particle.velocity.withMagnitude( DynamicsConstants.FREE_PARTICLE_SPEED ) );
+        particle.velocityProperty.set( particle.velocityProperty.value.withMagnitude( DynamicsConstants.FREE_PARTICLE_SPEED ) );
       }
 
       //If the particle was stopped by the water completely evaporating, start it moving again
       //Must be done before particle.stepInTime so that the particle doesn't pick up a small velocity in that method, since this assumes particle velocity of zero implies evaporated to the bottom
-      if ( particle.velocity.magnitude() === 0 ) {
+      if ( particle.velocityProperty.value.magnitude() === 0 ) {
         this.model.collideWithWater( particle );
       }
 
@@ -103,7 +103,7 @@ define( function( require ) {
       //Random Walk, implementation taken from edu.colorado.phet.solublesalts.model.RandomWalk
       if ( underwater ) {
         var theta = Math.random() * toRadians( 30.0 ) * RandomUtil.nextRandomSign();
-        particle.velocityProperty.set( particle.velocity.rotated( theta ) );
+        particle.velocityProperty.set( particle.velocityProperty.value.rotated( theta ) );
       }
 
       //Prevent the particles from leaving the solution, but only if they started in the solution

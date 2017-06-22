@@ -64,7 +64,7 @@ define( function( require ) {
     moveToCentroid: function( particle, centroid, dt ) {
       var unitVectorToCentroid = new Vector2( particle.getPosition(), centroid ).normalized();
       var velocity = unitVectorToCentroid.times( DynamicsConstants.FREE_PARTICLE_SPEED );
-      particle.velocity.set( velocity );
+      particle.velocityProperty.set( velocity );
       particle.stepInTime( Vector2.ZERO, dt );
     },
 

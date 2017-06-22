@@ -59,14 +59,14 @@ define( function( require ) {
         //If closest to the drain, move directly toward the drain so it can reach it in the desired amount of time to keep the
         //concentration as steady as possible
         if ( this.randomWalk ) {
-          var initVelocity = particle.velocity.magnitude();
+          var initVelocity = particle.velocityProperty.value.magnitude();
           //Mix in more of the original velocity to keep more of the random walk component
-          var newVelocity = particle.velocity.times( 3 ).plus( this.velocity ).withMagnitude( initVelocity );
-          particle.velocity.set( newVelocity );
+          var newVelocity = particle.velocityProperty.value.times( 3 ).plus( this.velocity ).withMagnitude( initVelocity );
+          particle.velocityProperty.set( newVelocity );
           new this.FreeParticleStrategy( this.model ).randomWalk( particle, dt );
         }
         else {
-          particle.velocity.set( this.velocity );
+          particle.velocityProperty.set( this.velocity );
           particle.stepInTime( Vector2.ZERO, dt );
         }
 

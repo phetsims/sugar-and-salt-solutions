@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
   var Motionless = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/Motionless' );
 
@@ -20,10 +20,11 @@ define( function( require ) {
    * @constructor
    */
   function Particle( position ) {
-    PropertySet.call( this, {
-      position: position, //Interface for setting and observing the position
-      velocity: new Vector2() //Interface for setting and observing the velocity
-    } );
+    this.positionProperty = new Property( position );//Interface for setting and observing the position
+    this.velocityProperty = new Property( new Vector2() );//Interface for setting and observing the velocity
+
+    Property.preventGetSet( this, 'position' );
+    Property.preventGetSet( this, 'velocity' );
 
     // Strategy instance for updating the model when time passes
     this.updateStrategy = new Motionless();
@@ -32,11 +33,9 @@ define( function( require ) {
     //Note this does not mean the particle is currently submerged, since it could get fully submerged once, then the water could evaporate so the particle is only partly submerged
     //In this case it should still be prevented from leaving the water area
     this.isSubmerged = false;
-
-
   }
 
-  return inherit( PropertySet, Particle, {
+  return inherit( Object, Particle, {
     /**
      * Given the specified acceleration from external forces (such as gravity),
      * perform an Euler integration step to move the particle forward in time
@@ -51,8 +50,8 @@ define( function( require ) {
       if ( args.length === 2 ) {
         acceleration = args[ 0 ];
         dt = args[ 1 ];
-        this.velocity.add( acceleration.times( dt ) );
-        this.setPosition( this.position.plus( this.velocity.times( dt ) ) );
+        this.velocityProperty.value.add( acceleration.times( dt ) );
+        this.setPosition( this.positionProperty.value.plus( this.velocityProperty.value.times( dt ) ) );
       }
       if ( args.length === 1 ) {
         dt = args[ 0 ];
@@ -73,10 +72,10 @@ define( function( require ) {
      */
     translate: function( delta, dy ) {
       if ( !_.isNaN( dy ) ) {
-        this.setPosition( this.position.plusXY( delta, dy ) );
+        this.setPosition( this.positionProperty.value.plusXY( delta, dy ) );
       }
       else {
-        this.setPosition( this.position.plus( delta ) );
+        this.setPosition( this.positionProperty.value.plus( delta ) );
       }
     },
     /**
@@ -87,7 +86,7 @@ define( function( require ) {
       throw new Error( 'getShape should be implemented in descendant classes.' );
     },
     getPosition: function() {
-      return this.position;
+      return this.positionProperty.value;
     },
     addPositionObserver: function( listener ) {
       this.positionProperty.link( listener );

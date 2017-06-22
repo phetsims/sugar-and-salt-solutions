@@ -392,8 +392,8 @@ define( function( require ) {
 
       //Set the brightness to be a linear function of the salt concentration (but keeping it bounded between 0 and 1 which are the limits of the conductivity tester brightness
       //Use a scale factor that matches up with the limits on saturation (manually sampled at runtime)
-      this.conductivityTester.brightness = bothProbesTouching && !shortCircuited ? Util.clamp( this.saltConcentration.get() * 1.62E-4, 0, 1 ) : 0.0;
-      this.conductivityTester.shortCircuited = shortCircuited;
+      this.conductivityTester.brightnessProperty.value = bothProbesTouching && !shortCircuited ? Util.clamp( this.saltConcentration.get() * 1.62E-4, 0, 1 ) : 0.0;
+      this.conductivityTester.shortCircuitedProperty.value = shortCircuited;
     },
 
     /**

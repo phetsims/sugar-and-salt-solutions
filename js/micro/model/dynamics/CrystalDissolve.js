@@ -98,7 +98,7 @@ define( function( require ) {
                                this.model.solution.shape.get().bounds.getMaxY();
       var velocityAngle = particleAboveWater ? 0 : Math.random() * Math.PI * 2;
       var velocity = new Vector2( 0, -1 ).times( DynamicsConstants.FREE_PARTICLE_SPEED ).rotated( velocityAngle );
-      constituent.particle.velocity.set( velocity );
+      constituent.particle.velocityProperty.set( velocity );
 
       //Remove the constituent from the crystal and instead make it move under a random walk
       crystal.removeConstituent( constituent );

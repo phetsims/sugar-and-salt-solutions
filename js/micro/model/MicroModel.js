@@ -644,7 +644,7 @@ define( function( require ) {
      * @param {Particle} particle
      */
     collideWithWater: function( particle ) {
-      particle.velocity.set( new Vector2( 0, -1 ).times( 0.25E-9 ) );
+      particle.velocityProperty.value.set( new Vector2( 0, -1 ).times( 0.25E-9 ) );
     },
 
     reset: function() {

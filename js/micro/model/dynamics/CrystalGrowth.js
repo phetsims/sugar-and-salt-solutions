@@ -100,7 +100,7 @@ define( function( require ) {
             // Otherwise, move matching particles closer to the target location
             else if ( targetConfiguration.distance <= this.model.beaker.getWidth() / 2 ) {
               _.each( targetConfiguration.getMatches().getArray(), function( match ) {
-                match.particle.velocity.set( match.site.absolutePosition.minus(
+                match.particle.velocityProperty.set( match.site.absolutePosition.minus(
                   match.particle.getPosition() ).magnitude( DynamicsConstants.FREE_PARTICLE_SPEED ) );
               } );
             }

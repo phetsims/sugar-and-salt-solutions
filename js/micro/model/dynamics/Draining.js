@@ -133,7 +133,7 @@ define( function( require ) {
         //able to match their centroid with the center of the drain because they are prevented
         //from leaving the bounds of the water
         var dist = particle.getPosition().distance( self.model.getDrainFaucetMetrics().getInputPoint() );
-        if ( dist <= particle.velocity.magnitude() * dt + particle.getShape().bounds.getWidth() / 2 ) {
+        if ( dist <= particle.velocityProperty.value.magnitude() * dt + particle.getShape().bounds.getWidth() / 2 ) {
 
           // drain out all of the particles within the formula unit
           _.each( closestFormulaUnit.getArray(), function( unitParticle ) {
@@ -144,7 +144,7 @@ define( function( require ) {
             self.model.drainedParticles.add( unitParticle );
             //Okay to reschedule now since one particle just left, so there will be no phase problem
             unitParticle.setPosition( self.model.getDrainFaucetMetrics().outputPoint );
-            unitParticle.velocity.set( new Vector2( 0, -DynamicsConstants.FREE_PARTICLE_SPEED / 2 ) );
+            unitParticle.velocityProperty.set( new Vector2( 0, -DynamicsConstants.FREE_PARTICLE_SPEED / 2 ) );
           } );
         }
       }

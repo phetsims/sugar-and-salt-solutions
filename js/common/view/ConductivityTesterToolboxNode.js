@@ -76,7 +76,7 @@ define( function( require ) {
           var droppableNodeBounds = sugarAndSaltSolutionsConductivityTesterNode.getDroppableComponent().getGlobalBounds();
           var panelGlobalBounds = self.getGlobalBounds();
           if ( panelGlobalBounds.intersectsBounds( droppableNodeBounds ) ) {
-            conductivityTester.visible = false;
+            conductivityTester.visibleProperty.value = false;
           }
         }
       } ) );
@@ -99,7 +99,7 @@ define( function( require ) {
         conductivityTesterStartingPosition.y -= 1.4 * bulbBounds.height;
         conductivityTesterStartingPosition.x -= bulbBounds.width / 2;
         conductivityTester.setLocation( conductivityTesterStartingPosition );
-        conductivityTester.visible = true;
+        conductivityTester.visibleProperty.value = true;
         sugarAndSaltSolutionsConductivityTesterNode.moveToFront();
 
       }
