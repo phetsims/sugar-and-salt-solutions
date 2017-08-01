@@ -254,8 +254,8 @@ define( function( require ) {
 
       //Update the properties representing how many crystals are in the air, to make sure we stop pouring out crystals
       // if we have reached the limit.(even if poured out crystals didn't get dissolved yet)
-      self.airborneSaltGrams.notifyObserversStatic(); // Notify if another the underlying item got changed
-      self.airborneSugarGrams.notifyObserversStatic();
+      self.airborneSaltGrams.notifyListenersStatic(); // Notify if another the underlying item got changed
+      self.airborneSugarGrams.notifyListenersStatic();
     },
 
     /**

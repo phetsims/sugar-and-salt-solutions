@@ -30,7 +30,7 @@ define( function( require ) {
     } );
 
     var listener = function( particle ) {
-      self.notifyObserversStatic();
+      self.notifyListenersStatic();
     };
 
     microModel.freeParticles.addItemAddedListener( listener );
