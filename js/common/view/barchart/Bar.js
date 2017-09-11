@@ -9,19 +9,19 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Color = require( 'SCENERY/util/Color' );
-  var Shape = require( 'KITE/Shape' );
   var RichText = require( 'SCENERY/nodes/RichText' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var Shape = require( 'KITE/Shape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var Util = require( 'DOT/Util' );
 
   // strings
-  var patternMolesPerLiterString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/pattern.molesPerLiter' );
   var patternMolesPerLiterMultilineString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/pattern.molesPerLiterMultiline' );
+  var patternMolesPerLiterString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/pattern.molesPerLiter' );
 
   // constants
   var WIDTH = 40;

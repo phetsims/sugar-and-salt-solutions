@@ -11,8 +11,8 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var MicroSugarDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/MicroSugarDispenser' );
-  var SucroseCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/SucroseCrystal' );
   var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
+  var SucroseCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/SucroseCrystal' );
 
   /**
    *

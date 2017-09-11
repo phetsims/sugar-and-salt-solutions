@@ -10,13 +10,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var Compound = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Compound' );
   var Constituent = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Constituent' );
   var FreeOxygen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/FreeOxygen' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Nitrogen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Nitrogen' );
-  var Vector2 = require( 'DOT/Vector2' );
   var SodiumNitrateConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/SodiumNitrateConstants' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    *

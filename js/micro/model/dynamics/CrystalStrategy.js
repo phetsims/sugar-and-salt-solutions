@@ -11,9 +11,9 @@
 define( function( require ) {
   'use strict';
   // modules
+  var CrystalDissolve = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalDissolve' );
   var inherit = require( 'PHET_CORE/inherit' );
   var UpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/UpdateStrategy' );
-  var CrystalDissolve = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalDissolve' );
   var Vector2 = require( 'DOT/Vector2' );
 
 

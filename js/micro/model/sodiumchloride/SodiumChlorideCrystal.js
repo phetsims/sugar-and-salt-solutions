@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
+  var Chloride = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Chloride' );
   var Crystal = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Crystal' );
   var Formula = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Formula' );
-  var Chloride = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Chloride' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Sodium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Sodium' );
 
   /**

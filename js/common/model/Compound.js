@@ -19,8 +19,8 @@ define( function( require ) {
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
   var SphericalParticle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/SphericalParticle' );
 
-  var Shape = require( 'KITE/Shape' );
   var Rectangle = require( 'DOT/Rectangle' );
+  var Shape = require( 'KITE/Shape' );
 
   /**
    *

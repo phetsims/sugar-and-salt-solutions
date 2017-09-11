@@ -10,12 +10,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
+  var AllPairs = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/AllPairs' );
   var CrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalGrowth' );
   var CrystalStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalStrategy' );
-  var AllPairs = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/AllPairs' );
-  var GlucoseCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/GlucoseCrystal' );
   var Glucose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/Glucose' );
+  var GlucoseCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/GlucoseCrystal' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
 
 

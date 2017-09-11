@@ -10,13 +10,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
   var AtomPosition = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AtomPosition' );
-  var SphericalParticle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/SphericalParticle' );
-  var Hydrogen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Hydrogen' );
-  var NeutralOxygen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/NeutralOxygen' );
   var Carbon = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Carbon' );
+  var Hydrogen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Hydrogen' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var NeutralOxygen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/NeutralOxygen' );
+  var SphericalParticle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/SphericalParticle' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    *

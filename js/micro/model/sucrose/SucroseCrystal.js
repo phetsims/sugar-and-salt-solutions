@@ -9,12 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var Crystal = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Crystal' );
   var Formula = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Formula' );
-  var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
-  var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/Sucrose' );
+  var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
+  var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
 
   /**
    *

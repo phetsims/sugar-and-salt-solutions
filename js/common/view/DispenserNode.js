@@ -10,15 +10,15 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Property = require( 'AXON/Property' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  var Property = require( 'AXON/Property' );
   var Shape = require( 'KITE/Shape' );
-  var Color = require( 'SCENERY/util/Color' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
   var DEBUG = false;

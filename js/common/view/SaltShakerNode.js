@@ -10,15 +10,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var DispenserNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/DispenserNode' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
 
   // images
-  var SALT_MICRO = require( 'image!SUGAR_AND_SALT_SOLUTIONS/salt_micro.png' );
   var SALT_EMPTY = require( 'image!SUGAR_AND_SALT_SOLUTIONS/salt_empty.png' );
   var SALT_FULL = require( 'image!SUGAR_AND_SALT_SOLUTIONS/salt_full.png' );
+  var SALT_MICRO = require( 'image!SUGAR_AND_SALT_SOLUTIONS/salt_micro.png' );
 
   /**
    * @param {ModelViewTransform2} modelViewTransform

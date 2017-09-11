@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var ConcentrationBarChart = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/barchart/ConcentrationBarChart' );
-  var StandardizedNodeX = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/StandardizedNodeX' );
   var Bar = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/barchart/Bar' );
+  var ConcentrationBarChart = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/barchart/ConcentrationBarChart' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var StandardizedNodeX = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/StandardizedNodeX' );
 
 
   /**

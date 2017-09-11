@@ -10,26 +10,26 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var SphericalParticleNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SphericalParticleNode' );
-  var CompositeParticleNode = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/CompositeParticleNode' );
-  var MicroSoluteKit = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/MicroSoluteKit' );
   var BarItem = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/barchart/BarItem' );
-  var Sodium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Sodium' );
-  var Chloride = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Chloride' );
   var Calcium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Calcium' );
-  var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/Sucrose' );
+  var Chloride = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Chloride' );
+  var CompositeParticleNode = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/CompositeParticleNode' );
   var Glucose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/Glucose' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var MicroSoluteKit = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/MicroSoluteKit' );
   var Nitrate = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/Nitrate' );
+  var Sodium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Sodium' );
+  var SphericalParticleNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SphericalParticleNode' );
+  var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/Sucrose' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var chlorideString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/chloride' );
   var calciumString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/calcium' );
-  var nitrateString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/nitrate' );
-  var sucroseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sucrose' );
+  var chlorideString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/chloride' );
   var glucoseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/glucose' );
+  var nitrateString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/nitrate' );
   var sodiumString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sodium' );
+  var sucroseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sucrose' );
 
   /**
    *

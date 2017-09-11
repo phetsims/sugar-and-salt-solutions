@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var GlucosePositions = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/GlucosePositions' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SugarMolecule = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/SugarMolecule' );
   var Vector2 = require( 'DOT/Vector2' );
-  var GlucosePositions = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/GlucosePositions' );
 
   /**
    *

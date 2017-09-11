@@ -10,18 +10,18 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var DispenserNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/DispenserNode' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
 
   //images
-  var SUGAR_OPEN = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_open.png' );
   var SUGAR_CLOSED = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_closed.png' );
-  var SUGAR_EMPTY_OPEN = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_empty_open.png' );
   var SUGAR_EMPTY_CLOSED = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_empty_closed.png' );
-  var SUGAR_MICRO_OPEN = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_empty_open.png' );
+  var SUGAR_EMPTY_OPEN = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_empty_open.png' );
   var SUGAR_MICRO_CLOSED = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_empty_closed.png' );
+  var SUGAR_MICRO_OPEN = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_empty_open.png' );
+  var SUGAR_OPEN = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_open.png' );
 
   //constants
   var openFull = new Image( SUGAR_OPEN );

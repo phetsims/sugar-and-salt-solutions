@@ -10,10 +10,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Map = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Map' );
-  var Logger = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Logger' );
   var CrystalDissolve = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalDissolve' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Logger = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Logger' );
+  var Map = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Map' );
 
   /**
    *

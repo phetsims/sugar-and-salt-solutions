@@ -10,11 +10,11 @@ define( function( require ) {
   'use strict';
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
+  var Shape = require( 'KITE/Shape' );
+  var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Shape = require( 'KITE/Shape' );
-  var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
-  var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
 
   /**
    * @param {Object} [options] ( {number} radius, {Vector2} position, {Color} color, {number} charge, {Color} chargeColor) )

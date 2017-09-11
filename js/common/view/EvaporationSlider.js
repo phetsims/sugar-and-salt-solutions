@@ -10,22 +10,22 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
+  var Color = require( 'SCENERY/util/Color' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Dimension2 = require( 'DOT/Dimension2' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var HSlider = require( 'SUN/HSlider' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Color = require( 'SCENERY/util/Color' );
   var Panel = require( 'SUN/Panel' );
-  var HSlider = require( 'SUN/HSlider' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   //string
   var evaporationString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/evaporation' );
-  var noneString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/none' );
   var lotsString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/lots' );
+  var noneString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/none' );
 
   /**
    *

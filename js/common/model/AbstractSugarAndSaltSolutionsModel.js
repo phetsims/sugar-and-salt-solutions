@@ -9,9 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var ConstantDtClock = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ConstantDtClock' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var ConstantDtClock = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ConstantDtClock' );
 
   /**
    * @param {number} framesPerSecond

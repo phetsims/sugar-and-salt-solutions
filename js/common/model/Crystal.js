@@ -10,14 +10,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var Compound = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Compound' );
-  var OpenSite = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/OpenSite' );
-  var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
-  var DivisionResult = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/DivisionResult' );
   var Constituent = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Constituent' );
-  var Vector2 = require( 'DOT/Vector2' );
+  var DivisionResult = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/DivisionResult' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
   var Logger = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Logger' );
+  var OpenSite = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/OpenSite' );
+  var Vector2 = require( 'DOT/Vector2' );
 
 
   /**

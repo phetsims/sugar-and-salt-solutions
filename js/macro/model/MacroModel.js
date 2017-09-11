@@ -9,23 +9,23 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Util = require( 'DOT/Util' );
-  var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
+  var AirborneCrystalMoles = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AirborneCrystalMoles' );
   var BeakerDimension = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/BeakerDimension' );
   var ConductivityTester = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ConductivityTester' );
-  var AirborneCrystalMoles = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AirborneCrystalMoles' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var DispenserType = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/DispenserType' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var MacroSalt = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSalt' );
+  var MacroSaltShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSaltShaker' );
+  var MacroSugar = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSugar' );
+  var MacroSugarDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSugarDispenser' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
+  var Property = require( 'AXON/Property' );
   var SoluteModel = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/SoluteModel' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
-  var DispenserType = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/DispenserType' );
-  var MacroSalt = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSalt' );
-  var MacroSugar = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSugar' );
-  var MacroSaltShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSaltShaker' );
-  var MacroSugarDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSugarDispenser' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var Property = require( 'AXON/Property' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
+  var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
+  var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
 
   // strings

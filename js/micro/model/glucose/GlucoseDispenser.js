@@ -9,9 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var GlucoseCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/GlucoseCrystal' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MicroSugarDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/MicroSugarDispenser' );
-  var GlucoseCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/GlucoseCrystal' );
   var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
 
   /**

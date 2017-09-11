@@ -10,10 +10,10 @@
 define( function( require ) {
   'use strict';
   // modules
+  var DynamicsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DynamicsConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Pair = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Pair' );
   var Vector2 = require( 'DOT/Vector2' );
-  var DynamicsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DynamicsConstants' );
 
   /**
    *

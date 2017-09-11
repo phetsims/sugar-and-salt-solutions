@@ -12,8 +12,8 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Color = require( 'SCENERY/util/Color' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   return Object.freeze( {
     LAYOUT_BOUNDS: new Bounds2( 0, 0, 1024, 618 ),

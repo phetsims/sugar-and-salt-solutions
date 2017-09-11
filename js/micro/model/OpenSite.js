@@ -12,9 +12,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Constituent = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Constituent' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
-  var Constituent = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Constituent' );
 
   /**
    *

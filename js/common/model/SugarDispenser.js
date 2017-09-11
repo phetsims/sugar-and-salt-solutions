@@ -10,10 +10,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var Dispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Dispenser' );
-  var SugarDispenserNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SugarDispenserNode' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
+  var SugarDispenserNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SugarDispenserNode' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 

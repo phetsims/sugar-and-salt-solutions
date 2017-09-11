@@ -10,9 +10,9 @@ define( function( require ) {
   'use strict';
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var Motionless = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/Motionless' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Motionless = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/Motionless' );
 
   /**
    *

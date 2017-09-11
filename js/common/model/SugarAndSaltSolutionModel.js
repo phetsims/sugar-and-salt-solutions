@@ -10,18 +10,18 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AbstractSugarAndSaltSolutionsModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AbstractSugarAndSaltSolutionsModel' );
+  var Beaker = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Beaker' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var DispenserType = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/DispenserType' );
+  var FaucetMetrics = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetMetrics' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Shape = require( 'KITE/Shape' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var AbstractSugarAndSaltSolutionsModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/AbstractSugarAndSaltSolutionsModel' );
-  var FaucetMetrics = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetMetrics' );
-  var VerticalRangeContains = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/VerticalRangeContains' );
-  var Beaker = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Beaker' );
-  var DispenserType = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/DispenserType' );
   var Solution = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Solution' );
   var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var VerticalRangeContains = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/VerticalRangeContains' );
 
   /**
    * @param {number} aspectRatio

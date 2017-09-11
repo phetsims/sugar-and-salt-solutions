@@ -9,54 +9,54 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Logger = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Logger' );
-  var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
   var BeakerDimension = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/BeakerDimension' );
-  var Formula = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Formula' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var DispenserType = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/DispenserType' );
-  var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
-  var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var Property = require( 'AXON/Property' );
-  var ParticleColorConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/ParticleColorConstants' );
-  var Color = require( 'SCENERY/util/Color' );
-  var Sodium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Sodium' );
-  var Chloride = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Chloride' );
-  var Oxygen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Oxygen' );
   var Calcium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Calcium' );
-  var IonColor = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/IonColor' );
+  var CalciumChlorideCrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/calciumchloride/CalciumChlorideCrystalGrowth' );
+  var CalciumChlorideShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/calciumchloride/CalciumChlorideShaker' );
+  var Chloride = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Chloride' );
+  var Color = require( 'SCENERY/util/Color' );
   var CrystalMoleculeCount = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/CrystalMoleculeCount' );
-  var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/Sucrose' );
-  var Glucose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/Glucose' );
-  var Nitrate = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/Nitrate' );
+  var CrystalStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalStrategy' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var DispenserType = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/DispenserType' );
+  var DissolveDisconnectedCrystals = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DissolveDisconnectedCrystals' );
   var DrainData = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DrainData' );
   var Draining = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/Draining' );
-  var CrystalStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalStrategy' );
-  var RandomMotionWhileDraining = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/RandomMotionWhileDraining' );
-  var DissolveDisconnectedCrystals = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DissolveDisconnectedCrystals' );
+  var Formula = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Formula' );
+  var Glucose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/Glucose' );
+  var GlucoseCrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/GlucoseCrystalGrowth' );
+  var GlucoseDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/GlucoseDispenser' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var IonColor = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/IonColor' );
+  var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
+  var Logger = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Logger' );
   var MicroModelKit = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/MicroModelKit' );
+  var Nitrate = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/Nitrate' );
+  var Oxygen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Oxygen' );
+  var ParticleColorConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/ParticleColorConstants' );
   var ParticleCountTable = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/ParticleCountTable' );
-  var SoluteConstituent = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/SoluteConstituent' );
-  var CalciumChlorideShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/calciumchloride/CalciumChlorideShaker' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  var Property = require( 'AXON/Property' );
+  var RandomMotionWhileDraining = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/RandomMotionWhileDraining' );
+  var Sodium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Sodium' );
   var SodiumChlorideCrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumchloride/SodiumChlorideCrystalGrowth' );
   var SodiumChlorideShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumchloride/SodiumChlorideShaker' );
   var SodiumNitrateCrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/SodiumNitrateCrystalGrowth' );
   var SodiumNitrateShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/SodiumNitrateShaker' );
-  var SucroseDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/SucroseDispenser' );
-  var CalciumChlorideCrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/calciumchloride/CalciumChlorideCrystalGrowth' );
+  var SoluteConstituent = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/SoluteConstituent' );
+  var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/Sucrose' );
   var SucroseCrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/SucroseCrystalGrowth' );
-  var GlucoseCrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/GlucoseCrystalGrowth' );
-  var GlucoseDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/GlucoseDispenser' );
-  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  var SucroseDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/SucroseDispenser' );
+  var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
+  var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var sodiumChlorideNewLineString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sodiumChlorideNewLine' );
   var calciumChlorideNewLineString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/calciumChlorideNewLine' );
+  var glucoseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/glucose' );
+  var sodiumChlorideNewLineString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sodiumChlorideNewLine' );
   var sodiumNitrateNewLineString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sodiumNitrateNewLine' );
   var sucroseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sucrose' );
-  var glucoseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/glucose' );
 
   // constants
   //Debugging flag for draining particles through the faucet

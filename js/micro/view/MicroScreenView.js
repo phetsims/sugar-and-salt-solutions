@@ -11,14 +11,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var BeakerAndShakerView = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/BeakerAndShakerView' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var ExpandableConcentrationBarChartNode = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/ExpandableConcentrationBarChartNode' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var MicroSoluteKitList = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/MicroSoluteKitList' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var SphericalParticleNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SphericalParticleNode' );
+  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
 
   // constants
   // Insets to be used for padding between edge of canvas and controls, or between controls

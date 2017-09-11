@@ -11,9 +11,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AtomImageCache = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/AtomImageCache' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var AtomImageCache = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/AtomImageCache' );
   var SimpleSphereNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SimpleSphereNode' );
 
   /**

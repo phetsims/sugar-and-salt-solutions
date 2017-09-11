@@ -11,18 +11,18 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BeakerNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/BeakerNode' );
+  var Bounds2 = require( 'DOT/Bounds2' );
+  var Color = require( 'SCENERY/util/Color' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var EvaporationSlider = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/EvaporationSlider' );
+  var FaucetMetrics = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetMetrics' );
+  var FaucetNodeContainer = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetNodeContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var BeakerNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/BeakerNode' );
-  var WaterNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/WaterNode' );
   var SolutionNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SolutionNode' );
   var SugarAndSaltSolutionsView = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SugarAndSaltSolutionsView' );
-  var EvaporationSlider = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/EvaporationSlider' );
-  var FaucetNodeContainer = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetNodeContainer' );
-  var FaucetMetrics = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/FaucetMetrics' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var Color = require( 'SCENERY/util/Color' );
+  var WaterNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/WaterNode' );
 
   //constants
   var WATER_COLOR = new Color( 179, 239, 243 );

@@ -10,9 +10,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var EventTimer = require( 'PHET_CORE/EventTimer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var EventTimer = require( 'PHET_CORE/EventTimer' );
 
   /**
    *

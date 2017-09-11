@@ -8,10 +8,10 @@
     'use strict';
 
     // modules
-    var inherit = require( 'PHET_CORE/inherit' );
-    var Node = require( 'SCENERY/nodes/Node' );
     var AccordionBox = require( 'SUN/AccordionBox' );
+    var inherit = require( 'PHET_CORE/inherit' );
     var MicroConcentrationBarChart = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/MicroConcentrationBarChart' );
+    var Node = require( 'SCENERY/nodes/Node' );
     var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
     var Text = require( 'SCENERY/nodes/Text' );
 

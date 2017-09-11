@@ -9,9 +9,9 @@
 define( function( require ) {
   'use strict';
   // modules
+  var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Oxygen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Oxygen' );
-  var Color = require( 'SCENERY/util/Color' );
 
   /**
    *

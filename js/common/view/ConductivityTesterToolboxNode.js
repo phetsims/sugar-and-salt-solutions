@@ -14,15 +14,15 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var ConductivityTesterNode = require( 'SCENERY_PHET/ConductivityTesterNode' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var SugarAndSaltSolutionsConductivityTesterNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SugarAndSaltSolutionsConductivityTesterNode' );
-  var ConductivityTesterNode = require( 'SCENERY_PHET/ConductivityTesterNode' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   var conductivityString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/conductivity' );
