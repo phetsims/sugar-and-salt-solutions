@@ -23,9 +23,6 @@ define( function( require ) {
     this.positionProperty = new Property( position );//Interface for setting and observing the position
     this.velocityProperty = new Property( new Vector2() );//Interface for setting and observing the velocity
 
-    Property.preventGetSet( this, 'position' );
-    Property.preventGetSet( this, 'velocity' );
-
     // Strategy instance for updating the model when time passes
     this.updateStrategy = new Motionless();
 

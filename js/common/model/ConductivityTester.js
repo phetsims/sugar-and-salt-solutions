@@ -40,13 +40,6 @@ define( function( require ) {
     this.visibleProperty = new Property( false ); //True if the user has selected to use the conductivity tester
     this.shortCircuitedProperty = new Property( false );
 
-    Property.preventGetSet( this, 'location' );
-    Property.preventGetSet( this, 'negativeProbeLocation' );
-    Property.preventGetSet( this, 'positiveProbeLocation' );
-    Property.preventGetSet( this, 'brightness' );
-    Property.preventGetSet( this, 'visible' );
-    Property.preventGetSet( this, 'shortCircuited' );
-
     //Model bounds corresponding to where the battery and bulb are (set by the view)
     this.batteryRegion = Bounds2.NOTHING;
     this.bulbRegion = Bounds2.NOTHING;
