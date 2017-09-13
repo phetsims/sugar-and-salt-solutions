@@ -12,7 +12,6 @@ define( function( require ) {
   // modules
   var EventTimer = require( 'PHET_CORE/EventTimer' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
 
   /**
    *
@@ -36,7 +35,7 @@ define( function( require ) {
 
   }
 
-  return inherit( PropertySet, ConstantDtClock, {
+  return inherit( Object, ConstantDtClock, {
     //called from AbstractSugarAndSaltSolutionsModel
     step: function( dt ) {
       // step one frame, assuming 60fps
@@ -51,7 +50,6 @@ define( function( require ) {
       this.lastSimulationTime = 0.0;
       this.simulationTime = 0.0;
       this.speed = 1;
-      PropertySet.prototype.reset.call( this );
 
       //fire reset event callback
       for ( var i = 0; i < this.resetCallBacks.length; i++ ) {
