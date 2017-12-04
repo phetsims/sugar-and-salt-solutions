@@ -10,7 +10,7 @@
     "grunt": "~1.0.0"
   },
   "phet": {
-    "automatedTest": false,
+    "automatedTestEnabled": false,
     "requirejsNamespace": "SUGAR_AND_SALT_SOLUTIONS",
     "runnable": true,
     "simulation": true,
