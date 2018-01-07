@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2017, University of Colorado Boulder
 /**
  * Data structure that has the type of the atom, its element identifier and the position in model space
  *

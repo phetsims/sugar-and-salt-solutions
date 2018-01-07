@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 /**
  * This crystal for Sodium Chloride salt updates the positions of the molecules to ensure they move as a crystal
  *

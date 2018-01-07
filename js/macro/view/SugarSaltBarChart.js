@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 /**
  * This bar chart shows the concentrations for both salt and sugar (if any)
  *

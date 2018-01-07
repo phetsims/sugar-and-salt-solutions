@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 /**
  * This strategy moves particles toward the drain at the indicated velocity.  When they reach the drain,
  * they flow out through the drain faucet.

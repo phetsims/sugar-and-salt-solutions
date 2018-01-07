@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 /**
  * A shaker for the "micro tab" emits crystals less frequently than in the macro tab.
  * This class keeps track of when and what to emit.

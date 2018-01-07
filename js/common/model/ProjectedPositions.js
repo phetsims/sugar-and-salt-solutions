@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 /**
  * Provides physical locations (positions) of the atoms within a molecule.
  * Positions sampled from a 2d rasterized view from JMol with ProjectorUtil

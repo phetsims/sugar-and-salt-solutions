@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 /**
  * Data structure for a nitrate (NO3) including references to the particles and
  * the locations relative to the central nitrogen.

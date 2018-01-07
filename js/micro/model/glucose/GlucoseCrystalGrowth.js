@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2017, University of Colorado Boulder
 /**
  * Provides growth for glucose crystals.  Works with IncrementalGrowth by giving
  * it specific information about seeding and creating glucose crystals
