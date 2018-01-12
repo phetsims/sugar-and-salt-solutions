@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -58,7 +58,7 @@ define( function( require ) {
     //Add a checkbox that lets the user toggle on and off whether actual values are shown
     //It is only shown in the first tab, since values are suppressed in the Micro tab
     if ( showShowValuesCheckbox ) {
-      var showValuesCheckbox = new CheckBox( new Text( showValuesString, { font: SugarAndSaltConstants.CONTROL_FONT } ),
+      var showValuesCheckbox = new Checkbox( new Text( showValuesString, { font: SugarAndSaltConstants.CONTROL_FONT } ),
         showValues, {
           boxWidth: 20
         } );
@@ -93,7 +93,7 @@ define( function( require ) {
 //import edu.colorado.phet.common.phetcommon.model.property.SettableProperty;
 //import edu.colorado.phet.common.phetcommon.resources.PhetCommonResources;
 //import edu.colorado.phet.common.phetcommon.util.function.VoidFunction1;
-//import edu.colorado.phet.common.phetcommon.view.controls.PropertyCheckBox;
+//import edu.colorado.phet.common.phetcommon.view.controls.PropertyCheckbox;
 //import edu.colorado.phet.common.piccolophet.event.CursorHandler;
 //import edu.colorado.phet.common.piccolophet.nodes.PhetPPath;
 //import edu.colorado.phet.common.piccolophet.nodes.layout.VBox;

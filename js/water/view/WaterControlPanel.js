@@ -9,7 +9,7 @@
 //
 //import edu.colorado.phet.common.phetcommon.model.property.SettableNot;
 //import edu.colorado.phet.common.phetcommon.view.VerticalLayoutPanel;
-//import edu.colorado.phet.common.phetcommon.view.controls.PropertyCheckBox;
+//import edu.colorado.phet.common.phetcommon.view.controls.PropertyCheckbox;
 //import edu.colorado.phet.common.phetcommon.view.util.SwingUtils;
 //import edu.colorado.phet.common.piccolophet.nodes.PhetPText;
 //import edu.colorado.phet.common.piccolophet.nodes.TextButtonNode;
@@ -43,13 +43,13 @@
 //                new PSwing( new VerticalLayoutPanel() {{
 //
 //                    //Checkbox to show/hide water charges (showing partial charges)
-//                    add( new PropertyCheckBox( WATER_PARTIAL_CHARGES, waterModel.showWaterCharges ) {{
+//                    add( new PropertyCheckbox( WATER_PARTIAL_CHARGES, waterModel.showWaterCharges ) {{
 //                        setFont( CONTROL_FONT );
 //                    }} );
 //
 //                    //Allow the user to show individual atoms within the sugar molecule, but only if a sugar molecule is in the scene
 //                    //Works for both the sugar in the bucket and any in the model
-//                    add( new PropertyCheckBox( SUGAR_HIGHLIGHT, new SettableNot( waterModel.showSugarAtoms ) ) {{
+//                    add( new PropertyCheckbox( SUGAR_HIGHLIGHT, new SettableNot( waterModel.showSugarAtoms ) ) {{
 //                        setFont( CONTROL_FONT );
 //                    }} );
 //                }} ),
