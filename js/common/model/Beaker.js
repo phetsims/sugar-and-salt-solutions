@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'KITE/segments/Line' );
   var Shape = require( 'KITE/Shape' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
 
@@ -50,12 +51,14 @@ define( function( require ) {
     this.topExtension = 0.0;
 
     this.leftWall = new Line( new Vector2( this.x, this.y ), new Vector2( this.x, this.y + this.height ) );
-    this.rightWall = new Line( new Vector2( this.getMaxX() ), this.y, new Vector2( this.getMaxX(), this.y + this.height ) );
+    this.rightWall = new Line( new Vector2( this.getMaxX(), this.y ), new Vector2( this.getMaxX(), this.y + this.height ) );
     this.floor = new Line( new Vector2( this.x, this.y ), new Vector2( this.x + this.width, this.y ) );
     this.topOfSolid = new Line( new Vector2( this.getFloor().start.x, 0 ), new Vector2( this.getFloor().end.x, 0 ) );
     this.beakerRect = Shape.rectangle( this.x, this.y, this.width, this.height + this.topExtension );
 
   }
+
+  sugarAndSaltSolutions.register( 'Beaker', Beaker );
 
   return inherit( Object, Beaker, {
 

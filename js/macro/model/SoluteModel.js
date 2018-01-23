@@ -13,6 +13,7 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @param {Property<number>} waterVolume
@@ -64,6 +65,8 @@ define( function( require ) {
       return moles * gramsPerMole;
     } );
   }
+
+  sugarAndSaltSolutions.register( 'SoluteModel', SoluteModel );
 
   return inherit( Object, SoluteModel, {} );
 } );

@@ -12,6 +12,7 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ObservableArray = require( 'AXON/ObservableArray' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @param {Array} elements
@@ -20,6 +21,8 @@ define( function( require ) {
   function ItemList( elements ) {
     ObservableArray.call( this, elements || [] );
   }
+
+  sugarAndSaltSolutions.register( 'ItemList', ItemList );
 
   return inherit( ObservableArray, ItemList, {
     /**

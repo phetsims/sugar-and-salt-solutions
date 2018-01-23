@@ -13,6 +13,7 @@ define( function( require ) {
   var Dispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Dispenser' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var SugarDispenserNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SugarDispenserNode' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -42,6 +43,8 @@ define( function( require ) {
     this.positions = []; // Vec2 instances
 
   }
+
+  sugarAndSaltSolutions.register( 'SugarDispenser', SugarDispenser );
 
   return inherit( Dispenser, SugarDispenser, {
 

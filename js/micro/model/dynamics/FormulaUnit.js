@@ -13,6 +13,7 @@ define( function( require ) {
   var DynamicsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DynamicsConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Pair = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Pair' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -25,6 +26,7 @@ define( function( require ) {
     Pair.call( this, a, b );
   }
 
+  sugarAndSaltSolutions.register( 'FormulaUnit', FormulaUnit );
   return inherit( Pair, FormulaUnit, {
     /**
      * Get the distance between the particles

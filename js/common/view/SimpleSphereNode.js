@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -30,6 +31,8 @@ define( function( require ) {
       self.y = viewPoint.y - self.bounds.height / 2;
     } );
   }
+
+  sugarAndSaltSolutions.register( 'SimpleSphereNode', SimpleSphereNode );
 
   return inherit( Node, SimpleSphereNode );
 } );

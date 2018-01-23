@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var MacroCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroCrystal' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   //constants
   //Create a sugar crystal with the specified amount in grams /mol
@@ -31,6 +32,8 @@ define( function( require ) {
   function MacroSugar( position, volumePerMole ) {
     MacroCrystal.call( this, position, molesIn5Grams, volumePerMole );
   }
+
+  sugarAndSaltSolutions.register( 'MacroSugar', MacroSugar );
 
   return inherit( MacroCrystal, MacroSugar, {},
     //static

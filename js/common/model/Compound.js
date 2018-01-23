@@ -18,6 +18,7 @@ define( function( require ) {
   var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
   var SphericalParticle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/SphericalParticle' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   var Rectangle = require( 'DOT/Rectangle' );
   var Shape = require( 'KITE/Shape' );
@@ -40,6 +41,8 @@ define( function( require ) {
     //Members in the compound
     this.constituents = new ItemList();
   }
+
+  sugarAndSaltSolutions.register( 'Compound', Compound );
 
   return inherit( Particle, Compound, {
 

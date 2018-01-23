@@ -14,6 +14,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -32,6 +33,8 @@ define( function( require ) {
       return parentBounds.intersectsBounds( pseudoBounds );
     } );
   }
+
+  sugarAndSaltSolutions.register( 'VerticalRangeContains', VerticalRangeContains );
 
   return inherit( DerivedProperty, VerticalRangeContains, {} );
 

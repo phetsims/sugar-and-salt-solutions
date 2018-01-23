@@ -7,6 +7,10 @@
  */
 define( function( require ) {
   'use strict';
+
+  // modules
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+
   var NUMBER_SOLUTE_FORMULAE = 10;
   var ParticleCountTable = {
     // The number of formula (such as NaCl or CaCl3) that the user can add to the solution,
@@ -21,7 +25,7 @@ define( function( require ) {
 
   // verify that enum is immutable, without the runtime penalty in production code
   if ( assert ) { Object.freeze( ParticleCountTable ); }
-
+  sugarAndSaltSolutions.register( 'ParticleCountTable', ParticleCountTable );
   return ParticleCountTable;
 } );
 

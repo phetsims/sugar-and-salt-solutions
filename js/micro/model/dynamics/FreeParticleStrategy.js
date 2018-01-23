@@ -13,6 +13,7 @@ define( function( require ) {
   var DynamicsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DynamicsConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var UpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/UpdateStrategy' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -29,6 +30,7 @@ define( function( require ) {
     UpdateStrategy.call( this, model );
   }
 
+  sugarAndSaltSolutions.register( 'FreeParticleStrategy', FreeParticleStrategy );
   return inherit( UpdateStrategy, FreeParticleStrategy, {
 
     /**

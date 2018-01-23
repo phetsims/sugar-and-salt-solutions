@@ -19,7 +19,9 @@ define( function( require ) {
 
   }
 
-  inherit( Object, Units, {}, {
+  sugarAndSaltSolutions.register( 'Units', Units );
+
+  return inherit( Object, Units, {}, {
     //static methods
     /**
      * Convert picometers to meters (SI)
@@ -51,9 +53,5 @@ define( function( require ) {
     }
 
   } );
-
-  sugarAndSaltSolutions.register( 'Units', Units );
-  return Units;
-
 } );
 

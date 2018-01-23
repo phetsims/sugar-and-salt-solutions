@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @param {Particle} particle
@@ -19,11 +20,16 @@ define( function( require ) {
    * @constructor
    */
   function Constituent( particle, relativePosition ) {
+    assert && assert( !isNaN( relativePosition.x ), 'x should be a number' );
+    assert && assert( !isNaN( relativePosition.y ), 'y should be a number' );
+
     //Relative location within the compound
     this.relativePosition = relativePosition;
     //Particle within the compound
     this.particle = particle;
   }
+
+  sugarAndSaltSolutions.register( 'Constituent', Constituent );
 
   return inherit( Particle, Constituent, {} );
 } );

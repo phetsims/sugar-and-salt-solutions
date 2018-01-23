@@ -13,6 +13,7 @@ define( function( require ) {
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
   var Shape = require( 'KITE/Shape' );
   var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -41,6 +42,8 @@ define( function( require ) {
     this.prevRadius = this.radius;
     this.shapeBounds = this.shape.bounds;
   }
+
+  sugarAndSaltSolutions.register( 'SphericalParticle', SphericalParticle );
 
   return inherit( Particle, SphericalParticle, {
     /**

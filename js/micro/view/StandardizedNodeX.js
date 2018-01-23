@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -25,5 +26,6 @@ define( function( require ) {
     node.y = node.y;
   }
 
+  sugarAndSaltSolutions.register( 'StandardizedNodeX', StandardizedNodeX );
   return inherit( Node, StandardizedNodeX );
 } );

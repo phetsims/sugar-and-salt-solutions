@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SimpleSphereNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SimpleSphereNode' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -69,6 +70,8 @@ define( function( require ) {
       self.invalidateBounds();
     }
   }
+
+  sugarAndSaltSolutions.register( 'SphericalParticleNode', SphericalParticleNode );
 
   return inherit( Node, SphericalParticleNode );
 } );

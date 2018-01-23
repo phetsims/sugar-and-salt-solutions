@@ -19,6 +19,7 @@ define( function( require ) {
   'use strict';
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -31,6 +32,7 @@ define( function( require ) {
     this.waterVolume = model.waterVolume;
   }
 
+  sugarAndSaltSolutions.register( 'UpdateStrategy', UpdateStrategy );
   return inherit( Object, UpdateStrategy, {
     /**
      * @abstract

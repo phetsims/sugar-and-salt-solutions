@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var SaltShakerNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SaltShakerNode' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
 
@@ -51,6 +52,8 @@ define( function( require ) {
     );
 
   }
+
+  sugarAndSaltSolutions.register( 'SaltShaker', SaltShaker );
 
   return inherit( Dispenser, SaltShaker, {
     //Called when the model steps in time, and adds any salt crystals to the sim if the dispenser is pouring

@@ -14,6 +14,7 @@ define( function( require ) {
   // modules
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -38,6 +39,8 @@ define( function( require ) {
     } );
     //Notification based on changes is handled in SugarAndSaltSolutionModel when the crystal list is modified
   }
+
+  sugarAndSaltSolutions.register( 'AirborneCrystalMoles', AirborneCrystalMoles );
 
   return inherit( DerivedProperty, AirborneCrystalMoles, {} );
 

@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ParticleColorConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/ParticleColorConstants' );
   var SphericalParticle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/SphericalParticle' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @param {Object} [options] for use by clients that need to support other partial charge models.
@@ -29,6 +30,8 @@ define( function( require ) {
 
     SphericalParticle.call( this, options );
   }
+
+  sugarAndSaltSolutions.register( 'Nitrogen', Nitrogen );
 
   return inherit( SphericalParticle, Nitrogen, {} );
 

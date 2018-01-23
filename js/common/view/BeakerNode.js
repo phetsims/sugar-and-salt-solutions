@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @param {Beaker} beaker
@@ -27,6 +28,8 @@ define( function( require ) {
       }
     ) );
   }
+
+  sugarAndSaltSolutions.register( 'BeakerNode', BeakerNode );
 
   return inherit( Node, BeakerNode );
 } );

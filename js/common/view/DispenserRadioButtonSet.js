@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
@@ -40,6 +41,8 @@ define( function( require ) {
 
     self.addChild( new VerticalAquaRadioButtonGroup( dispensersRadioItems, { touchAreaXDilation: 5 } ) );
   }
+
+  sugarAndSaltSolutions.register( 'DispenserRadioButtonSet', DispenserRadioButtonSet );
 
   return inherit( Node, DispenserRadioButtonSet, {
     /**

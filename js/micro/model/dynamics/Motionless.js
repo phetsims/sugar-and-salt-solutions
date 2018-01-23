@@ -14,6 +14,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var IUpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/IUpdateStrategy' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @constructor
@@ -22,6 +23,7 @@ define( function( require ) {
 
   }
 
+  sugarAndSaltSolutions.register( 'Motionless', Motionless );
   return inherit( IUpdateStrategy, Motionless, {
 
     /**

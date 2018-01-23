@@ -14,6 +14,7 @@ define( function( require ) {
   var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   //constants
   var SALT_COLOR = new Color( 255, 255, 255 );
@@ -71,6 +72,8 @@ define( function( require ) {
     }
 
   }
+
+  sugarAndSaltSolutions.register( 'CrystalMakerCanvasNode', CrystalMakerCanvasNode );
 
   return inherit( CanvasNode, CrystalMakerCanvasNode, {
 

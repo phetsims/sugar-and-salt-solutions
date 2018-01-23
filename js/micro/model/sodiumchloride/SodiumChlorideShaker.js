@@ -13,6 +13,7 @@ define( function( require ) {
   var MicroShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/MicroShaker' );
   var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
   var SodiumChlorideCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumchloride/SodiumChlorideCrystal' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @param {number} x
@@ -30,6 +31,7 @@ define( function( require ) {
     MicroShaker.call( this, x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model );
   }
 
+  sugarAndSaltSolutions.register( 'SodiumChlorideShaker', SodiumChlorideShaker );
   return inherit( MicroShaker, SodiumChlorideShaker, {
 
     /**

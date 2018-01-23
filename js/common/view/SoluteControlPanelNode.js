@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -42,6 +43,8 @@ define( function( require ) {
       lineWidth: 1
     } );
   }
+
+  sugarAndSaltSolutions.register( 'SoluteControlPanelNode', SoluteControlPanelNode );
 
   return inherit( Panel, SoluteControlPanelNode );
 } );

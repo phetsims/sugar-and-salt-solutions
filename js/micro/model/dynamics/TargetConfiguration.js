@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @param {ItemList<CrystallizationMatch>} list
@@ -27,6 +28,7 @@ define( function( require ) {
     }, 0.0 ); // 0.0 initialValue
   }
 
+  sugarAndSaltSolutions.register( 'TargetConfiguration', TargetConfiguration );
   return inherit( Particle, TargetConfiguration, {
     /**
      * @returns {ItemList.<CrystallizationMatch>}

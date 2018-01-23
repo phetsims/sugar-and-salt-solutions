@@ -17,6 +17,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Util = require( 'DOT/Util' );
 
   // strings
@@ -112,6 +113,8 @@ define( function( require ) {
     } );
 
   }
+
+  sugarAndSaltSolutions.register( 'Bar', Bar );
 
   return inherit( Node, Bar );
 

@@ -14,6 +14,7 @@ define( function( require ) {
   var BeakerAndShakerConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/BeakerAndShakerConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -30,6 +31,8 @@ define( function( require ) {
     } );
 
   }
+
+  sugarAndSaltSolutions.register( 'WaterNode', WaterNode );
 
   return inherit( Path, WaterNode, {} );
 

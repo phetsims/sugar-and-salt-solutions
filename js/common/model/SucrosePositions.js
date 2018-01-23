@@ -17,6 +17,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ProjectedPositions = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ProjectedPositions' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @constructor
@@ -69,6 +70,8 @@ define( function( require ) {
                                    'O 480, 198',
       SugarAndSaltConstants.SUCROSE_SCALE );
   }
+
+  sugarAndSaltSolutions.register( 'SucrosePositions', SucrosePositions );
 
   return inherit( ProjectedPositions, SucrosePositions );
 } );

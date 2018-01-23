@@ -17,6 +17,7 @@ define( function( require ) {
   var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
   var Logger = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Logger' );
   var OpenSite = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/OpenSite' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
 
@@ -50,6 +51,8 @@ define( function( require ) {
     this.eastUnitVector = new Vector2( 1, 0 ).times( spacing ).rotated( angle );
     this.westUnitVector = new Vector2( -1, 0 ).times( spacing ).rotated( angle );
   }
+
+  sugarAndSaltSolutions.register( 'Crystal', Crystal );
 
   return inherit( Compound, Crystal, {
     /**

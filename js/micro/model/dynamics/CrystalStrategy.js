@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var CrystalDissolve = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/CrystalDissolve' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var UpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/UpdateStrategy' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -31,6 +32,7 @@ define( function( require ) {
     this.crystalDissolve = new CrystalDissolve( model );
   }
 
+  sugarAndSaltSolutions.register( 'CrystalStrategy', CrystalStrategy );
   return inherit( UpdateStrategy, CrystalStrategy, {
 
     /**

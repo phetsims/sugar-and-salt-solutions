@@ -12,6 +12,7 @@ define( function( require ) {
   var FormulaUnit = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FormulaUnit' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -35,5 +36,6 @@ define( function( require ) {
     } );
   }
 
+  sugarAndSaltSolutions.register( 'AllPairs', AllPairs );
   return inherit( ItemList, AllPairs );
 } );

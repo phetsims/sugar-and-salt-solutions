@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
 
   // Map that contains the loaded images
@@ -25,6 +26,7 @@ define( function( require ) {
   function AtomImageCache() {
   }
 
+  sugarAndSaltSolutions.register( 'AtomImageCache', AtomImageCache );
   return inherit( Object, AtomImageCache, {},
     //statics
     {

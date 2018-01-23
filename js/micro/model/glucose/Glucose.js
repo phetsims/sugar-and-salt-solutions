@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var GlucosePositions = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/GlucosePositions' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var SugarMolecule = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/SugarMolecule' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -25,6 +26,7 @@ define( function( require ) {
       new GlucosePositions() );
   }
 
+  sugarAndSaltSolutions.register( 'Glucose', Glucose );
   return inherit( SugarMolecule, Glucose );
 } );
 

@@ -16,6 +16,7 @@ define( function( require ) {
   var ConductivityTesterNode = require( 'SCENERY_PHET/ConductivityTesterNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -54,6 +55,8 @@ define( function( require ) {
 
     } );
   }
+
+  sugarAndSaltSolutions.register( 'SugarAndSaltSolutionsConductivityTesterNode', SugarAndSaltSolutionsConductivityTesterNode );
 
   return inherit( ConductivityTesterNode, SugarAndSaltSolutionsConductivityTesterNode, {
 

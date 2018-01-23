@@ -14,6 +14,7 @@ define( function( require ) {
   var Glucose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/Glucose' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
 
   /**
@@ -32,6 +33,7 @@ define( function( require ) {
       angle );
   }
 
+  sugarAndSaltSolutions.register( 'GlucoseCrystal', GlucoseCrystal );
   return inherit( Crystal, GlucoseCrystal, {
 
     /**

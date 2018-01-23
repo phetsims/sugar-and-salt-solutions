@@ -16,6 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Nitrogen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Nitrogen' );
   var SodiumNitrateConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/SodiumNitrateConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -36,6 +37,7 @@ define( function( require ) {
 
   }
 
+  sugarAndSaltSolutions.register( 'Nitrate', Nitrate );
   return inherit( Compound, Nitrate );
 } );
 // Copyright 2002-2015, University of Colorado Boulder

@@ -12,6 +12,7 @@ define( function( require ) {
   var DynamicsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DynamicsConstants' );
   var FreeParticleStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FreeParticleStrategy' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -26,6 +27,7 @@ define( function( require ) {
     this.lastDissolve = new Date().getTime();
   }
 
+  sugarAndSaltSolutions.register( 'CrystalDissolve', CrystalDissolve );
   return inherit( Object, CrystalDissolve, {
 
     /**

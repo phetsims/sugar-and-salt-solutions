@@ -13,6 +13,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -26,6 +27,7 @@ define( function( require ) {
     this.values = [];
   }
 
+  sugarAndSaltSolutions.register( 'Map', Map );
   return inherit( Object, Map, {
     put: function( key, value ) {
       var index = this.keys.indexOf( key );

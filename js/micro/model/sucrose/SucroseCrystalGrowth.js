@@ -17,6 +17,7 @@ define( function( require ) {
   var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
   var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/Sucrose' );
   var SucroseCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/SucroseCrystal' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -28,6 +29,7 @@ define( function( require ) {
     CrystalGrowth.call( this, model, crystals );
   }
 
+  sugarAndSaltSolutions.register( 'SucroseCrystalGrowth', SucroseCrystalGrowth );
   return inherit( CrystalGrowth, SucroseCrystalGrowth, {
     /**
      * @override

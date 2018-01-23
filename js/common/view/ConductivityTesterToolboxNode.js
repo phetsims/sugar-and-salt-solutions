@@ -20,6 +20,7 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var SugarAndSaltSolutionsConductivityTesterNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SugarAndSaltSolutionsConductivityTesterNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -123,6 +124,8 @@ define( function( require ) {
     var initialLocation = modelViewTransform.viewToModelPosition( self.bounds.center );
     conductivityTester.setLocation( initialLocation );
   }
+
+  sugarAndSaltSolutions.register( 'ConductivityTesterToolboxNode', ConductivityTesterToolboxNode );
 
   return inherit( Panel, ConductivityTesterToolboxNode, {} );
 

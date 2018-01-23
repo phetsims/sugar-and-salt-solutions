@@ -48,6 +48,7 @@ define( function( require ) {
   var SucroseCrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/SucroseCrystalGrowth' );
   var SucroseDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/SucroseDispenser' );
   var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -302,6 +303,7 @@ define( function( require ) {
 
   }
 
+  sugarAndSaltSolutions.register( 'MicroModel', MicroModel );
   return inherit( SugarAndSaltSolutionModel, MicroModel, {
     /**
      * store the concentrations of all solutes and set up a drain schedule, so that particles will flow out at rates so as to

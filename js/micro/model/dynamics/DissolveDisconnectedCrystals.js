@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Logger = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Logger' );
   var Map = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Map' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -27,6 +28,7 @@ define( function( require ) {
     this.numberStepsDisconnected = new Map(); // {key:Crystal, value:Integer>}
   }
 
+  sugarAndSaltSolutions.register( 'DissolveDisconnectedCrystals', DissolveDisconnectedCrystals );
   return inherit( Object, DissolveDisconnectedCrystals, {
 
     /**

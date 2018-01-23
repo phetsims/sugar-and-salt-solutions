@@ -13,6 +13,7 @@ define( function( require ) {
   var DispenserNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/DispenserNode' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
 
   // images
@@ -59,6 +60,8 @@ define( function( require ) {
     //in the auto-callback above
     DispenserNode.prototype.updateTransform.call( this );
   }
+
+  sugarAndSaltSolutions.register( 'SaltShakerNode', SaltShakerNode );
 
   return inherit( DispenserNode, SaltShakerNode );
 

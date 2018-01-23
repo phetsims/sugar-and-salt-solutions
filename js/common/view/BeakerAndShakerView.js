@@ -21,6 +21,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SolutionNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SolutionNode' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var SugarAndSaltSolutionsView = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SugarAndSaltSolutionsView' );
   var WaterNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/WaterNode' );
 
@@ -153,6 +154,8 @@ define( function( require ) {
     self.behindShakerNode.addChild( evaporationSlider );
 
   }
+
+  sugarAndSaltSolutions.register( 'BeakerAndShakerView', BeakerAndShakerView );
 
   return inherit( SugarAndSaltSolutionsView, BeakerAndShakerView, {} );
 } );

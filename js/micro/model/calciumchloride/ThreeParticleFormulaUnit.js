@@ -12,6 +12,7 @@ define( function( require ) {
   var DynamicsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DynamicsConstants' );
   var FormulaUnit = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FormulaUnit' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -32,6 +33,7 @@ define( function( require ) {
     this.c = c;
   }
 
+  sugarAndSaltSolutions.register( 'ThreeParticleFormulaUnit', ThreeParticleFormulaUnit );
   return inherit( FormulaUnit, ThreeParticleFormulaUnit, {
     /**
      * Determine how far apart all constituents are

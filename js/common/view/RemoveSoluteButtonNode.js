@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
   /**
@@ -37,6 +38,8 @@ define( function( require ) {
       self.visible = visible;
     } );
   }
+
+  sugarAndSaltSolutions.register( 'RemoveSoluteButtonNode', RemoveSoluteButtonNode );
 
   return inherit( Node, RemoveSoluteButtonNode );
 } );

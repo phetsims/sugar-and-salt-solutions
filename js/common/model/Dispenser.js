@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -68,6 +69,8 @@ define( function( require ) {
     } );
 
   }
+
+  sugarAndSaltSolutions.register( 'Dispenser', Dispenser );
 
   return inherit( Object, Dispenser, {
     /**

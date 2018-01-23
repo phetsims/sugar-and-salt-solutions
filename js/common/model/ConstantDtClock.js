@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var EventTimer = require( 'PHET_CORE/EventTimer' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -34,6 +35,8 @@ define( function( require ) {
     } );
 
   }
+
+  sugarAndSaltSolutions.register( 'ConstantDtClock', ConstantDtClock );
 
   return inherit( Object, ConstantDtClock, {
     //called from AbstractSugarAndSaltSolutionsModel

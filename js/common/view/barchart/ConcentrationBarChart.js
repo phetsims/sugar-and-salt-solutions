@@ -17,6 +17,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
@@ -70,6 +71,8 @@ define( function( require ) {
     //Only show this bar chart if the user has opted to do so
     visible.linkAttribute( self, 'visible' );
   }
+
+  sugarAndSaltSolutions.register( 'ConcentrationBarChart', ConcentrationBarChart );
 
   return inherit( Node, ConcentrationBarChart, {
     //@protected

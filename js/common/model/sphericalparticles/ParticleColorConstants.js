@@ -10,10 +10,14 @@ define( function( require ) {
   // modules
   var Color = require( 'SCENERY/util/Color' );
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
-  return Object.freeze( {
+  var ParticleColorConstants = Object.freeze( {
     NEUTRAL_COLOR: Color.YELLOW, //Color to use for neutrally charged objects
     POSITIVE_COLOR: PhetColorScheme.RED_COLORBLIND,
     NEGATIVE_COLOR: Color.BLUE
   } );
+
+  sugarAndSaltSolutions.register( 'ParticleColorConstants', ParticleColorConstants );
+  return ParticleColorConstants;
 } );

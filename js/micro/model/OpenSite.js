@@ -15,6 +15,7 @@ define( function( require ) {
   var Constituent = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Constituent' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -40,6 +41,7 @@ define( function( require ) {
     this.absolutePosition = absolutePosition;
   }
 
+  sugarAndSaltSolutions.register( 'OpenSite', OpenSite );
   return inherit( Particle, OpenSite, {
     /**
      * @returns {Constituent}

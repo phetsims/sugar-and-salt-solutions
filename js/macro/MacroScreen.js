@@ -17,6 +17,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   // strings
   var macroString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/macro' );
@@ -46,6 +47,8 @@ define( function( require ) {
       options
     );
   }
+
+  sugarAndSaltSolutions.register( 'MacroScreen', MacroScreen );
 
   return inherit( Screen, MacroScreen );
 } );

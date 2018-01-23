@@ -18,6 +18,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
   var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var ThreeParticleFormulaUnit = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/calciumchloride/ThreeParticleFormulaUnit' );
 
   /**
@@ -30,6 +31,7 @@ define( function( require ) {
     CrystalGrowth.call( this, model, crystals );
   }
 
+  sugarAndSaltSolutions.register( 'CalciumChlorideCrystalGrowth', CalciumChlorideCrystalGrowth );
   return inherit( CrystalGrowth, CalciumChlorideCrystalGrowth, {
     /**
      * @protected

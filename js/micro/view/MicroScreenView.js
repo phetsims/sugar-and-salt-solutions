@@ -19,6 +19,7 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var SphericalParticleNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SphericalParticleNode' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   // constants
   // Insets to be used for padding between edge of canvas and controls, or between controls
@@ -80,6 +81,7 @@ define( function( require ) {
 
   }
 
+  sugarAndSaltSolutions.register( 'MicroScreenView', MicroScreenView );
   return inherit( BeakerAndShakerView, MicroScreenView, {
     step: function( dt ) {
       // Handle view animation here.

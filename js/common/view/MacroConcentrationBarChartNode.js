@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var SugarSaltBarChart = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/SugarSaltBarChart' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -29,7 +30,7 @@ define( function( require ) {
    * @param {number} scaleFactor
    * @constructor
    */
-  function ExpandableConcentrationBarChartNode( showConcentrationBarChart, saltConcentration, sugarConcentration, showConcentrationValues, scaleFactor ) {
+  function MacroConcentrationBarChartNode( showConcentrationBarChart, saltConcentration, sugarConcentration, showConcentrationValues, scaleFactor ) {
     var self = this;
     Node.call( self, { fill: SugarAndSaltConstants.WATER_COLOR } );
 
@@ -59,7 +60,9 @@ define( function( require ) {
     self.addChild( accordionBoxNode );
   }
 
-  return inherit( Node, ExpandableConcentrationBarChartNode );
+  sugarAndSaltSolutions.register( 'MacroConcentrationBarChartNode', MacroConcentrationBarChartNode );
+
+  return inherit( Node, MacroConcentrationBarChartNode );
 
 } );
 

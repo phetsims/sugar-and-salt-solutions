@@ -13,6 +13,7 @@ define( function( require ) {
   var DynamicsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DynamicsConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SphericalParticle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/SphericalParticle' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var UpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/UpdateStrategy' );
 
   /**
@@ -26,6 +27,7 @@ define( function( require ) {
     UpdateStrategy.call( this, model );
   }
 
+  sugarAndSaltSolutions.register( 'FlowOutOfDrainStrategy', FlowOutOfDrainStrategy );
   return inherit( UpdateStrategy, FlowOutOfDrainStrategy, {
 
     /**

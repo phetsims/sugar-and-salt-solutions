@@ -9,6 +9,9 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+
   var DynamicsConstants = {
     FREE_PARTICLE_SPEED: 6E-10,//Speed at which freely moving particles should random walk
 
@@ -20,6 +23,8 @@ define( function( require ) {
 
   // verify that enum is immutable, without the runtime penalty in production code
   if ( assert ) { Object.freeze( DynamicsConstants ); }
+
+  sugarAndSaltSolutions.register( 'DynamicsConstants', DynamicsConstants );
 
   return DynamicsConstants;
 

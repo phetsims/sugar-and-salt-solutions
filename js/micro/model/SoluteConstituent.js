@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var IonConcentration = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/IonConcentration' );
   var Property = require( 'AXON/Property' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -55,6 +56,7 @@ define( function( require ) {
     this.color = color;
   }
 
+  sugarAndSaltSolutions.register( 'SoluteConstituent', SoluteConstituent );
   return inherit( Object, SoluteConstituent );
 } );
 

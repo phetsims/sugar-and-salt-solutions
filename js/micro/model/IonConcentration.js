@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
 
   /**
@@ -38,6 +39,7 @@ define( function( require ) {
 
   }
 
+  sugarAndSaltSolutions.register( 'IonConcentration', IonConcentration );
   return inherit( DerivedProperty, IonConcentration );
 } );
 

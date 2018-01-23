@@ -13,6 +13,7 @@ define( function( require ) {
   var ConcentrationBarChart = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/barchart/ConcentrationBarChart' );
   var inherit = require( 'PHET_CORE/inherit' );
   var StandardizedNodeX = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/StandardizedNodeX' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
 
   /**
@@ -32,6 +33,7 @@ define( function( require ) {
     this.showValues = showValues;
   }
 
+  sugarAndSaltSolutions.register( 'MicroConcentrationBarChart', MicroConcentrationBarChart );
   return inherit( ConcentrationBarChart, MicroConcentrationBarChart, {
 
     //Clear the previous bars and display the specified bars

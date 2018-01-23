@@ -20,6 +20,7 @@ define( function( require ) {
   var Nitrate = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/Nitrate' );
   var Sodium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Sodium' );
   var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/Sucrose' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
 
   /**
@@ -29,6 +30,8 @@ define( function( require ) {
   function Formula( map ) {
     this.map = map;
   }
+
+  sugarAndSaltSolutions.register( 'Formula', Formula );
 
   var FormulaExt = inherit( Object, Formula, {
     /**

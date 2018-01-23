@@ -9,8 +9,11 @@ define( function( require ) {
 
   // modules
   var Property = require( 'AXON/Property' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
-  return {
+  var SugarAndSaltSharedProperties = {
     sizeScale: new Property( 1 )
   };
+  sugarAndSaltSolutions.register( 'SugarAndSaltSharedProperties', SugarAndSaltSharedProperties );
+  return SugarAndSaltSharedProperties;
 } );

@@ -14,6 +14,7 @@ define( function( require ) {
   var Formula = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Formula' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Sodium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Sodium' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -25,6 +26,7 @@ define( function( require ) {
     Crystal.call( this, Formula.SODIUM_CHLORIDE, position, new Chloride().radius + new Sodium().radius, angle );
   }
 
+  sugarAndSaltSolutions.register( 'SodiumChlorideCrystal', SodiumChlorideCrystal );
   return inherit( Crystal, SodiumChlorideCrystal, {
 
     /**

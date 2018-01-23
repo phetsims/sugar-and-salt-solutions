@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MicroShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/MicroShaker' );
   var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -32,6 +33,7 @@ define( function( require ) {
 
   }
 
+  sugarAndSaltSolutions.register( 'CalciumChlorideShaker', CalciumChlorideShaker );
   return inherit( MicroShaker, CalciumChlorideShaker, {
     /**
      *

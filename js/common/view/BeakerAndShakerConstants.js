@@ -12,11 +12,15 @@ define( function( require ) {
   // modules
   var Color = require( 'SCENERY/util/Color' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
-  return Object.freeze( {
+  var BeakerAndShakerConstants = Object.freeze( {
     WATER_COLOR: new Color( 179, 239, 243 ),
     CONTROL_FONT: new PhetFont( 16 )
   } );
+  sugarAndSaltSolutions.register( 'BeakerAndShakerConstants', BeakerAndShakerConstants );
+
+  return BeakerAndShakerConstants;
 
 } )
 ;

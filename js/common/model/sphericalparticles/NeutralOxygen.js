@@ -11,6 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Oxygen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Oxygen' );
   var ParticleColorConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/ParticleColorConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @constructor
@@ -20,6 +21,8 @@ define( function( require ) {
       chargeColor: ParticleColorConstants.NEUTRAL_COLOR
     } );
   }
+
+  sugarAndSaltSolutions.register( 'NeutralOxygen', NeutralOxygen );
 
   return inherit( Oxygen, NeutralOxygen, {} );
 

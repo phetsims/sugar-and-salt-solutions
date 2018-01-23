@@ -24,6 +24,7 @@ define( function( require ) {
   var SoluteModel = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/SoluteModel' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
   var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -162,6 +163,8 @@ define( function( require ) {
       self.updateConductivityTesterBrightness();
     } );
   }
+
+  sugarAndSaltSolutions.register( 'MacroModel', MacroModel );
 
   return inherit( SugarAndSaltSolutionModel, MacroModel, {
     /**

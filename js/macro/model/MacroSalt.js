@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var MacroCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroCrystal' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   //constants
   //Manually tuned to make it so that grains are small but it doesn't take too long to get the concentration bar to appear
@@ -30,6 +31,8 @@ define( function( require ) {
   function MacroSalt( position, volumePerMole ) {
     MacroCrystal.call( this, position, molesIn5Grams, volumePerMole );
   }
+
+  sugarAndSaltSolutions.register( 'MacroSalt', MacroSalt );
 
   return inherit( MacroCrystal, MacroSalt, {},
     //static

@@ -13,6 +13,7 @@ define( function( require ) {
   var MicroConcentrationBarChart = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/MicroConcentrationBarChart' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
@@ -55,6 +56,7 @@ define( function( require ) {
 
   }
 
+  sugarAndSaltSolutions.register( 'ExpandableConcentrationBarChartNode', ExpandableConcentrationBarChartNode );
   return inherit( Node, ExpandableConcentrationBarChartNode, {
     //Clear the previous bars and display the specified bars
     setBars: function( bars ) {

@@ -12,6 +12,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Oxygen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Oxygen' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -22,6 +23,8 @@ define( function( require ) {
       chargeColor: Color.BLUE
     } );
   }
+
+  sugarAndSaltSolutions.register( 'FreeOxygen', FreeOxygen );
 
   return inherit( Oxygen, FreeOxygen, {} );
 

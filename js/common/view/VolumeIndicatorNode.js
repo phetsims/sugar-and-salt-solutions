@@ -14,6 +14,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
@@ -62,6 +63,8 @@ define( function( require ) {
       self.y = waterViewBounds.getY() + INSET;
     } );
   }
+
+  sugarAndSaltSolutions.register( 'VolumeIndicatorNode', VolumeIndicatorNode );
 
   return inherit( Node, VolumeIndicatorNode );
 } );

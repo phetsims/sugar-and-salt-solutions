@@ -17,6 +17,7 @@ define( function( require ) {
   var GlucoseCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/GlucoseCrystal' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
 
   /**
@@ -29,6 +30,7 @@ define( function( require ) {
     CrystalGrowth.call( this, model, crystals );
   }
 
+  sugarAndSaltSolutions.register( 'GlucoseCrystalGrowth', GlucoseCrystalGrowth );
   return inherit( CrystalGrowth, GlucoseCrystalGrowth, {
 
     /**

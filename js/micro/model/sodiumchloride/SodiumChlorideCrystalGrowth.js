@@ -18,6 +18,7 @@ define( function( require ) {
   var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
   var Sodium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Sodium' );
   var SodiumChlorideCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumchloride/SodiumChlorideCrystal' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -29,6 +30,7 @@ define( function( require ) {
     CrystalGrowth.call( this, model, crystals );
   }
 
+  sugarAndSaltSolutions.register( 'SodiumChlorideCrystalGrowth', SodiumChlorideCrystalGrowth );
   return inherit( CrystalGrowth, SodiumChlorideCrystalGrowth, {
     /**
      * @returns {AllPairs}

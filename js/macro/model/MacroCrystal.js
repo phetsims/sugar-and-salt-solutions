@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -42,6 +43,8 @@ define( function( require ) {
     self.landed = false;
 
   }
+
+  sugarAndSaltSolutions.register( 'MacroCrystal', MacroCrystal );
 
   return inherit( Object, MacroCrystal, {
 

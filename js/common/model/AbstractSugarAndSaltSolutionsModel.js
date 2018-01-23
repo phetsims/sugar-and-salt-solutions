@@ -12,6 +12,7 @@ define( function( require ) {
   var ConstantDtClock = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ConstantDtClock' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @param {number} framesPerSecond
@@ -27,6 +28,8 @@ define( function( require ) {
     //The clock is never turned off in the first tab, since there are no dynamics and hence no pause button
     this.clockRunning = new Property( true );
   }
+
+  sugarAndSaltSolutions.register( 'AbstractSugarAndSaltSolutionsModel', AbstractSugarAndSaltSolutionsModel );
 
   return inherit( Object, AbstractSugarAndSaltSolutionsModel, {
     step: function( dt ) {

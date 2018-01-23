@@ -16,6 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NeutralOxygen = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/NeutralOxygen' );
   var SphericalParticle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/SphericalParticle' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -31,6 +32,8 @@ define( function( require ) {
     //@private conversion factor from pixels to model units (meters)
     this.scale = scale;
   }
+
+  sugarAndSaltSolutions.register( 'ProjectedPositions', ProjectedPositions );
 
   return inherit( Object, ProjectedPositions, {
 
@@ -77,6 +80,9 @@ define( function( require ) {
       //Read the type and location
       var x = +items[ 0 ].split( ' ' )[ 1 ];
       var y = +items[ 1 ];
+
+      assert && assert( !isNaN( x ), 'x should be a number' );
+      assert && assert( !isNaN( y ), 'y should be a number' );
       return new Vector2( x, y );
     },
 
@@ -93,7 +99,7 @@ define( function( require ) {
       //Read the type and location
       var type = items[ 0 ].split( ' ' )[ 0 ]; // TODO remove duplicate Ashraf
       var x = +items[ 0 ].split( ' ' )[ 1 ];
-      var y = +items[ 1 ];
+      var y = +items[ 1 ].trim().split( ' ' )[ 0 ]; // drop "charge" when it exists
 
       //For showing partial charges on sucrose, read from the file from certain atoms that have a charge
       //http://www.chemistryland.com/CHM130W/LabHelp/Experiment10/Exp10.html
@@ -104,6 +110,9 @@ define( function( require ) {
 
       //Add an atom instance based on the type, location and partial charge (if any)
       var finalCharge = charge;
+
+      assert && assert( !isNaN( x ), 'x should be a number' );
+      assert && assert( !isNaN( y ), 'y should be a number' );
       var atomPosition = new AtomPosition( type, this.toModel( new Vector2( x, y ) ) );
 
       //override

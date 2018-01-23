@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @constructor
@@ -24,6 +25,7 @@ define( function( require ) {
     this.formulae = new ItemList( formulaeArray );
   }
 
+  sugarAndSaltSolutions.register( 'MicroModelKit', MicroModelKit );
   return inherit( Object, MicroModelKit, {
     getFormulae: function() {
       return this.formulae;

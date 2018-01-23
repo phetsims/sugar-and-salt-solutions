@@ -17,6 +17,7 @@ define( function( require ) {
   var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
   var Logger = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Logger' );
   var ObservableArray = require( 'AXON/ObservableArray' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
 
@@ -34,6 +35,7 @@ define( function( require ) {
     this.usedParticles = new ObservableArray();
   }
 
+  sugarAndSaltSolutions.register( 'Draining', Draining );
   return inherit( Object, Draining, {
 
     /**

@@ -14,6 +14,7 @@ define( function( require ) {
   var Crystal = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Crystal' );
   var Formula = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Formula' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -25,6 +26,7 @@ define( function( require ) {
     Crystal.call( this, Formula.CALCIUM_CHLORIDE, position, new Calcium().radius + new Chloride().radius, angle );
   }
 
+  sugarAndSaltSolutions.register( 'CalciumChlorideCrystal', CalciumChlorideCrystal );
   return inherit( Crystal, CalciumChlorideCrystal, {
     /**
      * @override

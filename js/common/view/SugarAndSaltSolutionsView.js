@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -26,6 +27,8 @@ define( function( require ) {
     this.rootNode = new Node();
     ScreenView.prototype.addChild.call( this, this.rootNode );
   }
+
+  sugarAndSaltSolutions.register( 'SugarAndSaltSolutionsView', SugarAndSaltSolutionsView );
 
   return inherit( ScreenView, SugarAndSaltSolutionsView, {
     addChild: function( node ) {

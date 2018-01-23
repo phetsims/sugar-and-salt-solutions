@@ -10,9 +10,11 @@ define( function( require ) {
   'use strict';
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   function RandomUtil() {}
 
+  sugarAndSaltSolutions.register( 'RandomUtil', RandomUtil );
   return inherit( Object, RandomUtil, {},
     //static
     {

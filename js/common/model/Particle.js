@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Motionless = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/Motionless' );
   var Property = require( 'AXON/Property' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -20,7 +21,14 @@ define( function( require ) {
    * @constructor
    */
   function Particle( position ) {
+    assert && assert( !isNaN( position.x ), 'x should be a number' );
+    assert && assert( !isNaN( position.y ), 'y should be a number' );
+
     this.positionProperty = new Property( position );//Interface for setting and observing the position
+    this.positionProperty.link( function( position ) {
+      assert && assert( !isNaN( position.x ), 'x should be a number' );
+      assert && assert( !isNaN( position.y ), 'y should be a number' );
+    } );
     this.velocityProperty = new Property( new Vector2() );//Interface for setting and observing the velocity
 
     // Strategy instance for updating the model when time passes
@@ -31,6 +39,8 @@ define( function( require ) {
     //In this case it should still be prevented from leaving the water area
     this.isSubmerged = false;
   }
+
+  sugarAndSaltSolutions.register( 'Particle', Particle );
 
   return inherit( Object, Particle, {
     /**

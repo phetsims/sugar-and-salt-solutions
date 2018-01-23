@@ -19,6 +19,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Shape = require( 'KITE/Shape' );
   var Solution = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Solution' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
   var VerticalRangeContains = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/VerticalRangeContains' );
@@ -147,6 +148,8 @@ define( function( require ) {
     //True if the values should be shown in the user interface
     self.showConcentrationValues = new Property( false );
   }
+
+  sugarAndSaltSolutions.register( 'SugarAndSaltSolutionModel', SugarAndSaltSolutionModel );
 
   return inherit( AbstractSugarAndSaltSolutionsModel, SugarAndSaltSolutionModel, {
     /**

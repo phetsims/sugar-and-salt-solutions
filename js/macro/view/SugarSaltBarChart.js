@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   // strings
   var saltString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/salt' );
@@ -50,5 +51,6 @@ define( function( require ) {
     sugarBar.y = self.abscissaY;
   }
 
+  sugarAndSaltSolutions.register( 'SugarSaltBarChart', SugarSaltBarChart );
   return inherit( ConcentrationBarChart, SugarSaltBarChart );
 } );

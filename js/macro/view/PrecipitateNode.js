@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @param {ModelViewTransform2} modelViewTransform
@@ -43,6 +44,7 @@ define( function( require ) {
     } );
   }
 
+  sugarAndSaltSolutions.register( 'PrecipitateNode', PrecipitateNode );
   return inherit( Path, PrecipitateNode );
 } );
 

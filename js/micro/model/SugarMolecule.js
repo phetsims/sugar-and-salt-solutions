@@ -13,6 +13,7 @@ define( function( require ) {
   var Constituent = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Constituent' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -36,6 +37,7 @@ define( function( require ) {
     this.stepInTime( Vector2.ZERO, 0.0 );
   }
 
+  sugarAndSaltSolutions.register( 'SugarMolecule', SugarMolecule );
   return inherit( Compound, SugarMolecule );
 
 } );

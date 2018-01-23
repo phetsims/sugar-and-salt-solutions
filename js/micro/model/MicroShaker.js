@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var SaltShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SaltShaker' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -36,6 +37,7 @@ define( function( require ) {
     this.stepsAdding = new Property( 0 );
   }
 
+  sugarAndSaltSolutions.register( 'MicroShaker', MicroShaker );
   return inherit( SaltShaker, MicroShaker, {
     /**
      * @param {MicroModel} model

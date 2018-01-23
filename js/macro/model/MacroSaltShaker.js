@@ -11,6 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MacroSalt = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroSalt' );
   var SaltShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SaltShaker' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @param {number} x
@@ -27,6 +28,8 @@ define( function( require ) {
   function MacroSaltShaker( x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model ) {
     SaltShaker.call( this, x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model );
   }
+
+  sugarAndSaltSolutions.register( 'MacroSaltShaker', MacroSaltShaker );
 
   return inherit( SaltShaker, MacroSaltShaker, {
 

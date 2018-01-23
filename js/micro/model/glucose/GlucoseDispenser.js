@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MicroSugarDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/MicroSugarDispenser' );
   var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -32,6 +33,7 @@ define( function( require ) {
     MicroSugarDispenser.call( this, x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model );
   }
 
+  sugarAndSaltSolutions.register( 'GlucoseDispenser', GlucoseDispenser );
   return inherit( MicroSugarDispenser, GlucoseDispenser, {
     /**
      * @protected

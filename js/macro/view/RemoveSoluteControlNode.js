@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var RemoveSoluteButtonNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/RemoveSoluteButtonNode' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   // strings
   var removeSaltString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/removeSalt' );
@@ -42,6 +43,7 @@ define( function( require ) {
     sugarButton.x = saltButton.bounds.getMaxX() + INSET;
   }
 
+  sugarAndSaltSolutions.register( 'RemoveSoluteControlNode', RemoveSoluteControlNode );
   return inherit( Node, RemoveSoluteControlNode );
 } );
 

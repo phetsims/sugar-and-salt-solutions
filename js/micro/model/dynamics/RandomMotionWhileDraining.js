@@ -12,6 +12,7 @@ define( function( require ) {
   var DynamicsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/DynamicsConstants' );
   var FlowToDrainStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/FlowToDrainStrategy' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -22,6 +23,7 @@ define( function( require ) {
     this.model = model;
   }
 
+  sugarAndSaltSolutions.register( 'RandomMotionWhileDraining', RandomMotionWhileDraining );
   return inherit( Object, RandomMotionWhileDraining, {
 
     apply: function() {

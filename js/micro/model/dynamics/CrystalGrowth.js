@@ -18,6 +18,7 @@ define( function( require ) {
   var ItemList = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ItemList' );
   var Logger = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/Logger' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var TargetConfiguration = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/TargetConfiguration' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -38,6 +39,7 @@ define( function( require ) {
     this.lastNewCrystalFormationTime = 0;
   }
 
+  sugarAndSaltSolutions.register( 'CrystalGrowth', CrystalGrowth );
   return inherit( Object, CrystalGrowth, {
     /**
      * Check to see whether it is time to create or add to existing crystals, if the solution is over saturated

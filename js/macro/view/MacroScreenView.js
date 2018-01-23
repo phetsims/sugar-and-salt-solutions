@@ -29,6 +29,7 @@ define( function( require ) {
   var SelectableSoluteItem = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SelectableSoluteItem' );
   var SoluteControlPanelNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SoluteControlPanelNode' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
   var Util = require( 'DOT/Util' );
   var VolumeIndicatorNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/VolumeIndicatorNode' );
@@ -156,5 +157,6 @@ define( function( require ) {
     this.addChild( resetAllButton );
   }
 
+  sugarAndSaltSolutions.register( 'MacroScreenView', MacroScreenView );
   return inherit( BeakerAndShakerView, MacroScreenView );
 } );

@@ -13,6 +13,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -44,6 +45,8 @@ define( function( require ) {
     this.batteryRegion = Bounds2.NOTHING;
     this.bulbRegion = Bounds2.NOTHING;
   }
+
+  sugarAndSaltSolutions.register( 'ConductivityTester', ConductivityTester );
 
   return inherit( Object, ConductivityTester, {
     /**

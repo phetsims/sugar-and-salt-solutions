@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -21,6 +22,8 @@ define( function( require ) {
     this.type = type;
     this.position = position;
   }
+
+  sugarAndSaltSolutions.register( 'AtomPosition', AtomPosition );
 
   return inherit( Object, AtomPosition, {
     /**

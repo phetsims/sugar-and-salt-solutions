@@ -15,6 +15,7 @@ define( function( require ) {
   var FaucetNode = require( 'SCENERY_PHET/FaucetNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
   //constants
@@ -41,6 +42,8 @@ define( function( require ) {
     this.faucetNode = new FaucetNode( maxFlowRate, flowRateProperty, enabledProperty, options );
     this.addChild( this.faucetNode );
   }
+
+  sugarAndSaltSolutions.register( 'FaucetNodeContainer', FaucetNodeContainer );
 
   return inherit( Node, FaucetNodeContainer, {
 

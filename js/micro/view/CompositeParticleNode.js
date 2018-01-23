@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SphericalParticleNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SphericalParticleNode' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -34,6 +35,7 @@ define( function( require ) {
     }
   }
 
+  sugarAndSaltSolutions.register( 'CompositeParticleNode', CompositeParticleNode );
   return inherit( Node, CompositeParticleNode );
 } );
 

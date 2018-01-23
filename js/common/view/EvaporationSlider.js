@@ -20,6 +20,7 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
   var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   //string
@@ -71,6 +72,8 @@ define( function( require ) {
       { xMargin: 8, yMargin: 4, fill: '#F0F0F0', stroke: 'gray', lineWidth: 1, resize: false } );
 
   }
+
+  sugarAndSaltSolutions.register( 'EvaporationSlider', EvaporationSlider );
 
   return inherit( Panel, EvaporationSlider );
 } )

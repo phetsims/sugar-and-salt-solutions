@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @param {Object} _1
@@ -22,6 +23,7 @@ define( function( require ) {
     this._2 = _2;
   }
 
+  sugarAndSaltSolutions.register( 'Pair', Pair );
   return inherit( Object, Pair, {
     equals: function( obj ) {
       return _.isEqual( this, obj );

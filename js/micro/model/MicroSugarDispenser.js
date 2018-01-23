@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var SugarDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarDispenser' );
 
   /**
@@ -36,6 +37,7 @@ define( function( require ) {
     this.stepsOfAddingSugar = new Property( 0 );
   }
 
+  sugarAndSaltSolutions.register( 'MicroSugarDispenser', MicroSugarDispenser );
   return inherit( SugarDispenser, MicroSugarDispenser, {
     /**
      * @protected

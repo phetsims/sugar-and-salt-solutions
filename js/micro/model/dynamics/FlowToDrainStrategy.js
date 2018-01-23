@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var UpdateStrategy = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/dynamics/UpdateStrategy' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -33,6 +34,7 @@ define( function( require ) {
     this.randomWalk = randomWalk;
   }
 
+  sugarAndSaltSolutions.register( 'FlowToDrainStrategy', FlowToDrainStrategy );
   return inherit( UpdateStrategy, FlowToDrainStrategy, {
 
     /**

@@ -14,6 +14,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   //images
   var SUGAR_CLOSED = require( 'image!SUGAR_AND_SALT_SOLUTIONS/sugar_closed.png' );
@@ -76,6 +77,8 @@ define( function( require ) {
     DispenserNode.prototype.updateTransform.call( this );
 
   }
+
+  sugarAndSaltSolutions.register( 'SugarDispenserNode', SugarDispenserNode );
 
   return inherit( DispenserNode, SugarDispenserNode );
 } );

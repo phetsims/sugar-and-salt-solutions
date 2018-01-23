@@ -18,6 +18,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
   var Shape = require( 'KITE/Shape' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
@@ -77,6 +78,8 @@ define( function( require ) {
 
     } );
   }
+
+  sugarAndSaltSolutions.register( 'DispenserNode', DispenserNode );
 
   return inherit( Node, DispenserNode, {
     /**

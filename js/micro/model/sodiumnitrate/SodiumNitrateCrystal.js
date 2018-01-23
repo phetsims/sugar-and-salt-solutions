@@ -15,6 +15,7 @@ define( function( require ) {
   var Nitrate = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/Nitrate' );
   var Sodium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Sodium' );
   var SodiumNitrateConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/SodiumNitrateConstants' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
 
   /**
@@ -27,6 +28,7 @@ define( function( require ) {
     Crystal.call( this, Formula.SODIUM_NITRATE, position, new Sodium().radius * 2 + SodiumNitrateConstants.NITROGEN_OXYGEN_SPACING, angle );
   }
 
+  sugarAndSaltSolutions.register( 'SodiumNitrateCrystal', SodiumNitrateCrystal );
   return inherit( Crystal, SodiumNitrateCrystal, {
       /**
        * Create the bonding partner for growing the crystal

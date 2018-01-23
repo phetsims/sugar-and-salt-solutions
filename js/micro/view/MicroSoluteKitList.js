@@ -21,6 +21,7 @@ define( function( require ) {
   var Sodium = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/sphericalparticles/Sodium' );
   var SphericalParticleNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SphericalParticleNode' );
   var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/Sucrose' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
@@ -70,6 +71,7 @@ define( function( require ) {
 
   }
 
+  sugarAndSaltSolutions.register( 'MicroSoluteKitList', MicroSoluteKitList );
   return inherit( Object, MicroSoluteKitList, {
     /**
      * @param {number} kit
