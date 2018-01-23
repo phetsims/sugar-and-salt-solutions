@@ -56,7 +56,7 @@ define( function( require ) {
     },
 
     //Ashraf Did for debugging purposes, TODO clean up this method
-    getImageInputPoint:function(){
+    getImageInputPoint: function() {
       return this.inputPoint;
     },
     /**

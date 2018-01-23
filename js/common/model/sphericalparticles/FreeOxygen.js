@@ -23,8 +23,6 @@ define( function( require ) {
     } );
   }
 
-  return inherit( Oxygen, FreeOxygen, {
-
-  } );
+  return inherit( Oxygen, FreeOxygen, {} );
 
 } );

@@ -85,7 +85,7 @@ define( function( require ) {
     //user can't try to drain water while the sim is paused (2nd tab only)
     var distanceFromBeaker = 110;
     var drainFaucetNode = new FaucetNodeContainer( maxFlowRate, model.outputFlowRate,
-      new DerivedProperty( [model.clockRunning, model.lowerFaucetCanDrain], function( clockRunning, lowerFaucetCanDrain ) {
+      new DerivedProperty( [ model.clockRunning, model.lowerFaucetCanDrain ], function( clockRunning, lowerFaucetCanDrain ) {
         return clockRunning && lowerFaucetCanDrain;
       } ), {
         scale: 0.6,
@@ -107,7 +107,7 @@ define( function( require ) {
     //But make sure the output drain input point is within the fluid so particles can reach it
     var fullShape = model.beaker.getWaterShape( 0, model.beaker.getMaxFluidVolume() );
     model.setDrainFaucetMetrics( FaucetMetrics.createFaucetMetricsByFaucetNode( modelViewTransform, model,
-        self.rootNode, drainFaucetNode ).clampInputWithinFluid( fullShape.bounds.getMaxX() - fullShape.bounds.getWidth() * 0.02 )
+      self.rootNode, drainFaucetNode ).clampInputWithinFluid( fullShape.bounds.getMaxX() - fullShape.bounds.getWidth() * 0.02 )
     );
 
     //Add a node for children that should be behind the shakers

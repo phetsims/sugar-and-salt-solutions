@@ -139,9 +139,9 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getSecondDerivative: function( i ) {
-      var x0 = this.positions[this.positions.length - 1 - i ];
-      var x1 = this.positions[this.positions.length - 2 - i ];
-      var x2 = this.positions[this.positions.length - 3 - i ];
+      var x0 = this.positions[ this.positions.length - 1 - i ];
+      var x1 = this.positions[ this.positions.length - 2 - i ];
+      var x2 = this.positions[ this.positions.length - 3 - i ];
       return x0.minus( x1.times( 2 ) ).plus( x2 );
     }
   } );

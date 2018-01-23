@@ -39,7 +39,7 @@ define( function( require ) {
      * @param {Vector2} outputPoint
      */
     addCrystal: function( model, outputPoint ) {
-       var sodiumChlorideCrystal = new SodiumChlorideCrystal( outputPoint, RandomUtil.randomAngle() );
+      var sodiumChlorideCrystal = new SodiumChlorideCrystal( outputPoint, RandomUtil.randomAngle() );
       sodiumChlorideCrystal.grow( 6 );
 
       //Attempt to randomly create a crystal with a correct balance of components

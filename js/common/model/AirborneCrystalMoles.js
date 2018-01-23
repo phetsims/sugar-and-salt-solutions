@@ -22,7 +22,7 @@ define( function( require ) {
    */
   function AirborneCrystalMoles( list ) {
 
-    DerivedProperty.call( this, [list.lengthProperty], function() {
+    DerivedProperty.call( this, [ list.lengthProperty ], function() {
       // Sum up the total amount of moles of crystals that are in the air
       var sum = 0;
       list.forEach( function( crystal ) {
@@ -39,9 +39,7 @@ define( function( require ) {
     //Notification based on changes is handled in SugarAndSaltSolutionModel when the crystal list is modified
   }
 
-  return inherit( DerivedProperty, AirborneCrystalMoles, {
-
-  } );
+  return inherit( DerivedProperty, AirborneCrystalMoles, {} );
 
 
 } );

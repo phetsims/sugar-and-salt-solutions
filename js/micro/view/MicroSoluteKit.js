@@ -6,20 +6,20 @@
  * @author Sharfudeen Ashraf (for Ghent University)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-  define( function( require ) {
-    'use strict';
+define( function( require ) {
+  'use strict';
 
-    // modules
-    var inherit = require( 'PHET_CORE/inherit' );
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
 
-    /**
-     * @constructor
-     */
-    function MicroSoluteKit( barItems ) {
-      //Bars to be shown in the concentration bar chart
-      this.barItems = barItems;
-    }
+  /**
+   * @constructor
+   */
+  function MicroSoluteKit( barItems ) {
+    //Bars to be shown in the concentration bar chart
+    this.barItems = barItems;
+  }
 
-    return inherit( Object, MicroSoluteKit, {} );
-  } );
+  return inherit( Object, MicroSoluteKit, {} );
+} );
 

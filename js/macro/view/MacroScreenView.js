@@ -59,7 +59,7 @@ define( function( require ) {
     var viewMinX = 15;
     var viewMinY = 155;
     var viewPortBounds = new Bounds2( viewMinX, viewMinY, viewMinX + layoutBounds.width * modelScale,
-      viewMinY + (layoutBounds.height * modelScale) );
+      viewMinY + ( layoutBounds.height * modelScale ) );
 
     var self = this;
     self.model = macroModel;

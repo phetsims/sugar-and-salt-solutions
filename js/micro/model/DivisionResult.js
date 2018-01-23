@@ -21,7 +21,7 @@ define( function( require ) {
    */
   function DivisionResult( numerator, denominator ) {
     this.quotient = numerator / denominator;
-    this.remainder = (numerator % denominator) | 0; // convert float to integer using bitwise operator
+    this.remainder = ( numerator % denominator ) | 0; // convert float to integer using bitwise operator
   }
 
   return inherit( Object, DivisionResult );

@@ -33,6 +33,7 @@ define( function( require ) {
       this.addChild( new SphericalParticleNode( modelViewTransform, constituent.particle, showChargeColor ) );
     }
   }
+
   return inherit( Node, CompositeParticleNode );
 } );
 

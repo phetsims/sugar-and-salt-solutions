@@ -8,12 +8,14 @@
 define( function( require ) {
   'use strict';
 
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+
   function DispenserType() {
     //List of elements comprising the solute
     this.elementAtomicMasses = Array.prototype.slice.call( arguments, 0 );
   }
 
-  return Object.freeze( {
+  var DispType = Object.freeze( {
     'SALT': new DispenserType( 11, 17 ),
     'SUGAR': new DispenserType( 6, 1, 8 ),
     'GLUCOSE': new DispenserType( 6, 1, 8 ),
@@ -21,5 +23,8 @@ define( function( require ) {
     'CALCIUM_CHLORIDE': new DispenserType( 20, 17 )
   } );
 
+  sugarAndSaltSolutions.register( 'DispenserType', DispType );
+
+  return DispType;
 } );
 

@@ -120,8 +120,7 @@ define( function( require ) {
         //Set the update strategy of the particle, it will be updated when the strategies are invoked in MicroModel
         particle.setUpdateStrategy( new FlowToDrainStrategy( self.model, velocity, false ) );
 
-        Logger.fine( 'i = ' + 0 + ', target time = ' + self.model.
-          getTime() + ', velocity = ' + speed + ' nominal velocity = ' + DynamicsConstants.FREE_PARTICLE_SPEED );
+        Logger.fine( 'i = ' + 0 + ', target time = ' + self.model.getTime() + ', velocity = ' + speed + ' nominal velocity = ' + DynamicsConstants.FREE_PARTICLE_SPEED );
 
       } );
 

@@ -50,7 +50,7 @@ define( function( require ) {
       trackSize: trackSize,
       trackFill: trackFill,
       thumbSize: new Dimension2( 22, 30 ),
-      enabledProperty: new DerivedProperty( [waterVolume, clockRunning], function( waterVolume, clockRunning ) {
+      enabledProperty: new DerivedProperty( [ waterVolume, clockRunning ], function( waterVolume, clockRunning ) {
         return waterVolume > 0 && clockRunning;
       } ),
       endDrag: function() { evaporationRate.set( 0 ); }  // at end of drag, snap evaporation rate back to zero

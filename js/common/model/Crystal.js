@@ -284,14 +284,13 @@ define( function( require ) {
       //Only consider particles that are completely submerged because it would be incorrect for particles outside of the fluid to
       //suddenly disassociate from the crystal
       //Also make sure it is the requested type (to match formula ratio), and make sure it hasn't already been flagged for removal
-      var c = _.chain( this.constituents.getArray() ).
-        filter( function( constituent ) {
-          return waterBounds.containsBounds( constituent.particle.getShape().bounds );
-        } ).filter( function( constituent ) {
-          return constituent.particle instanceof type;
-        } ).filter( function( constituent ) {
-          return !_.includes( ignore, constituent );
-        } ).value();
+      var c = _.chain( this.constituents.getArray() ).filter( function( constituent ) {
+        return waterBounds.containsBounds( constituent.particle.getShape().bounds );
+      } ).filter( function( constituent ) {
+        return constituent.particle instanceof type;
+      } ).filter( function( constituent ) {
+        return !_.includes( ignore, constituent );
+      } ).value();
 
       //Make sure list not empty after filtering based on desired type
       if ( c.length > 0 ) {

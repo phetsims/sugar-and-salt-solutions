@@ -21,6 +21,7 @@ define( function( require ) {
     this._1 = _1;
     this._2 = _2;
   }
+
   return inherit( Object, Pair, {
     equals: function( obj ) {
       return _.isEqual( this, obj );

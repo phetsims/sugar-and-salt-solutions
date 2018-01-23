@@ -23,7 +23,7 @@ define( function( require ) {
    */
   function WaterNode( transform, waterShapeProperty ) {
     var self = this;
-    Path.call( self, transform.modelToViewShape( waterShapeProperty.value ), {fill: BeakerAndShakerConstants.WATER_COLOR} );
+    Path.call( self, transform.modelToViewShape( waterShapeProperty.value ), { fill: BeakerAndShakerConstants.WATER_COLOR } );
 
     waterShapeProperty.link( function( newWaterShape ) {
       self.setShape( transform.modelToViewShape( newWaterShape ) );
@@ -31,8 +31,6 @@ define( function( require ) {
 
   }
 
-  return inherit( Path, WaterNode, {
-
-  } );
+  return inherit( Path, WaterNode, {} );
 
 } );

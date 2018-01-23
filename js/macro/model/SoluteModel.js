@@ -35,7 +35,7 @@ define( function( require ) {
 
     //The amount of moles necessary to fully saturate the solution, past this,
     //the solute will start to precipitate.
-    self.saturationPointMoles = new DerivedProperty( [waterVolume], function( volume ) {
+    self.saturationPointMoles = new DerivedProperty( [ waterVolume ], function( volume ) {
       return volume * saturationPoint;
     } );
 
@@ -47,7 +47,7 @@ define( function( require ) {
     );
 
     //The amount that precipitated (solidified)
-    self.molesPrecipitated = new DerivedProperty( [self.moles, self.molesDissolved],
+    self.molesPrecipitated = new DerivedProperty( [ self.moles, self.molesDissolved ],
       function( molesValue, molesDissolvedValue ) {
         return Math.max( molesValue - molesDissolvedValue, 0 );
       } );
@@ -55,16 +55,15 @@ define( function( require ) {
     //The volume (in SI) of the amount of solid
     //Solid precipitate should push up the water level, so that every mole of
     //salt takes up 0.02699 L, and every mole of sugar takes up 0.2157 L
-    self.solidVolume = new DerivedProperty( [self.molesPrecipitated], function( molesPrecipitated ) {
+    self.solidVolume = new DerivedProperty( [ self.molesPrecipitated ], function( molesPrecipitated ) {
       return molesPrecipitated * volumePerSolidMole;
     } );
 
     //The amount in grams
-    self.grams = new DerivedProperty( [self.moles], function( moles ) {
+    self.grams = new DerivedProperty( [ self.moles ], function( moles ) {
       return moles * gramsPerMole;
     } );
   }
 
-  return inherit( Object, SoluteModel, {
-  } );
+  return inherit( Object, SoluteModel, {} );
 } );

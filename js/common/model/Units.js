@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    * @constructor
@@ -18,7 +19,7 @@ define( function( require ) {
 
   }
 
-  return inherit( Object, Units, {}, {
+  inherit( Object, Units, {}, {
     //static methods
     /**
      * Convert picometers to meters (SI)
@@ -50,6 +51,9 @@ define( function( require ) {
     }
 
   } );
+
+  sugarAndSaltSolutions.register( 'Units', Units );
+  return Units;
 
 } );
 

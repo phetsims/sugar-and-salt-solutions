@@ -56,7 +56,7 @@ define( function( require ) {
       //This is to match the design doc spec and Soluble Salts sim to get a 2:1 lattice
       //This effectively makes it so that so that every other Ca2+ is omitted from the lattice in a regular way
       if ( constituent.particle instanceof Chloride ) {
-        if ( this.isOccupied( constituent.relativePosition.plus( this.northUnitVector ) ) ) { return [this.southUnitVector ]; }
+        if ( this.isOccupied( constituent.relativePosition.plus( this.northUnitVector ) ) ) { return [ this.southUnitVector ]; }
         else if ( this.isOccupied( constituent.relativePosition.plus( this.southUnitVector ) ) ) { return [ this.northUnitVector ];}
         else if ( this.isOccupied( constituent.relativePosition.plus( this.eastUnitVector ) ) ) { return [ this.westUnitVector ];}
         else if ( this.isOccupied( constituent.relativePosition.plus( this.westUnitVector ) ) ) { return [ this.eastUnitVector ];}

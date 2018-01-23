@@ -53,7 +53,7 @@ define( function( require ) {
 
       //fire reset event callback
       for ( var i = 0; i < this.resetCallBacks.length; i++ ) {
-        this.resetCallBacks[i]();
+        this.resetCallBacks[ i ]();
       }
       this.model.reset();
     },

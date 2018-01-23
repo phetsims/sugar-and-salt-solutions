@@ -31,7 +31,7 @@ define( function( require ) {
    */
   function MacroConcentrationBarChartNode( showConcentrationBarChart, saltConcentration, sugarConcentration, showConcentrationValues, scaleFactor ) {
     var self = this;
-    Node.call( self, {fill: SugarAndSaltConstants.WATER_COLOR} );
+    Node.call( self, { fill: SugarAndSaltConstants.WATER_COLOR } );
 
     //The bar chart itself (when toggled to be visible)
     var barChartNode = new SugarSaltBarChart( saltConcentration, sugarConcentration, showConcentrationValues,

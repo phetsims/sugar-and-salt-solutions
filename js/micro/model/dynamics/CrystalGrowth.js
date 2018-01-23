@@ -74,7 +74,7 @@ define( function( require ) {
           // easily be found again in subsequent steps
           var targetConfiguration = this.getTargetConfiguration( crystal );
           if ( targetConfiguration ) {
-            
+
             //With some probability, form a new crystal anyways (if there aren't too many crystals)
             if ( _.random( 1, true ) > 0.8 && this.crystals.length <= 2 ) {
               if ( SugarAndSaltConstants.DEBUG ) {

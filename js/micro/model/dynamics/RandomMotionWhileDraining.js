@@ -29,8 +29,7 @@ define( function( require ) {
       var drain = this.model.getDrainFaucetMetrics().getInputPoint();
       _.each( this.model.freeParticles.getArray(), function( particle ) {
         //Get the velocity for the particle
-        var velocity = drain.minus( particle.getPosition() ).
-          withMagnitude( DynamicsConstants.FREE_PARTICLE_SPEED ).times( self.getRelativeSpeed( drain, particle ) );
+        var velocity = drain.minus( particle.getPosition() ).withMagnitude( DynamicsConstants.FREE_PARTICLE_SPEED ).times( self.getRelativeSpeed( drain, particle ) );
         particle.setUpdateStrategy( new FlowToDrainStrategy( self.model, velocity, true ) );
       } );
     },

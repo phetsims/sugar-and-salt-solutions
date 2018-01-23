@@ -52,7 +52,7 @@ define( function( require ) {
           bar.concentration, self.showValues, verticalAxisScale, true, bar.icon ) );
 
         //Use a StandardizedNodeX here to center the bars on the desired points horizontally so the bars will be equidistant
-       // Ashraf TODO  self.addChild( standardizedNode );
+        // Ashraf TODO  self.addChild( standardizedNode );
         standardizedNode.x = finalBarX - standardizedNode.bounds.width / 2;
         standardizedNode.y = self.abscissaY;
         barX = barX + spacing;

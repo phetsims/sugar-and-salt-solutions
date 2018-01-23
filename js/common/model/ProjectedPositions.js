@@ -63,7 +63,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getOrigin: function() {
-      var line = (this.text.substring( 0, this.text.indexOf( '\n' ) ));
+      var line = ( this.text.substring( 0, this.text.indexOf( '\n' ) ) );
       return this.readPosition( line );
     },
 

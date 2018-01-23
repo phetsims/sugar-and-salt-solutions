@@ -27,7 +27,8 @@ define( function( require ) {
   function SoluteControlPanelNode( soluteSelector ) {
     var title = new Text( soluteString, { font: SugarAndSaltConstants.TITLE_FONT } );
 
-    var vBoxContent = new VBox( {children: [title, soluteSelector ],
+    var vBoxContent = new VBox( {
+      children: [ title, soluteSelector ],
       spacing: 5, //Use a smaller spacing so that the content doesn't get too far away from the title in the Micro tab;
       align: 'center',
       resize: false

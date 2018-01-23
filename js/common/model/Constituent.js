@@ -25,6 +25,5 @@ define( function( require ) {
     this.particle = particle;
   }
 
-  return inherit( Particle, Constituent, {
-  } );
+  return inherit( Particle, Constituent, {} );
 } );

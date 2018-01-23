@@ -13,6 +13,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
    *
@@ -41,6 +42,8 @@ define( function( require ) {
     //Width of the wall in meters
     this.wallThickness = width / 40.0;//Thickness of the walls
   }
+
+  sugarAndSaltSolutions.register( 'BeakerDimension', BeakerDimension );
 
   return inherit( Object, BeakerDimension, {
     //Get the volume of the beaker, the maximum amount of solution it can hold

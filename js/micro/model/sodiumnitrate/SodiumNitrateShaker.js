@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var MicroShaker = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/MicroShaker' );
-  var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil');
+  var RandomUtil = require( 'SUGAR_AND_SALT_SOLUTIONS/utils/RandomUtil' );
   var SodiumNitrateCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sodiumnitrate/SodiumNitrateCrystal' );
 
   /**

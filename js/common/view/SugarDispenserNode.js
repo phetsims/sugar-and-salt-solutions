@@ -64,10 +64,10 @@ define( function( require ) {
 
       self.imageNode.removeAllChildren();
       self.imageNode.addChild( micro ? ( open ? openMicro : closedMicro )
-          : ( open && allowed ? openFull :
-              open && !allowed ? openEmpty :
-              !open && allowed ? closedFull :
-              closedEmpty )
+        : ( open && allowed ? openFull :
+            open && !allowed ? openEmpty :
+            !open && allowed ? closedFull :
+            closedEmpty )
       );
       self.imageNode.addChild( self.textLabel );
     } );

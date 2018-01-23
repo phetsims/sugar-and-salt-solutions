@@ -29,15 +29,13 @@ define( function( require ) {
     this.volume = waterVolume; //Volume of the solution (water plus dissolved solutes)
 
     //Get the shape this water takes in its containing beaker
-    this.shape = new DerivedProperty( [this.volume], function( volume ) {
+    this.shape = new DerivedProperty( [ this.volume ], function( volume ) {
       //Assumes the beaker is rectangular
       return beaker.getWaterShape( 0, volume );
     } );
 
   }
 
-  return inherit( Object, Solution, {
-
-  } );
+  return inherit( Object, Solution, {} );
 
 } );

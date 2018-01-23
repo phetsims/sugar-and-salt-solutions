@@ -73,7 +73,7 @@ define( function( require ) {
      * @returns {Array<Particles>}
      */
     getParticles: function() {
-      return [this.a, this.b, this.c];
+      return [ this.a, this.b, this.c ];
     }
   } );
 } );

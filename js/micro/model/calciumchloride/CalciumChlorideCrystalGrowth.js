@@ -51,7 +51,7 @@ define( function( require ) {
       } );
 
 
-      return new ItemList(formulaUnits);
+      return new ItemList( formulaUnits );
     },
 
     /**

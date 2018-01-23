@@ -54,7 +54,7 @@ define( function( require ) {
            Util.lineSegmentIntersection( x1, y1, x2, y2, r.maxX, r.minY, r.maxX, r.maxY ) ||
            Util.lineSegmentIntersection( x1, y1, x2, y2, r.maxX, r.maxY, r.minX, r.maxY ) ||
            Util.lineSegmentIntersection( x1, y1, x2, y2, r.minX, r.maxY, r.minX, r.minY ) ||
-           (r.containsCoordinates( x1, y1 ) && r.containsCoordinates( x2, y2 ));
+           ( r.containsCoordinates( x1, y1 ) && r.containsCoordinates( x2, y2 ) );
   }
 
   /**
@@ -124,22 +124,22 @@ define( function( require ) {
     //Keep track of how many moles of crystal are in the air, since we need to prevent user from adding more than
     //10 moles to the system
     //This shuts off salt/sugar when there is salt/sugar in the air that could get added to the solution
-    self.airborneSaltGrams = new DerivedProperty( [new AirborneCrystalMoles( self.saltList )], function( airborneCrystalMoles ) {
+    self.airborneSaltGrams = new DerivedProperty( [ new AirborneCrystalMoles( self.saltList ) ], function( airborneCrystalMoles ) {
       return airborneCrystalMoles * self.salt.gramsPerMole;
     } );
 
-    self.airborneSugarGrams = new DerivedProperty( [new AirborneCrystalMoles( self.sugarList )], function( airborneCrystalMoles ) {
+    self.airborneSugarGrams = new DerivedProperty( [ new AirborneCrystalMoles( self.sugarList ) ], function( airborneCrystalMoles ) {
       return airborneCrystalMoles * self.sugar.gramsPerMole;
     } );
 
 
     //Properties to indicate if the user is allowed to add more of the solute.  If not allowed the dispenser is shown as empty.
     self.moreSaltAllowed = new DerivedProperty( [ self.salt.grams, self.airborneSaltGrams ], function() {
-      return (self.salt.grams.get() + self.airborneSaltGrams.get()) < 100;
+      return ( self.salt.grams.get() + self.airborneSaltGrams.get() ) < 100;
     } );
 
     self.moreSugarAllowed = new DerivedProperty( [ self.sugar.grams, self.airborneSugarGrams ], function() {
-      return (self.sugar.grams.get() + self.airborneSugarGrams.get()) < 100;
+      return ( self.sugar.grams.get() + self.airborneSugarGrams.get() ) < 100;
     } );
 
     //Add models for the various dispensers: sugar, salt, etc.
@@ -235,7 +235,7 @@ define( function( require ) {
         //If the salt hits the water during any point of its initial -> final trajectory, absorb it.
         //This is necessary because if the water layer is too thin, the crystal could have jumped over it completely
         if ( lineIntersectsBounds( initialLocation.x, initialLocation.y, crystal.position.get().x, crystal.position.get().y,
-          self.solution.shape.get().bounds ) ) {
+            self.solution.shape.get().bounds ) ) {
           hitTheWater.push( crystal );
         }
         // Any crystals that landed on the beaker base or on top of precipitate should immediately precipitate into solid
@@ -337,7 +337,7 @@ define( function( require ) {
      * @returns {Property<Boolean>}
      */
     isAnySaltToRemove: function() {
-      return new DerivedProperty( [this.salt.moles], function( saltMoles ) { return saltMoles > 0; } );
+      return new DerivedProperty( [ this.salt.moles ], function( saltMoles ) { return saltMoles > 0; } );
     },
 
     /**
@@ -345,7 +345,7 @@ define( function( require ) {
      * @returns {Property<Boolean>}
      */
     isAnySugarToRemove: function() {
-      return new DerivedProperty( [this.sugar.moles], function( sugarMoles ) { return sugarMoles > 0; } );
+      return new DerivedProperty( [ this.sugar.moles ], function( sugarMoles ) { return sugarMoles > 0; } );
     },
 
     /**

@@ -21,7 +21,7 @@ define( function( require ) {
    * @constructor
    */
   function AllPairs( freeParticles, typeA, typeB ) {
-    ItemList.call( this,[] );
+    ItemList.call( this, [] );
     var aList = freeParticles.filterByClass( typeA ).getArray();
     var bList = freeParticles.filterByClass( typeB ).getArray();
     var self = this;

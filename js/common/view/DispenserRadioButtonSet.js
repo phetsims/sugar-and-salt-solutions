@@ -31,9 +31,11 @@ define( function( require ) {
 
     var dispensersRadioItems = [];
     _.each( items, function( item ) {
-      dispensersRadioItems.push( { node: new Text( item.name, {font: SugarAndSaltConstants.CONTROL_FONT} ),
+      dispensersRadioItems.push( {
+        node: new Text( item.name, { font: SugarAndSaltConstants.CONTROL_FONT } ),
         property: dispenserType,
-        value: item.dispenserType } );
+        value: item.dispenserType
+      } );
     } );
 
     self.addChild( new VerticalAquaRadioButtonGroup( dispensersRadioItems, { touchAreaXDilation: 5 } ) );
@@ -46,7 +48,7 @@ define( function( require ) {
      */
     setSelected: function() {
       if ( !this.containsDispenser() ) {
-        this.dispenserType.set( this.items[0].dispenserType );
+        this.dispenserType.set( this.items[ 0 ].dispenserType );
       }
     },
 

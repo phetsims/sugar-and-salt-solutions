@@ -17,7 +17,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   var toRadians = function( degree ) {
-    return degree * (Math.PI / 180);
+    return degree * ( Math.PI / 180 );
   };
 
   /**

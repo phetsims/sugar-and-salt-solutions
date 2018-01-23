@@ -24,7 +24,7 @@ define( function( require ) {
    */
   function VerticalRangeContains( shape, minY, maxY ) {
 
-    DerivedProperty.call( this, [shape], function( shapeDependency ) {
+    DerivedProperty.call( this, [ shape ], function( shapeDependency ) {
       //A simple way to determine whether any part of range A overlaps with any part of range B is to intersect rectangles
       //the X regions of the rectangles are the same so they can be safely ignored
       var parentBounds = shapeDependency.bounds;
@@ -33,9 +33,7 @@ define( function( require ) {
     } );
   }
 
-  return inherit( DerivedProperty, VerticalRangeContains, {
-
-  } );
+  return inherit( DerivedProperty, VerticalRangeContains, {} );
 
 
 } );// Copyright 2002-2015, University of Colorado Boulder

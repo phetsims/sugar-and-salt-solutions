@@ -28,8 +28,6 @@ define( function( require ) {
     SphericalParticle.call( this, options );
   }
 
-  return inherit( SphericalParticle, Oxygen, {
-
-  } );
+  return inherit( SphericalParticle, Oxygen, {} );
 
 } );

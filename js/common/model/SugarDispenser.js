@@ -97,8 +97,8 @@ define( function( require ) {
       //Keep track of speeds, since we use a nonzero speed to rotate the dispenser
       var speeds = [];
       for ( var i = 0; i < this.positions.length - 1; i++ ) {
-        var a = this.positions[i];
-        var b = this.positions[i + 1];
+        var a = this.positions[ i ];
+        var b = this.positions[ i + 1 ];
         speeds.push( a.minus( b ).magnitude() );
       }
 
@@ -141,7 +141,7 @@ define( function( require ) {
         for ( i = 0; i < numCrystals; i++ ) {
           //Determine where the sugar should come out
           var outputPoint = this.center.get().plus( Vector2.createPolar( this.dispenserHeight / 2 * 0.85,
-              this.angle.get() + Math.PI / 2 * 1.23 + Math.PI ) );//Hand tuned to match up with the image, will
+            this.angle.get() + Math.PI / 2 * 1.23 + Math.PI ) );//Hand tuned to match up with the image, will
           // need to be re-tuned if the image changes
 
           this.addSugarToModel( outputPoint );

@@ -29,7 +29,7 @@ define( function( require ) {
     CrystalGrowth.call( this, model, crystals );
   }
 
-  return inherit( CrystalGrowth, SodiumNitrateCrystalGrowth,{
+  return inherit( CrystalGrowth, SodiumNitrateCrystalGrowth, {
     /**
      * @returns {AllPairs}
      */

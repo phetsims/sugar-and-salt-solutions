@@ -21,8 +21,6 @@ define( function( require ) {
     } );
   }
 
-  return inherit( Oxygen, NeutralOxygen, {
-
-  } );
+  return inherit( Oxygen, NeutralOxygen, {} );
 
 } );
