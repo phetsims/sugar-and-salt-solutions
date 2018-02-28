@@ -46,9 +46,6 @@ define( function( require ) {
     /**
      * Given the specified acceleration from external forces (such as gravity),
      * perform an Euler integration step to move the particle forward in time
-     * @param {Vector2} acceleration
-     * @param {number} dt (optional, if dt is not passed as a seconds argument acceleration is assumed to be dt. This
-     * is to handle function overloading)
      */
     stepInTime: function() {
       var acceleration = 0;
@@ -75,7 +72,7 @@ define( function( require ) {
     /**
      * Convenience method to translate a particle by the specified model delta (in meters)
      * @param {Vector2 || number} delta
-     * double {number} dy
+     * @param {number} dy
      */
     translate: function( delta, dy ) {
       if ( !_.isNaN( dy ) ) {
