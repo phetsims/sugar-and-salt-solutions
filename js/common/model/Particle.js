@@ -74,7 +74,7 @@ define( function( require ) {
     },
     /**
      * Convenience method to translate a particle by the specified model delta (in meters)
-     * @param {Vector2 or number} delta
+     * @param {Vector2 || number} delta
      * double {number} dy
      */
     translate: function( delta, dy ) {
