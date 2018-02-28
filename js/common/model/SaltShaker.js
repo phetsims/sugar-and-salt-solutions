@@ -66,7 +66,7 @@ define( function( require ) {
           //Determine where the salt should come out
           //Hand tuned to match up with the image, will need to be re-tuned if the image changes
           var randUniform = ( Math.random() - 0.5 ) * 2;
-          var outputPoint = this.center.get().plus( Vector2.createPolar( this.dispenserHeight / 2 * 0.8, this.angle.get() - Math.PI / 2 + randUniform * Math.PI / 32 * 1.2 ) );
+          var outputPoint = this.centerProperty.get().plus( Vector2.createPolar( this.dispenserHeight / 2 * 0.8, this.angle.get() - Math.PI / 2 + randUniform * Math.PI / 32 * 1.2 ) );
 
           //Add the salt to the model
           this.addSalt( this.model, outputPoint, SugarAndSaltConstants.VOLUME_PER_SOLID_MOLE_SALT, this.getCrystalVelocity( outputPoint ) );
@@ -83,7 +83,7 @@ define( function( require ) {
       //automatically emit salt even though the user isn't controlling it
       if ( this.moreAllowed.get() ) {
         //Add the new position to the list, but keep the list short so there is no memory leak
-        this.positions.push( this.center.get() );
+        this.positions.push( this.centerProperty.get() );
         while ( this.positions.length > 50 ) {
           this.positions.shift();
         }

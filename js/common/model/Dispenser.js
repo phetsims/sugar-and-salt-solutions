@@ -51,7 +51,7 @@ define( function( require ) {
     self.angle = new Property( angle );
 
     //Start centered above the fluid
-    self.center = new Property( new Vector2( x, y ) );
+    self.centerProperty = new Property( new Vector2( x, y ) );
 
     //The amount to scale model translations so that micro tab emits solute at the appropriate time.  Without this factor,
     //the tiny (1E-9 meters) drag motion in the Micro tab wouldn't be enough to emit solute
@@ -86,7 +86,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getCrystalVelocity: function( outputPoint ) {
-      var directionVector = outputPoint.minus( this.center.get() );
+      var directionVector = outputPoint.minus( this.centerProperty.get() );
       var anglePastTheHorizontal = this.angle.get() - Math.PI / 2;
       var magnitudeRatio = ( 0.2 + 0.3 * Math.sin( anglePastTheHorizontal ) ) / directionVector.magnitude();
       return directionVector.times( magnitudeRatio );

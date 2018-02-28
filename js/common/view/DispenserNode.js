@@ -51,8 +51,8 @@ define( function( require ) {
         }
       );
       self.addChild( debugRectNode );
-      Property.multilink( [ model.center, model.angle ], function() {
-        var viewCenterPos = modelViewTransform.modelToViewPosition( model.center.get() );
+      Property.multilink( [ model.centerProperty, model.angle ], function() {
+        var viewCenterPos = modelViewTransform.modelToViewPosition( model.centerProperty.get() );
         debugRectNode.x = viewCenterPos.x;
         debugRectNode.y = viewCenterPos.y;
       } );
@@ -61,16 +61,16 @@ define( function( require ) {
     self.createTextLabel();
 
     //Update the AffineTransform for the image when the model changes
-    Property.lazyMultilink( [ model.center, model.angle ], function() {
+    Property.lazyMultilink( [ model.centerProperty, model.angle ], function() {
       self.updateTransform();
     } );
 
-    self.addInputListener( new MovableDragHandler( self.model.center, {
+    self.addInputListener( new MovableDragHandler( self.model.centerProperty, {
       dragBounds: constraint,
       modelViewTransform: self.modelViewTransform
     } ) );
 
-    self.model.center.link( function() {
+    self.model.centerProperty.link( function() {
       //Set the model height of the dispenser so the model will be able to emit
       //crystals in the right location (at the output part of the image)
       self.model.setDispenserHeight( self.modelViewTransform.viewToModelDeltaY( self.imageNode.bounds.getHeight() ) );
@@ -110,7 +110,7 @@ define( function( require ) {
       this.textLabel.y = this.imageNode.bounds.getHeight() / 2 - this.textLabel.bounds.getWidth() / 2;
 
       //Find the view coordinates of the rotation point of the model (its center)
-      var viewPoint = this.modelViewTransform.modelToViewPosition( this.model.center.get() );
+      var viewPoint = this.modelViewTransform.modelToViewPosition( this.model.centerProperty.get() );
 
       //Rotate by the correct angle: Note: This angle doesn't get mapped into the right coordinate frame, so could be backwards
       this.imageNode.rotate( -this.model.angle.get() );

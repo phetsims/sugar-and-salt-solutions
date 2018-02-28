@@ -92,7 +92,7 @@ define( function( require ) {
 
       //Add the new position to the list, but keep the list short so there is no memory leak.  The list size also
       //determines the lag time for when the shaker rotates down and up
-      this.positions.push( this.center.get() );
+      this.positions.push( this.centerProperty.get() );
       while ( this.positions.length > 8 ) {
         this.positions.shift( 0 );
       }
@@ -143,7 +143,7 @@ define( function( require ) {
         var numCrystals = Util.clamp( avgSpeed * 5, 1, 5 );
         for ( i = 0; i < numCrystals; i++ ) {
           //Determine where the sugar should come out
-          var outputPoint = this.center.get().plus( Vector2.createPolar( this.dispenserHeight / 2 * 0.85,
+          var outputPoint = this.centerProperty.get().plus( Vector2.createPolar( this.dispenserHeight / 2 * 0.85,
             this.angle.get() + Math.PI / 2 * 1.23 + Math.PI ) );//Hand tuned to match up with the image, will
           // need to be re-tuned if the image changes
 
