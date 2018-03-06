@@ -84,9 +84,6 @@
   "chloride": {
     "value": "Cl<sup>-</sup>"
   },
-  "calcium": {
-    "value": "Ca<sup>2+</sup>"
-  },
   "nitrate": {
     "value": "NO<sub>3</sub><sup>-</sup>"
   }

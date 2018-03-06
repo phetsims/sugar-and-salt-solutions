@@ -25,7 +25,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var calciumString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/calcium' );
+  var calciumString = 'Ca<sup>2+</sup>';
   var chlorideString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/chloride' );
   var glucoseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/glucose' );
   var nitrateString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/nitrate' );
