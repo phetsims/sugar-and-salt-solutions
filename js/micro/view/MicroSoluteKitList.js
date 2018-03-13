@@ -26,10 +26,10 @@ define( function( require ) {
 
   // strings
   var calciumString = 'Ca<sup>2+</sup>';
-  var chlorideString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/chloride' );
+  var chlorideString = 'Cl<sup>-</sup>';
   var glucoseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/glucose' );
-  var nitrateString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/nitrate' );
-  var sodiumString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sodium' );
+  var nitrateString = 'NO<sub>3</sub><sup>-</sup>';
+  var sodiumString = 'Na<sup>+</sup>';
   var sucroseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sucrose' );
 
   /**

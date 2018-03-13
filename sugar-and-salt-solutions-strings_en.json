@@ -76,16 +76,6 @@
   },
   "conductivity": {
     "value": "Conductivity"
-  },
-
-  "sodium": {
-    "value": "Na<sup>+</sup>"
-  },
-  "chloride": {
-    "value": "Cl<sup>-</sup>"
-  },
-  "nitrate": {
-    "value": "NO<sub>3</sub><sup>-</sup>"
   }
 
 }
