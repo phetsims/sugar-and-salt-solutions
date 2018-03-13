@@ -65,6 +65,11 @@ define( function( require ) {
   //Flag to help debug the crystal ratios
   var DEBUG_CRYSTAL_RATIO = false;
 
+  /**
+   *
+   * @param {number} aspectRatio
+   * @constructor
+   */
   function MicroModel( aspectRatio ) {
     var self = this;
 
