@@ -20,7 +20,6 @@ define( function( require ) {
    *
    * @param {Property<boolean>} visible
    * @param {Property<boolean>} showValues
-   * @param {Array<Bar>} bars
    * @constructor
    */
   function MicroConcentrationBarChart( visible, showValues ) {
