@@ -18,7 +18,7 @@
 //import edu.colorado.phet.common.piccolophet.nodes.kit.ZeroOffsetNode;
 //import edu.colorado.phet.common.piccolophet.nodes.mediabuttons.FloatingClockControlNode;
 //import edu.colorado.phet.sugarandsaltsolutions.GlobalState;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarAndSaltSolutionModel;
+//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarAndSaltSolutionsModel;
 //import edu.colorado.phet.sugarandsaltsolutions.common.view.BeakerAndShakerCanvas;
 //import edu.colorado.phet.sugarandsaltsolutions.micro.model.MicroModel;
 //import edu.colorado.phet.sugarandsaltsolutions.micro.view.periodictable.PeriodicTableDialog;
@@ -154,7 +154,7 @@
 //    }
 //
 //    //See docs in MacroCanvas.createMacroTransform, this variant is used to create the transform for the micro tab
-//    public static ModelViewTransform createMicroTransform( SugarAndSaltSolutionModel model ) {
+//    public static ModelViewTransform createMicroTransform( SugarAndSaltSolutionsModel model ) {
 //        double modelScale = 0.75;
 //        return createRectangleInvertedYMapping( model.visibleRegion.toRectangle2D(),
 //                                                //Manually tuned so that the model part shows up in the left side of the canvas,

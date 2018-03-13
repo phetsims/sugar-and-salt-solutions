@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
@@ -33,7 +33,7 @@ define( function( require ) {
     var dispensersRadioItems = [];
     _.each( items, function( item ) {
       dispensersRadioItems.push( {
-        node: new Text( item.name, { font: SugarAndSaltConstants.CONTROL_FONT } ),
+        node: new Text( item.name, { font: SugarAndSaltSolutionsConstants.CONTROL_FONT } ),
         property: dispenserType,
         value: item.dispenserType
       } );

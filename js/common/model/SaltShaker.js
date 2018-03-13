@@ -13,7 +13,7 @@ define( function( require ) {
   var Dispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Dispenser' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SaltShakerNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SaltShakerNode' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -27,7 +27,7 @@ define( function( require ) {
    * @param {number} distanceScale
    * @param {Property<DispenserType>} selectedType
    * @param {DispenserType} type
-   * @param {SugarAndSaltSolutionModel} model
+   * @param {SugarAndSaltSolutionsModel} model
    * @constructor
    */
   function SaltShaker( x, y, beaker, moreAllowed, name, distanceScale, selectedType, type, model ) {
@@ -69,7 +69,7 @@ define( function( require ) {
           var outputPoint = this.centerProperty.get().plus( Vector2.createPolar( this.dispenserHeight / 2 * 0.8, this.angle.get() - Math.PI / 2 + randUniform * Math.PI / 32 * 1.2 ) );
 
           //Add the salt to the model
-          this.addSalt( this.model, outputPoint, SugarAndSaltConstants.VOLUME_PER_SOLID_MOLE_SALT, this.getCrystalVelocity( outputPoint ) );
+          this.addSalt( this.model, outputPoint, SugarAndSaltSolutionsConstants.VOLUME_PER_SOLID_MOLE_SALT, this.getCrystalVelocity( outputPoint ) );
           this.shakeAmount = 0.0;
           //don't clear the position array here since the user may still be shaking the shaker
         }
@@ -128,7 +128,7 @@ define( function( require ) {
     /**
      * @protected
      * Adds the salt to the model
-     * @param {SugarAndSaltSolutionModel}model
+     * @param {SugarAndSaltSolutionsModel}model
      * @param {Vector2} outputPoint
      * @param {number} volumePerSolidMole
      * @param {Vector2} crystalVelocity
@@ -176,7 +176,7 @@ define( function( require ) {
 // *
 // * @author Sam Reid
 // */
-//public abstract class SaltShaker<T extends SugarAndSaltSolutionModel> extends Dispenser<T> {
+//public abstract class SaltShaker<T extends SugarAndSaltSolutionsModel> extends Dispenser<T> {
 //
 //    //Some randomness in number of generated crystals when shaken
 //    private final Random random = new Random();

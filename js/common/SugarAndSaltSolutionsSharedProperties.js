@@ -11,9 +11,9 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
-  var SugarAndSaltSharedProperties = {
+  var SugarAndSaltSolutionsSharedProperties = {
     sizeScale: new Property( 1 )
   };
-  sugarAndSaltSolutions.register( 'SugarAndSaltSharedProperties', SugarAndSaltSharedProperties );
-  return SugarAndSaltSharedProperties;
+  sugarAndSaltSolutions.register( 'SugarAndSaltSolutionsSharedProperties', SugarAndSaltSolutionsSharedProperties );
+  return SugarAndSaltSolutionsSharedProperties;
 } );

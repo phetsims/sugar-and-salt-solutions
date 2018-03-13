@@ -37,7 +37,7 @@ define( function( require ) {
       } );
       return sum;
     } );
-    //Notification based on changes is handled in SugarAndSaltSolutionModel when the crystal list is modified
+    //Notification based on changes is handled in SugarAndSaltSolutionsModel when the crystal list is modified
   }
 
   sugarAndSaltSolutions.register( 'AirborneCrystalMoles', AirborneCrystalMoles );

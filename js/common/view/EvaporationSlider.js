@@ -19,7 +19,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -39,7 +39,7 @@ define( function( require ) {
 
     var self = this;
     var trackSize = new Dimension2( 200, 6 );
-    var label = new Text( evaporationString, { font: SugarAndSaltConstants.TITLE_FONT } );
+    var label = new Text( evaporationString, { font: SugarAndSaltSolutionsConstants.TITLE_FONT } );
 
     // fill with a gradient
     var trackFill = new LinearGradient( 0, 0, trackSize.width, 0 )
@@ -58,8 +58,8 @@ define( function( require ) {
     } );
 
     //Show labels for "none" and "lots"
-    slider.addMajorTick( 0, new Text( noneString, { font: SugarAndSaltConstants.CONTROL_FONT } ) );
-    slider.addMajorTick( maxEvaporationRate, new Text( lotsString, { font: SugarAndSaltConstants.CONTROL_FONT } ) );
+    slider.addMajorTick( 0, new Text( noneString, { font: SugarAndSaltSolutionsConstants.CONTROL_FONT } ) );
+    slider.addMajorTick( maxEvaporationRate, new Text( lotsString, { font: SugarAndSaltSolutionsConstants.CONTROL_FONT } ) );
 
     var content = new Node();
     content.addChild( label );

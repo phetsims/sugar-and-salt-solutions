@@ -47,7 +47,7 @@ define( function( require ) {
   var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/Sucrose' );
   var SucroseCrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/SucroseCrystalGrowth' );
   var SucroseDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/SucroseDispenser' );
-  var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
+  var SugarAndSaltSolutionsModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionsModel' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -68,7 +68,7 @@ define( function( require ) {
   function MicroModel( aspectRatio ) {
     var self = this;
 
-    SugarAndSaltSolutionModel.call( self,
+    SugarAndSaltSolutionsModel.call( self,
       aspectRatio, //Use the same aspect ratio as the view to minimize insets with blank regions
       30, //frames per second
       //The volume of the micro beaker should be 2E-23L
@@ -85,7 +85,7 @@ define( function( require ) {
       //Flow rate must be slowed since the beaker is microscopically small, this value determines how fast it will fill up
       5.0E-27,
 
-      //Values sampled at runtime using a debugger using this line in SugarAndSaltSolutionModel.update:
+      //Values sampled at runtime using a debugger using this line in SugarAndSaltSolutionsModel.update:
       //System.out.println( "solution.shape.get().getBounds2D().getMaxY() = " + solution.shape.get().getBounds2D().getMaxY() );
       //Should be moved to be high enough to contain the largest molecule (sucrose), so that it may move about freely
       2.8440282964793075E-10, 5.75234062238494E-10,
@@ -304,7 +304,7 @@ define( function( require ) {
   }
 
   sugarAndSaltSolutions.register( 'MicroModel', MicroModel );
-  return inherit( SugarAndSaltSolutionModel, MicroModel, {
+  return inherit( SugarAndSaltSolutionsModel, MicroModel, {
     /**
      * store the concentrations of all solutes and set up a drain schedule, so that particles will flow out at rates so as to
      * keep the concentration level as constant as possible
@@ -401,7 +401,7 @@ define( function( require ) {
      * @returns {number}
      */
     updateModel: function( dt ) {
-      SugarAndSaltSolutionModel.prototype.updateModel.call( this, dt );
+      SugarAndSaltSolutionsModel.prototype.updateModel.call( this, dt );
 
       var self = this;
       //The Draining algorithm keeps track of which formula unit each particle is assigned to so that a particle is not double counted
@@ -650,7 +650,7 @@ define( function( require ) {
     },
 
     reset: function() {
-      SugarAndSaltSolutionModel.prototype.reset.call( this );
+      SugarAndSaltSolutionsModel.prototype.reset.call( this );
 
       //Clear out solutes, particles, concentration values
       this.clearSolutes();
@@ -792,7 +792,7 @@ define( function( require ) {
      * @param umber{n} evaporatedWater
      */
     waterEvaporated: function( evaporatedWater ) {
-      SugarAndSaltSolutionModel.prototype.waterEvaporated.call( this, evaporatedWater );
+      SugarAndSaltSolutionsModel.prototype.waterEvaporated.call( this, evaporatedWater );
       this.updateParticlesDueToWaterLevelDropped( evaporatedWater );
     },
 
@@ -827,7 +827,7 @@ define( function( require ) {
 
 } );
 
-//public class MicroModel extends SugarAndSaltSolutionModel {
+//public class MicroModel extends SugarAndSaltSolutionsModel {
 //
 //    private static final double FRAMES_PER_SECOND = 30;
 //
@@ -988,7 +988,7 @@ define( function( require ) {
 //               //Flow rate must be slowed since the beaker is microscopically small, this value determines how fast it will fill up
 //               5.0E-27,
 //
-//               //Values sampled at runtime using a debugger using this line in SugarAndSaltSolutionModel.update: System.out.println( "solution.shape.get().getBounds2D().getMaxY() = " + solution.shape.get().getBounds2D().getMaxY() );
+//               //Values sampled at runtime using a debugger using this line in SugarAndSaltSolutionsModel.update: System.out.println( "solution.shape.get().getBounds2D().getMaxY() = " + solution.shape.get().getBounds2D().getMaxY() );
 //               //Should be moved to be high enough to contain the largest molecule (sucrose), so that it may move about freely
 //               2.8440282964793075E-10, 5.75234062238494E-10,
 //

@@ -13,7 +13,7 @@ define( function( require ) {
   var AccordionBox = require( 'SUN/AccordionBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var SugarSaltBarChart = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/SugarSaltBarChart' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -32,17 +32,17 @@ define( function( require ) {
    */
   function MacroConcentrationBarChartNode( showConcentrationBarChart, saltConcentration, sugarConcentration, showConcentrationValues, scaleFactor ) {
     var self = this;
-    Node.call( self, { fill: SugarAndSaltConstants.WATER_COLOR } );
+    Node.call( self, { fill: SugarAndSaltSolutionsConstants.WATER_COLOR } );
 
     //The bar chart itself (when toggled to be visible)
     var barChartNode = new SugarSaltBarChart( saltConcentration, sugarConcentration, showConcentrationValues,
       showConcentrationBarChart, scaleFactor );
-    var titleNode = new Text( concentrationString, { font: SugarAndSaltConstants.TITLE_FONT } );
+    var titleNode = new Text( concentrationString, { font: SugarAndSaltSolutionsConstants.TITLE_FONT } );
 
     var accordionBoxNode = new AccordionBox( barChartNode, {
       //Node that says "concentration" and has a "+" button to expand the concentration bar chart
       titleNode: titleNode,
-      fill: SugarAndSaltConstants.WATER_COLOR,
+      fill: SugarAndSaltSolutionsConstants.WATER_COLOR,
       contentAlign: 'center',
       titleAlignX: 'center',
       buttonAlign: 'right',

@@ -27,7 +27,7 @@ define( function( require ) {
    * @param {number} distanceScale
    * @param {Property<DispenserType>} selectedType
    * @param {DispenserType} type
-   * @param {SugarAndSaltSolutionModel} model
+   * @param {SugarAndSaltSolutionsModel} model
    * @constructor
    */
   function SugarDispenser( x, y, beaker, moreAllowed, sugarDispenserName, distanceScale, selectedType, type, model ) {
@@ -182,7 +182,7 @@ define( function( require ) {
 // *
 // * @author Sam Reid
 // */
-//public abstract class SugarDispenser<T extends SugarAndSaltSolutionModel> extends Dispenser<T> {
+//public abstract class SugarDispenser<T extends SugarAndSaltSolutionsModel> extends Dispenser<T> {
 //
 
 //    public final T model;

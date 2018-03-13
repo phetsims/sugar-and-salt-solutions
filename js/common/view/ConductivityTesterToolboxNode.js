@@ -19,7 +19,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var SugarAndSaltSolutionsConductivityTesterNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SugarAndSaltSolutionsConductivityTesterNode' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -45,7 +45,7 @@ define( function( require ) {
       bulbToBatteryWireLength: 15 // length of the wire between bulb and battery, in view coordinates
     } );
 
-    var titleNode = new Text( conductivityString, { font: SugarAndSaltConstants.TITLE_FONT } );
+    var titleNode = new Text( conductivityString, { font: SugarAndSaltSolutionsConstants.TITLE_FONT } );
     var vBox = new VBox( {
       children: [ titleNode, conductivityTesterIconNode ],
       spacing: 0

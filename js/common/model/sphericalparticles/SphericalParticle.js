@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
   var Shape = require( 'KITE/Shape' );
-  var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
+  var SugarAndSaltSolutionsSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsSharedProperties' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -24,7 +24,7 @@ define( function( require ) {
    */
   function SphericalParticle( options ) {
     if ( !options.position ) { //If position is not explicitly given, consider the radius to be in PM, inferred from Java Code
-      options.radius = Units.picometersToMeters( options.radius ) * SugarAndSaltSharedProperties.sizeScale.get();
+      options.radius = Units.picometersToMeters( options.radius ) * SugarAndSaltSolutionsSharedProperties.sizeScale.get();
       options.position = new Vector2();
     }
     Particle.call( this, options.position );

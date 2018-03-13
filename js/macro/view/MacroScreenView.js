@@ -28,7 +28,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var SelectableSoluteItem = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SelectableSoluteItem' );
   var SoluteControlPanelNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SoluteControlPanelNode' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
   var Util = require( 'DOT/Util' );
@@ -54,7 +54,7 @@ define( function( require ) {
    */
   function MacroScreenView( macroModel ) {
 
-    var layoutBounds = SugarAndSaltConstants.LAYOUT_BOUNDS;
+    var layoutBounds = SugarAndSaltSolutionsConstants.LAYOUT_BOUNDS;
     var modelScale = 0.70;
     var modelBounds = macroModel.visibleRegion;
     var viewMinX = 15;

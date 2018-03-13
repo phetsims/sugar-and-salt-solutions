@@ -16,7 +16,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -40,7 +40,7 @@ define( function( require ) {
 
     //@protected Background for the bar chart
     self.background = new Path( Shape.rectangle( 0, 0, 180, 170 + verticalSpacingForCaptions ), {
-      fill: SugarAndSaltConstants.WATER_COLOR//Background for the bar chart
+      fill: SugarAndSaltSolutionsConstants.WATER_COLOR//Background for the bar chart
     } );
     self.addChild( self.background );
 
@@ -59,7 +59,7 @@ define( function( require ) {
     //Add a checkbox that lets the user toggle on and off whether actual values are shown
     //It is only shown in the first tab, since values are suppressed in the Micro tab
     if ( showShowValuesCheckbox ) {
-      var showValuesCheckbox = new Checkbox( new Text( showValuesString, { font: SugarAndSaltConstants.CONTROL_FONT } ),
+      var showValuesCheckbox = new Checkbox( new Text( showValuesString, { font: SugarAndSaltSolutionsConstants.CONTROL_FONT } ),
         showValues, {
           boxWidth: 20
         } );

@@ -16,7 +16,7 @@ define( function( require ) {
 
   /**
    *
-   * @param {SugarAndSaltSolutionModel} model
+   * @param {SugarAndSaltSolutionsModel} model
    * @param {Vector2} inputPoint
    * @param {Vector2} outputPoint
    * @param {double} faucetWidth
@@ -99,7 +99,7 @@ define( function( require ) {
 
 //
 //    //Creates a FaucetMetrics given the faucet node and root node
-//    public FaucetMetrics( ModelViewTransform transform, SugarAndSaltSolutionModel model, PNode rootNode, FaucetNode faucetNode ) {
+//    public FaucetMetrics( ModelViewTransform transform, SugarAndSaltSolutionsModel model, PNode rootNode, FaucetNode faucetNode ) {
 //        this( model,
 //              transform.viewToModel( new Vector2D( rootNode.globalToLocal( faucetNode.getGlobalInputCenter() ) ) ),
 //              transform.viewToModel( new Vector2D( rootNode.globalToLocal( faucetNode.getGlobalOutputCenter() ) ) ),
@@ -107,7 +107,7 @@ define( function( require ) {
 //    }
 //
 //    //Creates a FaucetMetrics with the previously computed positions
-//    public FaucetMetrics( SugarAndSaltSolutionModel model, Vector2D inputPoint, Vector2D outputPoint, double faucetWidth ) {
+//    public FaucetMetrics( SugarAndSaltSolutionsModel model, Vector2D inputPoint, Vector2D outputPoint, double faucetWidth ) {
 //        this.inputPoint = inputPoint;
 //        this.outputPoint = outputPoint;
 //        this.model = model;

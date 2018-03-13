@@ -18,7 +18,7 @@ define( function( require ) {
   var MicroSoluteKitList = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/MicroSoluteKitList' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var SphericalParticleNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SphericalParticleNode' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   // constants
@@ -31,7 +31,7 @@ define( function( require ) {
    * @constructor
    */
   function MicroScreenView( microModel ) {
-    var layoutBounds = SugarAndSaltConstants.LAYOUT_BOUNDS;
+    var layoutBounds = SugarAndSaltSolutionsConstants.LAYOUT_BOUNDS;
     var modelScale = 0.70;
     var modelBounds = microModel.visibleRegion;
     var viewMinX = 45;

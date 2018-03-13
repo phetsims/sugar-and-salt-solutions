@@ -18,7 +18,7 @@
 //import edu.colorado.phet.sugarandsaltsolutions.GlobalState;
 //import edu.colorado.phet.sugarandsaltsolutions.SugarAndSaltSolutionsSimSharing.UserComponents;
 //import edu.colorado.phet.sugarandsaltsolutions.common.model.Dispenser;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarAndSaltSolutionModel;
+//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarAndSaltSolutionsModel;
 //import edu.umd.cs.piccolo.PNode;
 //import edu.umd.cs.piccolo.event.PBasicInputEventHandler;
 //import edu.umd.cs.piccolo.event.PInputEvent;
@@ -58,7 +58,7 @@
 //    //Flag to indicate debugging of the model visible bounding region, used for layouts
 //    private final boolean debugVisibleBounds = false;
 //
-//    public BeakerAndShakerCanvas( final SugarAndSaltSolutionModel model, final GlobalState globalState, final ModelViewTransform transform,
+//    public BeakerAndShakerCanvas( final SugarAndSaltSolutionsModel model, final GlobalState globalState, final ModelViewTransform transform,
 //
 //                                  //This flag indicates whether it is the micro or macro tab since different images are used depending on the tab
 //                                  boolean micro,

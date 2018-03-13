@@ -13,7 +13,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -26,7 +26,7 @@ define( function( require ) {
    * @constructor
    */
   function SoluteControlPanelNode( soluteSelector ) {
-    var title = new Text( soluteString, { font: SugarAndSaltConstants.TITLE_FONT } );
+    var title = new Text( soluteString, { font: SugarAndSaltSolutionsConstants.TITLE_FONT } );
 
     var vBoxContent = new VBox( {
       children: [ title, soluteSelector ],

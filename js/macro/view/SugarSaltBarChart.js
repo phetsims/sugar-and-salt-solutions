@@ -14,7 +14,7 @@ define( function( require ) {
   var ConcentrationBarChart = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/barchart/ConcentrationBarChart' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   // strings
@@ -41,13 +41,13 @@ define( function( require ) {
     //Add a Salt concentration bar
     var saltBar = new Bar( new Property( Color.WHITE ), saltString, saltConcentration, showValues, verticalAxisScale, false );
     self.addBar( saltBar );
-    saltBar.x = self.background.bounds.getWidth() * 0.25 - SugarAndSaltConstants.BAR_WIDTH / 2;
+    saltBar.x = self.background.bounds.getWidth() * 0.25 - SugarAndSaltSolutionsConstants.BAR_WIDTH / 2;
     saltBar.y = self.abscissaY;
 
     //Add a Sugar concentration bar
     var sugarBar = new Bar( new Property( Color.WHITE ), sugarString, sugarConcentration, showValues, verticalAxisScale, false );
     self.addBar( sugarBar );
-    sugarBar.x = self.background.bounds.getWidth() * 0.75 - SugarAndSaltConstants.BAR_WIDTH / 2;
+    sugarBar.x = self.background.bounds.getWidth() * 0.75 - SugarAndSaltSolutionsConstants.BAR_WIDTH / 2;
     sugarBar.y = self.abscissaY;
   }
 

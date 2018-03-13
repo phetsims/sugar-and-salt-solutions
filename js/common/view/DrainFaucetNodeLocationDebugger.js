@@ -7,7 +7,7 @@
 //import edu.colorado.phet.common.phetcommon.util.SimpleObserver;
 //import edu.colorado.phet.common.phetcommon.view.graphics.transforms.ModelViewTransform;
 //import edu.colorado.phet.common.piccolophet.nodes.PhetPPath;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarAndSaltSolutionModel;
+//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarAndSaltSolutionsModel;
 //import edu.umd.cs.piccolo.PNode;
 //
 ///**
@@ -20,7 +20,7 @@
 //    //Flag to indicate whether the debugging is enabled
 //    private static final boolean enabled = false;
 //
-//    public DrainFaucetNodeLocationDebugger( final ModelViewTransform transform, final SugarAndSaltSolutionModel model ) {
+//    public DrainFaucetNodeLocationDebugger( final ModelViewTransform transform, final SugarAndSaltSolutionsModel model ) {
 //        if ( enabled ) {
 //            double length = 4;
 //

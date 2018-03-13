@@ -93,7 +93,7 @@ define( function( require ) {
 //import edu.colorado.phet.common.phetcommon.util.function.Function1;
 //import edu.colorado.phet.common.phetcommon.util.function.VoidFunction1;
 //import edu.colorado.phet.common.phetcommon.view.graphics.transforms.ModelViewTransform;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarAndSaltSolutionModel;
+//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarAndSaltSolutionsModel;
 //import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarDispenser;
 //
 //import static edu.colorado.phet.common.phetcommon.view.util.BufferedImageUtils.multiScaleToHeight;
@@ -104,7 +104,7 @@ define( function( require ) {
 // *
 // * @author Sam Reid
 // */
-//public class SugarDispenserNode<T extends SugarAndSaltSolutionModel> extends DispenserNode<T, SugarDispenser<T>> {
+//public class SugarDispenserNode<T extends SugarAndSaltSolutionsModel> extends DispenserNode<T, SugarDispenser<T>> {
 //
 //    private static final BufferedImage openFull = multiScaleToHeight( SUGAR_OPEN, 250 );
 //    private static final BufferedImage closedFull = multiScaleToHeight( SUGAR_CLOSED, 250 );

@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
@@ -26,8 +26,8 @@ define( function( require ) {
     var self = this;
     Node.call( self );
     var removeSoluteButton = new TextPushButton( text, {
-      font: SugarAndSaltConstants.CONTROL_FONT,
-      baseColor: SugarAndSaltConstants.BUTTON_COLOR,
+      font: SugarAndSaltSolutionsConstants.CONTROL_FONT,
+      baseColor: SugarAndSaltSolutionsConstants.BUTTON_COLOR,
       //When the user presses the button,clear the solute
       listener: function() {remove();}
     } );

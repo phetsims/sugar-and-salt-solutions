@@ -13,7 +13,7 @@ define( function( require ) {
   var Formula = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Formula' );
   var Glucose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/glucose/Glucose' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
+  var SugarAndSaltSolutionsSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsSharedProperties' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
 
@@ -28,7 +28,7 @@ define( function( require ) {
     Crystal.call( this, Formula.GLUCOSE, position,
 
       //Spacing between adjacent sucrose molecules, in meters
-      Units.nanometersToMeters( 0.5 ) * SugarAndSaltSharedProperties.sizeScale.get() / 2,
+      Units.nanometersToMeters( 0.5 ) * SugarAndSaltSolutionsSharedProperties.sizeScale.get() / 2,
 
       angle );
   }

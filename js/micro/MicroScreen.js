@@ -21,8 +21,8 @@ define( function( require ) {
   var MicroScreenView = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/MicroScreenView' );
   var Property = require( 'AXON/Property' );
   var Screen = require( 'JOIST/Screen' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
-  var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
+  var SugarAndSaltSolutionsSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsSharedProperties' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   // strings
@@ -39,9 +39,9 @@ define( function( require ) {
       //TODO add homeScreenIcon
     };
 
-    var layoutBounds = SugarAndSaltConstants.LAYOUT_BOUNDS;
+    var layoutBounds = SugarAndSaltSolutionsConstants.LAYOUT_BOUNDS;
     var aspectRatio = layoutBounds.width / layoutBounds.height;
-    SugarAndSaltSharedProperties.sizeScale.set( 0.35 );
+    SugarAndSaltSolutionsSharedProperties.sizeScale.set( 0.35 );
 
     Screen.call( this,
       function() { return new MicroModel( aspectRatio ); },

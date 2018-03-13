@@ -34,7 +34,7 @@ define( function( require ) {
    * @param {number} distanceScale
    * @constructor
    */
-  function SugarAndSaltSolutionModel( aspectRatio, framesPerSecond, beakerDimension, faucetFlowRate, drainPipeBottomY, drainPipeTopY, distanceScale ) {
+  function SugarAndSaltSolutionsModel( aspectRatio, framesPerSecond, beakerDimension, faucetFlowRate, drainPipeBottomY, drainPipeTopY, distanceScale ) {
     var self = this;
     AbstractSugarAndSaltSolutionsModel.call( self, framesPerSecond );
     //Use the same aspect ratio as the view to minimize insets with blank regions
@@ -149,9 +149,9 @@ define( function( require ) {
     self.showConcentrationValues = new Property( false );
   }
 
-  sugarAndSaltSolutions.register( 'SugarAndSaltSolutionModel', SugarAndSaltSolutionModel );
+  sugarAndSaltSolutions.register( 'SugarAndSaltSolutionsModel', SugarAndSaltSolutionsModel );
 
-  return inherit( AbstractSugarAndSaltSolutionsModel, SugarAndSaltSolutionModel, {
+  return inherit( AbstractSugarAndSaltSolutionsModel, SugarAndSaltSolutionsModel, {
     /**
      * Update the model when the clock ticks, and return the amount of drained water (in meters cubed)
      * so that subclasses like MacroModel can decrease the amount of dissolved solutes
@@ -353,7 +353,7 @@ define( function( require ) {
 // *
 // * @author Sam Reid
 // */
-//public abstract class SugarAndSaltSolutionModel extends AbstractSugarAndSaltSolutionsModel {
+//public abstract class SugarAndSaltSolutionsModel extends AbstractSugarAndSaltSolutionsModel {
 //
 
 //
@@ -396,7 +396,7 @@ define( function( require ) {
 //    //Solution model, the fluid + any dissolved solutes
 //    public final Solution solution;
 //
-//    public SugarAndSaltSolutionModel( final ConstantDtClock clock,
+//    public SugarAndSaltSolutionsModel( final ConstantDtClock clock,
 //
 //                                      //Dimensions of the beaker
 //                                      final BeakerDimension beakerDimension,

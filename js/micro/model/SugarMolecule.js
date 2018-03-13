@@ -12,7 +12,7 @@ define( function( require ) {
   var Compound = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Compound' );
   var Constituent = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Constituent' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var SugarAndSaltSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSharedProperties' );
+  var SugarAndSaltSolutionsSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsSharedProperties' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -29,7 +29,7 @@ define( function( require ) {
     //Add the glucose molecule atoms in the right locations, and in the right z-ordering
     _.each( positions.getAtoms(), function( atomPosition ) {
       self.constituents.add( new Constituent( atomPosition.createConstituent(),
-        relativePosition.plus( atomPosition.position.times( SugarAndSaltSharedProperties.sizeScale.get() ) ) ) );
+        relativePosition.plus( atomPosition.position.times( SugarAndSaltSolutionsSharedProperties.sizeScale.get() ) ) ) );
 
     } );
 

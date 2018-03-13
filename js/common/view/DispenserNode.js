@@ -142,7 +142,7 @@ define( function( require ) {
 //import edu.colorado.phet.common.piccolophet.nodes.HTMLNode;
 //import edu.colorado.phet.common.piccolophet.nodes.PhetPPath;
 //import edu.colorado.phet.sugarandsaltsolutions.common.model.Dispenser;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarAndSaltSolutionModel;
+//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarAndSaltSolutionsModel;
 //import edu.umd.cs.piccolo.PNode;
 //import edu.umd.cs.piccolo.event.PInputEvent;
 //import edu.umd.cs.piccolo.nodes.PImage;
@@ -152,7 +152,7 @@ define( function( require ) {
 // *
 // * @author Sam Reid
 // */
-//public class DispenserNode<U extends SugarAndSaltSolutionModel, T extends Dispenser<U>> extends PNode {
+//public class DispenserNode<U extends SugarAndSaltSolutionsModel, T extends Dispenser<U>> extends PNode {
 //    private final boolean debug = false;
 //    protected final PImage imageNode;
 //    private final ModelViewTransform transform;

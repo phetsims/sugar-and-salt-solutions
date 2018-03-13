@@ -8,7 +8,7 @@
 //import edu.colorado.phet.common.phetcommon.view.graphics.transforms.ModelViewTransform;
 //import edu.colorado.phet.sugarandsaltsolutions.GlobalState;
 //import edu.colorado.phet.sugarandsaltsolutions.SugarAndSaltSolutionsResources.Strings;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarAndSaltSolutionModel;
+//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarAndSaltSolutionsModel;
 //import edu.colorado.phet.sugarandsaltsolutions.common.view.BeakerAndShakerCanvas;
 //import edu.colorado.phet.sugarandsaltsolutions.common.view.CrystalMaker;
 //import edu.colorado.phet.sugarandsaltsolutions.common.view.DispenserRadioButtonSet;
@@ -112,7 +112,7 @@
 //    }
 //
 //    //Create the transform from model (SI) to view (stage) coordinates.  Public and static since it is also used to create the MiniBeakerNode in the Water tab
-//    public static ModelViewTransform createMacroTransform( SugarAndSaltSolutionModel model ) {
+//    public static ModelViewTransform createMacroTransform( SugarAndSaltSolutionsModel model ) {
 //
 //        //Scale the model down so there will be room for control panels.
 //        double modelScale = 0.75;

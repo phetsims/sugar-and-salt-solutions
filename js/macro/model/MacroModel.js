@@ -22,8 +22,8 @@ define( function( require ) {
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Property = require( 'AXON/Property' );
   var SoluteModel = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/SoluteModel' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
-  var SugarAndSaltSolutionModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionModel' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
+  var SugarAndSaltSolutionsModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionsModel' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -64,7 +64,7 @@ define( function( require ) {
    */
   function MacroModel( aspectRatio ) {
     var self = this;
-    SugarAndSaltSolutionModel.call( self,
+    SugarAndSaltSolutionsModel.call( self,
       aspectRatio, //Use the same aspect ratio as the view to minimize insets with blank regions
       30, //frames per second
       new BeakerDimension( 0.2 ),
@@ -92,7 +92,7 @@ define( function( require ) {
 
     //Model moles, concentration, amount dissolved, amount precipitated, etc. for salt and sugar
     //The chemistry team informed me that there is 0.2157/1000 meters cubed per mole of solid sugar
-    self.salt = new SoluteModel( self.waterVolume, saltSaturationPoint, SugarAndSaltConstants.VOLUME_PER_SOLID_MOLE_SALT,
+    self.salt = new SoluteModel( self.waterVolume, saltSaturationPoint, SugarAndSaltSolutionsConstants.VOLUME_PER_SOLID_MOLE_SALT,
       MacroSalt.molarMass );
     self.sugar = new SoluteModel( self.waterVolume, sugarSaturationPoint, 0.2157 / 1000.0, MacroSugar.molarMass );
 
@@ -166,7 +166,7 @@ define( function( require ) {
 
   sugarAndSaltSolutions.register( 'MacroModel', MacroModel );
 
-  return inherit( SugarAndSaltSolutionModel, MacroModel, {
+  return inherit( SugarAndSaltSolutionsModel, MacroModel, {
     /**
      * @protected
      * Update the model when the clock ticks
@@ -179,7 +179,7 @@ define( function( require ) {
       var initialSaltConcentration = this.saltConcentration.get();
       var initialSugarConcentration = this.sugarConcentration.get();
 
-      var drainedWater = SugarAndSaltSolutionModel.prototype.updateModel.call( this, dt );
+      var drainedWater = SugarAndSaltSolutionsModel.prototype.updateModel.call( this, dt );
 
       //Notify listeners that some water (with solutes) exited the system, so they can decrease the amounts
       //of solute (moles, not molarity) in the system
@@ -434,14 +434,14 @@ define( function( require ) {
 //import edu.colorado.phet.sugarandsaltsolutions.common.model.AirborneCrystalMoles;
 //import edu.colorado.phet.sugarandsaltsolutions.common.model.BeakerDimension;
 //import edu.colorado.phet.sugarandsaltsolutions.common.model.ConductivityTester;
-//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarAndSaltSolutionModel;
+//import edu.colorado.phet.sugarandsaltsolutions.common.model.SugarAndSaltSolutionsModel;
 //import edu.colorado.phet.sugarandsaltsolutions.macro.view.MacroSugarDispenser;
 //
 //import static edu.colorado.phet.sugarandsaltsolutions.common.model.DispenserType.SALT;
 //import static edu.colorado.phet.sugarandsaltsolutions.common.model.DispenserType.SUGAR;
 //
 
-//public class MacroModel extends SugarAndSaltSolutionModel {
+//public class MacroModel extends SugarAndSaltSolutionsModel {
 //
 //    //Model for the conductivity tester which is in the macro tab but not other tabs
 //    public final ConductivityTester conductivityTester;

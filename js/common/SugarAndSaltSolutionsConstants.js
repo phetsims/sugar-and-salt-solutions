@@ -16,7 +16,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
-  var SugarAndSaltConstants = Object.freeze( {
+  var SugarAndSaltSolutionsConstants = Object.freeze( {
     LAYOUT_BOUNDS: new Bounds2( 0, 0, 1024, 618 ),
     VOLUME_PER_SOLID_MOLE_SALT: 0.02699 / 1000.0,
     TITLE_FONT: new PhetFont( { weight: 'bold', size: 18 } ),
@@ -29,7 +29,7 @@ define( function( require ) {
     OXYGEN_RADIUS: 1E-10,
     SUCROSE_SCALE: 1E-10 * 10 / 800 * 0.7 // 1E-10 refers to OXYGEN_RADIUS
   } );
-  sugarAndSaltSolutions.register( 'SugarAndSaltConstants', SugarAndSaltConstants );
+  sugarAndSaltSolutions.register( 'SugarAndSaltSolutionsConstants', SugarAndSaltSolutionsConstants );
 
-  return SugarAndSaltConstants;
+  return SugarAndSaltSolutionsConstants;
 } );

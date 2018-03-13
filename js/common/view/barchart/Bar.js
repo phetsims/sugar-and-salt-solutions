@@ -16,7 +16,7 @@ define( function( require ) {
   var RichText = require( 'SCENERY/nodes/RichText' );
   var Shape = require( 'KITE/Shape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Util = require( 'DOT/Util' );
 
@@ -64,7 +64,7 @@ define( function( require ) {
     } );
 
     // Create and add the caption.
-    var captionNode = new RichText( caption, { font: SugarAndSaltConstants.CONTROL_FONT } );
+    var captionNode = new RichText( caption, { font: SugarAndSaltSolutionsConstants.CONTROL_FONT } );
 
     // Position so that it is centered under the bar.
     self.addChild( captionNode );
@@ -87,7 +87,7 @@ define( function( require ) {
     }
 
     //Optionally show the readout of the exact value above the bar itself
-    var valueReadout = new RichText( '', { font: SugarAndSaltConstants.CONTROL_FONT } );
+    var valueReadout = new RichText( '', { font: SugarAndSaltSolutionsConstants.CONTROL_FONT } );
     self.addChild( valueReadout );
     valueProperty.link( function( molesPerMeterCubed ) {
       //Convert to Moles per Liter from SI

@@ -14,7 +14,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var ProjectedPositions = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/ProjectedPositions' );
-  var SugarAndSaltConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltConstants' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
@@ -48,7 +48,7 @@ define( function( require ) {
                                    'O 704, 591',
 
       //Make sure it is qualitatively smaller than Sucrose
-      SugarAndSaltConstants.SUCROSE_SCALE * 0.7 );
+      SugarAndSaltSolutionsConstants.SUCROSE_SCALE * 0.7 );
   }
 
   sugarAndSaltSolutions.register( 'GlucosePositions', GlucosePositions );
