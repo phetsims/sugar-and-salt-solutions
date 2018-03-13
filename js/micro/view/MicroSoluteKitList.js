@@ -25,12 +25,14 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
+  var glucoseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/glucose' );
+  var sucroseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sucrose' );
+
+  // chemical formulas do not require translation, see https://github.com/phetsims/sugar-and-salt-solutions/issues/19
   var calciumString = 'Ca<sup>2+</sup>';
   var chlorideString = 'Cl<sup>-</sup>';
-  var glucoseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/glucose' );
   var nitrateString = 'NO<sub>3</sub><sup>-</sup>';
   var sodiumString = 'Na<sup>+</sup>';
-  var sucroseString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sucrose' );
 
   /**
    *
