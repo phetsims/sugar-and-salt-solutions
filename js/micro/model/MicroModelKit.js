@@ -16,7 +16,6 @@ define( function( require ) {
 
   /**
    * @constructor
-   * @param {Formula} // comma separated formula
    */
   function MicroModelKit() {
     var formulaeArray = Array.prototype.slice.call( arguments );
