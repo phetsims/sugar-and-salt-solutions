@@ -23,7 +23,7 @@ define( function( require ) {
    * @param {Property<boolean>} moreAllowed
    * @param {string} name
    * @param {number} distanceScale
-   * @param {<Property<DispenserType<string>>} selectedType
+   * @param {Property<DispenserType<string>>} selectedType
    * @param {DispenserType<string>} type
    * @param {MicroModel}model
    * @constructor

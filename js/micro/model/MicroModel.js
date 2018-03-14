@@ -794,7 +794,7 @@ define( function( require ) {
      * When water evaporates, move the particles so they move down with the water level
      * @protected
      * @override
-     * @param umber{n} evaporatedWater
+     * @param {number} evaporatedWater
      */
     waterEvaporated: function( evaporatedWater ) {
       SugarAndSaltSolutionsModel.prototype.waterEvaporated.call( this, evaporatedWater );

@@ -59,7 +59,7 @@ define( function( require ) {
     /**
      * @protected
      * @override
-     * @param {Vector} position
+     * @param {Vector2} position
      * @returns {CalciumChlorideCrystal}
      */
     newCrystal: function( position ) {

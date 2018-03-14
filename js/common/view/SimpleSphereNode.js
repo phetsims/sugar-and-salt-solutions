@@ -17,7 +17,7 @@ define( function( require ) {
    *
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Property<Vector2>} positionProperty
-   * @param {Node} image
+   * @param {Node} imageNode
    * @constructor
    */
   function SimpleSphereNode( modelViewTransform, positionProperty, imageNode ) {

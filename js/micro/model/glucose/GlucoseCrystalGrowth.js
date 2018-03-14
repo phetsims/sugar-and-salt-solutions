@@ -34,7 +34,7 @@ define( function( require ) {
   return inherit( CrystalGrowth, GlucoseCrystalGrowth, {
 
     /**
-     * @param {Vector} position
+     * @param {Vector2} position
      * @returns {GlucoseCrystal}
      */
     newCrystal: function( position ) {

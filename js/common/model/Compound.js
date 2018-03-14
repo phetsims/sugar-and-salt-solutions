@@ -25,7 +25,7 @@ define( function( require ) {
 
   /**
    *
-   * @param {Vector2D} position
+   * @param {Vector2} position
    * @param {number} angle
    * @constructor
    */

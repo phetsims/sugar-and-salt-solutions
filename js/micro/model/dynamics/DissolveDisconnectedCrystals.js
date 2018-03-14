@@ -33,7 +33,7 @@ define( function( require ) {
 
     /**
      * If any crystal has been disconnected too long, it will be completely dissolved
-     * @param {ItemList}
+     * @param {ItemList} crystalItemList
      */
     apply: function( crystalItemList ) {
       var self = this;

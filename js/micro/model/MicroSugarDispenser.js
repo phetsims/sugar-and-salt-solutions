@@ -22,9 +22,9 @@ define( function( require ) {
    * @param {Property<boolean>} moreAllowed
    * @param {string} name
    * @param {number} distanceScale
-   * @param {<Property<DispenserType<string>>} selectedType
+   * @param {Property<DispenserType<string>>} selectedType
    * @param {DispenserType<string>} type
-   * @param {MicroModel}model
+   * @param {MicroModel} model
    * @constructor
    * @abstract
    */
@@ -43,7 +43,7 @@ define( function( require ) {
      * @protected
      * @override
      * Checks to see if a sugar should be emitted, and if so, adds it to the model
-     * @param {Vector} outputPoint
+     * @param {Vector2} outputPoint
      */
     addSugarToModel: function( outputPoint ) {
       //Only add a crystal every N steps, otherwise there are too many

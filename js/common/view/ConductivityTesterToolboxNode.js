@@ -29,7 +29,7 @@ define( function( require ) {
   var conductivityString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/conductivity' );
 
   /**
-   *
+   * @param {Node} submergedInWaterNode
    * @param {ConductivityTester} conductivityTester
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor

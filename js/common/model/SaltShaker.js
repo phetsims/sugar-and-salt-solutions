@@ -128,7 +128,7 @@ define( function( require ) {
     /**
      * @protected
      * Adds the salt to the model
-     * @param {SugarAndSaltSolutionsModel}model
+     * @param {SugarAndSaltSolutionsModel} model
      * @param {Vector2} outputPoint
      * @param {number} volumePerSolidMole
      * @param {Vector2} crystalVelocity

@@ -16,7 +16,7 @@ define( function( require ) {
 
   /**
    * @param {Particle} particle
-   * @param {Vector2D} relativePosition
+   * @param {Vector2} relativePosition
    * @constructor
    */
   function Constituent( particle, relativePosition ) {

@@ -41,6 +41,7 @@ define( function( require ) {
   /**
    *
    * @param {CanvasRenderingContext2D} context
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {ObservableArray<MacroCrystal>} crystals // TODO change to normal array Ashraf
    * @param {number} size
    * @param {Color} color
