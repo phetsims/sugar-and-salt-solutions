@@ -54,17 +54,17 @@ define( function( require ) {
      * @returns {Array<Vector2>}
      */
     getPossibleDirections: function( constituent ) {
-      //If there's something North/South, then do not allow going East/West and vice versa
-      //This is to match the design doc spec and Soluble Salts sim to get a 2:1 lattice
-      //This effectively makes it so that so that every other Ca2+ is omitted from the lattice in a regular way
+      // If there's something North/South, then do not allow going East/West and vice versa
+      // This is to match the design doc spec and Soluble Salts sim to get a 2:1 lattice
+      // This effectively makes it so that so that every other Ca2+ is omitted from the lattice in a regular way
       if ( constituent.particle instanceof Chloride ) {
         if ( this.isOccupied( constituent.relativePosition.plus( this.northUnitVector ) ) ) { return [ this.southUnitVector ]; }
         else if ( this.isOccupied( constituent.relativePosition.plus( this.southUnitVector ) ) ) { return [ this.northUnitVector ];}
         else if ( this.isOccupied( constituent.relativePosition.plus( this.eastUnitVector ) ) ) { return [ this.westUnitVector ];}
         else if ( this.isOccupied( constituent.relativePosition.plus( this.westUnitVector ) ) ) { return [ this.eastUnitVector ];}
 
-        //If no neighbor site is occupied, then this is the first particle in the lattice, so fall through and allow to
-        //go any direction
+        // If no neighbor site is occupied, then this is the first particle in the lattice, so fall through and allow to
+        // go any direction
       }
       return Crystal.prototype.getPossibleDirections.call( this, constituent );
     }

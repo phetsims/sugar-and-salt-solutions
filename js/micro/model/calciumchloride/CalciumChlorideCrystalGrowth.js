@@ -44,7 +44,7 @@ define( function( require ) {
       _.each( aList.getArray(), function( a ) {
         _.each( bList.getArray(), function( b ) {
           _.each( bList.getArray(), function( c ) {
-            //Check for equality in case typeA==typeB, as in the case of Sucrose
+            // Check for equality in case typeA==typeB, as in the case of Sucrose
             if ( b !== c ) {
               formulaUnits.push( new ThreeParticleFormulaUnit( a, b, c ) );
             }

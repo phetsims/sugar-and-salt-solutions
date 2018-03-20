@@ -25,19 +25,19 @@ define( function( require ) {
   function PrecipitateNode( modelViewTransform, precipitateVolume, beaker ) {
     var self = this;
     Path.call( self, new Shape(), {
-      //Show as white, but it renders between the water layers so it looks like it is in the water
-      //(unless it passes the top of the water)
+      // Show as white, but it renders between the water layers so it looks like it is in the water
+      // (unless it passes the top of the water)
       fill: Color.white,
-      //Make it not intercept mouse events so the user can still retrieve a
+      // Make it not intercept mouse events so the user can still retrieve a
       // probe that is buried in the precipitate
       pickable: false
     } );
 
     precipitateVolume.link( function( volume ) {
 
-      //Scale up the precipitate volume to convert from meters cubed to stage coordinates, manually tuned
-      //We tried showing as a wide and short ellipse (a clump centered in the beaker), but that creates complications when it comes to showing the water level
-      //Note, this assumes that the beaker (and precipitate) are rectangular
+      // Scale up the precipitate volume to convert from meters cubed to stage coordinates, manually tuned
+      // We tried showing as a wide and short ellipse (a clump centered in the beaker), but that creates complications when it comes to showing the water level
+      // Note, this assumes that the beaker (and precipitate) are rectangular
       self.setShape( modelViewTransform.modelToViewShape( Shape.rectangle( beaker.getX(),
         beaker.getY(), beaker.getWidth(), beaker.getHeightForVolume( volume ) ) ) );
 

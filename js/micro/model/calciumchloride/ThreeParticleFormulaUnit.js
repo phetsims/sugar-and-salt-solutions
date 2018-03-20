@@ -23,13 +23,13 @@ define( function( require ) {
    * @constructor
    */
   function ThreeParticleFormulaUnit( a, b, c ) {
-    //@private
+    // @private
     this.a = a;
 
-    //@private
+    // @private
     this.b = b;
 
-    //@private
+    // @private
     this.c = c;
   }
 

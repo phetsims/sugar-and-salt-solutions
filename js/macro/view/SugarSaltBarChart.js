@@ -34,16 +34,16 @@ define( function( require ) {
     var self = this;
     ConcentrationBarChart.call( self, showValues, visible, 0, true );
 
-    //Convert from model units (Mols) to stage units by multiplying by this scale factor
+    // Convert from model units (Mols) to stage units by multiplying by this scale factor
     var verticalAxisScale = 160 * 1E-4 * scaleFactor;
 
-    //Add a Salt concentration bar
+    // Add a Salt concentration bar
     var saltBar = new Bar( new Property( Color.WHITE ), saltString, saltConcentration, showValues, verticalAxisScale, false );
     self.addBar( saltBar );
     saltBar.x = self.background.bounds.getWidth() * 0.25 - SugarAndSaltSolutionsConstants.BAR_WIDTH / 2;
     saltBar.y = self.abscissaY;
 
-    //Add a Sugar concentration bar
+    // Add a Sugar concentration bar
     var sugarBar = new Bar( new Property( Color.WHITE ), sugarString, sugarConcentration, showValues, verticalAxisScale, false );
     self.addBar( sugarBar );
     sugarBar.x = self.background.bounds.getWidth() * 0.75 - SugarAndSaltSolutionsConstants.BAR_WIDTH / 2;

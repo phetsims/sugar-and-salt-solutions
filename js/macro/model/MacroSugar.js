@@ -13,13 +13,13 @@ define( function( require ) {
   var MacroCrystal = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/MacroCrystal' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
-  //constants
-  //Create a sugar crystal with the specified amount in grams /mol
+  // constants
+  // Create a sugar crystal with the specified amount in grams /mol
   var molarMass = 342.23134;
 
-  //Number of grams per grain of sugar, manually tuned to make it so that grains are small but it doesn't take too long
-  //to get the concentration bar to appear on the bar chart.Making this number bigger won't change the size of the
-  //salt grain, but will change how fast the concentration goes up as salt is shaken in
+  // Number of grams per grain of sugar, manually tuned to make it so that grains are small but it doesn't take too long
+  // to get the concentration bar to appear on the bar chart.Making this number bigger won't change the size of the
+  // salt grain, but will change how fast the concentration goes up as salt is shaken in
   var gramsPerGrain = 0.4;
 
   var molesIn5Grams = gramsPerGrain / molarMass;

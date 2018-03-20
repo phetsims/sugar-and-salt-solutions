@@ -29,17 +29,18 @@ define( function( require ) {
     self.velocity = new Property( new Vector2( 0, 0 ) );
     self.acceleration = new Property( new Vector2( 0, 0 ) );
 
-    //@private The number of moles of the crystal.  We couldn't just count the number of atoms since it would overflow Long
+    // @private The number of moles of the crystal.  We couldn't just count the number of atoms since it would
+    // overflow Long
     self.moles = moles;
 
-    //Compute the length of a side
+    // Compute the length of a side
     var volume = volumePerMole * moles;
 
-    //Length in m^3 of one side of the crystal, assuming it is perfectly cubic
+    // Length in m^3 of one side of the crystal, assuming it is perfectly cubic
     self.length = Math.pow( volume, 1.0 / 3.0 );
 
-    //@private True of the salt has landed on the floor of the beaker.  In this case it won't move anymore and will
-    //dissolve when liquid hits
+    // @private True of the salt has landed on the floor of the beaker.  In this case it won't move anymore and will
+    // dissolve when liquid hits
     self.landed = false;
 
   }
@@ -77,7 +78,7 @@ define( function( require ) {
         // Intersect leftBeakerWall and RightBeakWall with Path, which is a line with originalPosition as start point and
         // current position as end Point.
         // Path that the particle took from previous time to current time, for purpose of collision detection with walls
-        //for performance reasons using Util lineSegment instead of creating new Line Shapes
+        // for performance reasons using Util lineSegment instead of creating new Line Shapes
 
         var leftWallIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.position.get().x, this.position.get().y,
           leftBeakerWall.start.x, leftBeakerWall.start.y, leftBeakerWall.end.x, leftBeakerWall.end.y );
@@ -85,31 +86,32 @@ define( function( require ) {
         var rightWallIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.position.get().x, this.position.get().y,
           rightBeakerWall.start.x, rightBeakerWall.start.y, rightBeakerWall.end.x, rightBeakerWall.end.y );
 
-        //if the particle bounced off a wall, then reverse its velocity
+        // if the particle bounced off a wall, then reverse its velocity
         if ( leftWallIntersection || rightWallIntersection ) {
           this.velocity.set( new Vector2( Math.abs( this.velocity.get().x ), this.velocity.get().y ) );
 
-          //Rollback the previous update, and go the other way
+          // Rollback the previous update, and go the other way
           this.position.set( originalPosition );
           this.position.set( this.position.get().plus( this.velocity.get().times( dt ) ) );
         }
 
-        //Intersect beakerfloor and TopOFSolid with the new Path after accounting for bouncing off walls
+        // Intersect beakerfloor and TopOfSolid with the new Path after accounting for bouncing off walls
         var beakerFloorIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.position.get().x, this.position.get().y,
           beakerFloor.start.x, beakerFloor.start.y, beakerFloor.end.x, beakerFloor.end.y );
 
         var topOfSolidIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.position.get().x, this.position.get().y,
           topOfSolid.start.x, topOfSolid.start.y, topOfSolid.end.x, topOfSolid.end.y );
 
-        //See if it should land on the floor of the beaker
+        // See if it should land on the floor of the beaker
         if ( beakerFloorIntersection ) {
           this.position.set( new Vector2( this.position.get().x, 0 ) );
           this.landed = true;
         }
-        //See if it should land on top of any precipitated solid in the beaker
+        // See if it should land on top of any precipitated solid in the beaker
         else if ( topOfSolidIntersection ) {
 
-          //Move the crystal down a tiny bit so that it will be intercepted by the water on top of the solid precipitate when water is added
+          // Move the crystal down a tiny bit so that it will be intercepted by the water on top of the solid
+          // precipitate when water is added
           this.position.set( new Vector2( this.position.get().x, topOfSolid.getY1() - 1E-6 ) );
           this.landed = true;
         }

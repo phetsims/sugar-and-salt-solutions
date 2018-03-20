@@ -31,15 +31,15 @@ define( function( require ) {
     var self = this;
     Node.call( self );
 
-    //Button to remove salt, only shown if there is any salt
+    // Button to remove salt, only shown if there is any salt
     var saltButton = new RemoveSoluteButtonNode( removeSaltString, model.isAnySaltToRemove(), model.removeSalt.bind( model ) );
     self.addChild( saltButton );
 
-    //Button to remove sugar, only shown if there is any sugar
+    // Button to remove sugar, only shown if there is any sugar
     var sugarButton = new RemoveSoluteButtonNode( removeSugarString, model.isAnySugarToRemove(), model.removeSugar.bind( model ) );
     self.addChild( sugarButton );
 
-    //Put the buttons next to each other, leaving the origin at (0,0) so it can be positioned easily by the client
+    // Put the buttons next to each other, leaving the origin at (0,0) so it can be positioned easily by the client
     sugarButton.x = saltButton.bounds.getMaxX() + INSET;
   }
 

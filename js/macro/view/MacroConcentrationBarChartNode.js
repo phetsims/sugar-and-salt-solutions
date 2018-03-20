@@ -34,13 +34,13 @@ define( function( require ) {
     var self = this;
     Node.call( self, { fill: SugarAndSaltSolutionsConstants.WATER_COLOR } );
 
-    //The bar chart itself (when toggled to be visible)
+    // The bar chart itself (when toggled to be visible)
     var barChartNode = new SugarSaltBarChart( saltConcentration, sugarConcentration, showConcentrationValues,
       showConcentrationBarChart, scaleFactor );
     var titleNode = new Text( concentrationString, { font: SugarAndSaltSolutionsConstants.TITLE_FONT } );
 
     var accordionBoxNode = new AccordionBox( barChartNode, {
-      //Node that says "concentration" and has a "+" button to expand the concentration bar chart
+      // Node that says "concentration" and has a "+" button to expand the concentration bar chart
       titleNode: titleNode,
       fill: SugarAndSaltSolutionsConstants.WATER_COLOR,
       contentAlign: 'center',
