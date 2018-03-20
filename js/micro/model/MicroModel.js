@@ -1,4 +1,4 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * Model for the micro tab, which uses code from soluble salts sim.
  *
@@ -138,7 +138,7 @@ define( function( require ) {
     } );
     //@private
     this.nitrateColor = new DerivedProperty( [ self.showChargeColor ], function() {
-      return self.showChargeColor.get() ? Color.BLUE : Color.BLUE; // why blue for both conditions..check ..? TODO
+      return Color.BLUE; // why blue for both conditions..check ..? TODO
     } );
 
 

@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * Beaker dimensions and location in meters, public so other classes can use them for layout.
  * This class exists so the dimensions can be passed together as a parameter when constructing model instances,

@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 
 /**
  * Result of dividing int by int, which has an int quotient and int remainder.

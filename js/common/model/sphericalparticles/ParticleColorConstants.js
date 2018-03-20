@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * Color Constants Used by Different Spherical Particles
  * @author Sam Reid (PhET Interactive Simulations)

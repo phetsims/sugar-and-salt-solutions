@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * Atom Image Factory - uses node.toImage and caches the image representation of the node. This is done to improve
  * performance

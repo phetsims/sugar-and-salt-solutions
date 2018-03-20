@@ -1,4 +1,4 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * Observable property that gives the concentration in mol/m^3 for specific dissolved
  * components (such as Na+ or sucrose)

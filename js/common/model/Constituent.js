@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 
 /**
  * Member in a compound, including the particle and its relative offset

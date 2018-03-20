@@ -1,4 +1,4 @@
-// Copyright 2014-2016, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * Base class for sugar and salt dispensers.  To clarify the terminology in the subclasses,
  * salt is created by "shakers" (a refinement of this dispenser class) and sugar is created by "dispensers"

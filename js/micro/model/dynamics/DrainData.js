@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * DrainData helps to maintain a constant concentration as particles flow out the drain by tracking flow rate and timing
  *

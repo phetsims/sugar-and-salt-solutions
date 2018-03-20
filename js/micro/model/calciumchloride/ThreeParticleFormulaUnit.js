@@ -1,4 +1,4 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 
 /**
  * One formula unit of particles to be used as a seed for creating a crystal that starts with 3 elements, such as CaCl2.

@@ -1,4 +1,4 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 
 /**
  * Abstract class since oxygen ions and oxygen in sucrose/glucose must have different colors

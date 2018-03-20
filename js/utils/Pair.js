@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2018, University of Colorado Boulder
 
 /**
  * A data structure for 2 related objects.

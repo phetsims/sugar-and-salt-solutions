@@ -1,4 +1,4 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * The clock for this simulation.
  * The simulation time change (dt) on each clock tick is constant,

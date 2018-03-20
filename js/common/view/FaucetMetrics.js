@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * Absolute locations in model coordinates (in meters) of where
  * particles flow to leave the drain pipe, and where they leave when they exit the drain pipe.

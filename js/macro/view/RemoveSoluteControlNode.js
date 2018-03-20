@@ -1,4 +1,4 @@
-// Copyright 2014-2016, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * Node that contains one button to remove salt (if there is any salt) and another button for sugar.
  *

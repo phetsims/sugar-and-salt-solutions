@@ -1,4 +1,4 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * Base class for controls that allow the user to select from different solutes.
  * This general part of the code provides layout and a title, and relies on constructor parameter for the tab-specific control

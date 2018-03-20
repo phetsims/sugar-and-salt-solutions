@@ -1,4 +1,4 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * If you're not part of the solution, you're part of the precipitate.  This node draws the
  * clump of crystals that has come out of solution (because of passing the saturation point)

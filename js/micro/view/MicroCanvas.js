@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions.micro.view;
 //
 //import java.awt.Color;

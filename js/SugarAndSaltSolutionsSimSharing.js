@@ -1,4 +1,4 @@
-// Copyright 2014-2016, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions;
 //import edu.colorado.phet.common.phetcommon.simsharing.messages.IUserComponent;
 ///**

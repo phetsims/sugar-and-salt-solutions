@@ -1,4 +1,4 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * Model element for the salt shaker, which includes its position and rotation and adds salt to the model when shaken.
  * Shaking (by acceleration and deceleration) along the axis produce salt.

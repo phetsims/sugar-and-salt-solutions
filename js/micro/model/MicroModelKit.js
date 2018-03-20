@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * Model kit, for making sure that particle draining can happen in formula units so there isn't an
  * unbalanced number of solutes for crystallization

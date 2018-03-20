@@ -1,4 +1,4 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 
 /**
  * Keep track of how many moles of crystal are in the air, since we need to prevent user from adding more than 10

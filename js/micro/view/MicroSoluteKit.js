@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 /**
  * A kit the user can choose from, for showing the appropriate bars in the concentration bar chart.  Other information about
  * kits is contained in the MicroModel.selectedKit and its dependencies

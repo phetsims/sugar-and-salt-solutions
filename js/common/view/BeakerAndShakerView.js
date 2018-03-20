@@ -1,4 +1,4 @@
-// Copyright 2014-2017, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 
 /**
  * View for the tabs 1-2 (which both use a beaker and shaker) in the Sugar and Salt Solutions Sim
