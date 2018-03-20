@@ -21,7 +21,7 @@ define( function( require ) {
    *
    * @param {ModelViewTransform2} modelViewTransform
    * @param {SphericalParticle} particle
-   * @param {Property<boolean>} showChargeColorProperty   //Flag to show the color based on charge, or based on atom identity
+   * @param {Property.<boolean>} showChargeColorProperty   //Flag to show the color based on charge, or based on atom identity
    * @constructor
    */
   function SphericalParticleNode( modelViewTransform, particle, showChargeColorProperty ) {

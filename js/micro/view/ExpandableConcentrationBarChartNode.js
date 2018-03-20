@@ -21,8 +21,8 @@ define( function( require ) {
 
   /**
    *
-   * @param {Property<boolean>} showConcentrationBarChart
-   * @param {Property<boolean>} showConcentrationValues
+   * @param {Property.<boolean>} showConcentrationBarChart
+   * @param {Property.<boolean>} showConcentrationValues
    * @constructor
    */
   function ExpandableConcentrationBarChartNode( showConcentrationBarChart,

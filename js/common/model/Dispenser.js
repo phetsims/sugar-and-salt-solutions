@@ -20,10 +20,10 @@ define( function( require ) {
    * @param {number} y
    * @param {number} angle
    * @param {Beaker} beaker
-   * @param {Property<Boolean>} moreAllowed
+   * @param {Property.<boolean>} moreAllowed
    * @param {string} name
    * @param {number} distanceScale
-   * @param {Property<DispenserType>} selectedType
+   * @param {Property.<DispenserType>} selectedType
    * @param {DispenserType} type
    * @param {SugarAndSaltSolutionsModel} model
    * @constructor

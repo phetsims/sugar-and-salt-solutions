@@ -23,10 +23,10 @@ define( function( require ) {
 
   /**
    *
-   * @param {Property<boolean>} showConcentrationBarChart
-   * @param {Property<number>} saltConcentration
-   * @param {Property<number>} sugarConcentration
-   * @param {Property<boolean>} showConcentrationValues
+   * @param {Property.<boolean>} showConcentrationBarChart
+   * @param {Property.<number>} saltConcentration
+   * @param {Property.<number>} sugarConcentration
+   * @param {Property.<boolean>} showConcentrationValues
    * @param {number} scaleFactor
    * @constructor
    */

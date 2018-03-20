@@ -21,7 +21,7 @@ define( function( require ) {
    *
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Compound} compound
-   * @param {Property<boolean>} showChargeColor
+   * @param {Property.<boolean>} showChargeColor
    * @constructor
    */
   function CompositeParticleNode( modelViewTransform, compound, showChargeColor ) {

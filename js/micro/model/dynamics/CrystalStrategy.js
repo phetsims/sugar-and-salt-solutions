@@ -22,7 +22,7 @@ define( function( require ) {
    *
    * @param {MicroModel} model
    * @param {ItemList} crystals
-   * @param {Property<boolean>} saturated
+   * @param {Property.<boolean>} saturated
    * @constructor
    */
   function CrystalStrategy( model, crystals, saturated ) {

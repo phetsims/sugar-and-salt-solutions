@@ -18,7 +18,7 @@ define( function( require ) {
 
   /**
    *
-   * @param {Property<DispenserType>} dispenserType
+   * @param {Property.<DispenserType>} dispenserType
    * @param {Array<SelectableSoluteItem>}items
    * @constructor
    */

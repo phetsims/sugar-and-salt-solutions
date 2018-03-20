@@ -28,8 +28,8 @@ define( function( require ) {
 
   /**
    *
-   * @param {Property<boolean>} showValues
-   * @param {Property<boolean>} visible
+   * @param {Property.<boolean>} showValues
+   * @param {Property.<boolean>} visible
    * @param {number} verticalSpacingForCaptions
    * @param {boolean} showShowValuesCheckbox
    * @constructor

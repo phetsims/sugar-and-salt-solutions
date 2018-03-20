@@ -16,7 +16,7 @@ define( function( require ) {
 
   /**
    *
-   * @param {Property<number>} waterVolume
+   * @param {Property.<number>} waterVolume
    * @param {Beaker} beaker
    * @constructor
    */

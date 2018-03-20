@@ -16,10 +16,10 @@ define( function( require ) {
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   /**
-   * @param {Property<number>} waterVolume
-   * @param {Property<number>} saturationPoint
-   * @param {Property<number>} volumePerSolidMole
-   * @param {Property<number>} gramsPerMole
+   * @param {Property.<number>} waterVolume
+   * @param {Property.<number>} saturationPoint
+   * @param {Property.<number>} volumePerSolidMole
+   * @param {Property.<number>} gramsPerMole
    * @constructor
    */
   function SoluteModel( waterVolume, saturationPoint, volumePerSolidMole, gramsPerMole ) {

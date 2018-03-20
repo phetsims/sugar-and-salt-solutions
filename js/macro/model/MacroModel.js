@@ -294,7 +294,7 @@ define( function( require ) {
      * Make sure to keep the concentration the same when water flowing out
      * @param {number} outVolume
      * @param {number} concentration
-     * @param {Property<number>} moles
+     * @param {Property.<number>} moles
      */
     updateConcentration: function( outVolume, concentration, moles ) {
       var molesOfSoluteLeaving = concentration * outVolume;
@@ -337,7 +337,7 @@ define( function( require ) {
 
     /**
      * Determine if any salt can be removed for purposes of displaying a "remove salt" button
-     * @returns {Property<Boolean>}
+     * @returns {Property.<boolean>}
      */
     isAnySaltToRemove: function() {
       return new DerivedProperty( [ this.salt.moles ], function( saltMoles ) { return saltMoles > 0; } );
@@ -345,7 +345,7 @@ define( function( require ) {
 
     /**
      * Determine if any sugar can be removed for purposes of displaying a "remove sugar" button
-     * @returns {Property<Boolean>}
+     * @returns {Property.<boolean>}
      */
     isAnySugarToRemove: function() {
       return new DerivedProperty( [ this.sugar.moles ], function( sugarMoles ) { return sugarMoles > 0; } );
@@ -353,7 +353,7 @@ define( function( require ) {
 
     /**
      *
-     * @returns {Property<Boolean>}
+     * @returns {Property.<boolean>}
      */
     getAnySolutes: function() {
       return this.anySolutes;

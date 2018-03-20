@@ -30,9 +30,9 @@ define( function( require ) {
 
   /**
    *
-   * @param {Property<number>}evaporationRate
+   * @param {Property.<number>}evaporationRate
    * @param {Property} waterVolume
-   * @param {Property<boolean>} clockRunning
+   * @param {Property.<boolean>} clockRunning
    * @constructor
    */
   function EvaporationSlider( evaporationRate, waterVolume, clockRunning ) {

@@ -31,10 +31,10 @@ define( function( require ) {
 
   /**
    *
-   * @param {Property<Color>} colorProperty
+   * @param {Property.<Color>} colorProperty
    * @param {string} caption
-   * @param {Property<number>} valueProperty
-   * @param {Property<boolean>} showValueProperty
+   * @param {Property.<number>} valueProperty
+   * @param {Property.<boolean>} showValueProperty
    * @param {number} verticalAxisScale
    * @param {boolean} multiLineReadout
    * @param {Node} icon // optional

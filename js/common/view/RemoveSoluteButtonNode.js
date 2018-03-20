@@ -18,7 +18,7 @@ define( function( require ) {
   /**
    *
    * @param {string} text
-   * @param {Property<boolean>} visibleProperty
+   * @param {Property.<boolean>} visibleProperty
    * @param {function} remove
    * @constructor
    */

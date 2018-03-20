@@ -18,7 +18,7 @@ define( function( require ) {
 
   /**
    *
-   * @param {Property<Shape>} shape
+   * @param {Property.<Shape>} shape
    * @param {number} minY
    * @param {number} maxY
    * @constructor

@@ -18,7 +18,7 @@ define( function( require ) {
 
   /**
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {Property<number>} precipitateVolume
+   * @param {Property.<number>} precipitateVolume
    * @param {Beaker} beaker
    * @constructor
    */

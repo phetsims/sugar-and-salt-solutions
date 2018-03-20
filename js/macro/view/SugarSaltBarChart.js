@@ -22,10 +22,10 @@ define( function( require ) {
   var sugarString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/sugar' );
 
   /**
-   * @param {Property<number>} saltConcentration
-   * @param {Property<number>} sugarConcentration
-   * @param {Property<boolean>} showValues
-   * @param {Property<boolean>}visible
+   * @param {Property.<number>} saltConcentration
+   * @param {Property.<number>} sugarConcentration
+   * @param {Property.<boolean>} showValues
+   * @param {Property.<boolean>}visible
    * @param {number} scaleFactor
    * @constructor
    */

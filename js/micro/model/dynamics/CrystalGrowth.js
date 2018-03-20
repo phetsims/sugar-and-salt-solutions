@@ -44,7 +44,7 @@ define( function( require ) {
     /**
      * Check to see whether it is time to create or add to existing crystals, if the solution is over saturated
      * @param {number} dt
-     * @param {Property<boolean>} saturated
+     * @param {Property.<boolean>} saturated
      */
     allowCrystalGrowth: function( dt, saturated ) {
       var self = this;

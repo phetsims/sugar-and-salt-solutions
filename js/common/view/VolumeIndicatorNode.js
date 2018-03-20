@@ -30,8 +30,8 @@ define( function( require ) {
    *
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Solution} solution
-   * @param {Property<boolean>} visible
-   * @param {Property<boolean>} anySolutes
+   * @param {Property.<boolean>} visible
+   * @param {Property.<boolean>} anySolutes
    * @param {function(number}:string} formatter
    * @constructor
    */

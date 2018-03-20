@@ -19,7 +19,7 @@ define( function( require ) {
   /**
    *
    * @param {ModelViewTransform2} transform
-   * @param {Property<Shape>} waterShapeProperty
+   * @param {Property.<Shape>} waterShapeProperty
    * @constructor
    */
   function WaterNode( transform, waterShapeProperty ) {

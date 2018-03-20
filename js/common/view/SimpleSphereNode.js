@@ -16,7 +16,7 @@ define( function( require ) {
   /**
    *
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {Property<Vector2>} positionProperty
+   * @param {Property.<Vector2>} positionProperty
    * @param {Node} imageNode
    * @constructor
    */
