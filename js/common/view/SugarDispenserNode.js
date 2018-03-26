@@ -49,7 +49,7 @@ define( function( require ) {
    * @constructor
    */
   function SugarDispenserNode( modelViewTransform, model, micro, dragConstraint ) {
-    var self = this;
+    var self = this; 
     DispenserNode.call( self, modelViewTransform, model, dragConstraint );
 
     // Hide the sugar dispenser if it is not enabled (selected by the user)
