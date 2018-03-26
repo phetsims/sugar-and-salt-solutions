@@ -53,7 +53,7 @@ define( function( require ) {
     DispenserNode.call( self, modelViewTransform, model, dragConstraint );
 
     // Hide the sugar dispenser if it is not enabled (selected by the user)
-    model.enabled.link( function( enabled ) {
+    model.enabledProperty.link( function( enabled ) {
       self.visible = enabled;
     } );
 
