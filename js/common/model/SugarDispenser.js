@@ -136,7 +136,7 @@ define( function( require ) {
       this.angle.set( proposedAngle );
 
       //Check to see if we should be emitting sugar crystals-- if the sugar is enabled and its top is open and it is rotating
-      if ( this.enabledProperty.get() && this.translating && this.angle.get() > Math.PI / 2 && this.moreAllowed.get() ) {
+      if ( this.enabled.get() && this.translating && this.angle.get() > Math.PI / 2 && this.moreAllowed.get() ) {
 
         //Then emit a number of crystals proportionate to the amount the dispenser was rotated so that vigorous rotation
         //emits more, but clamping it so there can't be too many

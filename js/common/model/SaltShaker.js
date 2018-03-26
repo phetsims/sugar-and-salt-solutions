@@ -59,7 +59,7 @@ define( function( require ) {
     //Called when the model steps in time, and adds any salt crystals to the sim if the dispenser is pouring
     updateModel: function() {
       //Check to see if we should be emitting salt crystals-- if the shaker was shaken enough
-      if ( this.enabledProperty.get() && this.shakeAmount > 0 && this.moreAllowed.get() ) {
+      if ( this.enabled.get() && this.shakeAmount > 0 && this.moreAllowed.get() ) {
         var numCrystals = ( Math.floor( Math.random() * 2 ) + Math.min( this.shakeAmount * 4000, 4 ) );
         for ( var i = 0; i < numCrystals; i++ ) {
 

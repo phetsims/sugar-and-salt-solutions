@@ -43,7 +43,7 @@ define( function( require ) {
     emptyImage.setScaleMagnitude( 180 / emptyImage.getImageHeight() );
 
     //Hide the sugar dispenser if it is not enabled (selected by the user)
-    model.enabledProperty.link( function( enabled ) {
+    model.enabled.link( function( enabled ) {
         self.visible = enabled;
       }
     );
