@@ -94,11 +94,10 @@ define( function( require ) {
     // the sugarAndSaltSolutionsConductivityTesterNode visible
     var iconDragListener = new SimpleDragHandler( {
       start: function( event ) {
-        var conductivityTesterStartingPosition = modelViewTransform.viewToModelPosition( conductivityTesterIconNode.getGlobalBounds().center );
-        var bulbBounds = conductivityTester.getBulbRegion();
+        var conductivityTesterWidth = Math.abs( conductivityTester.positiveProbeLocationProperty.value.x - conductivityTester.negativeProbeLocationProperty.value.x );
+        var conductivityTesterStartingPosition = modelViewTransform.viewToModelPosition( event.pointer.point );
         //adjust the location such that the bulb appears on the clicked position
-        conductivityTesterStartingPosition.y -= 1.4 * bulbBounds.height;
-        conductivityTesterStartingPosition.x -= bulbBounds.width / 2;
+        conductivityTesterStartingPosition.x -= conductivityTesterWidth * 1.1;
         conductivityTester.setLocation( conductivityTesterStartingPosition );
         conductivityTester.visibleProperty.value = true;
         sugarAndSaltSolutionsConductivityTesterNode.moveToFront();
