@@ -37,13 +37,15 @@ define( function( require ) {
     this.locationProperty = new Property( location );
     this.negativeProbeLocationProperty = new Property( new Vector2( location.x - 0.03, location.y - PROBE_OFFSET_Y ) );
     this.positiveProbeLocationProperty = new Property( new Vector2( location.x + 0.07, location.y - PROBE_OFFSET_Y ) );
+
     this.brightnessProperty = new Property( 0 );//Brightness value (between 0 and 1)
-    this.visibleProperty = new Property( false ); //True if the user has selected to use the conductivity tester
-    this.shortCircuitedProperty = new Property( false );
 
     //Model bounds corresponding to where the battery and bulb are (set by the view)
     this.batteryRegion = Bounds2.NOTHING;
     this.bulbRegion = Bounds2.NOTHING;
+    this.visibleProperty = new Property( false ); //True if the user has selected to use the conductivity tester
+    this.shortCircuitedProperty = new Property( false );
+
   }
 
   sugarAndSaltSolutions.register( 'ConductivityTester', ConductivityTester );
