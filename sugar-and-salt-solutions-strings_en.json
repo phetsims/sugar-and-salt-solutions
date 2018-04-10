@@ -76,6 +76,8 @@
   },
   "conductivity": {
     "value": "Conductivity"
+  },
+  "pattern.liters": {
+    "value": "{0}L"
   }
-
 }
