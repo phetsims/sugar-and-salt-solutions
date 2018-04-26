@@ -26,7 +26,7 @@ define( function( require ) {
 
     //Settable property that indicates whether the clock is running or paused.
     //The clock is never turned off in the first tab, since there are no dynamics and hence no pause button
-    this.clockRunning = new Property( true );
+    this.clockRunningProperty = new Property( true );
   }
 
   sugarAndSaltSolutions.register( 'AbstractSugarAndSaltSolutionsModel', AbstractSugarAndSaltSolutionsModel );
@@ -34,7 +34,7 @@ define( function( require ) {
   return inherit( Object, AbstractSugarAndSaltSolutionsModel, {
     step: function( dt ) {
       // step one frame, assuming 60fps
-      if ( this.clockRunning ) {
+      if ( this.clockRunningProperty ) {
         this.clock.step( dt );
       }
     },

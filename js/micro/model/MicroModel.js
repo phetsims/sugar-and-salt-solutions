@@ -665,7 +665,7 @@ define( function( require ) {
       this.dispenserType.reset();
       this.showChargeColor.reset();
       this.selectedKit.reset();
-      this.clockRunning.reset();
+      this.clockRunningProperty.reset();
     },
 
     /**

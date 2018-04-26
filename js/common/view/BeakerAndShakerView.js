@@ -64,7 +64,7 @@ define( function( require ) {
     //while the sim is paused (2nd tab only)
     var maxFlowRate = 1;
     var inputFaucetNode = new FaucetNodeContainer( maxFlowRate, model.inputFlowRate,
-      new DerivedProperty( [ model.clockRunning, model.beakerFull ],
+      new DerivedProperty( [ model.clockRunningProperty, model.beakerFull ],
         function( clockRunning, beakerFull ) {
           return clockRunning && !beakerFull;
         } ), {
@@ -86,7 +86,7 @@ define( function( require ) {
     //user can't try to drain water while the sim is paused (2nd tab only)
     var distanceFromBeaker = 110;
     var drainFaucetNode = new FaucetNodeContainer( maxFlowRate, model.outputFlowRate,
-      new DerivedProperty( [ model.clockRunning, model.lowerFaucetCanDrain ], function( clockRunning, lowerFaucetCanDrain ) {
+      new DerivedProperty( [ model.clockRunningProperty, model.lowerFaucetCanDrain ], function( clockRunning, lowerFaucetCanDrain ) {
         return clockRunning && lowerFaucetCanDrain;
       } ), {
         scale: 0.6,
@@ -144,7 +144,7 @@ define( function( require ) {
       WATER_COLOR.getGreen(), WATER_COLOR.getBlue(), 0.5 ) ) );// 0.5 is opacity
 
     //Add an evaporation rate slider below the beaker
-    var evaporationSlider = new EvaporationSlider( model.evaporationRate, model.waterVolume, model.clockRunning );
+    var evaporationSlider = new EvaporationSlider( model.evaporationRate, model.waterVolume, model.clockRunningProperty );
     var point = modelViewTransform.modelToViewXY( 0, -model.beaker.getWallThickness() / 2 );
     evaporationSlider.x = point.x - evaporationSlider.bounds.getWidth() / 2;
     evaporationSlider.y = point.y + INSET;
