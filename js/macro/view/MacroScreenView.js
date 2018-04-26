@@ -106,7 +106,7 @@ define( function( require ) {
 
     // Create the control panel for choosing sugar vs salt, use a radio-button-based selector for solutes.
     var soluteControlPanelNode = new SoluteControlPanelNode(
-      new DispenserRadioButtonSet( macroModel.dispenserType, [ new SelectableSoluteItem( saltString, DispenserType.SALT ),
+      new DispenserRadioButtonSet( macroModel.dispenserTypeProperty, [ new SelectableSoluteItem( saltString, DispenserType.SALT ),
         new SelectableSoluteItem( sugarString, DispenserType.SUGAR ) ] ) );
 
     // Show the solute control panel node behind the shaker node so the conductivity tester will also go in front

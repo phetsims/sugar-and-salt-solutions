@@ -282,19 +282,19 @@ define( function( require ) {
     //Note that this is done by associating a DispenserType with the dispenser model element, a more direct way would be to create
     // class Substance that has both a dispenser type and a node factory
     this.dispensers.push( new SodiumChlorideShaker( this.beaker.getCenterX(), this.beaker.getTopY() + this.beaker.getHeight() * 0.5,
-      this.beaker, this.moreSodiumChlorideAllowed, sodiumChlorideNewLineString, this.distanceScale, this.dispenserType, DispenserType.SALT, this ) );
+      this.beaker, this.moreSodiumChlorideAllowed, sodiumChlorideNewLineString, this.distanceScale, this.dispenserTypeProperty, DispenserType.SALT, this ) );
 
     this.dispensers.push( new SodiumNitrateShaker( this.beaker.getCenterX(), this.beaker.getTopY() + this.beaker.getHeight() * 0.5,
-      this.beaker, this.moreSodiumNitrateAllowed, sodiumNitrateNewLineString, this.distanceScale, this.dispenserType, DispenserType.SODIUM_NITRATE, this ) );
+      this.beaker, this.moreSodiumNitrateAllowed, sodiumNitrateNewLineString, this.distanceScale, this.dispenserTypeProperty, DispenserType.SODIUM_NITRATE, this ) );
 
     this.dispensers.push( new SucroseDispenser( this.beaker.getCenterX(), this.beaker.getTopY() + this.beaker.getHeight() * 0.5,
-      this.beaker, this.moreSucroseAllowed, sucroseString, this.distanceScale, this.dispenserType, DispenserType.SUGAR, this ) );
+      this.beaker, this.moreSucroseAllowed, sucroseString, this.distanceScale, this.dispenserTypeProperty, DispenserType.SUGAR, this ) );
 
     this.dispensers.push( new CalciumChlorideShaker( this.beaker.getCenterX(), this.beaker.getTopY() + this.beaker.getHeight() * 0.5,
-      this.beaker, this.moreCalciumChlorideAllowed, calciumChlorideNewLineString, this.distanceScale, this.dispenserType, DispenserType.CALCIUM_CHLORIDE, this ) );
+      this.beaker, this.moreCalciumChlorideAllowed, calciumChlorideNewLineString, this.distanceScale, this.dispenserTypeProperty, DispenserType.CALCIUM_CHLORIDE, this ) );
 
     this.dispensers.push( new GlucoseDispenser( this.beaker.getCenterX(), this.beaker.getTopY() + this.beaker.getHeight() * 0.5,
-      this.beaker, this.moreGlucoseAllowed, glucoseString, this.distanceScale, this.dispenserType, DispenserType.GLUCOSE, this ) );
+      this.beaker, this.moreGlucoseAllowed, glucoseString, this.distanceScale, this.dispenserTypeProperty, DispenserType.GLUCOSE, this ) );
 
     //When the output flow rate changes, recompute the desired flow rate for each formula type to help ensure a constant
     // concentration over time for each formula constituents
@@ -662,7 +662,7 @@ define( function( require ) {
 
       //Reset model for user settings
       this.showConcentrationValues.reset();
-      this.dispenserType.reset();
+      this.dispenserTypeProperty.reset();
       this.showChargeColor.reset();
       this.selectedKit.reset();
       this.clockRunningProperty.reset();

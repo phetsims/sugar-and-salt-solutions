@@ -148,10 +148,10 @@ define( function( require ) {
 
     // Add models for the various dispensers: sugar, salt, etc.
     self.dispensers.push( new MacroSaltShaker( self.beaker.getCenterX(), self.beaker.getTopY() + self.beaker.getHeight() * 0.5,
-      self.beaker, self.moreSaltAllowed, saltString, self.distanceScale, self.dispenserType, DispenserType.SALT, this ) );
+      self.beaker, self.moreSaltAllowed, saltString, self.distanceScale, self.dispenserTypeProperty, DispenserType.SALT, this ) );
 
     self.dispensers.push( new MacroSugarDispenser( self.beaker.getCenterX(), self.beaker.getTopY() + self.beaker.getHeight() * 0.5,
-      self.beaker, self.moreSugarAllowed, sugarString, self.distanceScale, self.dispenserType, DispenserType.SUGAR, this ) );
+      self.beaker, self.moreSugarAllowed, sugarString, self.distanceScale, self.dispenserTypeProperty, DispenserType.SUGAR, this ) );
 
     self.crystalsListChangedCallbacks = []; // function callBacks
 

@@ -53,7 +53,7 @@ define( function( require ) {
     self.distanceScale = distanceScale;
 
     //Which dispenser the user has selected
-    self.dispenserType = new Property( DispenserType.SALT );
+    self.dispenserTypeProperty = new Property( DispenserType.SALT );
 
     //Model for input and output flows
     self.inputFlowRate = new Property( 0.0 );//rate that water flows into the beaker, between 0 and 1
@@ -277,7 +277,7 @@ define( function( require ) {
         //dispenser.reset();
       } );
 
-      this.dispenserType.reset();
+      this.dispenserTypeProperty.reset();
       this.showConcentrationValues.reset();
       this.showConcentrationBarChart.reset();
 
