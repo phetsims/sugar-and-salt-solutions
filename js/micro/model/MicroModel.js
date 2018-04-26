@@ -144,7 +144,7 @@ define( function( require ) {
 
     //@private Flag to indicate whether the fluid is draining, since the display
     // concentrations are held steady while draining
-    this.isDraining = new DerivedProperty( [ this.outputFlowRate ], function( outputFlowRate ) { return outputFlowRate > 0; } );
+    this.isDraining = new DerivedProperty( [ this.outputFlowRateProperty ], function( outputFlowRate ) { return outputFlowRate > 0; } );
 
     //Constituents of dissolved solutes, such as sodium, nitrate, sucrose, etc.
     this.sodium = new SoluteConstituent( this, new IonColor( this, new Sodium() ), Sodium, this.isDraining );
@@ -298,7 +298,7 @@ define( function( require ) {
 
     //When the output flow rate changes, recompute the desired flow rate for each formula type to help ensure a constant
     // concentration over time for each formula constituents
-    this.outputFlowRate.link( function( outputFlowRate ) {
+    this.outputFlowRateProperty.link( function( outputFlowRate ) {
       self.checkStartDrain( self.sodiumChlorideDrainData );
       self.checkStartDrain( self.sucroseDrainData );
       self.checkStartDrain( self.calciumChlorideDrainData );
@@ -316,7 +316,7 @@ define( function( require ) {
      * @param {DrainData} drainData
      */
     checkStartDrain: function( drainData ) {
-      var currentDrainFlowRate = this.outputFlowRate.get() * this.faucetFlowRate;
+      var currentDrainFlowRate = this.outputFlowRateProperty.get() * this.faucetFlowRate;
       var timeToDrainFully = this.solution.volume.get() / currentDrainFlowRate;
 
       Logger.fine( 'time to drain fully: ' + timeToDrainFully );
@@ -415,7 +415,7 @@ define( function( require ) {
 
       //If water is draining, call this first to set the update strategies to be FlowToDrain instead of FreeParticle
       //Do this before updating the free particles since this could change their strategy
-      if ( this.outputFlowRate.get() > 0 ) {
+      if ( this.outputFlowRateProperty.get() > 0 ) {
 
         // Set up all particles to have a random walk toward the drain, nearest particles in each formula unit will get exact speed
         // in a later step and their strategy will be replaced

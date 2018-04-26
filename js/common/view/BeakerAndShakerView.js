@@ -85,7 +85,7 @@ define( function( require ) {
     //overlap the reset all button.Also, require the clock to be running for the faucets to be enabled so the
     //user can't try to drain water while the sim is paused (2nd tab only)
     var distanceFromBeaker = 110;
-    var drainFaucetNode = new FaucetNodeContainer( maxFlowRate, model.outputFlowRate,
+    var drainFaucetNode = new FaucetNodeContainer( maxFlowRate, model.outputFlowRateProperty,
       new DerivedProperty( [ model.clockRunningProperty, model.lowerFaucetCanDrain ], function( clockRunning, lowerFaucetCanDrain ) {
         return clockRunning && lowerFaucetCanDrain;
       } ), {

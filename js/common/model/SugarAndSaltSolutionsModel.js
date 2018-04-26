@@ -57,7 +57,7 @@ define( function( require ) {
 
     //Model for input and output flows
     self.inputFlowRateProperty = new Property( 0.0 );//rate that water flows into the beaker, between 0 and 1
-    self.outputFlowRate = new Property( 0.0 );//rate that water flows out of the beaker, between 0 and 1
+    self.outputFlowRateProperty = new Property( 0.0 );//rate that water flows out of the beaker, between 0 and 1
 
     //Rate at which liquid evaporates
     //Scaled down since the evaporation control rate  is 100 times bigger than flow scales
@@ -122,7 +122,7 @@ define( function( require ) {
 
     //Sets the shape of the water flowing out of the beaker, changing the shape updates the brightness of
     //the conductivity tester in the macro tab
-    self.outputFlowRate.link( function( rate ) {
+    self.outputFlowRateProperty.link( function( rate ) {
       var width = rate * self.drainFaucetMetrics.faucetWidth;
       var height = beakerDimension.height * 2;
       self.outputWater.set( Shape.rectangle( self.drainFaucetMetrics.outputPoint.x - width / 2,
@@ -168,7 +168,7 @@ define( function( require ) {
 
       //Change the water volume based on input and output flow
       var inputWater = dt * this.inputFlowRateProperty.get() * this.faucetFlowRate;
-      var drainedWater = dt * this.outputFlowRate.get() * this.faucetFlowRate;
+      var drainedWater = dt * this.outputFlowRateProperty.get() * this.faucetFlowRate;
       var evaporatedWater = dt * this.evaporationRate.get() * this.evaporationRateScale;
 
       //Compute the new water volume, but making sure it doesn't overflow or underflow.
@@ -180,7 +180,7 @@ define( function( require ) {
       }
 
       //Only allow drain to use up all the water if user is draining the liquid
-      else if ( newVolume < 0 && this.outputFlowRate.get() > 0 ) {
+      else if ( newVolume < 0 && this.outputFlowRateProperty.get() > 0 ) {
         drainedWater = inputWater + this.waterVolume.get();
       }
       //Conversely, only allow evaporated water to use up all remaining water if the user is evaporating anything
@@ -199,7 +199,7 @@ define( function( require ) {
 
       //Turn off the output flow if no water is adjacent to it
       if ( !this.lowerFaucetCanDrain.get() ) {
-        this.outputFlowRate.set( 0.0 );
+        this.outputFlowRateProperty.set( 0.0 );
       }
 
       //Turn off evaporation if beaker is empty of water
@@ -291,7 +291,7 @@ define( function( require ) {
     resetWater: function() {
       this.waterVolume.reset();
       this.inputFlowRateProperty.reset();
-      this.outputFlowRate.reset();
+      this.outputFlowRateProperty.reset();
     },
 
     /**

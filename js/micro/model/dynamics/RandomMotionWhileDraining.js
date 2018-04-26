@@ -49,7 +49,7 @@ define( function( require ) {
       //the drain move too fast and end up waiting at the drain
       var numberBeakerWidthsToDrain = Math.max( 0.25,
         particle.getPosition().distance( drain ) / this.model.beaker.getWidth() );
-      return 1 / numberBeakerWidthsToDrain / numberBeakerWidthsToDrain * this.model.outputFlowRate.get() / 2;
+      return 1 / numberBeakerWidthsToDrain / numberBeakerWidthsToDrain * this.model.outputFlowRateProperty.get() / 2;
     }
 
 

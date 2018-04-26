@@ -50,7 +50,7 @@ define( function( require ) {
       }
 
       //If the user released the drain slider, then switch back to purely random motion
-      if ( this.model.outputFlowRate.get() === 0 ) {
+      if ( this.model.outputFlowRateProperty.get() === 0 ) {
         particle.setUpdateStrategy( new this.FreeParticleStrategy( this.model ) );
       }
 

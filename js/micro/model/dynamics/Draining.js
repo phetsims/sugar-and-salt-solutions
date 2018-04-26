@@ -53,7 +53,7 @@ define( function( require ) {
      */
     getTimeToError: function( drainData, dt ) {
       //flow rate in volume / time
-      var currentDrainFlowRate_VolumePerSecond = this.model.outputFlowRate.get() * this.model.faucetFlowRate;
+      var currentDrainFlowRate_VolumePerSecond = this.model.outputFlowRateProperty.get() * this.model.faucetFlowRate;
 
       // number of free formula units
       var freeFormulaUnitCount = this.model.countFreeFormulaUnits( drainData.formula );
