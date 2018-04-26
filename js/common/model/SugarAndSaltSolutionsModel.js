@@ -64,7 +64,7 @@ define( function( require ) {
     self.evaporationRateScale = faucetFlowRate / 300.0;
 
     //volume in SI (m^3).  Start at 1 L (halfway up the 2L beaker).  Note that 0.001 cubic meters = 1L
-    self.waterVolume = new Property( beakerDimension.getVolume() / 2 ); //Start the water halfway up the beaker
+    self.waterVolumeProperty = new Property( beakerDimension.getVolume() / 2 ); //Start the water halfway up the beaker
 
     //Inset so the beaker doesn't touch the edge of the model bounds
     self.inset = beakerDimension.width * 0.1;
@@ -131,7 +131,7 @@ define( function( require ) {
 
     //Solution model, the fluid + any dissolved solutes. Create the solution, which sits
     //atop the solid precipitate (if any)
-    self.solution = new Solution( self.waterVolume, self.beaker );
+    self.solution = new Solution( self.waterVolumeProperty, self.beaker );
 
     //Observable flag which determines whether the beaker is full of solution, for purposes of preventing overflow
     //Convenience composite properties for determining whether the beaker
@@ -174,23 +174,23 @@ define( function( require ) {
       //Compute the new water volume, but making sure it doesn't overflow or underflow.
       //If we rewrite the model to account for solute volume displacement, this computation should account for the
       //solution volume, not the water volume
-      var newVolume = this.waterVolume.get() + inputWater - drainedWater - evaporatedWater;
+      var newVolume = this.waterVolumeProperty.get() + inputWater - drainedWater - evaporatedWater;
       if ( newVolume > this.maxWater ) {
-        inputWater = this.maxWater + drainedWater + evaporatedWater - this.waterVolume.get();
+        inputWater = this.maxWater + drainedWater + evaporatedWater - this.waterVolumeProperty.get();
       }
 
       //Only allow drain to use up all the water if user is draining the liquid
       else if ( newVolume < 0 && this.outputFlowRateProperty.get() > 0 ) {
-        drainedWater = inputWater + this.waterVolume.get();
+        drainedWater = inputWater + this.waterVolumeProperty.get();
       }
       //Conversely, only allow evaporated water to use up all remaining water if the user is evaporating anything
       else if ( newVolume < 0 && this.evaporationRate.get() > 0 ) {
-        evaporatedWater = inputWater + this.waterVolume.get();
+        evaporatedWater = inputWater + this.waterVolumeProperty.get();
       }
       //Note that the user can't be both evaporating and draining fluid at the same time, since the controls
       //are one-at-a-time controls.This simplifies the logic here.
       //Set the true value of the new volume based on clamped inputs and outputs
-      newVolume = this.waterVolume.get() + inputWater - drainedWater - evaporatedWater;
+      newVolume = this.waterVolumeProperty.get() + inputWater - drainedWater - evaporatedWater;
 
       //Turn off the input flow if the beaker would overflow
       if ( newVolume >= this.maxWater ) {
@@ -208,7 +208,7 @@ define( function( require ) {
       }
 
       //Update the water volume
-      this.waterVolume.set( newVolume );
+      this.waterVolumeProperty.set( newVolume );
 
       //Notify subclasses that water evaporated in case they need to update anything
       if ( evaporatedWater > 0 ) {
@@ -289,7 +289,7 @@ define( function( require ) {
      * Reset the water volume to the initial value and stop the flow rate for input and output faucets
      */
     resetWater: function() {
-      this.waterVolume.reset();
+      this.waterVolumeProperty.reset();
       this.inputFlowRateProperty.reset();
       this.outputFlowRateProperty.reset();
     },

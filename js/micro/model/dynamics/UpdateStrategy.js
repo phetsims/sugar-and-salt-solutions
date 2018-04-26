@@ -29,7 +29,7 @@ define( function( require ) {
   function UpdateStrategy( model ) {
     this.model = model;
     this.solution = model.solution;
-    this.waterVolume = model.waterVolume;
+    this.waterVolume = model.waterVolumeProperty;
   }
 
   sugarAndSaltSolutions.register( 'UpdateStrategy', UpdateStrategy );

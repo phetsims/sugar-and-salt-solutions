@@ -24,10 +24,10 @@ define( function( require ) {
    */
   function IonConcentration( microModel, type ) {
     var self = this;
-    DerivedProperty.call( self, [ microModel.waterVolume ], function() {
+    DerivedProperty.call( self, [ microModel.waterVolumeProperty ], function() {
       //If there is no water, there is no solution and hence no concentration
-      return microModel.waterVolume.get() === 0 ? 0.0 :
-             Units.numberToMoles( microModel.freeParticles.countByClass( type ) ) / microModel.waterVolume.get();
+      return microModel.waterVolumeProperty.get() === 0 ? 0.0 :
+             Units.numberToMoles( microModel.freeParticles.countByClass( type ) ) / microModel.waterVolumeProperty.get();
     } );
 
     var listener = function( particle ) {

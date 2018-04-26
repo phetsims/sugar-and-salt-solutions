@@ -92,9 +92,9 @@ define( function( require ) {
 
     // Model moles, concentration, amount dissolved, amount precipitated, etc. for salt and sugar
     // The chemistry team informed me that there is 0.2157/1000 meters cubed per mole of solid sugar
-    self.salt = new SoluteModel( self.waterVolume, saltSaturationPoint, SugarAndSaltSolutionsConstants.VOLUME_PER_SOLID_MOLE_SALT,
+    self.salt = new SoluteModel( self.waterVolumeProperty, saltSaturationPoint, SugarAndSaltSolutionsConstants.VOLUME_PER_SOLID_MOLE_SALT,
       MacroSalt.molarMass );
-    self.sugar = new SoluteModel( self.waterVolume, sugarSaturationPoint, 0.2157 / 1000.0, MacroSugar.molarMass );
+    self.sugar = new SoluteModel( self.waterVolumeProperty, sugarSaturationPoint, 0.2157 / 1000.0, MacroSugar.molarMass );
 
     // Flag to indicate if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).
     // This is used to show/hide the "remove solutes" button

@@ -732,9 +732,9 @@ define( function( require ) {
       var self = this;
       var changeInWaterHeight = self.beaker.getHeightForVolume( volumeDropped ) - this.beaker.getHeightForVolume( 0 );
       particles.forEach( function( particle ) {
-        if ( self.waterVolume.get() > 0 ) {
+        if ( self.waterVolumeProperty.get() > 0 ) {
           var yLocationInBeaker = particle.getPosition().y;
-          var waterTopY = self.beaker.getHeightForVolume( self.waterVolume.get() );
+          var waterTopY = self.beaker.getHeightForVolume( self.waterVolumeProperty.get() );
           //Only move particles down if they are fully underwater
           if ( yLocationInBeaker < waterTopY ) {
             var fractionToTop = yLocationInBeaker / waterTopY;
@@ -825,7 +825,7 @@ define( function( require ) {
      * @returns {boolean}
      */
     isWaterBelowCrystalThreshold: function() {
-      return this.waterVolume.get() <= Units.litersToMetersCubed( 0.03E-23 );
+      return this.waterVolumeProperty.get() <= Units.litersToMetersCubed( 0.03E-23 );
     }
 
   } );

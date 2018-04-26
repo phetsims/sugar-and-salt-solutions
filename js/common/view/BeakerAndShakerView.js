@@ -144,7 +144,7 @@ define( function( require ) {
       WATER_COLOR.getGreen(), WATER_COLOR.getBlue(), 0.5 ) ) );// 0.5 is opacity
 
     //Add an evaporation rate slider below the beaker
-    var evaporationSlider = new EvaporationSlider( model.evaporationRate, model.waterVolume, model.clockRunningProperty );
+    var evaporationSlider = new EvaporationSlider( model.evaporationRate, model.waterVolumeProperty, model.clockRunningProperty );
     var point = modelViewTransform.modelToViewXY( 0, -model.beaker.getWallThickness() / 2 );
     evaporationSlider.x = point.x - evaporationSlider.bounds.getWidth() / 2;
     evaporationSlider.y = point.y + INSET;
