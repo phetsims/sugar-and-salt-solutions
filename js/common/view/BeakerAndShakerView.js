@@ -63,7 +63,7 @@ define( function( require ) {
     //Also, require the clock to be running for the faucets to be enabled so the user can't try to add water
     //while the sim is paused (2nd tab only)
     var maxFlowRate = 1;
-    var inputFaucetNode = new FaucetNodeContainer( maxFlowRate, model.inputFlowRate,
+    var inputFaucetNode = new FaucetNodeContainer( maxFlowRate, model.inputFlowRateProperty,
       new DerivedProperty( [ model.clockRunningProperty, model.beakerFull ],
         function( clockRunning, beakerFull ) {
           return clockRunning && !beakerFull;

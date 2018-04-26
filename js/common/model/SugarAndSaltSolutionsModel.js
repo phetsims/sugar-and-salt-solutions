@@ -56,7 +56,7 @@ define( function( require ) {
     self.dispenserTypeProperty = new Property( DispenserType.SALT );
 
     //Model for input and output flows
-    self.inputFlowRate = new Property( 0.0 );//rate that water flows into the beaker, between 0 and 1
+    self.inputFlowRateProperty = new Property( 0.0 );//rate that water flows into the beaker, between 0 and 1
     self.outputFlowRate = new Property( 0.0 );//rate that water flows out of the beaker, between 0 and 1
 
     //Rate at which liquid evaporates
@@ -113,7 +113,7 @@ define( function( require ) {
     self.outputWater = new Property( new Shape() );
 
     //Sets the shape of the water into the beaker
-    self.inputFlowRate.link( function( rate ) {
+    self.inputFlowRateProperty.link( function( rate ) {
       var width = rate * self.inputFaucetMetrics.faucetWidth;
       var height = self.inputFaucetMetrics.outputPoint.y;//assumes beaker floor is at y=0
       self.inputWater.set( Shape.rectangle( self.inputFaucetMetrics.outputPoint.x - width / 2,
@@ -167,7 +167,7 @@ define( function( require ) {
       } );
 
       //Change the water volume based on input and output flow
-      var inputWater = dt * this.inputFlowRate.get() * this.faucetFlowRate;
+      var inputWater = dt * this.inputFlowRateProperty.get() * this.faucetFlowRate;
       var drainedWater = dt * this.outputFlowRate.get() * this.faucetFlowRate;
       var evaporatedWater = dt * this.evaporationRate.get() * this.evaporationRateScale;
 
@@ -194,7 +194,7 @@ define( function( require ) {
 
       //Turn off the input flow if the beaker would overflow
       if ( newVolume >= this.maxWater ) {
-        this.inputFlowRate.set( 0.0 );
+        this.inputFlowRateProperty.set( 0.0 );
       }
 
       //Turn off the output flow if no water is adjacent to it
@@ -290,7 +290,7 @@ define( function( require ) {
      */
     resetWater: function() {
       this.waterVolume.reset();
-      this.inputFlowRate.reset();
+      this.inputFlowRateProperty.reset();
       this.outputFlowRate.reset();
     },
 
