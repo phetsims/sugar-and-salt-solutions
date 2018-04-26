@@ -30,7 +30,7 @@ define( function( require ) {
 
         //Allow zero values to count toward the sum since "landed" particles could be sitting at 0 and should still
         // count toward the amount in the play area since they could get added to the solution
-        if ( crystal.position.get().y >= 0 ) {
+        if ( crystal.positionProperty.get().y >= 0 ) {
           sum += crystal.moles;
         }
 

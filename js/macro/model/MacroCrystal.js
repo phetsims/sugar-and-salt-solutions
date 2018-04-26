@@ -25,7 +25,7 @@ define( function( require ) {
     var self = this;
 
     self.mass = 1E-6;//kg
-    self.position = new Property( position );
+    self.positionProperty = new Property( position );
     self.velocity = new Property( new Vector2( 0, 0 ) );
     self.acceleration = new Property( new Vector2( 0, 0 ) );
 
@@ -69,21 +69,21 @@ define( function( require ) {
      */
     stepInTime: function( appliedForce, dt, leftBeakerWall, rightBeakerWall, beakerFloor, topOfSolid ) {
       if ( !this.landed ) {
-        var originalPosition = this.position.get();
+        var originalPosition = this.positionProperty.get();
 
         this.acceleration.set( appliedForce.times( 1.0 / this.mass ) );
         this.velocity.set( this.velocity.get().plus( this.acceleration.get().times( dt ) ) );
-        this.position.set( this.position.get().plus( this.velocity.get().times( dt ) ) );
+        this.positionProperty.set( this.positionProperty.get().plus( this.velocity.get().times( dt ) ) );
 
         // Intersect leftBeakerWall and RightBeakWall with Path, which is a line with originalPosition as start point and
         // current position as end Point.
         // Path that the particle took from previous time to current time, for purpose of collision detection with walls
         // for performance reasons using Util lineSegment instead of creating new Line Shapes
 
-        var leftWallIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.position.get().x, this.position.get().y,
+        var leftWallIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.positionProperty.get().x, this.positionProperty.get().y,
           leftBeakerWall.start.x, leftBeakerWall.start.y, leftBeakerWall.end.x, leftBeakerWall.end.y );
 
-        var rightWallIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.position.get().x, this.position.get().y,
+        var rightWallIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.positionProperty.get().x, this.positionProperty.get().y,
           rightBeakerWall.start.x, rightBeakerWall.start.y, rightBeakerWall.end.x, rightBeakerWall.end.y );
 
         // if the particle bounced off a wall, then reverse its velocity
@@ -91,20 +91,20 @@ define( function( require ) {
           this.velocity.set( new Vector2( Math.abs( this.velocity.get().x ), this.velocity.get().y ) );
 
           // Rollback the previous update, and go the other way
-          this.position.set( originalPosition );
-          this.position.set( this.position.get().plus( this.velocity.get().times( dt ) ) );
+          this.positionProperty.set( originalPosition );
+          this.positionProperty.set( this.positionProperty.get().plus( this.velocity.get().times( dt ) ) );
         }
 
         // Intersect beakerfloor and TopOfSolid with the new Path after accounting for bouncing off walls
-        var beakerFloorIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.position.get().x, this.position.get().y,
+        var beakerFloorIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.positionProperty.get().x, this.positionProperty.get().y,
           beakerFloor.start.x, beakerFloor.start.y, beakerFloor.end.x, beakerFloor.end.y );
 
-        var topOfSolidIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.position.get().x, this.position.get().y,
+        var topOfSolidIntersection = Util.lineSegmentIntersection( originalPosition.x, originalPosition.y, this.positionProperty.get().x, this.positionProperty.get().y,
           topOfSolid.start.x, topOfSolid.start.y, topOfSolid.end.x, topOfSolid.end.y );
 
         // See if it should land on the floor of the beaker
         if ( beakerFloorIntersection ) {
-          this.position.set( new Vector2( this.position.get().x, 0 ) );
+          this.positionProperty.set( new Vector2( this.positionProperty.get().x, 0 ) );
           this.landed = true;
         }
         // See if it should land on top of any precipitated solid in the beaker
@@ -112,7 +112,7 @@ define( function( require ) {
 
           // Move the crystal down a tiny bit so that it will be intercepted by the water on top of the solid
           // precipitate when water is added
-          this.position.set( new Vector2( this.position.get().x, topOfSolid.getY1() - 1E-6 ) );
+          this.positionProperty.set( new Vector2( this.positionProperty.get().x, topOfSolid.getY1() - 1E-6 ) );
           this.landed = true;
         }
       }

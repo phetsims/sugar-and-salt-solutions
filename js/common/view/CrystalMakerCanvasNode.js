@@ -60,7 +60,7 @@ define( function( require ) {
     // draw into one big path
     for ( var i = 0; i < numberOfCrystals; i++ ) {
       var crystal = crystals.get( i );
-      var viewPosition = modelViewTransform.modelToViewPosition( crystal.position.get() );
+      var viewPosition = modelViewTransform.modelToViewPosition( crystal.positionProeprty.get() );
       var x = viewPosition.x;
       var y = viewPosition.y;
       context.rect( x - cartoonSize / 2, y - cartoonSize / 2, cartoonSize, cartoonSize );

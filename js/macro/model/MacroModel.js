@@ -234,7 +234,7 @@ define( function( require ) {
       crystalList.forEach( function( crystal ) {
         // Store the initial location so we can use the (final - start) line to check for collision with water, so it can't
         // jump over the water rectangle
-        var initialLocation = crystal.position.get();
+        var initialLocation = crystal.positionProperty.get();
 
         // slow the motion down a little bit or it moves too fast since the camera is zoomed in so much
         crystal.stepInTime( gravity.times( crystal.mass ), dt / 10, self.beaker.getLeftWall(), self.beaker.getRightWall(),
@@ -242,7 +242,7 @@ define( function( require ) {
 
         // If the salt hits the water during any point of its initial -> final trajectory, absorb it.
         // This is necessary because if the water layer is too thin, the crystal could have jumped over it completely
-        if ( lineIntersectsBounds( initialLocation.x, initialLocation.y, crystal.position.get().x, crystal.position.get().y,
+        if ( lineIntersectsBounds( initialLocation.x, initialLocation.y, crystal.positionProperty.get().x, crystal.positionProperty.get().y,
             self.solution.shape.get().bounds ) ) {
           hitTheWater.push( crystal );
         }
