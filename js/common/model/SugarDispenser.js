@@ -122,21 +122,21 @@ define( function( require ) {
       var targetAngle = this.translating ? tiltedDownAngle : tiltedUpAngle;
       var delta = 0;
       var deltaMagnitude = 0.25;
-      if ( targetAngle > this.angle.get() ) {
+      if ( targetAngle > this.angleProperty.get() ) {
         delta = deltaMagnitude;
       }
-      else if ( targetAngle < this.angle.get() ) {
+      else if ( targetAngle < this.angleProperty.get() ) {
         delta = -deltaMagnitude;
       }
 
       //Make sure it doesn't go past the final angles or it will stutter
-      var proposedAngle = this.angle.get() + delta;
+      var proposedAngle = this.angleProperty.get() + delta;
       if ( proposedAngle > tiltedDownAngle ) { proposedAngle = tiltedDownAngle; }
       if ( proposedAngle < tiltedUpAngle ) { proposedAngle = tiltedUpAngle; }
-      this.angle.set( proposedAngle );
+      this.angleProperty.set( proposedAngle );
 
       //Check to see if we should be emitting sugar crystals-- if the sugar is enabled and its top is open and it is rotating
-      if ( this.enabledProperty.get() && this.translating && this.angle.get() > Math.PI / 2 && this.moreAllowed.get() ) {
+      if ( this.enabledProperty.get() && this.translating && this.angleProperty.get() > Math.PI / 2 && this.moreAllowed.get() ) {
 
         //Then emit a number of crystals proportionate to the amount the dispenser was rotated so that vigorous rotation
         //emits more, but clamping it so there can't be too many
@@ -144,7 +144,7 @@ define( function( require ) {
         for ( i = 0; i < numCrystals; i++ ) {
           //Determine where the sugar should come out
           var outputPoint = this.centerProperty.get().plus( Vector2.createPolar( this.dispenserHeight / 2 * 0.85,
-            this.angle.get() + Math.PI / 2 * 1.23 + Math.PI ) );//Hand tuned to match up with the image, will
+            this.angleProperty.get() + Math.PI / 2 * 1.23 + Math.PI ) );//Hand tuned to match up with the image, will
           // need to be re-tuned if the image changes
 
           this.addSugarToModel( outputPoint );

@@ -51,7 +51,7 @@ define( function( require ) {
         }
       );
       self.addChild( debugRectNode );
-      Property.multilink( [ model.centerProperty, model.angle ], function() {
+      Property.multilink( [ model.centerProperty, model.angleProperty ], function() {
         var viewCenterPos = modelViewTransform.modelToViewPosition( model.centerProperty.get() );
         debugRectNode.x = viewCenterPos.x;
         debugRectNode.y = viewCenterPos.y;
@@ -61,7 +61,7 @@ define( function( require ) {
     self.createTextLabel();
 
     //Update the AffineTransform for the image when the model changes
-    Property.lazyMultilink( [ model.centerProperty, model.angle ], function() {
+    Property.lazyMultilink( [ model.centerProperty, model.angleProperty ], function() {
       self.updateTransform();
     } );
 
@@ -113,7 +113,7 @@ define( function( require ) {
       var viewPoint = this.modelViewTransform.modelToViewPosition( this.model.centerProperty.get() );
 
       //Rotate by the correct angle: Note: This angle doesn't get mapped into the right coordinate frame, so could be backwards
-      this.imageNode.rotate( -this.model.angle.get() );
+      this.imageNode.rotate( -this.model.angleProperty.get() );
 
       //Center on the view point
       this.imageNode.setCenter( viewPoint );

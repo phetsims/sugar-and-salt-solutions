@@ -48,7 +48,7 @@ define( function( require ) {
     self.model = model;
 
     //Model the angle of rotation, 0 degrees is straight up (not tilted)
-    self.angle = new Property( angle );
+    self.angleProperty = new Property( angle );
 
     //Start centered above the fluid
     self.centerProperty = new Property( new Vector2( x, y ) );
@@ -87,7 +87,7 @@ define( function( require ) {
      */
     getCrystalVelocity: function( outputPoint ) {
       var directionVector = outputPoint.minus( this.centerProperty.get() );
-      var anglePastTheHorizontal = this.angle.get() - Math.PI / 2;
+      var anglePastTheHorizontal = this.angleProperty.get() - Math.PI / 2;
       var magnitudeRatio = ( 0.2 + 0.3 * Math.sin( anglePastTheHorizontal ) ) / directionVector.magnitude();
       return directionVector.times( magnitudeRatio );
     },

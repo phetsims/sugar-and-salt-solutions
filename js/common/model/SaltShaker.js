@@ -66,7 +66,7 @@ define( function( require ) {
           //Determine where the salt should come out
           //Hand tuned to match up with the image, will need to be re-tuned if the image changes
           var randUniform = ( Math.random() - 0.5 ) * 2;
-          var outputPoint = this.centerProperty.get().plus( Vector2.createPolar( this.dispenserHeight / 2 * 0.8, this.angle.get() - Math.PI / 2 + randUniform * Math.PI / 32 * 1.2 ) );
+          var outputPoint = this.centerProperty.get().plus( Vector2.createPolar( this.dispenserHeight / 2 * 0.8, this.angleProperty.get() - Math.PI / 2 + randUniform * Math.PI / 32 * 1.2 ) );
 
           //Add the salt to the model
           this.addSalt( this.model, outputPoint, SugarAndSaltSolutionsConstants.VOLUME_PER_SOLID_MOLE_SALT, this.getCrystalVelocity( outputPoint ) );
@@ -102,7 +102,7 @@ define( function( require ) {
 
           //But only take the component along the axis
           //Have to rotate by 90 degrees since for positions 0 degrees is to the right, but for the shaker 0 degrees is up
-          var dist = Math.abs( sum.dot( Vector2.createPolar( 1, this.angle.get() + Math.PI / 2 ) ) );
+          var dist = Math.abs( sum.dot( Vector2.createPolar( 1, this.angleProperty.get() + Math.PI / 2 ) ) );
 
           //Account for the distance scale so we produce the same amount for micro translations as for macro translations
           dist = dist * this.distanceScale;
