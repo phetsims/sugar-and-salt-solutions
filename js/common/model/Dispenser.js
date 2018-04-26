@@ -32,7 +32,7 @@ define( function( require ) {
     var self = this;
 
     //True if the user has selected this dispenser type
-    self.enabled = new Property( false );
+    self.enabledProperty = new Property( false );
 
     //Beaker into which the solute will be dispensed
     //@protected
@@ -65,7 +65,7 @@ define( function( require ) {
 
     //Wire up the Dispenser so it is enabled when the model has the right type dispenser selected
     selectedType.link( function( dispenserType ) {
-      self.enabled.set( dispenserType === type );
+      self.enabledProperty.set( dispenserType === type );
     } );
 
   }
