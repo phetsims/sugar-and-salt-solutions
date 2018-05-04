@@ -53,7 +53,7 @@ define( function( require ) {
     // TODO - All periodic table, kit selection,
 
     // Show the concentration bar chart behind the shaker so the user can drag the shaker in front
-    var concentrationBarChart = new ExpandableConcentrationBarChartNode( microModel.showConcentrationBarChart, microModel.showConcentrationValues );
+    var concentrationBarChart = new ExpandableConcentrationBarChartNode( microModel.showConcentrationBarChartProperty, microModel.showConcentrationValues );
     concentrationBarChart.x = self.layoutBounds.maxX - concentrationBarChart.bounds.getWidth() - CONCENTRATION_PANEL_INSET;
     concentrationBarChart.y = CONCENTRATION_PANEL_INSET;
 

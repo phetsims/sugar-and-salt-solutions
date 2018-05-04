@@ -92,7 +92,7 @@ define( function( require ) {
     self.maxWater = self.beaker.getMaxFluidVolume();//Set a max amount of water that the user can add to the system so they can't overflow it
 
     //User setting: whether the concentration bar chart should be shown
-    self.showConcentrationBarChart = new Property( true );
+    self.showConcentrationBarChartProperty = new Property( true );
 
     //Models for dispensers that can be used to add solute to the beaker solution
     self.dispensers = [];//Create the list of dispensers
@@ -279,7 +279,7 @@ define( function( require ) {
 
       this.dispenserTypeProperty.reset();
       this.showConcentrationValues.reset();
-      this.showConcentrationBarChart.reset();
+      this.showConcentrationBarChartProperty.reset();
 
       //TODO notifyReset();
     },

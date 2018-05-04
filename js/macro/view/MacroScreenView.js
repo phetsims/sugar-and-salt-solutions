@@ -117,7 +117,7 @@ define( function( require ) {
     self.submergedInWaterNode.addChild( self.conductivityToolboxLayer );
 
     // Show the concentration bar chart behind the shaker so the user can drag the shaker in front
-    var concentrationBarChart = new MacroConcentrationBarChartNode( macroModel.showConcentrationBarChart, macroModel.saltConcentration,
+    var concentrationBarChart = new MacroConcentrationBarChartNode( macroModel.showConcentrationBarChartProperty, macroModel.saltConcentration,
       macroModel.sugarConcentration, macroModel.showConcentrationValues, 1 );
     concentrationBarChart.x = self.layoutBounds.maxX - concentrationBarChart.bounds.getWidth() - CONCENTRATION_PANEL_INSET;
     concentrationBarChart.y = CONCENTRATION_PANEL_INSET;
