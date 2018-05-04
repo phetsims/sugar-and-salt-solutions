@@ -59,8 +59,8 @@ define( function( require ) {
 
     //Choose the image based on the angle.  If it is tipped sideways the opening should flip open.
     //Also update the image when the the dispenser opens/closes and empties/fills.
-    Property.multilink( [ model.open, model.moreAllowed ], function() {
-      var open = model.open.get();
+    Property.multilink( [ model.openProperty, model.moreAllowed ], function() {
+      var open = model.openProperty.get();
       var allowed = model.moreAllowed.get();
 
       self.imageNode.removeAllChildren();

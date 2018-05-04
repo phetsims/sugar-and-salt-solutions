@@ -36,7 +36,7 @@ define( function( require ) {
       selectedType, type, model );
     self.model = model;
     //True if the flap on the top of the dispenser is open and sugar can flow out
-    self.open = new Property( false );
+    self.openProperty = new Property( false );
     //@private
     self.translating = false;
     //@private
@@ -81,7 +81,7 @@ define( function( require ) {
      */
     setTranslating: function( translating ) {
       this.translating = translating;
-      this.open.set( translating );
+      this.openProperty.set( translating );
     },
 
     /**
