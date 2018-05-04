@@ -24,7 +24,7 @@ define( function( require ) {
    */
   function SphericalParticle( options ) {
     if ( !options.position ) { //If position is not explicitly given, consider the radius to be in PM, inferred from Java Code
-      options.radius = Units.picometersToMeters( options.radius ) * SugarAndSaltSolutionsSharedProperties.sizeScale.get();
+      options.radius = Units.picometersToMeters( options.radius ) * SugarAndSaltSolutionsSharedProperties.sizeScaleProperty.get();
       options.position = new Vector2();
     }
     Particle.call( this, options.position );

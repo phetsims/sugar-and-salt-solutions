@@ -39,7 +39,7 @@ define( function( require ) {
 
     var layoutBounds = SugarAndSaltSolutionsConstants.LAYOUT_BOUNDS;
     var aspectRatio = layoutBounds.width / layoutBounds.height;
-    SugarAndSaltSolutionsSharedProperties.sizeScale.set( 1 );
+    SugarAndSaltSolutionsSharedProperties.sizeScaleProperty.set( 1 );
 
     Screen.call( this,
       function() { return new MacroModel( aspectRatio ); },

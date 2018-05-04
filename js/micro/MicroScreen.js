@@ -41,7 +41,7 @@ define( function( require ) {
 
     var layoutBounds = SugarAndSaltSolutionsConstants.LAYOUT_BOUNDS;
     var aspectRatio = layoutBounds.width / layoutBounds.height;
-    SugarAndSaltSolutionsSharedProperties.sizeScale.set( 0.35 );
+    SugarAndSaltSolutionsSharedProperties.sizeScaleProperty.set( 0.35 );
 
     Screen.call( this,
       function() { return new MicroModel( aspectRatio ); },

@@ -12,7 +12,7 @@ define( function( require ) {
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   var SugarAndSaltSolutionsSharedProperties = {
-    sizeScale: new Property( 1 )
+    sizeScaleProperty: new Property( 1 )
   };
   sugarAndSaltSolutions.register( 'SugarAndSaltSolutionsSharedProperties', SugarAndSaltSolutionsSharedProperties );
   return SugarAndSaltSolutionsSharedProperties;

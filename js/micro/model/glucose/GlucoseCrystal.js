@@ -28,7 +28,7 @@ define( function( require ) {
     Crystal.call( this, Formula.GLUCOSE, position,
 
       //Spacing between adjacent sucrose molecules, in meters
-      Units.nanometersToMeters( 0.5 ) * SugarAndSaltSolutionsSharedProperties.sizeScale.get() / 2,
+      Units.nanometersToMeters( 0.5 ) * SugarAndSaltSolutionsSharedProperties.sizeScaleProperty.get() / 2,
 
       angle );
   }

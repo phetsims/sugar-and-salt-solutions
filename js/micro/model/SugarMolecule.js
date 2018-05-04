@@ -29,7 +29,7 @@ define( function( require ) {
     //Add the glucose molecule atoms in the right locations, and in the right z-ordering
     _.each( positions.getAtoms(), function( atomPosition ) {
       self.constituents.add( new Constituent( atomPosition.createConstituent(),
-        relativePosition.plus( atomPosition.position.times( SugarAndSaltSolutionsSharedProperties.sizeScale.get() ) ) ) );
+        relativePosition.plus( atomPosition.position.times( SugarAndSaltSolutionsSharedProperties.sizeScaleProperty.get() ) ) ) );
 
     } );
 
