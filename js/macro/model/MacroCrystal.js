@@ -26,7 +26,7 @@ define( function( require ) {
 
     self.mass = 1E-6;//kg
     self.positionProperty = new Property( position );
-    self.velocity = new Property( new Vector2( 0, 0 ) );
+    self.velocityProperty = new Property( new Vector2( 0, 0 ) );
     self.acceleration = new Property( new Vector2( 0, 0 ) );
 
     // @private The number of moles of the crystal.  We couldn't just count the number of atoms since it would
@@ -72,8 +72,8 @@ define( function( require ) {
         var originalPosition = this.positionProperty.get();
 
         this.acceleration.set( appliedForce.times( 1.0 / this.mass ) );
-        this.velocity.set( this.velocity.get().plus( this.acceleration.get().times( dt ) ) );
-        this.positionProperty.set( this.positionProperty.get().plus( this.velocity.get().times( dt ) ) );
+        this.velocityProperty.set( this.velocityProperty.get().plus( this.acceleration.get().times( dt ) ) );
+        this.positionProperty.set( this.positionProperty.get().plus( this.velocityProperty.get().times( dt ) ) );
 
         // Intersect leftBeakerWall and RightBeakWall with Path, which is a line with originalPosition as start point and
         // current position as end Point.
@@ -88,11 +88,11 @@ define( function( require ) {
 
         // if the particle bounced off a wall, then reverse its velocity
         if ( leftWallIntersection || rightWallIntersection ) {
-          this.velocity.set( new Vector2( Math.abs( this.velocity.get().x ), this.velocity.get().y ) );
+          this.velocityProperty.set( new Vector2( Math.abs( this.velocityProperty.get().x ), this.velocityProperty.get().y ) );
 
           // Rollback the previous update, and go the other way
           this.positionProperty.set( originalPosition );
-          this.positionProperty.set( this.positionProperty.get().plus( this.velocity.get().times( dt ) ) );
+          this.positionProperty.set( this.positionProperty.get().plus( this.velocityProperty.get().times( dt ) ) );
         }
 
         // Intersect beakerfloor and TopOfSolid with the new Path after accounting for bouncing off walls

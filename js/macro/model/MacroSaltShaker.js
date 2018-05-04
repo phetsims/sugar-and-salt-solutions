@@ -48,7 +48,7 @@ define( function( require ) {
       model.addMacroSalt( macroSalt );
 
       //Give the salt an appropriate velocity when it comes out so it arcs
-      macroSalt.velocity.set( crystalVelocity );
+      macroSalt.velocityProperty.set( crystalVelocity );
     }
   } );
 
