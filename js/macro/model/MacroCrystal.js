@@ -27,7 +27,7 @@ define( function( require ) {
     self.mass = 1E-6;//kg
     self.positionProperty = new Property( position );
     self.velocityProperty = new Property( new Vector2( 0, 0 ) );
-    self.acceleration = new Property( new Vector2( 0, 0 ) );
+    self.accelerationProperty = new Property( new Vector2( 0, 0 ) );
 
     // @private The number of moles of the crystal.  We couldn't just count the number of atoms since it would
     // overflow Long
@@ -71,8 +71,8 @@ define( function( require ) {
       if ( !this.landed ) {
         var originalPosition = this.positionProperty.get();
 
-        this.acceleration.set( appliedForce.times( 1.0 / this.mass ) );
-        this.velocityProperty.set( this.velocityProperty.get().plus( this.acceleration.get().times( dt ) ) );
+        this.accelerationProperty.set( appliedForce.times( 1.0 / this.mass ) );
+        this.velocityProperty.set( this.velocityProperty.get().plus( this.accelerationProperty.get().times( dt ) ) );
         this.positionProperty.set( this.positionProperty.get().plus( this.velocityProperty.get().times( dt ) ) );
 
         // Intersect leftBeakerWall and RightBeakWall with Path, which is a line with originalPosition as start point and
