@@ -55,7 +55,7 @@ define( function( require ) {
     self.modelViewTransform = modelViewTransform;
 
     //Show the water flowing out of the top and bottom faucets
-    self.addChild( new WaterNode( modelViewTransform, model.inputWater ) );
+    self.addChild( new WaterNode( modelViewTransform, model.inputWaterProperty ) );
     self.addChild( new WaterNode( modelViewTransform, model.outputWater ) );
 
     //Add the faucets, the first faucet should have the water stop at the base of the beaker. This faucet should extend very far in

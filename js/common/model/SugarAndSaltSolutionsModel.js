@@ -109,14 +109,14 @@ define( function( require ) {
 
     // The shape of the input and output water.  The Shape of the water draining out the output faucet
     // is also needed for purposes of determining whether there is an electrical connection for the conductivity tester
-    self.inputWater = new Property( new Shape() );
+    self.inputWaterProperty = new Property( new Shape() );
     self.outputWater = new Property( new Shape() );
 
     //Sets the shape of the water into the beaker
     self.inputFlowRateProperty.link( function( rate ) {
       var width = rate * self.inputFaucetMetrics.faucetWidth;
       var height = self.inputFaucetMetrics.outputPoint.y;//assumes beaker floor is at y=0
-      self.inputWater.set( Shape.rectangle( self.inputFaucetMetrics.outputPoint.x - width / 2,
+      self.inputWaterProperty.set( Shape.rectangle( self.inputFaucetMetrics.outputPoint.x - width / 2,
         self.inputFaucetMetrics.outputPoint.y - height, width, height ) );
     } );
 
