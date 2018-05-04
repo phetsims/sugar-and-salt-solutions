@@ -99,7 +99,7 @@ define( function( require ) {
     // Flag to indicate if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).
     // This is used to show/hide the "remove solutes" button
     // Determine if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).
-    self.anySolutes = new DerivedProperty( [ self.salt.moles, self.sugar.moles ],
+    self.anySolutes = new DerivedProperty( [ self.salt.molesProperty, self.sugar.molesProperty ],
       function( saltMoles, sugarMoles ) {
         return saltMoles > 0 || sugarMoles > 0;
       } );
@@ -272,10 +272,10 @@ define( function( require ) {
      */
     crystalAbsorbed: function( crystal ) {
       if ( crystal instanceof MacroSalt ) {
-        this.salt.moles.set( this.salt.moles.get() + crystal.moles );
+        this.salt.molesProperty.set( this.salt.molesProperty.get() + crystal.moles );
       }
       else if ( crystal instanceof MacroSugar ) {
-        this.sugar.moles.set( this.sugar.moles.get() + crystal.moles );
+        this.sugar.molesProperty.set( this.sugar.molesProperty.get() + crystal.moles );
       }
     },
 
@@ -290,8 +290,8 @@ define( function( require ) {
     waterDrained: function( outVolume, initialSaltConcentration, initialSugarConcentration ) {
 
       //Make sure to keep the concentration the same when water flowing out.  Use the values recorded before the model stepped to ensure conservation of solute moles
-      this.updateConcentration( outVolume, initialSaltConcentration, this.salt.moles );
-      this.updateConcentration( outVolume, initialSugarConcentration, this.sugar.moles );
+      this.updateConcentration( outVolume, initialSaltConcentration, this.salt.molesProperty );
+      this.updateConcentration( outVolume, initialSugarConcentration, this.sugar.molesProperty );
     },
 
     /**
@@ -315,13 +315,13 @@ define( function( require ) {
     //Called when the user presses a button to clear the salt, removes all salt (dissolved and crystals) from the sim
     removeSalt: function() {
       this.removeCrystals( this.saltList, this.saltList );
-      this.salt.moles.set( 0.0 );
+      this.salt.molesProperty.set( 0.0 );
     },
 
     //Called when the user presses a button to clear the sugar, removes all sugar (dissolved and crystals) from the sim
     removeSugar: function() {
       this.removeCrystals( this.sugarList, this.sugarList );
-      this.sugar.moles.set( 0.0 );
+      this.sugar.molesProperty.set( 0.0 );
     },
 
     /**
@@ -345,7 +345,7 @@ define( function( require ) {
      * @returns {Property.<boolean>}
      */
     isAnySaltToRemove: function() {
-      return new DerivedProperty( [ this.salt.moles ], function( saltMoles ) { return saltMoles > 0; } );
+      return new DerivedProperty( [ this.salt.molesProperty ], function( saltMoles ) { return saltMoles > 0; } );
     },
 
     /**
@@ -353,7 +353,7 @@ define( function( require ) {
      * @returns {Property.<boolean>}
      */
     isAnySugarToRemove: function() {
-      return new DerivedProperty( [ this.sugar.moles ], function( sugarMoles ) { return sugarMoles > 0; } );
+      return new DerivedProperty( [ this.sugar.molesProperty ], function( sugarMoles ) { return sugarMoles > 0; } );
     },
 
     /**

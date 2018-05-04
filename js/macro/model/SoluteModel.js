@@ -32,7 +32,7 @@ define( function( require ) {
     self.gramsPerMole = gramsPerMole;
 
     // Salt moles and concentration
-    self.moles = new Property( 0.0 ); //The amount of the solute in moles
+    self.molesProperty = new Property( 0.0 ); //The amount of the solute in moles
 
     // The amount of moles necessary to fully saturate the solution, past this,
     // the solute will start to precipitate.
@@ -41,14 +41,14 @@ define( function( require ) {
     } );
 
     // The amount that is dissolved is solution
-    self.molesDissolved = new DerivedProperty( [ self.moles, self.saturationPointMoles ],
+    self.molesDissolved = new DerivedProperty( [ self.molesProperty, self.saturationPointMoles ],
       function( molesValue, saturationPointMolesValue ) {
         return Math.min( molesValue, saturationPointMolesValue );
       }
     );
 
     // The amount that precipitated (solidified)
-    self.molesPrecipitated = new DerivedProperty( [ self.moles, self.molesDissolved ],
+    self.molesPrecipitated = new DerivedProperty( [ self.molesProperty, self.molesDissolved ],
       function( molesValue, molesDissolvedValue ) {
         return Math.max( molesValue - molesDissolvedValue, 0 );
       } );
@@ -61,7 +61,7 @@ define( function( require ) {
     } );
 
     // The amount in grams
-    self.grams = new DerivedProperty( [ self.moles ], function( moles ) {
+    self.grams = new DerivedProperty( [ self.molesProperty ], function( moles ) {
       return moles * gramsPerMole;
     } );
   }
