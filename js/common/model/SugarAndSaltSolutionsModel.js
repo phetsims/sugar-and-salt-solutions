@@ -136,7 +136,7 @@ define( function( require ) {
     //Observable flag which determines whether the beaker is full of solution, for purposes of preventing overflow
     //Convenience composite properties for determining whether the beaker
     //is full or empty so we can shut off the faucets when necessary
-    self.beakerFull = new DerivedProperty( [ self.solution.volume, new Property( self.maxWater ) ], function( volume, maxWater ) {
+    self.beakerFullProperty = new DerivedProperty( [ self.solution.volume, new Property( self.maxWater ) ], function( volume, maxWater ) {
       return volume >= maxWater;
     } );
 

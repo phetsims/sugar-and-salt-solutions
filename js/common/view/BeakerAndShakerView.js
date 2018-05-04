@@ -64,7 +64,7 @@ define( function( require ) {
     //while the sim is paused (2nd tab only)
     var maxFlowRate = 1;
     var inputFaucetNode = new FaucetNodeContainer( maxFlowRate, model.inputFlowRateProperty,
-      new DerivedProperty( [ model.clockRunningProperty, model.beakerFull ],
+      new DerivedProperty( [ model.clockRunningProperty, model.beakerFullProperty ],
         function( clockRunning, beakerFull ) {
           return clockRunning && !beakerFull;
         } ), {
