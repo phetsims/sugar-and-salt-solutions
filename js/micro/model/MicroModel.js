@@ -661,7 +661,7 @@ define( function( require ) {
       this.clearSolutes();
 
       //Reset model for user settings
-      this.showConcentrationValues.reset();
+      this.showConcentrationValuesProperty.reset();
       this.dispenserTypeProperty.reset();
       this.showChargeColor.reset();
       this.selectedKit.reset();

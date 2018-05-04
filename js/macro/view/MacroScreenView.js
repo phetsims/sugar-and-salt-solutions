@@ -101,7 +101,7 @@ define( function( require ) {
     };
 
     // Readout the volume of the water in Liters, only visible if the user opted to show values (in the concentration bar chart)
-    self.addChild( new VolumeIndicatorNode( modelViewTransform, macroModel.solution, macroModel.showConcentrationValues,
+    self.addChild( new VolumeIndicatorNode( modelViewTransform, macroModel.solution, macroModel.showConcentrationValuesProperty,
       macroModel.anySolutes, beakerVolumeReadoutFormat ) );
 
     // Create the control panel for choosing sugar vs salt, use a radio-button-based selector for solutes.
@@ -118,7 +118,7 @@ define( function( require ) {
 
     // Show the concentration bar chart behind the shaker so the user can drag the shaker in front
     var concentrationBarChart = new MacroConcentrationBarChartNode( macroModel.showConcentrationBarChartProperty, macroModel.saltConcentration,
-      macroModel.sugarConcentration, macroModel.showConcentrationValues, 1 );
+      macroModel.sugarConcentration, macroModel.showConcentrationValuesProperty, 1 );
     concentrationBarChart.x = self.layoutBounds.maxX - concentrationBarChart.bounds.getWidth() - CONCENTRATION_PANEL_INSET;
     concentrationBarChart.y = CONCENTRATION_PANEL_INSET;
 

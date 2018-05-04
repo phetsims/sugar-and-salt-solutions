@@ -146,7 +146,7 @@ define( function( require ) {
     self.lowerFaucetCanDrain = new VerticalRangeContains( self.solution.shape, drainPipeBottomY, drainPipeTopY );
 
     //True if the values should be shown in the user interface
-    self.showConcentrationValues = new Property( false );
+    self.showConcentrationValuesProperty = new Property( false );
   }
 
   sugarAndSaltSolutions.register( 'SugarAndSaltSolutionsModel', SugarAndSaltSolutionsModel );
@@ -278,7 +278,7 @@ define( function( require ) {
       } );
 
       this.dispenserTypeProperty.reset();
-      this.showConcentrationValues.reset();
+      this.showConcentrationValuesProperty.reset();
       this.showConcentrationBarChartProperty.reset();
 
       //TODO notifyReset();
