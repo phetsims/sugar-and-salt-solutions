@@ -99,7 +99,7 @@ define( function( require ) {
 
       //for "no dissolving while evaporating" workaround, only apply the workaround if concentration is above the saturation point.
       // This will allow newly dropped crystals to dissolve instead of staying crystallized.
-      var evaporationAndConcentrationAllowsDissolve = this.model.evaporationRate.get() > 0 && this.saturated.get();
+      var evaporationAndConcentrationAllowsDissolve = this.model.evaporationRateProperty.get() > 0 && this.saturated.get();
       if ( dissolve || evaporationAndConcentrationAllowsDissolve ) {
         this.crystalDissolve.dissolve( this.crystals, crystal, this.saturated );
       }

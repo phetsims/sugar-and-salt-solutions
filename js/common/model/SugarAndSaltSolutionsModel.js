@@ -98,7 +98,7 @@ define( function( require ) {
     self.dispensers = [];//Create the list of dispensers
 
     //Rate at which liquid (but no solutes) leaves the model
-    this.evaporationRate = new Property( 0.0 );//Between 0 and 100
+    this.evaporationRateProperty = new Property( 0.0 );//Between 0 and 100
 
     //@private Model location (in meters) of where water will flow out the drain (both toward and away
     //from drain faucet), set by the view since view locations are chosen first for consistency across tabs
@@ -169,7 +169,7 @@ define( function( require ) {
       //Change the water volume based on input and output flow
       var inputWater = dt * this.inputFlowRateProperty.get() * this.faucetFlowRate;
       var drainedWater = dt * this.outputFlowRateProperty.get() * this.faucetFlowRate;
-      var evaporatedWater = dt * this.evaporationRate.get() * this.evaporationRateScale;
+      var evaporatedWater = dt * this.evaporationRateProperty.get() * this.evaporationRateScale;
 
       //Compute the new water volume, but making sure it doesn't overflow or underflow.
       //If we rewrite the model to account for solute volume displacement, this computation should account for the
@@ -184,7 +184,7 @@ define( function( require ) {
         drainedWater = inputWater + this.waterVolumeProperty.get();
       }
       //Conversely, only allow evaporated water to use up all remaining water if the user is evaporating anything
-      else if ( newVolume < 0 && this.evaporationRate.get() > 0 ) {
+      else if ( newVolume < 0 && this.evaporationRateProperty.get() > 0 ) {
         evaporatedWater = inputWater + this.waterVolumeProperty.get();
       }
       //Note that the user can't be both evaporating and draining fluid at the same time, since the controls
@@ -204,7 +204,7 @@ define( function( require ) {
 
       //Turn off evaporation if beaker is empty of water
       if ( newVolume <= 0 ) {
-        this.evaporationRate.set( 0.0 );
+        this.evaporationRateProperty.set( 0.0 );
       }
 
       //Update the water volume
