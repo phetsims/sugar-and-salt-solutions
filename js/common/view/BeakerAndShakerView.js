@@ -56,7 +56,7 @@ define( function( require ) {
 
     //Show the water flowing out of the top and bottom faucets
     self.addChild( new WaterNode( modelViewTransform, model.inputWaterProperty ) );
-    self.addChild( new WaterNode( modelViewTransform, model.outputWater ) );
+    self.addChild( new WaterNode( modelViewTransform, model.outputWaterProperty ) );
 
     //Add the faucets, the first faucet should have the water stop at the base of the beaker. This faucet should extend very far in
     //case the user makes the sim short and fat, so the faucet pipe will always be visible

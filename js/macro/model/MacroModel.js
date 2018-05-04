@@ -157,7 +157,7 @@ define( function( require ) {
 
     // Update the conductivity tester when the water level changes, since it might move up to touch a probe (or move
     // out from underneath a submerged probe)
-    Property.multilink( [ self.saltConcentration, self.solution.shape, self.outputWater ], function() {
+    Property.multilink( [ self.saltConcentration, self.solution.shape, self.outputWaterProperty ], function() {
       self.updateConductivityTesterBrightness();
     } );
 
@@ -416,7 +416,7 @@ define( function( require ) {
      */
     isProbeTouchingWaterThatMightHaveSalt: function( regionBounds ) {
       var waterBounds = this.solution.shape.get().bounds;
-      return waterBounds.intersectsBounds( regionBounds ) || this.outputWater.get().bounds.intersectsBounds( regionBounds );
+      return waterBounds.intersectsBounds( regionBounds ) || this.outputWaterProperty.get().bounds.intersectsBounds( regionBounds );
     }
 
   } );

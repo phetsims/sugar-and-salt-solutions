@@ -110,7 +110,7 @@ define( function( require ) {
     // The shape of the input and output water.  The Shape of the water draining out the output faucet
     // is also needed for purposes of determining whether there is an electrical connection for the conductivity tester
     self.inputWaterProperty = new Property( new Shape() );
-    self.outputWater = new Property( new Shape() );
+    self.outputWaterProperty = new Property( new Shape() );
 
     //Sets the shape of the water into the beaker
     self.inputFlowRateProperty.link( function( rate ) {
@@ -125,7 +125,7 @@ define( function( require ) {
     self.outputFlowRateProperty.link( function( rate ) {
       var width = rate * self.drainFaucetMetrics.faucetWidth;
       var height = beakerDimension.height * 2;
-      self.outputWater.set( Shape.rectangle( self.drainFaucetMetrics.outputPoint.x - width / 2,
+      self.outputWaterProperty.set( Shape.rectangle( self.drainFaucetMetrics.outputPoint.x - width / 2,
         self.drainFaucetMetrics.outputPoint.y - height, width, height ) );
     } );
 
