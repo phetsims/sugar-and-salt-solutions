@@ -21,7 +21,7 @@ define( function( require ) {
    */
   function BarItem( constituent, caption, icon ) {
     //The concentration to show on the bar chart should be the the display concentration instead of the true concentration because the value must be held constant when draining out the drain
-    this.concentration = constituent.concentrationToDisplay;
+    this.concentration = constituent.concentrationToDisplayProperty;
     this.color = constituent.color;
     this.caption = caption;
     //Icons to be shown beneath the bar.  Functions are used to create new icons for each kit since giving
