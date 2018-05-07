@@ -112,7 +112,7 @@ define( function( require ) {
     this.drainedParticles = new ItemList();
 
     //User setting for whether color should be based on charge or identity
-    this.showChargeColor = new Property( false );
+    this.showChargeColorProperty = new Property( false );
 
     //Determine if there are any solutes (i.e., if moles of salt or moles of sugar is greater than zero).
     //This is used to show/hide the "remove solutes" button
@@ -129,15 +129,15 @@ define( function( require ) {
     // Colors for all the dissolved solutes
     //Choose nitrate to be blue because the Nitrogen atom is blue, even though it is negative and therefore also blue under "show charge color" condition
     //@private
-    this.sucroseColor = new DerivedProperty( [ self.showChargeColor ], function() {
-      return self.showChargeColor.get() ? ParticleColorConstants.NEUTRAL_COLOR : PhetColorScheme.RED_COLORBLIND;
+    this.sucroseColor = new DerivedProperty( [ self.showChargeColorProperty ], function() {
+      return self.showChargeColorProperty.get() ? ParticleColorConstants.NEUTRAL_COLOR : PhetColorScheme.RED_COLORBLIND;
     } );
     //@private
-    this.glucoseColor = new DerivedProperty( [ self.showChargeColor ], function() {
-      return self.showChargeColor.get() ? ParticleColorConstants.NEUTRAL_COLOR : PhetColorScheme.RED_COLORBLIND;
+    this.glucoseColor = new DerivedProperty( [ self.showChargeColorProperty ], function() {
+      return self.showChargeColorProperty.get() ? ParticleColorConstants.NEUTRAL_COLOR : PhetColorScheme.RED_COLORBLIND;
     } );
     //@private
-    this.nitrateColor = new DerivedProperty( [ self.showChargeColor ], function() {
+    this.nitrateColor = new DerivedProperty( [ self.showChargeColorProperty ], function() {
       return Color.BLUE; // why blue for both conditions..check ..? TODO
     } );
 
@@ -663,7 +663,7 @@ define( function( require ) {
       //Reset model for user settings
       this.showConcentrationValuesProperty.reset();
       this.dispenserTypeProperty.reset();
-      this.showChargeColor.reset();
+      this.showChargeColorProperty.reset();
       this.selectedKit.reset();
       this.clockRunningProperty.reset();
     },

@@ -46,12 +46,12 @@ define( function( require ) {
 
     // Create icons to be shown beneath each bar.  Functions are used to create new icons for each kit since
     // giving the same PNode multiple parents caused layout problems
-    var sodiumIcon = new SphericalParticleNode( transform, new Sodium(), model.showChargeColor );
-    var chlorideIcon = new SphericalParticleNode( transform, new Chloride(), model.showChargeColor );
-    var sucroseIcon = new CompositeParticleNode( transform, new Sucrose(), model.showChargeColor );
-    var glucoseIcon = new CompositeParticleNode( transform, new Glucose(), model.showChargeColor );
-    var calciumIcon = new SphericalParticleNode( transform, new Calcium(), model.showChargeColor );
-    var nitrateIcon = new CompositeParticleNode( transform, new Nitrate( 0, Vector2.ZERO ), model.showChargeColor );
+    var sodiumIcon = new SphericalParticleNode( transform, new Sodium(), model.showChargeColorProperty );
+    var chlorideIcon = new SphericalParticleNode( transform, new Chloride(), model.showChargeColorProperty );
+    var sucroseIcon = new CompositeParticleNode( transform, new Sucrose(), model.showChargeColorProperty );
+    var glucoseIcon = new CompositeParticleNode( transform, new Glucose(), model.showChargeColorProperty );
+    var calciumIcon = new SphericalParticleNode( transform, new Calcium(), model.showChargeColorProperty );
+    var nitrateIcon = new CompositeParticleNode( transform, new Nitrate( 0, Vector2.ZERO ), model.showChargeColorProperty );
 
 
     //This is the logic for which components are present within each kit.  If kits change, this will need to be updated

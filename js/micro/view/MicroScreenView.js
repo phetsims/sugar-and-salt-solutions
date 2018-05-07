@@ -66,7 +66,7 @@ define( function( require ) {
     // When any spherical particle is added in the model, add graphics for them in the view
     self.model.sphericalParticles.addItemAddedListener( function( addedParticle ) {
       var sphericalParticleNode = new SphericalParticleNode( modelViewTransform, addedParticle,
-        self.model.showChargeColor );
+        self.model.showChargeColorProperty );
       self.addChild( sphericalParticleNode );
 
       // Create the Node for the particle, and wire it up to be removed when the particle leaves the model

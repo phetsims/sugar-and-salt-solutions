@@ -20,7 +20,7 @@ define( function( require ) {
    * @constructor
    */
   function IonColor( microModel, particle ) {
-    DerivedProperty.call( this, [ microModel.showChargeColor ], function( showChargeColor ) {
+    DerivedProperty.call( this, [ microModel.showChargeColorProperty ], function( showChargeColor ) {
       return showChargeColor ? particle.chargeColor : particle.color;
     } );
   }
