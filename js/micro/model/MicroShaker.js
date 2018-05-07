@@ -34,7 +34,7 @@ define( function( require ) {
     //Keep track of how many times the user has tried to create macro salt, so that we can
     //(less frequently) create corresponding micro crystals
     //@private
-    this.stepsAdding = new Property( 0 );
+    this.stepsAddingProperty = new Property( 0 );
   }
 
   sugarAndSaltSolutions.register( 'MicroShaker', MicroShaker );
@@ -47,8 +47,8 @@ define( function( require ) {
      */
     addSalt: function( model, outputPoint, volumePerSolidMole, crystalVelocity ) {
       //Only add a crystal every N steps, otherwise there are too many
-      this.stepsAdding.set( this.stepsAdding.get() + 1 );
-      if ( this.stepsAdding.get() % 30 === 0 ) {
+      this.stepsAddingProperty.set( this.stepsAddingProperty.get() + 1 );
+      if ( this.stepsAddingProperty.get() % 30 === 0 ) {
         this.addCrystal( model, outputPoint );
       }
     },
