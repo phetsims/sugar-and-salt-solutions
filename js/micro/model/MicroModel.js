@@ -209,8 +209,8 @@ define( function( require ) {
     this.kit = null;
 
     //The index of the kit selected by the user
-    this.selectedKit = new Property( 0 );
-    this.selectedKit.link( function( value ) {
+    this.selectedKitProperty = new Property( 0 );
+    this.selectedKitProperty.link( function( value ) {
       //When the user switches kits, clear the solutes and reset the water level
       self.clearSolutes();
       self.resetWater();
@@ -345,10 +345,10 @@ define( function( require ) {
      * @returns {number}
      */
     countFreeFormulaUnits: function( formula ) {
-      if ( this.selectedKit.get() === 0 ) { return this.countFreeFormulaUnitsKit0( formula ); }
-      else if ( this.selectedKit.get() === 1 ) { return this.countFreeFormulaUnitsKit1( formula ); }
-      else if ( this.selectedKit.get() === 2 ) { return this.countFreeFormulaUnitsKit2( formula ); }
-      else if ( this.selectedKit.get() === 3 ) { return this.countFreeFormulaUnitsKit3( formula ); }
+      if ( this.selectedKitProperty.get() === 0 ) { return this.countFreeFormulaUnitsKit0( formula ); }
+      else if ( this.selectedKitProperty.get() === 1 ) { return this.countFreeFormulaUnitsKit1( formula ); }
+      else if ( this.selectedKitProperty.get() === 2 ) { return this.countFreeFormulaUnitsKit2( formula ); }
+      else if ( this.selectedKitProperty.get() === 3 ) { return this.countFreeFormulaUnitsKit3( formula ); }
       else { throw new Error( 'Kit not found' ); }
     },
 
@@ -664,7 +664,7 @@ define( function( require ) {
       this.showConcentrationValuesProperty.reset();
       this.dispenserTypeProperty.reset();
       this.showChargeColorProperty.reset();
-      this.selectedKit.reset();
+      this.selectedKitProperty.reset();
       this.clockRunningProperty.reset();
     },
 

@@ -57,7 +57,7 @@ define( function( require ) {
     concentrationBarChart.x = self.layoutBounds.maxX - concentrationBarChart.bounds.getWidth() - CONCENTRATION_PANEL_INSET;
     concentrationBarChart.y = CONCENTRATION_PANEL_INSET;
 
-    microModel.selectedKit.link( function( kit ) {
+    microModel.selectedKitProperty.link( function( kit ) {
       concentrationBarChart.setBars( self.kitList.getKit( kit ).barItems );
     } );
 
