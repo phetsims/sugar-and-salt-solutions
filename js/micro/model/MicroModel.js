@@ -124,7 +124,7 @@ define( function( require ) {
     //The number of different types of solute in solution, to determine whether to show singular or plural text for the "remove solute(s)" button
     //Note: this value should not be set externally, it should only be set by this model.  The reason that we used DoubleProperty which has a public setter
     //is because it also has methods such as greaterThan and valueEquals
-    this.numberSoluteTypes = new Property( 0.0 );
+    this.numberSoluteTypesProperty = new Property( 0.0 );
 
     // Colors for all the dissolved solutes
     //Choose nitrate to be blue because the Nitrogen atom is blue, even though it is negative and therefore also blue under "show charge color" condition
@@ -487,7 +487,7 @@ define( function( require ) {
         return self.countFreeFormulaUnits( formula ) > 0;
       } ).length;
 
-      this.numberSoluteTypes.set( count + 0.0 );
+      this.numberSoluteTypesProperty.set( count + 0.0 );
 
       //Notify listeners that the update step completed
       /**
