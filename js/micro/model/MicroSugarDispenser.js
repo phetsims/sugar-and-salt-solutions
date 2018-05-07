@@ -34,7 +34,7 @@ define( function( require ) {
     // Keep track of how many times the user has tried to create macro salt, so that we can (less frequently)
     // create corresponding micro crystals
     //@private
-    this.stepsOfAddingSugar = new Property( 0 );
+    this.stepsOfAddingSugarProperty = new Property( 0 );
   }
 
   sugarAndSaltSolutions.register( 'MicroSugarDispenser', MicroSugarDispenser );
@@ -47,8 +47,8 @@ define( function( require ) {
      */
     addSugarToModel: function( outputPoint ) {
       //Only add a crystal every N steps, otherwise there are too many
-      this.stepsOfAddingSugar.set( this.stepsOfAddingSugar.get() + 1 );
-      if ( this.stepsOfAddingSugar.get() % 10 === 0 ) {
+      this.stepsOfAddingSugarProperty.set( this.stepsOfAddingSugarProperty.get() + 1 );
+      if ( this.stepsOfAddingSugarProperty.get() % 10 === 0 ) {
         //Create a random crystal with 4 sucrose molecules
         this.doAddSugar( outputPoint );
       }
