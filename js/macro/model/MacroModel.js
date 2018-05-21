@@ -417,6 +417,15 @@ define( function( require ) {
     isProbeTouchingWaterThatMightHaveSalt: function( regionBounds ) {
       var waterBounds = this.solution.shape.get().bounds;
       return waterBounds.intersectsBounds( regionBounds ) || this.outputWaterProperty.get().bounds.intersectsBounds( regionBounds );
+    },
+
+    /**
+     * Resets the model state.
+     */
+    resetModel: function() {
+      this.conductivityTester.reset();
+      // reset common elements
+      this.reset();
     }
 
   } );

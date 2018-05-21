@@ -149,7 +149,7 @@ define( function( require ) {
     // Create and add the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
       listener: function() {
-        macroModel.reset();
+        macroModel.resetModel();
       },
       right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
