@@ -117,6 +117,8 @@ define( function( require ) {
      * Resets the dispenser.
      */
     reset: function() {
+      // todo - this resets position but not attributes specific to certain shakers
+      // likely in SaltShaker & SugarDispenser.
       this.centerProperty.reset();
       this.angleProperty.reset();
     }
