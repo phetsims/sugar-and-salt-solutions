@@ -111,6 +111,14 @@ define( function( require ) {
     //Set the height of the dispenser, used to emit crystals in the right location relative to the image
     setDispenserHeight: function( dispenserHeight ) {
       this.dispenserHeight = dispenserHeight;
+    },
+
+    /**
+     * Resets the dispenser.
+     */
+    reset: function() {
+      this.centerProperty.reset();
+      this.angleProperty.reset();
     }
 
   } );
