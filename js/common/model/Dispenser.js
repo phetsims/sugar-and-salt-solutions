@@ -114,13 +114,21 @@ define( function( require ) {
     },
 
     /**
-     * Resets the dispenser.
+     * Resets common dispenser elements. Descendants should call this method in their reset implementation.
      */
-    reset: function() {
+    resetCommonElements: function() {
       // todo - this resets position but not attributes specific to certain shakers
       // likely in SaltShaker & SugarDispenser.
       this.centerProperty.reset();
       this.angleProperty.reset();
+    },
+
+    /**
+     * Resets this dispenser. Since Descendant classes can contain elements not in
+     * this class, it must be implemented by descendants.
+     */
+    reset: function() {
+      throw new Error( 'reset should be implemented in descendant classes of Dispenser' );
     }
 
   } );

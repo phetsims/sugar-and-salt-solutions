@@ -150,6 +150,16 @@ define( function( require ) {
           this.addSugarToModel( outputPoint );
         }
       }
+    },
+
+    /**
+     * @Override
+     * Resets this SugarDispenser.
+     */
+    reset: function() {
+      this.resetCommonElements();
+      this.translating = false;
+      this.positions = [];
     }
 
   } );

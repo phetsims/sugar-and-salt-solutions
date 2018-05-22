@@ -146,7 +146,18 @@ define( function( require ) {
       var x1 = this.positions[ this.positions.length - 2 - i ];
       var x2 = this.positions[ this.positions.length - 3 - i ];
       return x0.minus( x1.times( 2 ) ).plus( x2 );
+    },
+
+    /**
+     * @Override
+     * Resets this SalAShaker.
+     */
+    reset: function() {
+      this.resetCommonElements();
+      this.shakeAmount = 0.0;
+      this.positions = [];
     }
+
   } );
 } );
 
