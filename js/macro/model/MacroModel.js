@@ -424,6 +424,8 @@ define( function( require ) {
      */
     resetModel: function() {
       this.conductivityTester.reset();
+      this.removeSalt();
+      this.removeSugar();
       // reset common elements
       this.reset();
     }
