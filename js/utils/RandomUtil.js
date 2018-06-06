@@ -19,11 +19,11 @@ define( function( require ) {
     //static
     {
       randomAngle: function() {
-        return Math.random() * 2 * Math.PI;
+        return phet.joist.random.nextDouble() * 2 * Math.PI;
       },
 
       nextRandomSign: function() {
-        var randomNumber = Math.random() >= 0.5;
+        var randomNumber = phet.joist.random.nextDouble() >= 0.5;
         return randomNumber ? 1 : -1;
       }
 

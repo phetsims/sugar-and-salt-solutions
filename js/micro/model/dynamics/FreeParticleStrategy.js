@@ -104,7 +104,7 @@ define( function( require ) {
 
       //Random Walk, implementation taken from edu.colorado.phet.solublesalts.model.RandomWalk
       if ( underwater ) {
-        var theta = Math.random() * toRadians( 30.0 ) * RandomUtil.nextRandomSign();
+        var theta = phet.joist.random.nextDouble() * toRadians( 30.0 ) * RandomUtil.nextRandomSign();
         particle.velocityProperty.set( particle.velocityProperty.value.rotated( theta ) );
       }
 

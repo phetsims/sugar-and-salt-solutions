@@ -37,8 +37,8 @@ define( function( require ) {
     addSugarToModel: function( outputPoint ) {
       // Add the sugar, with some randomness in the velocity
       var macroSugar = new MacroSugar( outputPoint, this.model.sugar.volumePerSolidMole );
-      macroSugar.velocityProperty.set( this.getCrystalVelocity( outputPoint ).plus( ( Math.random() - 0.5 ) * 0.05,
-        ( Math.random() - 0.5 ) * 0.05 ) );
+      macroSugar.velocityProperty.set( this.getCrystalVelocity( outputPoint ).plus( ( phet.joist.random.nextDouble() - 0.5 ) * 0.05,
+        ( phet.joist.random.nextDouble() - 0.5 ) * 0.05 ) );
       this.model.addMacroSugar( macroSugar );
     }
   } );

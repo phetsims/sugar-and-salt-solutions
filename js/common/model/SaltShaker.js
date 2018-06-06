@@ -60,12 +60,12 @@ define( function( require ) {
     updateModel: function() {
       //Check to see if we should be emitting salt crystals-- if the shaker was shaken enough
       if ( this.enabledProperty.get() && this.shakeAmount > 0 && this.moreAllowed.get() ) {
-        var numCrystals = ( Math.floor( Math.random() * 2 ) + Math.min( this.shakeAmount * 4000, 4 ) );
+        var numCrystals = ( Math.floor( phet.joist.random.nextDouble() * 2 ) + Math.min( this.shakeAmount * 4000, 4 ) );
         for ( var i = 0; i < numCrystals; i++ ) {
 
           //Determine where the salt should come out
           //Hand tuned to match up with the image, will need to be re-tuned if the image changes
-          var randUniform = ( Math.random() - 0.5 ) * 2;
+          var randUniform = ( phet.joist.random.nextDouble() - 0.5 ) * 2;
           var outputPoint = this.centerProperty.get().plus( Vector2.createPolar( this.dispenserHeight / 2 * 0.8, this.angleProperty.get() - Math.PI / 2 + randUniform * Math.PI / 32 * 1.2 ) );
 
           //Add the salt to the model

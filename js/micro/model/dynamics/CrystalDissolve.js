@@ -98,7 +98,7 @@ define( function( require ) {
       //otherwise it will "jump" into the air above the beaker
       var particleAboveWater = constituent.particle.getShape().bounds.getMaxY() >
                                this.model.solution.shape.get().bounds.getMaxY();
-      var velocityAngle = particleAboveWater ? 0 : Math.random() * Math.PI * 2;
+      var velocityAngle = particleAboveWater ? 0 : phet.joist.random.nextDouble() * Math.PI * 2;
       var velocity = new Vector2( 0, -1 ).times( DynamicsConstants.FREE_PARTICLE_SPEED ).rotated( velocityAngle );
       constituent.particle.velocityProperty.set( velocity );
 
