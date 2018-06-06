@@ -23,7 +23,7 @@ define( function( require ) {
    */
   function Sucrose( relativePosition, angle ) {
     relativePosition = relativePosition || new Vector2();
-    angle = angle || Math.random() * 2 * Math.PI;
+    angle = angle || phet.joist.random.nextDouble() * 2 * Math.PI;
     SugarMolecule.call( this, relativePosition, angle, new SucrosePositions() );
   }
 
