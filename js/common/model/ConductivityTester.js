@@ -135,7 +135,7 @@ define( function( require ) {
     getNegativeProbeRegion: function() {
       return Bounds2.rect( this.negativeProbeLocationProperty.value.x - this.getProbeSizeReference().width / 2, this.negativeProbeLocationProperty.value.y,
         this.getProbeSizeReference().width, this.getProbeSizeReference().height );
-    },
+    }
 
   } );
 
