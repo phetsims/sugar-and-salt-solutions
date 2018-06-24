@@ -26,7 +26,7 @@ define( function( require ) {
    * @constructor
    */
   function OpenSite( relativePosition, shape, newInstance, absolutePosition ) {
-    Particle.call( this );
+    Particle.call( this, relativePosition.plus( absolutePosition ) );
 
     //Position relative to the origin of the crystal
     this.relativePosition = relativePosition;
