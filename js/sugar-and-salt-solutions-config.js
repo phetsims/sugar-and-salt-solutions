@@ -39,6 +39,7 @@ require.config( {
     SCENERY_PHET: '../../scenery-phet/js',
     SUGAR_AND_SALT_SOLUTIONS: '.',
     SUN: '../../sun/js',
+    TAMBO: '../../tambo/js',
     TANDEM: '../../tandem/js'
   },
 
