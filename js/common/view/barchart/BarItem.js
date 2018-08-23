@@ -20,7 +20,7 @@ define( function( require ) {
    * @constructor
    */
   function BarItem( constituent, caption, icon ) {
-    //The concentration to show on the bar chart should be the the display concentration instead of the true concentration because the value must be held constant when draining out the drain
+    //The concentration to show on the bar chart should be the display concentration instead of the true concentration because the value must be held constant when draining out the drain
     this.concentration = constituent.concentrationToDisplayProperty;
     this.color = constituent.color;
     this.caption = caption;

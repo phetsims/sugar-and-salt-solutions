@@ -110,7 +110,7 @@ define( function( require ) {
 //        } );
 //    }
 //
-//    //Reset the the model when "reset all" is pressed
+//    //Reset the model when "reset all" is pressed
 //    public abstract void reset();
 //
 //    protected abstract double updateModel( double dt );

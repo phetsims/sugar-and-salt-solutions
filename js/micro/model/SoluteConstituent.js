@@ -27,7 +27,7 @@ define( function( require ) {
     // True particle concentrations for the dissolved components
     self.concentration = new IonConcentration( model, type );
 
-    //The concentration to show on the bar chart should be the the display concentration instead of the true concentration because
+    //The concentration to show on the bar chart should be the display concentration instead of the true concentration because
     //the value must be held constant when draining out the drain
     self.concentrationToDisplayProperty = new Property( this.concentration.get() );
 
