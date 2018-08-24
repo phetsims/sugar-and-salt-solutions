@@ -54,6 +54,7 @@ define( function( require ) {
       buttonLength: 20,
       contentYSpacing: 2,
       contentYMargin: 2,
+      cornerRadius: 3,
       expandedProperty: showConcentrationBarChart //Only show this bar chart if the user has opted to do so
     } );
 
