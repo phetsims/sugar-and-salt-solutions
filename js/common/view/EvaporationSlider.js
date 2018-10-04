@@ -18,7 +18,7 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Range = require( 'DOT/Range' );
   var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -47,7 +47,7 @@ define( function( require ) {
       .addColorStop( 1, Color.BLACK );
 
     var maxEvaporationRate = 100;
-    var slider = new HSlider( evaporationRate, new RangeWithValue( 0, maxEvaporationRate ), {
+    var slider = new HSlider( evaporationRate, new Range( 0, maxEvaporationRate ), {
       trackSize: trackSize,
       trackFill: trackFill,
       thumbSize: new Dimension2( 22, 30 ),
