@@ -13,8 +13,8 @@ define( function( require ) {
   var Dispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Dispenser' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SaltShakerNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SaltShakerNode' );
-  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var Vector2 = require( 'DOT/Vector2' );
 
 

@@ -21,9 +21,9 @@ define( function( require ) {
   var MicroScreenView = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/MicroScreenView' );
   var Property = require( 'AXON/Property' );
   var Screen = require( 'JOIST/Screen' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var SugarAndSaltSolutionsSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsSharedProperties' );
-  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
   // strings
   var microString = require( 'string!SUGAR_AND_SALT_SOLUTIONS/micro' );

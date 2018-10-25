@@ -47,8 +47,8 @@ define( function( require ) {
   var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/Sucrose' );
   var SucroseCrystalGrowth = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/SucroseCrystalGrowth' );
   var SucroseDispenser = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/SucroseDispenser' );
-  var SugarAndSaltSolutionsModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionsModel' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+  var SugarAndSaltSolutionsModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionsModel' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
   var Vector2 = require( 'DOT/Vector2' );
 

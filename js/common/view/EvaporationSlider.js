@@ -19,8 +19,8 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var Range = require( 'DOT/Range' );
-  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   //string

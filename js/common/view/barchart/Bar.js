@@ -16,8 +16,8 @@ define( function( require ) {
   var RichText = require( 'SCENERY/nodes/RichText' );
   var Shape = require( 'KITE/Shape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var Util = require( 'DOT/Util' );
 
   // strings

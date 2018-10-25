@@ -12,8 +12,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Particle = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Particle' );
   var Shape = require( 'KITE/Shape' );
-  var SugarAndSaltSolutionsSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsSharedProperties' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+  var SugarAndSaltSolutionsSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsSharedProperties' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
   var Vector2 = require( 'DOT/Vector2' );
 

@@ -22,9 +22,9 @@ define( function( require ) {
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Property = require( 'AXON/Property' );
   var SoluteModel = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/model/SoluteModel' );
+  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var SugarAndSaltSolutionsModel = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/SugarAndSaltSolutionsModel' );
-  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 

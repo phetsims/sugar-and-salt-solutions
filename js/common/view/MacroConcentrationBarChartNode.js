@@ -13,8 +13,8 @@ define( function( require ) {
   var AccordionBox = require( 'SUN/AccordionBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var SugarSaltBarChart = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/SugarSaltBarChart' );
   var Text = require( 'SCENERY/nodes/Text' );
 

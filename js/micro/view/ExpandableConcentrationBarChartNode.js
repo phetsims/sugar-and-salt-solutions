@@ -12,8 +12,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MicroConcentrationBarChart = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/MicroConcentrationBarChart' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings

@@ -29,8 +29,8 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var SelectableSoluteItem = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SelectableSoluteItem' );
   var SoluteControlPanelNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SoluteControlPanelNode' );
-  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
   var Util = require( 'DOT/Util' );
   var VolumeIndicatorNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/VolumeIndicatorNode' );

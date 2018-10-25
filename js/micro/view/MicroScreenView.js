@@ -18,8 +18,8 @@ define( function( require ) {
   var MicroSoluteKitList = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/view/MicroSoluteKitList' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var SphericalParticleNode = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SphericalParticleNode' );
-  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+  var SugarAndSaltSolutionsConstants = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsConstants' );
 
   // constants
   // Insets to be used for padding between edge of canvas and controls, or between controls

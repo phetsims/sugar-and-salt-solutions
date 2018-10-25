@@ -13,8 +13,8 @@ define( function( require ) {
   var Formula = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Formula' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Sucrose = require( 'SUGAR_AND_SALT_SOLUTIONS/micro/model/sucrose/Sucrose' );
-  var SugarAndSaltSolutionsSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsSharedProperties' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+  var SugarAndSaltSolutionsSharedProperties = require( 'SUGAR_AND_SALT_SOLUTIONS/common/SugarAndSaltSolutionsSharedProperties' );
   var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
 
   /**
