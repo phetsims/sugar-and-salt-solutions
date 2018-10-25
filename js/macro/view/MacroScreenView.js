@@ -24,6 +24,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PrecipitateNode = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/PrecipitateNode' );
   var Property = require( 'AXON/Property' );
+  var Range = require( 'DOT/Range' );
   var RemoveSoluteControlNode = require( 'SUGAR_AND_SALT_SOLUTIONS/macro/view/RemoveSoluteControlNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var SelectableSoluteItem = require( 'SUGAR_AND_SALT_SOLUTIONS/common/view/SelectableSoluteItem' );
@@ -75,7 +76,7 @@ define( function( require ) {
     var image = new Image( mockupImage, { pickable: false } );
     mockupOpacityProperty.linkAttribute( image, 'opacity' );
     this.addChild( image );
-    this.addChild( new HSlider( mockupOpacityProperty, { min: 0, max: 1 }, { top: 10, left: 500 } ) );
+    this.addChild( new HSlider( mockupOpacityProperty, new Range( 0, 1 ), { top: 10, left: 500 } ) );
 
     // Layer that holds the sugar and salt crystals
     var crystalLayer = new Node();
