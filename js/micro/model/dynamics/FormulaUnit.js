@@ -41,6 +41,8 @@ define( function( require ) {
      * @param {number} dt
      */
     moveTogether: function( dt ) {
+      assert && assert( !!this._1, '_1 should be defined' );
+      assert && assert( !!this._2, '_2 should be defined' );
       var unitVectorFromAToB = this._2.getPosition().minus( this._1.getPosition() ).normalized();
       var velocity = unitVectorFromAToB.times( DynamicsConstants.FREE_PARTICLE_SPEED );
       this._1.velocity.set( velocity );

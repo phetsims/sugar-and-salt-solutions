@@ -33,6 +33,7 @@ define( function( require ) {
     /**
      * Dissolve the lattice incrementally so that we get as close as possible to the saturation point
      * This  is a overloaded function
+     * TODO: Un-overload this function.
      * if the arguments count is  2, we consider args[0] to be {Crystal} crystal and args[1] to be elementsToDissolve
      * if the arguments count is  3, we consider args[0] to be {ItemList} crystals and args[1]
      * to be {Crystal} crystal and args[2] to be {Property} saturated
@@ -49,7 +50,7 @@ define( function( require ) {
       //For some unknown reason, limiting this to one dissolve element per step fixes bugs in dissolving the lattices
       //Without this limit, crystals do not dissolve when they should
       while ( !saturated.get() && crystal.numberConstituents() > 0 && new Date().getTime() -
-                                                                      this.lastDissolve > 2 && !this.model.isWaterBelowCrystalThreshold() ) {
+              this.lastDissolve > 2 && !this.model.isWaterBelowCrystalThreshold() ) {
         this.lastDissolve = new Date().getTime();
         var toDissolve = crystal.getConstituentsToDissolve( this.model.solution.shape.get().bounds );
         if ( toDissolve.length ) {
@@ -93,6 +94,8 @@ define( function( require ) {
      * @param {Constituent} constituent
      */
     removeConstituent: function( crystal, constituent ) {
+
+      assert && assert( constituent, 'Constituent to remove must be supplied' );
 
       //If the particle is above the water when dissolved off the crystal, then make sure it starts moving downward,
       //otherwise it will "jump" into the air above the beaker
