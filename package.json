@@ -12,7 +12,7 @@
   "phet": {
     "requirejsNamespace": "SUGAR_AND_SALT_SOLUTIONS",
     "runnable": false,
-    "simulation": true,
+    "simulation": false,
     "supportedBrands": [
       "phet",
       "adapted-from-phet"
