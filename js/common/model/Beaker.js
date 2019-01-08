@@ -108,7 +108,7 @@ define( function( require ) {
 
     /**
      * Returns a rectangle of the bounds of the beaker
-     * @return Shape
+     * @returns {Shape}
      */
     toRectangle: function() {
       return this.beakerRect;

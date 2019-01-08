@@ -71,7 +71,7 @@ define( function( require ) {
     },
     /**
      * Gets the constant simulation time change (dt) between ticks.
-     * @return dt
+     * @returns {number} dt
      */
     getDt: function() {
       this.getSimulationTimeChange();
@@ -82,7 +82,7 @@ define( function( require ) {
 
     /**
      * Determine how much simulation time should pass if the clock is paused, and the user presses 'frame advance'
-     * @return the simulation time.
+     * @returns {number} the simulation time.
      */
     getSimulationTimeChangeForPausedClock: function() {
       return this.simulationTimeChange;

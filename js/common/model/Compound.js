@@ -127,7 +127,7 @@ define( function( require ) {
 
     /**
      * Returns the number of constituents in the compound
-     * @return number
+     * @returns {number}
      */
     numberConstituents: function() {
       return this.constituents.length;
