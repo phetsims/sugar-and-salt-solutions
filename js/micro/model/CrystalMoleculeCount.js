@@ -5,38 +5,35 @@
  * @author Sharfudeen Ashraf (for Ghent University)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
+  class CrystalMoleculeCount extends DerivedProperty {
+    /**
+     *
+     * @param {ItemList} crystals
+     * @constructor
+     */
+    constructor( crystals ) {
+      super( [ crystals.lengthProperty ], () => {
+        // When the number of crystals changes, update the number of constituents in the crystals
+        // This watches the number of crystals but not the number of constituents in each crystal, but this hasn't
+        // caused any known problems so far
+        let count = 0;
+        crystals.forEach( crystal => {
+          count = count + crystal.numberConstituents();
+        } );
 
-  /**
-   *
-   * @param {ItemList} crystals
-   * @constructor
-   */
-  function CrystalMoleculeCount( crystals ) {
-    DerivedProperty.call( this, [ crystals.lengthProperty ], function() {
-      // When the number of crystals changes, update the number of constituents in the crystals
-      // This watches the number of crystals but not the number of constituents in each crystal, but this hasn't
-      // caused any known problems so far
-      var count = 0;
-      crystals.forEach( function( crystal ) {
-        count = count + crystal.numberConstituents();
+        return count | 0; // int
       } );
-
-      return count | 0; // int
-
-    } );
-
+    }
   }
 
-  sugarAndSaltSolutions.register( 'CrystalMoleculeCount', CrystalMoleculeCount );
-  return inherit( DerivedProperty, CrystalMoleculeCount );
+  return sugarAndSaltSolutions.register( 'CrystalMoleculeCount', CrystalMoleculeCount );
 } );
 // Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions.micro.model;

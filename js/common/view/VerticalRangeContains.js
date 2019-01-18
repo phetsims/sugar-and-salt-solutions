@@ -16,29 +16,26 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
-  /**
-   *
-   * @param {Property.<Shape>} shape
-   * @param {number} minY
-   * @param {number} maxY
-   * @constructor
-   */
-  function VerticalRangeContains( shape, minY, maxY ) {
+  class VerticalRangeContains extends DerivedProperty {
 
-    DerivedProperty.call( this, [ shape ], function( shapeDependency ) {
-      //A simple way to determine whether any part of range A overlaps with any part of range B is to intersect rectangles
-      //the X regions of the rectangles are the same so they can be safely ignored
-      var parentBounds = shapeDependency.bounds;
-      var pseudoBounds = new Bounds2( parentBounds.getX(), minY, parentBounds.getX() + parentBounds.getWidth(), maxY );
-      return parentBounds.intersectsBounds( pseudoBounds );
-    } );
+    /**
+     * @param {Property.<Shape>} shape
+     * @param {number} minY
+     * @param {number} maxY
+     */
+    constructor( shape, minY, maxY ) {
+
+      super( [ shape ], function( shapeDependency ) {
+        //A simple way to determine whether any part of range A overlaps with any part of range B is to intersect rectangles
+        //the X regions of the rectangles are the same so they can be safely ignored
+        var parentBounds = shapeDependency.bounds;
+        var pseudoBounds = new Bounds2( parentBounds.getX(), minY, parentBounds.getX() + parentBounds.getWidth(), maxY );
+        return parentBounds.intersectsBounds( pseudoBounds );
+      } );
+    }
   }
 
-  sugarAndSaltSolutions.register( 'VerticalRangeContains', VerticalRangeContains );
-
-  return inherit( DerivedProperty, VerticalRangeContains, {} );
-
-
+  return sugarAndSaltSolutions.register( 'VerticalRangeContains', VerticalRangeContains );
 } );// Copyright 2002-2015, University of Colorado Boulder
 //package edu.colorado.phet.sugarandsaltsolutions.common.view;
 //

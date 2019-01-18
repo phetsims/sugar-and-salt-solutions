@@ -6,40 +6,36 @@
  * @author Sharfudeen Ashraf (for Ghent University)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
-  var Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+  const Units = require( 'SUGAR_AND_SALT_SOLUTIONS/common/model/Units' );
 
-  /**
-   *
-   * @param {MicroModel} microModel
-   * @param {prototype.constructor} type
-   *
-   * @constructor
-   */
-  function IonConcentration( microModel, type ) {
-    var self = this;
-    DerivedProperty.call( self, [ microModel.waterVolumeProperty ], function() {
-      //If there is no water, there is no solution and hence no concentration
-      return microModel.waterVolumeProperty.get() === 0 ? 0.0 :
-             Units.numberToMoles( microModel.freeParticles.countByClass( type ) ) / microModel.waterVolumeProperty.get();
-    } );
+  class IonConcentration extends DerivedProperty {
 
-    var listener = function( particle ) {
-      self.notifyListenersStatic();
-    };
+    /**
+     * @param {MicroModel} microModel
+     * @param {prototype.constructor} type
+     *
+     * @constructor
+     */
+    constructor( microModel, type ) {
+      super( [ microModel.waterVolumeProperty ], function() {
+        //If there is no water, there is no solution and hence no concentration
+        return microModel.waterVolumeProperty.get() === 0 ? 0.0 :
+               Units.numberToMoles( microModel.freeParticles.countByClass( type ) ) / microModel.waterVolumeProperty.get();
+      } );
 
-    microModel.freeParticles.addItemAddedListener( listener );
-    microModel.freeParticles.removeItemAddedListener( listener );
+      const listener = particle => this.notifyListenersStatic();
 
+      microModel.freeParticles.addItemAddedListener( listener );
+      microModel.freeParticles.removeItemAddedListener( listener );
+    }
   }
 
-  sugarAndSaltSolutions.register( 'IonConcentration', IonConcentration );
-  return inherit( DerivedProperty, IonConcentration );
+  return sugarAndSaltSolutions.register( 'IonConcentration', IonConcentration );
 } );
 

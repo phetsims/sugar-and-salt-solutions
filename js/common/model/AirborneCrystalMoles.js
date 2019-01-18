@@ -8,42 +8,37 @@
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Sharfudeen Ashraf (For Ghent University)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
-  /**
-   *
-   * @param {ObservableArray<MacroCrystal>} list
-   * @constructor
-   */
-  function AirborneCrystalMoles( list ) {
+  class AirborneCrystalMoles extends DerivedProperty {
 
-    DerivedProperty.call( this, [ list.lengthProperty ], function() {
-      // Sum up the total amount of moles of crystals that are in the air
-      var sum = 0;
-      list.forEach( function( crystal ) {
+    /**
+     * @param {ObservableArray<MacroCrystal>} list
+     */
+    constructor( list ) {
 
-        //Allow zero values to count toward the sum since "landed" particles could be sitting at 0 and should still
-        // count toward the amount in the play area since they could get added to the solution
-        if ( crystal.positionProperty.get().y >= 0 ) {
-          sum += crystal.moles;
-        }
+      super( [ list.lengthProperty ], function() {
+        // Sum up the total amount of moles of crystals that are in the air
+        let sum = 0;
+        list.forEach( crystal => {
 
+          //Allow zero values to count toward the sum since "landed" particles could be sitting at 0 and should still
+          // count toward the amount in the play area since they could get added to the solution
+          if ( crystal.positionProperty.get().y >= 0 ) {
+            sum += crystal.moles;
+          }
+
+        } );
+        return sum;
       } );
-      return sum;
-    } );
-    //Notification based on changes is handled in SugarAndSaltSolutionsModel when the crystal list is modified
+      //Notification based on changes is handled in SugarAndSaltSolutionsModel when the crystal list is modified
+    }
   }
 
-  sugarAndSaltSolutions.register( 'AirborneCrystalMoles', AirborneCrystalMoles );
-
-  return inherit( DerivedProperty, AirborneCrystalMoles, {} );
-
-
+  return sugarAndSaltSolutions.register( 'AirborneCrystalMoles', AirborneCrystalMoles );
 } );
-

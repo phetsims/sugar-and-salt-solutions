@@ -5,27 +5,26 @@
  * @author Sharfudeen Ashraf (for Ghent University)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const sugarAndSaltSolutions = require( 'SUGAR_AND_SALT_SOLUTIONS/sugarAndSaltSolutions' );
 
-  /**
-   *
-   * @param {MicroModel} microModel
-   * @param {SphericalParticle} particle
-   * @constructor
-   */
-  function IonColor( microModel, particle ) {
-    DerivedProperty.call( this, [ microModel.showChargeColorProperty ], function( showChargeColor ) {
-      return showChargeColor ? particle.chargeColor : particle.color;
-    } );
+  class IonColor extends DerivedProperty {
+    /**
+     *
+     * @param {MicroModel} microModel
+     * @param {SphericalParticle} particle
+     * @constructor
+     */
+    constructor( microModel, particle ) {
+      super( [ microModel.showChargeColorProperty ], showChargeColor => {
+        return showChargeColor ? particle.chargeColor : particle.color;
+      } );
+    }
   }
 
-  sugarAndSaltSolutions.register( 'IonColor', IonColor );
-  return inherit( DerivedProperty, IonColor );
+  return sugarAndSaltSolutions.register( 'IonColor', IonColor );
 } );
-
