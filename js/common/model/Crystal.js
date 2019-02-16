@@ -124,7 +124,7 @@ define( function( require ) {
       var self = this;
       _.each( self.formula.getFormulaUnit(), function( type ) {
         if ( self.constituents.length === 0 ) {
-          self.addConstituent( new Constituent( self.createConstituentParticle( type ), new Vector2() ) );
+          self.addConstituent( new Constituent( self.createConstituentParticle( type ), new Vector2( 0, 0 ) ) );
         }
         else {
           //find any particle that has open bonds

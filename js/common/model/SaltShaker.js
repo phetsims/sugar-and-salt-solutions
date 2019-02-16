@@ -93,7 +93,7 @@ define( function( require ) {
         if ( this.positions.length >= 20 ) {
 
           //Average the second derivatives
-          var sum = new Vector2();
+          var sum = new Vector2( 0, 0 );
           var numIterations = 10;
           for ( var i = 0; i < numIterations; i++ ) {
             sum = sum.plus( this.getSecondDerivative( i ) );
