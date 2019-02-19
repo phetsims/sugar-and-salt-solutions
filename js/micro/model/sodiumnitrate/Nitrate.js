@@ -27,7 +27,7 @@ define( function( require ) {
    */
   function Nitrate( angle, relativePosition ) {
     angle = angle || 0;
-    relativePosition = relativePosition || new Vector2();
+    relativePosition = relativePosition || new Vector2( 0, 0 );
 
     Compound.call( this, relativePosition, angle );
     this.constituents.add( new Constituent( new FreeOxygen(), Vector2.createPolar( SodiumNitrateConstants.NITROGEN_OXYGEN_SPACING, Math.PI * 2 * 0 / 3.0 + angle ) ) );

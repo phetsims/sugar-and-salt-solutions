@@ -246,7 +246,7 @@ define( function( require ) {
       var crystal = this.newCrystal( a.getPosition() );
       _.each( seed.getParticles(), function( particle ) {
         if ( crystal.numberConstituents() === 0 ) {
-          crystal.addConstituent( new Constituent( particle, new Vector2() ) );
+          crystal.addConstituent( new Constituent( particle, new Vector2( 0, 0 ) ) );
         }
         else {
           var selectedSite = self.getBindingSite( crystal, particle );

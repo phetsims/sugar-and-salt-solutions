@@ -22,7 +22,7 @@ define( function( require ) {
    * @constructor
    */
   function Glucose( relativePosition, angle ) {
-    SugarMolecule.call( this, relativePosition || new Vector2(), angle || phet.joist.random.nextDouble() * 2 * Math.PI,
+    SugarMolecule.call( this, relativePosition || new Vector2( 0, 0 ), angle || phet.joist.random.nextDouble() * 2 * Math.PI,
       new GlucosePositions() );
   }
 

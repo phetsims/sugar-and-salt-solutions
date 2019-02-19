@@ -49,7 +49,7 @@ define( function( require ) {
       //Switch strategies if necessary
       //Note, this check prevents random motion during draining since the strategy is switched before random walk can take place
       if ( this.model.outputFlowRateProperty.get() > 0 ) {
-        particle.setUpdateStrategy( new this.FlowToDrainStrategy( this.model, new Vector2(), false ) );
+        particle.setUpdateStrategy( new this.FlowToDrainStrategy( this.model, new Vector2( 0, 0 ), false ) );
         particle.stepInTime( dt );
       }
       else {

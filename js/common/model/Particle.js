@@ -29,7 +29,7 @@ define( function( require ) {
       assert && assert( !isNaN( position.x ), 'x should be a number' );
       assert && assert( !isNaN( position.y ), 'y should be a number' );
     } );
-    this.velocityProperty = new Property( new Vector2() );//Interface for setting and observing the velocity
+    this.velocityProperty = new Property( new Vector2( 0, 0 ) );//Interface for setting and observing the velocity
 
     // Strategy instance for updating the model when time passes
     this.updateStrategy = new Motionless();
