@@ -88,7 +88,7 @@ define( function( require ) {
     getCrystalVelocity: function( outputPoint ) {
       var directionVector = outputPoint.minus( this.centerProperty.get() );
       var anglePastTheHorizontal = this.angleProperty.get() - Math.PI / 2;
-      var magnitudeRatio = ( 0.2 + 0.3 * Math.sin( anglePastTheHorizontal ) ) / directionVector.magnitude();
+      var magnitudeRatio = ( 0.2 + 0.3 * Math.sin( anglePastTheHorizontal ) ) / directionVector.magnitude;
       return directionVector.times( magnitudeRatio );
     },
     /**

@@ -199,7 +199,7 @@ define( function( require ) {
     getConstituentAtLocation: function( location ) {
       var self = this;
       var atLocation = this.constituents.filter( function( constituent ) {
-        return constituent.relativePosition.minus( location ).magnitude() < self.spacing / 100;
+        return constituent.relativePosition.minus( location ).magnitude < self.spacing / 100;
       } );
 
       //Check to make sure there weren't too many at the specified location.  If so, this was an error during crystal growth.

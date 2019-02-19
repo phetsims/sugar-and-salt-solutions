@@ -27,7 +27,7 @@ define( function( require ) {
     this.site = site;
 
     //The distance between the particle and the potential bonding site
-    this.distance = particle.getPosition().minus( site.absolutePosition ).magnitude();
+    this.distance = particle.getPosition().minus( site.absolutePosition ).magnitude;
   }
 
   sugarAndSaltSolutions.register( 'CrystallizationMatch', CrystallizationMatch );

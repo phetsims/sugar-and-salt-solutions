@@ -102,7 +102,7 @@ define( function( require ) {
       for ( var i = 0; i < this.positions.length - 1; i++ ) {
         var a = this.positions[ i ];
         var b = this.positions[ i + 1 ];
-        speeds.push( a.minus( b ).magnitude() );
+        speeds.push( a.minus( b ).magnitude );
       }
 
       //Compute the average speed over the last positions.size() time steps

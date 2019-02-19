@@ -61,7 +61,7 @@ define( function( require ) {
         //If closest to the drain, move directly toward the drain so it can reach it in the desired amount of time to keep the
         //concentration as steady as possible
         if ( this.randomWalk ) {
-          var initVelocity = particle.velocityProperty.value.magnitude();
+          var initVelocity = particle.velocityProperty.value.magnitude;
           //Mix in more of the original velocity to keep more of the random walk component
           var newVelocity = particle.velocityProperty.value.times( 3 ).plus( this.velocity ).withMagnitude( initVelocity );
           particle.velocityProperty.set( newVelocity );

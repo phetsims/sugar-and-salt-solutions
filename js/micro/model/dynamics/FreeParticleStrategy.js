@@ -78,7 +78,7 @@ define( function( require ) {
       if ( particle.hasSubmerged() && this.waterVolume.get() > 0 ) {
 
         //If the particle velocity was set to zero (from a zero water volume, restore it to non-zero so it can be scaled
-        if ( particle.velocityProperty.value.magnitude() === 0 ) {
+        if ( particle.velocityProperty.value.magnitude === 0 ) {
           particle.velocityProperty.set( Vector2.createPolar( 1, RandomUtil.randomAngle() ) );
         }
         particle.velocityProperty.set( particle.velocityProperty.value.withMagnitude( DynamicsConstants.FREE_PARTICLE_SPEED ) );
@@ -86,7 +86,7 @@ define( function( require ) {
 
       //If the particle was stopped by the water completely evaporating, start it moving again
       //Must be done before particle.stepInTime so that the particle doesn't pick up a small velocity in that method, since this assumes particle velocity of zero implies evaporated to the bottom
-      if ( particle.velocityProperty.value.magnitude() === 0 ) {
+      if ( particle.velocityProperty.value.magnitude === 0 ) {
         this.model.collideWithWater( particle );
       }
 
@@ -112,7 +112,7 @@ define( function( require ) {
       //And randomize the velocity so it will hopefully move away from the wall soon, and won't get stuck in the corner
       if ( initiallyUnderwater && !underwater ) {
         particle.setPosition( initialPosition );
-        particle.velocityProperty.set( Vector2.createPolar( initialVelocity.magnitude(), RandomUtil.randomAngle() ) );
+        particle.velocityProperty.set( Vector2.createPolar( initialVelocity.magnitude, RandomUtil.randomAngle() ) );
       }
 
       //Keep the particle within the beaker solution bounds
@@ -128,7 +128,7 @@ define( function( require ) {
       var partiallySubmerged = particle.getShape().bounds.getMinY() < this.model.solution.shape.get().bounds.getMaxY();
       var nearTheBottom = particle.getShape().bounds.getMinY() <= this.model.solution.shape.get().bounds.getMinY() + 1E-12;
       if ( !initiallyUnderwater && !underwater && shapeIntersectsWater && partiallySubmerged && nearTheBottom ) {
-        particle.velocityProperty.set( Vector2.createPolar( initialVelocity.magnitude(), RandomUtil.randomAngle() ) );
+        particle.velocityProperty.set( Vector2.createPolar( initialVelocity.magnitude, RandomUtil.randomAngle() ) );
       }
 
       //Stop the particle completely if there is no water to move within, though it should probably find another
