@@ -78,7 +78,7 @@ define( function( require ) {
      * Dissolve all specified elements from the crystal, used in incremental dissolving and the complete workaround
      * dissolving by DissolveDisconnectedCrystals
      * @param {Crystal} crystal
-     * @param {Array<Constituent>} elementsToDissolve
+     * @param {Array.<Constituent>} elementsToDissolve
      */
     incrementalDissolve: function( crystal, elementsToDissolve ) {
       var self = this;

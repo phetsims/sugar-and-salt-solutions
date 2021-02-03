@@ -18,7 +18,7 @@ define( require => {
   class AirborneCrystalMoles extends DerivedProperty {
 
     /**
-     * @param {ObservableArray<MacroCrystal>} list
+     * @param {ObservableArray.<MacroCrystal>} list
      */
     constructor( list ) {
 

@@ -194,7 +194,7 @@ define( function( require ) {
      * Find the particle that is closest to the drain that hasn't already been assigned to another formula group
      *
      * @param {prototype.constructor} type
-     * @returns {Array<Particle> || null}
+     * @returns {Array.<Particle> || null}
      */
     getClosestUnused: function( type ) {
       var self = this;

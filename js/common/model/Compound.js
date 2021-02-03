@@ -199,7 +199,7 @@ define( function( require ) {
 
     /**
      * Get all the spherical particles within this compound and its children recursively, so they can be displayed with Nodes
-     * @returns {Array<SphericalParticle>}
+     * @returns {Array.<SphericalParticle>}
      */
     getAllSphericalParticles: function() {
       var sphericalParticles = [];

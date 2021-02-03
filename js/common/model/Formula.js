@@ -45,7 +45,7 @@ define( function( require ) {
 
     /**
      * List the different types used in the formula
-     * @returns {Array<function>}
+     * @returns {Array.<function>}
      */
     getTypes: function() {
       return this.map.keySet();

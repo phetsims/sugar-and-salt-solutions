@@ -72,7 +72,7 @@ define( function( require ) {
 
     /**
      * Get the three particles in the unit
-     * @returns {Array<Particles>}
+     * @returns {Array.<Particles>}
      */
     getParticles: function() {
       return [ this.a, this.b, this.c ];

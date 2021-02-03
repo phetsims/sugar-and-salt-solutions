@@ -42,7 +42,7 @@ define( function( require ) {
    */
   function MicroSoluteKitList( model, transform ) {
     // private
-    this.kits = []; // Array<MicroSoluteKit>
+    this.kits = []; // Array.<MicroSoluteKit>
 
     // Create icons to be shown beneath each bar.  Functions are used to create new icons for each kit since
     // giving the same PNode multiple parents caused layout problems

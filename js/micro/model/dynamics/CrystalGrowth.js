@@ -133,13 +133,13 @@ define( function( require ) {
      * @returns {TargetConfiguration}
      */
     getTargetConfiguration: function( crystal ) {
-      var matches = [];//Array<CrystallizationMatch>
+      var matches = [];//Array.<CrystallizationMatch>
 
       //Keep track of which particles have already been selected so one isn't given two goals
       var usedParticles = [];
 
       //Keep track of which locations have already been used, in CaCl2 this prevents two Cls from taking the same spot
-      var usedLocations = []; //Array<Vector2>
+      var usedLocations = []; //Array.<Vector2>
 
       var self = this;
       //Iterate over all members of the formula
@@ -165,8 +165,8 @@ define( function( require ) {
      * Find the best match for this member of the formula ratio, but ignoring the previously used particles
      * @param {Crystal} crystal
      * @param {function.prototype.constructor<Particle>} type
-     * @param {Array<Particles>} usedParticles
-     * @param {Array<Vector2>} usedLocations
+     * @param {Array.<Particles>} usedParticles
+     * @param {Array.<Vector2>} usedLocations
      * @returns {CrystallizationMatch}
      */
     findBestMatch: function( crystal, type, usedParticles, usedLocations ) {
@@ -302,7 +302,7 @@ define( function( require ) {
      * @abstract
      * Crystal-specific code to generate a list of all matching sets of particles according to the chemical formula,
      * these are particles that could form a new crystal, if they are close enough together
-     * @returns {Array<IFormulaUnit>}
+     * @returns {Array.<IFormulaUnit>}
      */
     getAllSeeds: function() {
       throw new Error( 'getAllSeeds should be implemented in descendant classes of CrystalGrowth' );

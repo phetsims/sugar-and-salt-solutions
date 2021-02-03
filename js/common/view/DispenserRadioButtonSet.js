@@ -19,7 +19,7 @@ define( function( require ) {
   /**
    *
    * @param {Property.<DispenserType>} dispenserType
-   * @param {Array<SelectableSoluteItem>}items
+   * @param {Array.<SelectableSoluteItem>}items
    * @constructor
    */
   function DispenserRadioButtonSet( dispenserType, items ) {

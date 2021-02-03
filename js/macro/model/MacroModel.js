@@ -225,11 +225,11 @@ define( function( require ) {
     /**
      * Propagate the sugar and salt crystals, and absorb them if they hit the water
      * @param {number} dt
-     * @param {ObservableArray<MacroCrystal>} crystalList
+     * @param {ObservableArray.<MacroCrystal>} crystalList
      */
     updateCrystals: function( dt, crystalList ) {
       var self = this;
-      var hitTheWater = []; // Array<MacroCrystal>
+      var hitTheWater = []; // Array.<MacroCrystal>
 
       crystalList.forEach( function( crystal ) {
         // Store the initial location so we can use the (final - start) line to check for collision with water, so it can't
@@ -367,8 +367,8 @@ define( function( require ) {
     /**
      * Remove the specified crystals.
      * @private
-     * @param {ObservableArray<MacroCrystal>} crystalList
-     * @param {Array<MacroCrystal>} toRemove
+     * @param {ObservableArray.<MacroCrystal>} crystalList
+     * @param {Array.<MacroCrystal>} toRemove
      */
     removeCrystals: function( crystalList, toRemove ) {
       toRemove.forEach( function( crystal ) {

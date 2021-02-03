@@ -53,7 +53,7 @@ define( function( require ) {
 
     /**
      * List all particles for purposes of iteration to add to a crystal
-     * @returns {Array<Particle>}
+     * @returns {Array.<Particle>}
      */
     getParticles: function() {
       return [ this._1, this._2 ];

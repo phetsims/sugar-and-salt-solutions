@@ -176,7 +176,7 @@ define( function( require ) {
      * for sugar and salt solutions
      *
      * @param {Constituent} constituent
-     * @returns {Array<Vector2>}
+     * @returns {Array.<Vector2>}
      */
     getPossibleDirections: function( constituent ) {
       return [ this.northUnitVector, this.southUnitVector, this.eastUnitVector, this.westUnitVector ];
@@ -253,12 +253,12 @@ define( function( require ) {
      * Choose a set of particles to dissolve from the crystal according to the
      * formula ratio (e.g. NaCl = 1 Na + 1 Cl or CaCl2 = 1 Ca + 2 Cl) so the crystal and solution will remain balanced
      * @param {Bounds2} waterBounds
-     * @returns {Array<Constituent>|null}
+     * @returns {Array.<Constituent>|null}
      */
     getConstituentsToDissolve: function( waterBounds ) {
       var self = this;
       //For each type, get as many components as are specified in the formula
-      var toDissolve = []; //Array<Constituent>
+      var toDissolve = []; //Array.<Constituent>
       _.each( this.formula.getFormulaUnit(), function( type ) {
         var constituentToDissolve = self.getConstituentToDissolve( type, waterBounds, toDissolve );
         if ( !constituentToDissolve ) {
@@ -278,7 +278,7 @@ define( function( require ) {
      * getConstituentsToDissolve to ensure it dissolves according to the formula ratio
      * @param type
      * @param waterBounds
-     * @param {Array<Constituent>} ignore
+     * @param {Array.<Constituent>} ignore
      * @returns {Constituent|null}
      */
     getConstituentToDissolve: function( type, waterBounds, ignore ) {
@@ -368,11 +368,11 @@ define( function( require ) {
      * @private
      * Find the neighbors for the specified constituent
      * @param {Constituent} constituent
-     * @returns {Array<Constituent>}
+     * @returns {Array.<Constituent>}
      */
     getNeighbors: function( constituent ) {
       var self = this;
-      var neighbors = []; // Array<Constituent>
+      var neighbors = []; // Array.<Constituent>
       _.each( [ this.northUnitVector, this.southUnitVector, this.eastUnitVector, this.westUnitVector ], function( direction ) {
         var constituentAtLocation = self.getConstituentAtLocation( constituent.relativePosition.plus( direction ) );
         if ( constituentAtLocation ) {
