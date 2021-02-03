@@ -19,7 +19,7 @@
 //    private static final Color background = new Color( 0, 51, 153 );
 //
 //    //Flag to indicate whether the user has selected to show a white background, e.g., for printing handouts
-//    public final Property<Boolean> whiteBackground = new Property<Boolean>( false );
+//    public final Property.<Boolean> whiteBackground = new Property.<Boolean>( false );
 //
 //    //Colors for the background
 //    public final ColorSet backgroundColorSet = new ColorSet( background, whiteBackground, Color.white );

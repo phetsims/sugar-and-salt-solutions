@@ -83,7 +83,7 @@
 //    }
 //
 //    private class IntLabel extends JLabel {
-//        public IntLabel( Property<Integer> k ) {
+//        public IntLabel( Property.<Integer> k ) {
 //            super( k.get() + "" );
 //            k.addObserver( new VoidFunction1<Integer>() {
 //                public void apply( Integer integer ) {

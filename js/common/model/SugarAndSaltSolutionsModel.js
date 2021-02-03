@@ -365,7 +365,7 @@ define( function( require ) {
 
 //
 //    //User setting: whether the concentration bar chart should be shown
-//    public final Property<Boolean> showConcentrationBarChart;
+//    public final Property.<Boolean> showConcentrationBarChart;
 //
 //    //Part of the model that must be visible within the view
 //    public final ImmutableRectangle2D visibleRegion;
@@ -383,7 +383,7 @@ define( function( require ) {
 //    public final ArrayList<Dispenser> dispensers;
 //
 //    //Rate at which liquid (but no solutes) leaves the model
-//    public final SettableProperty<Double> evaporationRate = new Property<Double>( 0.0 );//Between 0 and 100
+//    public final SettableProperty<Double> evaporationRate = new Property.<Double>( 0.0 );//Between 0 and 100
 //
 //    //Rate at which liquid evaporates
 //    public final double evaporationRateScale;
@@ -434,7 +434,7 @@ define( function( require ) {
 //        maxWater = beaker.getMaxFluidVolume();
 //
 //        //User setting: whether the concentration bar chart should be shown
-//        showConcentrationBarChart = new Property<Boolean>( true );
+//        showConcentrationBarChart = new Property.<Boolean>( true );
 //
 //        //Create the list of dispensers
 //        dispensers = new ArrayList<Dispenser>();

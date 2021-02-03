@@ -57,7 +57,7 @@
 //    private final T[] compounds;
 //
 //    //Flag to keep track of whether the node was dragged from the bucket; if so, model elements will be created when dropped into the particle window
-//    public final Property<Boolean> inBucket = new Property<Boolean>( true );
+//    public final Property.<Boolean> inBucket = new Property.<Boolean>( true );
 //
 //    public CompoundListNode( final ModelViewTransform transform, final WaterModel model, BucketView bucketView, final PNode sugarBucketParticleLayer, final WaterCanvas canvas,
 //
@@ -92,7 +92,7 @@
 //        //Flag to determine whether the user dragged the crystal out of the bucket; if so, it:
 //        //1. moves into the top layer (instead of between the buckets), so it doesn't look like it is sandwiched between the front and back of the bucket layers
 //        //2. grows larger
-//        final Property<Boolean> startedDragging = new Property<Boolean>( false );
+//        final Property.<Boolean> startedDragging = new Property.<Boolean>( false );
 //
 //        //Transform the particles from the crystal's molecule's particles into nodes
 //        for ( T compound : compounds ) {

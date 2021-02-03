@@ -112,19 +112,19 @@
 //    private static final double k = 8.987E9;
 //
 //    //User settings
-//    public final Property<Boolean> showWaterCharges = new Property<Boolean>( false );
-//    public final Property<Boolean> showSugarPartialCharge = new Property<Boolean>( false );
-//    public final Property<Boolean> showSugarAtoms = new Property<Boolean>( false );
-//    public final ObservableProperty<Boolean> showChargeColor = new Property<Boolean>( false );
+//    public final Property.<Boolean> showWaterCharges = new Property.<Boolean>( false );
+//    public final Property.<Boolean> showSugarPartialCharge = new Property.<Boolean>( false );
+//    public final Property.<Boolean> showSugarAtoms = new Property.<Boolean>( false );
+//    public final ObservableProperty<Boolean> showChargeColor = new Property.<Boolean>( false );
 //
 //    //Developer settings
-//    public final Property<Double> coulombStrengthMultiplier = new Property<Double>( 100.0 );//Scale factor that increases the strength of coulomb repulsion/attraction
-//    public final Property<Double> pow = new Property<Double>( 2.0 );//Power in the coulomb force radius term
-//    public final Property<Integer> randomness = new Property<Integer>( 5 );//How much randomness to add to the system
-//    public final Property<Double> probabilityOfInteraction = new Property<Double>( 0.6 );//Some interactions are ignored on each time step to improve performance.  But don't ignore too many or it will destroy the dynamics.
-//    public final Property<Double> timeScale = new Property<Double>( 0.06 );//How fast the clock should run
-//    public final Property<Integer> iterations = new Property<Integer>( 100 );//How many numerical iterations to run: more means more accurate but more processor used
-//    public final Property<Integer> overlaps = new Property<Integer>( 10 );//Only remove water molecules that intersected this many sucrose atoms, so that the density of water remains about the same
+//    public final Property.<Double> coulombStrengthMultiplier = new Property.<Double>( 100.0 );//Scale factor that increases the strength of coulomb repulsion/attraction
+//    public final Property.<Double> pow = new Property.<Double>( 2.0 );//Power in the coulomb force radius term
+//    public final Property.<Integer> randomness = new Property.<Integer>( 5 );//How much randomness to add to the system
+//    public final Property.<Double> probabilityOfInteraction = new Property.<Double>( 0.6 );//Some interactions are ignored on each time step to improve performance.  But don't ignore too many or it will destroy the dynamics.
+//    public final Property.<Double> timeScale = new Property.<Double>( 0.06 );//How fast the clock should run
+//    public final Property.<Integer> iterations = new Property.<Integer>( 100 );//How many numerical iterations to run: more means more accurate but more processor used
+//    public final Property.<Integer> overlaps = new Property.<Integer>( 10 );//Only remove water molecules that intersected this many sucrose atoms, so that the density of water remains about the same
 //
 //    //if the particles are too close, the coulomb force gets too big--a good way to limit the coulomb force is to limit the inter-particle distance used in the coulomb calculation
 //    public final double MIN_COULOMB_DISTANCE = new WaterMolecule.Hydrogen().radius * 2;

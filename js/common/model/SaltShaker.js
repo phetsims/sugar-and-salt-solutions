@@ -193,7 +193,7 @@ define( function( require ) {
 //    private final Random random = new Random();
 
 //
-//    public SaltShaker( double x, double y, Beaker beaker, ObservableProperty<Boolean> moreAllowed, String name, double distanceScale, ObservableProperty<DispenserType> selectedType, DispenserType type, T model ) {
+//    public SaltShaker( double x, double y, Beaker beaker, ObservableProperty.<Boolean> moreAllowed, String name, double distanceScale, ObservableProperty.<DispenserType> selectedType, DispenserType type, T model ) {
 //        super( x, y, Math.PI * 3 / 4, beaker, moreAllowed, name, distanceScale, selectedType, type, model );
 //
 //    }

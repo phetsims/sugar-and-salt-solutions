@@ -16,14 +16,14 @@
 // */
 //public class ColorSet {
 //    //The background color selected by the user, may not be the displayed color based on whether 'white background' is selected
-//    public final Property<Color> selectedColor;
+//    public final Property.<Color> selectedColor;
 //
 //    //The background color to show, which accounts for the whiteBackground flag
-//    public final ObservableProperty<Color> color;
+//    public final ObservableProperty.<Color> color;
 //
-//    public ColorSet( Color color, final Property<Boolean> whiteBackground, final Color colorForWhiteBackground ) {
-//        this.selectedColor = new Property<Color>( color );
-//        this.color = new CompositeProperty<Color>( new Function0<Color>() {
+//    public ColorSet( Color color, final Property.<Boolean> whiteBackground, final Color colorForWhiteBackground ) {
+//        this.selectedColor = new Property.<Color>( color );
+//        this.color = new CompositeProperty.<Color>( new Function0<Color>() {
 //            public Color apply() {
 //                return whiteBackground.get() ? colorForWhiteBackground : selectedColor.get();
 //            }

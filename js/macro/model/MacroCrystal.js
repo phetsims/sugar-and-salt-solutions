@@ -139,9 +139,9 @@ define( function( require ) {
 // */
 //public class MacroCrystal {
 //    public final double mass = 1E-6;//kg
-//    public final Property<Vector2D> position;
-//    public final Property<Vector2D> velocity = new Property<Vector2D>( new Vector2D( 0, 0 ) );
-//    public final Property<Vector2D> acceleration = new Property<Vector2D>( new Vector2D( 0, 0 ) );
+//    public final Property.<Vector2D> position;
+//    public final Property.<Vector2D> velocity = new Property.<Vector2D>( new Vector2D( 0, 0 ) );
+//    public final Property.<Vector2D> acceleration = new Property.<Vector2D>( new Vector2D( 0, 0 ) );
 //    private final ArrayList<VoidFunction0> removalListeners = new ArrayList<VoidFunction0>();
 //
 
@@ -150,7 +150,7 @@ define( function( require ) {
 
 //
 //    public MacroCrystal( Vector2D position, double moles, double volumePerMole ) {
-//        this.position = new Property<Vector2D>( position );
+//        this.position = new Property.<Vector2D>( position );
 //        this.moles = moles;
 //
 //        //Compute the length of a side

@@ -28,7 +28,7 @@
 //public class MicroKitControlNode extends PNode {
 //    public final KitSelectionNode<DispenserRadioButtonSet> kitSelectionNode;
 //
-//    public MicroKitControlNode( final Property<Integer> selectedKit, final Property<DispenserType> dispenserType,
+//    public MicroKitControlNode( final Property.<Integer> selectedKit, final Property.<DispenserType> dispenserType,
 //
 //                                //A button that shows the periodic table when pressed, shown inside the kit selection node since the selected item controls what is highlighted in the periodic table
 //                                TextButtonNode periodicTableButton,

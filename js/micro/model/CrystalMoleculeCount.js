@@ -45,11 +45,11 @@ define( require => {
 //
 ///**
 // * Property that identifies the number of molecules in crystal form, for making sure the user doesn't exceed the allowed maximum
-// * Should be rewritten with Property<Integer> but there is currently no good compositional support for it (using plus(), greaterThan(), etc)
+// * Should be rewritten with Property.<Integer> but there is currently no good compositional support for it (using plus(), greaterThan(), etc)
 // *
 // * @author Sam Reid
 // */
-//public class CrystalMoleculeCount<T extends Crystal<?>> extends Property<Double> {
+//public class CrystalMoleculeCount<T extends Crystal<?>> extends Property.<Double> {
 //    public CrystalMoleculeCount( final ItemList<T> crystals ) {
 //        super( 0.0 );
 //

@@ -29,7 +29,7 @@
 // * @author Sam Reid
 // */
 //public class BeakerNodeWithTicks extends BeakerNode {
-//    public BeakerNodeWithTicks( ModelViewTransform transform, Beaker beaker, boolean showTickLabels, final Property<Boolean> whiteBackground ) {
+//    public BeakerNodeWithTicks( ModelViewTransform transform, Beaker beaker, boolean showTickLabels, final Property.<Boolean> whiteBackground ) {
 //        super( transform, beaker );
 //
 //        //Add Tick marks and labels
@@ -95,7 +95,7 @@
 //    }
 //
 //    //Create a text (PText or HTMLNode) node to show the value.  HTML is used for formatting exponentials
-//    private PNode createLabelNode( double volume, final Property<Boolean> whiteBackground ) {
+//    private PNode createLabelNode( double volume, final Property.<Boolean> whiteBackground ) {
 //        final PhetFont font = new PhetFont( 20 );
 //        if ( volume == 0 || volume > 1E-20 ) {
 //

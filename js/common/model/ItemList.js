@@ -154,7 +154,7 @@ define( function( require ) {
 //
 //    //Property that can be used to monitor the number of items in the list.
 //    //When support is added for IntegerProperty, this should be switched to use IntegerProperty instead of DoubleProperty
-//    public final ObservableProperty<Double> size = new DoubleProperty( 0.0 ) {{
+//    public final ObservableProperty.<Double> size = new DoubleProperty( 0.0 ) {{
 //        VoidFunction1<T> listener = new VoidFunction1<T>() {
 //            public void apply( T t ) {
 //                set( size() + 0.0 );

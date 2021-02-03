@@ -932,7 +932,7 @@ define( function( require ) {
 //    private static final Logger LOGGER = LoggingUtils.getLogger( MicroModel.class.getCanonicalName() );
 //
 //    //The index of the kit selected by the user
-//    public final Property<Integer> selectedKit = new Property<Integer>( 0 ) {{
+//    public final Property.<Integer> selectedKit = new Property.<Integer>( 0 ) {{
 //
 //        //When the user switches kits, clear the solutes and reset the water level
 //        addObserver( new SimpleObserver() {

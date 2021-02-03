@@ -174,7 +174,7 @@
 //        } );
 //
 //        //Add clock controls for pause/play/step
-//        addChild( new FloatingClockControlNode( model.clockRunning, NO_READOUT, model.clock, "", new Property<Color>( Color.white ) ) {{
+//        addChild( new FloatingClockControlNode( model.clockRunning, NO_READOUT, model.clock, "", new Property.<Color>( Color.white ) ) {{
 //            setOffset( INSET, canvasSize.getHeight() - getFullBounds().getHeight() - INSET );
 //        }} );
 //
@@ -216,7 +216,7 @@
 //        model.saltIonList.addElementAddedObserver( new VoidFunction1<SaltIon>() {
 //            public void apply( final SaltIon ion ) {
 //                final CompoundListNode compoundListNode = new CompoundListNode<SaltIon>( transform, model, saltBucket, saltBucketParticleLayer, WaterCanvas.this, model.addSaltIon,
-//                                                                                         model.removeSaltIon, model.showChargeColor, new SaltIonLabel(), false, new Property<Boolean>( false ), model.clockRunning, ion );
+//                                                                                         model.removeSaltIon, model.showChargeColor, new SaltIonLabel(), false, new Property.<Boolean>( false ), model.clockRunning, ion );
 //                compoundListNode.setIcon( false );
 //                compoundListNode.setInBucket( false );
 //                particleWindowNode.particleLayer.addChild( compoundListNode );
@@ -269,7 +269,7 @@
 //
 //        //Create the node for sugar that will be shown in the bucket that the user can grab
 //        CompoundListNode<SaltIon> compoundListNode = new CompoundListNode<SaltIon>( transform, model, saltBucket, saltBucketParticleLayer, this, model.addSaltIon, model.removeSaltIon, model.showChargeColor,
-//                                                                                    new SaltIonLabel(), true, new Property<Boolean>( false ), model.clockRunning, crystal.getConstituentParticleList().toArray( new SaltIon[crystal.getConstituentParticleList().size()] ) );
+//                                                                                    new SaltIonLabel(), true, new Property.<Boolean>( false ), model.clockRunning, crystal.getConstituentParticleList().toArray( new SaltIon[crystal.getConstituentParticleList().size()] ) );
 //
 //        //Initially put the crystal node in between the front and back of the bucket layers, it changes layers when grabbed so it will be in front of the bucket
 //        saltBucketParticleLayer.addChild( compoundListNode );

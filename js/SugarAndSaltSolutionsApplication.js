@@ -25,7 +25,7 @@
 //
 //    //Global property for setting the size for atoms and molecules, since they are supposed to look and act smaller in the Micro tab than in real life
 //    //This was designed as a global property since propagating the scale through the object graphs on initialization was much more complex and confusing
-//    public static final Property<Double> sizeScale = new Property<Double>( 1.0 );
+//    public static final Property.<Double> sizeScale = new Property.<Double>( 1.0 );
 //
 //    public SugarAndSaltSolutionsApplication( PhetApplicationConfig config ) {
 //        super( config );

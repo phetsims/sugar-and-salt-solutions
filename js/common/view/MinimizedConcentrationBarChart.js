@@ -31,7 +31,7 @@
 //
 //    protected final int INSET = 5;
 //
-//    public MinimizedConcentrationBarChart( final Property<Boolean> barChartVisible ) {
+//    public MinimizedConcentrationBarChart( final Property.<Boolean> barChartVisible ) {
 //        final BufferedImage maximizeButtonImage = getMaximizeButtonImage();
 //        final double totalWidth = 220;
 //
